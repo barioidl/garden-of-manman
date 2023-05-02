@@ -1,0 +1,411 @@
+[gd_scene load_steps=30 format=3 uid="uid://d2rpfewvdycna"]
+
+[ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
+[ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_a6yx4"]
+[ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_nkc5e"]
+[ext_resource type="Resource" uid="uid://md7vpkr5xcdi" path="res://assets/bill_board_sides/moon face.tres" id="3_hsgsl"]
+[ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="3_lrbm0"]
+[ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_nxtod"]
+[ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_e85df"]
+[ext_resource type="Resource" uid="uid://drkla4kyw4qdl" path="res://data/audio/puzzle sfx.tres" id="6_nwf6q"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="6_plbnf"]
+[ext_resource type="Script" path="res://scripts/modules/shape.gd" id="6_uojeq"]
+[ext_resource type="Resource" uid="uid://duy4eq8ii5263" path="res://data/audio/hunt sfx.tres" id="7_dpko6"]
+[ext_resource type="Script" path="res://scripts/modules/head.gd" id="7_o2h6r"]
+[ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_dey3p"]
+[ext_resource type="Texture2D" uid="uid://csq3o2if2rgk3" path="res://assets/Textures/sun face0005.png" id="11_8l8of"]
+[ext_resource type="Resource" uid="uid://btsyxe3lav3p0" path="res://assets/bill_board_sides/sun face.tres" id="12_a1o4m"]
+[ext_resource type="Script" path="res://scripts/3d_billboard_animated.gd" id="14_iahpp"]
+[ext_resource type="AudioStream" uid="uid://c2u51bnc0pxtb" path="res://assets/audio/kenney_ui-audio/Audio/switch2.ogg" id="17_r80fm"]
+[ext_resource type="AudioStream" uid="uid://cbqcmde5jwqpe" path="res://assets/audio/kenney_ui-audio/Audio/switch4.ogg" id="18_xur3e"]
+[ext_resource type="AudioStream" uid="uid://bysyj6wa0fieu" path="res://assets/audio/kenney_ui-audio/Audio/switch10.ogg" id="19_f4yt5"]
+[ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="21_cbu30"]
+[ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="22_crgkt"]
+[ext_resource type="Script" path="res://scripts/procedural animation/leg step animation.gd" id="23_oikep"]
+
+[sub_resource type="GDScript" id="GDScript_l4ycn"]
+script/source = "extends Node
+
+var player
+var player_head
+
+@onready var root = $\"..\"
+@onready var input :Inputs= $\"../inputs\"
+@onready var body = $\"../body\"
+@onready var head = $\"../body/head\"
+@onready var face_swapper :=$\"../body/body/head/Sprite3D/face_switch\"
+
+var is_sun:=true
+enum states{idle,puzzle,hunt,kill}
+var state = states.idle
+
+func _ready() -> void:
+	root.connect(\"body_entered\",body_entered.bind())
+	root.connect(\"body_exited\",body_exited.bind())
+	player = get_tree().get_first_node_in_group('player')
+	player_head = player.get_node(\"body/head\")
+
+var time :=0.0
+func _process(delta: float) -> void:
+	time = delta
+	choose()
+
+func body_entered(body):
+	if body == player:
+		state = states.kill
+
+func body_exited(body):
+	if body == player:
+		state = states.hunt
+
+var cd:=0.0
+func choose():
+	if cd >0:
+		cd-=time
+		return
+	if get_tree().is_paused():return
+	global_states()
+	match state:
+		states.idle:
+			idle()
+		states.puzzle:
+			puzzle()
+		states.hunt:
+			hunt()
+		states.kill:
+			kill()
+
+@export var active_range:=20.0
+@export var hunt_range:=5.0
+func global_states():
+	if state == states.kill:
+		return
+	
+	var distsq :float=root.global_position. distance_squared_to(player.global_position)
+	
+	var disable_range = active_range + 5
+	if distsq > disable_range*disable_range:
+		cd = 1
+		root.visible = false
+		root.process_mode = Node.PROCESS_MODE_DISABLED
+		return
+	
+	if !root.visible:
+		root.visible = true
+		root.process_mode = Node.PROCESS_MODE_INHERIT
+	
+	var is_hunting = distsq < hunt_range*hunt_range
+	if is_hunting:
+		state = states.hunt
+		return
+	var is_active = distsq < active_range*active_range
+	if is_active:
+		state = states.puzzle
+	else:
+		state = states.idle
+
+#var hear_cd :=0.0
+#func get_closest_character():
+#	if hear_cd >0:
+#		hear_cd -= time
+#		return
+#	hear_cd = 0.5
+#	var sounds = get_tree().get_nodes_in_group('character')
+#	var max_dist :float=active_range*active_range
+#
+##	target = Vector3.ZERO
+#	for i in sounds:
+#		if !i.playing:continue
+#		var pos :Vector3= i.global_position
+#		pos.y = root.global_position.y
+#		var dist_sq = root.global_position.distance_squared_to(pos)
+#		if dist_sq <1:continue
+#		if dist_sq < max_dist:
+#			max_dist = dist_sq
+#			target = pos
+
+func gravity_up():
+	if root.gravity_scale <= 0: return
+	root.rotation_degrees = Vector3(0,0,180)
+	root.gravity_scale = -1
+
+var idle_cd:=0.0
+func idle():
+	idle_cd -= time
+	if idle_cd >0: return
+	idle_cd =randf_range(0,5)
+	if idle_cd <1:
+		input.dpad1 = Vector2.ZERO
+		return
+	input.dpad1.x = randf_range(-1,1)*0.5
+	input.dpad1.y = randf_range(-1,1)*0.5
+	input.dpad2 = Vector2.ZERO
+	gravity_up()
+
+var switch_cooldown:=0.0
+@export var puzzle_sfx:AudioList
+func puzzle():
+	var player_moved :bool= player.linear_velocity.length_squared() >1
+#	player_has_flashlight()
+#	var can_see = is_sun or has_flashlight
+	if is_sun and player_moved:
+		chase_player(player.global_position)
+		play_sfx(puzzle_sfx)
+	else:
+		input.dpad1 = Vector2.ZERO
+	face_player(player_head.global_position)
+	switch_cooldown -=time
+	if switch_cooldown >0:return
+	switch_cooldown = 2
+	is_sun = !is_sun
+	face_swapper.switch(is_sun)
+	gravity_up()
+
+var get_inv_cd:=0.0
+var has_flashlight:=false
+func player_has_flashlight():
+	get_inv_cd-=time
+	if get_inv_cd >0:return
+	get_inv_cd = 0.5
+	var get_inv :Callable= player.get_meta(\"get_inventory\")
+	if get_inv == null:
+		has_flashlight = false
+		return
+	var player_inv = get_inv.call()
+	for item in player_inv:
+		if item == null:continue
+		if item.id == ItemData.item_id.flash_light:
+			has_flashlight = true
+			return
+	has_flashlight = false
+
+@export var hunt_sfx:AudioList
+func hunt():
+	chase_player(player.global_position)
+	face_player(player_head.global_position)
+	play_sfx(hunt_sfx)
+	if root.gravity_scale >= 0: return
+	root.rotation_degrees = Vector3(0,0,0)
+	root.gravity_scale = 1
+	face_swapper.switch(true)
+
+var kill_cd:=0.0
+@export var kill_sfx:AudioList
+func kill():
+	play_sfx(kill_sfx)
+	kill_cd-=time
+	if kill_cd >0:return
+	kill_cd = 1
+#	print('kill')
+	Interface.change_health(player,-3)
+
+func chase_player(target:Vector3):
+	var target_local = body.to_local(target)
+	var dpad1 := Vector2(target_local.x,target_local.z)
+	if dpad1 != Vector2.ZERO:
+		input.dpad1 = dpad1.limit_length(1)
+
+@export var turn_speed:=50
+func face_player(target:Vector3):
+	var local:Vector3=head.to_local(target)
+	local = local.normalized()
+	var x = clampf(local.x *10,-1,1)*turn_speed
+	var y = clampf(local.y *10,-1,1)*turn_speed
+	input.dpad2.x = x
+	input.dpad2.y = -y
+
+var sfx_cd:=0.1
+func play_sfx(sfx, volume:=10, pitch:=1):
+	sfx_cd -= time
+	if sfx_cd > 0:return
+	
+	var pos = root.global_position
+	var player := AudioPool.create_sound_3d(pos,sfx)
+	sfx_cd = player.stream.get_length()
+	sfx_cd *= randf_range(0.5,1.5)
+#	AudioLibrary.gm_time
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
+height = 3.0
+
+[sub_resource type="GDScript" id="GDScript_wgajf"]
+script/source = "extends Node3D
+
+@onready var root:=$'..'
+func _init() -> void:
+	name = 'body'
+func _ready() -> void:
+	owner = root
+	$'../shape'.connect('position_changed',position_changed.bind())
+func position_changed(pos) -> void:
+	position = pos # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_8ht6u"]
+script/source = "extends Node3D
+@onready var parent:=get_parent()
+var time :=0.0
+func _process(delta: float) -> void:
+	time = delta
+
+func _on_normal_changed(normal:Vector3) -> void:
+	if normal == basis.z:return
+	normal = normal.lerp(basis.z,time)
+	look_at(parent.global_position + normal*10,parent.basis.z)
+
+func _average_pos(position) -> void:
+	return
+	var direction =global_position.direction_to(position)*10
+"
+
+[sub_resource type="GDScript" id="GDScript_0ufrt"]
+script/source = "extends Node3D
+
+@export var target:Node3D
+
+func _process(delta: float) -> void:
+	global_rotation = target.global_rotation
+"
+
+[sub_resource type="Resource" id="Resource_rr2e5"]
+script = ExtResource("6_plbnf")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("17_r80fm"), ExtResource("18_xur3e"), ExtResource("19_f4yt5")])
+
+[node name="spider" type="RigidBody3D"]
+script = ExtResource("1_bhlmi")
+
+[node name="inputs" parent="." instance=ExtResource("2_nkc5e")]
+
+[node name="platformer" parent="." instance=ExtResource("3_lrbm0")]
+sneak_speed = 0.4
+jump_height = 4.0
+extra_jumps = 0
+step_speed = 0.2
+
+[node name="stats" parent="." instance=ExtResource("4_nxtod")]
+
+[node name="fps aim" parent="." instance=ExtResource("5_e85df")]
+
+[node name="BOT AI" type="Node" parent="."]
+process_mode = 3
+script = SubResource("GDScript_l4ycn")
+puzzle_sfx = ExtResource("6_nwf6q")
+hunt_sfx = ExtResource("7_dpko6")
+kill_sfx = ExtResource("8_dey3p")
+turn_speed = 100
+
+[node name="shape" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_plrhc")
+script = ExtResource("6_uojeq")
+normal_height = 3.0
+crouch_height = 2.0
+
+[node name="body" type="Node3D" parent="."]
+script = SubResource("GDScript_wgajf")
+
+[node name="head" type="Node3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("7_o2h6r")
+normal_height = 0.1
+crouch_height = -0.1
+
+[node name="body" type="Node3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
+script = SubResource("GDScript_8ht6u")
+
+[node name="head" type="Node3D" parent="body/body" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.85)
+script = SubResource("GDScript_0ufrt")
+target = NodePath("../../head")
+
+[node name="Sprite3D" type="Sprite3D" parent="body/body/head"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+cast_shadow = 0
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("11_8l8of")
+script = ExtResource("2_a6yx4")
+sprites = ExtResource("12_a1o4m")
+
+[node name="face_switch" type="Node" parent="body/body/head/Sprite3D"]
+script = ExtResource("14_iahpp")
+sun_face = ExtResource("12_a1o4m")
+moon_face = ExtResource("3_hsgsl")
+switch_sfx = SubResource("Resource_rr2e5")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/body/head/Sprite3D"]
+transform = Transform3D(0.5, 0, -1.04399e-21, 0, 0.5, 0, 1.04399e-21, 0, 0.5, 0, 0, 0.25)
+light_color = Color(1, 0.916667, 0.5, 1)
+shadow_enabled = true
+omni_range = 20.0
+
+[node name="spider leg" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
+transform = Transform3D(-0.122788, 0.696364, -0.707107, -0.122788, 0.696364, 0.707107, 0.984807, 0.173649, -3.09086e-08, 0, 0, 0)
+ik_target = NodePath("../../feet casters/top left feet/leg ik tl")
+
+[node name="spider leg2" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
+transform = Transform3D(-0.122788, 0.696364, 0.707107, 0.122788, -0.696364, 0.707107, 0.984807, 0.173648, 9.23514e-08, 0, 0, 0)
+ik_target = NodePath("../../feet casters/bottom left feet/leg ik tr")
+
+[node name="spider leg3" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
+transform = Transform3D(0.122788, -0.696364, 0.707107, 0.122788, -0.696364, -0.707107, 0.984807, 0.173648, -9.23514e-08, 0, 0, 0)
+ik_target = NodePath("../../feet casters/bottom right feet/leg ik br")
+
+[node name="spider leg4" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
+transform = Transform3D(0.122788, -0.696364, -0.707107, -0.122788, 0.696364, -0.707107, 0.984807, 0.173648, -9.45337e-08, 0, 0, 0)
+ik_target = NodePath("../../feet casters/top right feet/leg ik bl")
+
+[node name="feet casters" type="Node3D" parent="body"]
+script = ExtResource("21_cbu30")
+legs_per_steps = 2
+legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik br"), NodePath("top right feet/leg ik bl"), NodePath("bottom left feet/leg ik tr")]
+
+[node name="top left feet" type="RayCast3D" parent="body/feet casters"]
+transform = Transform3D(0.696363, 0.122788, -0.707107, -0.173648, 0.984807, 0, 0.696363, 0.122788, 0.707107, 0, 0, 0)
+exclude_parent = false
+target_position = Vector3(-2.5, -2.5, 0)
+script = ExtResource("22_crgkt")
+
+[node name="leg ik tl" type="Marker3D" parent="body/feet casters/top left feet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+top_level = true
+script = ExtResource("23_oikep")
+
+[node name="top right feet" type="RayCast3D" parent="body/feet casters"]
+transform = Transform3D(-0.696363, -0.122788, -0.707107, -0.173648, 0.984807, 0, 0.696363, 0.122788, -0.707107, 0, 0, 0)
+exclude_parent = false
+target_position = Vector3(-2.5, -2.5, 0)
+script = ExtResource("22_crgkt")
+
+[node name="leg ik bl" type="Marker3D" parent="body/feet casters/top right feet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+top_level = true
+script = ExtResource("23_oikep")
+
+[node name="bottom left feet" type="RayCast3D" parent="body/feet casters"]
+transform = Transform3D(0.696363, 0.122788, 0.707107, -0.173648, 0.984807, 0, -0.696363, -0.122788, 0.707107, 0, 0, 0)
+exclude_parent = false
+target_position = Vector3(-2.5, -2.5, 0)
+script = ExtResource("22_crgkt")
+
+[node name="leg ik tr" type="Marker3D" parent="body/feet casters/bottom left feet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+top_level = true
+script = ExtResource("23_oikep")
+
+[node name="bottom right feet" type="RayCast3D" parent="body/feet casters"]
+transform = Transform3D(-0.696363, -0.122788, 0.707107, -0.173648, 0.984807, 0, -0.696363, -0.122788, -0.707107, 0, 0, 0)
+exclude_parent = false
+target_position = Vector3(-2.5, -2.5, 0)
+script = ExtResource("22_crgkt")
+
+[node name="leg ik br" type="Marker3D" parent="body/feet casters/bottom right feet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+top_level = true
+script = ExtResource("23_oikep")

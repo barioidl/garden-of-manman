@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bybjonq0wph0t"
+path="res://.godot/imported/industrial shelf.obj-26a45f58bdfde37c8bb16dedbc3a95ec.mesh"
+
+[deps]
+
+files=["res://.godot/imported/industrial shelf.obj-26a45f58bdfde37c8bb16dedbc3a95ec.mesh"]
+
+source_file="res://assets/factory/industrial shelf.obj"
+dest_files=["res://.godot/imported/industrial shelf.obj-26a45f58bdfde37c8bb16dedbc3a95ec.mesh", "res://.godot/imported/industrial shelf.obj-26a45f58bdfde37c8bb16dedbc3a95ec.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

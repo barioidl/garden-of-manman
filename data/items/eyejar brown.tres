@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bla61rbgx17oc"]
+
+[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="1_4nuy2"]
+[ext_resource type="Script" path="res://scripts/items/item_data.gd" id="2_oyolx"]
+[ext_resource type="PackedScene" uid="uid://bgw8svxhyt4s5" path="res://scenes/3d scenes/items/eyejar/eyejar generic.tscn" id="2_wggf5"]
+
+[resource]
+script = ExtResource("2_oyolx")
+id = 2
+name = "eyejar_brown"
+quantity = 1
+max_quantity = 1
+icon = ExtResource("1_4nuy2")
+custom_properties = {}
+prefab = ExtResource("2_wggf5")

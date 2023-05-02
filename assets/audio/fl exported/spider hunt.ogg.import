@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bm44g8fpxx2nx"
+path="res://.godot/imported/spider hunt.ogg-943b26e252b60f90f89d777f085ffff7.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/fl exported/spider hunt.ogg"
+dest_files=["res://.godot/imported/spider hunt.ogg-943b26e252b60f90f89d777f085ffff7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4bjau5m1w66m"]
+
+[ext_resource type="PackedScene" uid="uid://bgw8svxhyt4s5" path="res://scenes/3d scenes/items/eyejar/eyejar generic.tscn" id="1_ck648"]
+
+[node name="eyejar blue" instance=ExtResource("1_ck648")]
+color = 3

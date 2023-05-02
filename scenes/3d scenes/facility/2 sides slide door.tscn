@@ -1,0 +1,90 @@
+[gd_scene load_steps=18 format=3 uid="uid://drave67c42qj"]
+
+[ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_81jg1"]
+[ext_resource type="Script" path="res://scripts/objects/lock.gd" id="1_c0csp"]
+[ext_resource type="Script" path="res://scenes/3d scenes/facility/door controller.gd" id="1_mf5qi"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_7un62"]
+[ext_resource type="ArrayMesh" uid="uid://d2tcpp60j72s3" path="res://assets/factory/slide door.obj" id="2_r5gf6"]
+[ext_resource type="AudioStream" uid="uid://le84adcvsr4y" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_1.ogg" id="3_nn2f1"]
+[ext_resource type="ArrayMesh" uid="uid://cjr6ebej08al3" path="res://assets/factory/slide door lock.obj" id="4_loc1q"]
+[ext_resource type="AudioStream" uid="uid://c7h4n1akhjho7" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_2.ogg" id="4_m6uek"]
+[ext_resource type="AudioStream" uid="uid://n3fgt15re2q1" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_1.ogg" id="5_n7uea"]
+[ext_resource type="AudioStream" uid="uid://cihjtdlsa4udy" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_3.ogg" id="6_18a7t"]
+[ext_resource type="AudioStream" uid="uid://bt57slhjr1v0p" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_4.ogg" id="7_kwvn2"]
+
+[sub_resource type="Resource" id="Resource_84qfp"]
+script = ExtResource("2_7un62")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("3_nn2f1"), ExtResource("4_m6uek")])
+
+[sub_resource type="Resource" id="Resource_v5w7t"]
+script = ExtResource("2_7un62")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("5_n7uea"), ExtResource("6_18a7t"), ExtResource("7_kwvn2")])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nyf5f"]
+size = Vector3(0.2, 4, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jj0il"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6fqre"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f8f0v"]
+size = Vector3(0.25, 0.65, 0.2)
+
+[node name="door" type="StaticBody3D" node_paths=PackedStringArray("lock")]
+script = ExtResource("1_mf5qi")
+password = 3
+lock = NodePath("right/lock")
+door_meshes = [NodePath("left/SlideDoor"), NodePath("right/SlideDoor")]
+door_open_sfx = SubResource("Resource_84qfp")
+door_close_sfx = SubResource("Resource_v5w7t")
+
+[node name="left" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
+shape = SubResource("BoxShape3D_nyf5f")
+script = ExtResource("1_81jg1")
+duration = 0.4
+open_position = 1.15
+ease = 1
+transition = 1
+
+[node name="SlideDoor" type="MeshInstance3D" parent="left"]
+material_override = SubResource("StandardMaterial3D_jj0il")
+mesh = ExtResource("2_r5gf6")
+skeleton = NodePath("../..")
+
+[node name="right" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+shape = SubResource("BoxShape3D_nyf5f")
+script = ExtResource("1_81jg1")
+duration = 0.4
+open_position = 1.15
+mirrored = true
+ease = 1
+transition = 1
+
+[node name="SlideDoor" type="MeshInstance3D" parent="right"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6fqre")
+mesh = ExtResource("2_r5gf6")
+skeleton = NodePath("../..")
+
+[node name="lock" type="StaticBody3D" parent="right"]
+editor_description = "requires a specific key"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+script = ExtResource("1_c0csp")
+password = 1
+cooldown = 0.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="right/lock"]
+shape = SubResource("BoxShape3D_f8f0v")
+
+[node name="SlideDoorLock" type="MeshInstance3D" parent="right/lock/CollisionShape3D"]
+mesh = ExtResource("4_loc1q")
+
+[connection signal="lock_updated" from="right/lock" to="." method="updated"]
+[connection signal="lock_updated" from="right/lock" to="left" method="slide"]
+[connection signal="lock_updated" from="right/lock" to="right" method="slide"]

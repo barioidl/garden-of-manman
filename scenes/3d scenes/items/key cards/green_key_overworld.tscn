@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxs5i3sue04kc"]
+
+[ext_resource type="PackedScene" uid="uid://cbi4o4f457egt" path="res://scenes/3d scenes/items/key cards/generic_key_overworld.tscn" id="1_0s3bx"]
+
+[node name="generic_key_overworld" instance=ExtResource("1_0s3bx")]
+password = 3

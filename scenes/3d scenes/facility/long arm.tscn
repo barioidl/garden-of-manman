@@ -1,0 +1,395 @@
+[gd_scene load_steps=16 format=3 uid="uid://bfx86i5ctbb7"]
+
+[ext_resource type="PackedScene" uid="uid://d4j41kkqbo3ch" path="res://scenes/3d scenes/facility/arm_segment.tscn" id="1_qmvfk"]
+[ext_resource type="Script" path="res://scenes/3d scenes/facility/arm control.gd" id="2_a3hs2"]
+[ext_resource type="Texture2D" uid="uid://lb8mhyjg3f0j" path="res://assets/Textures/0005.png" id="2_d42xv"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="3_d2f60"]
+[ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="3_dgrs3"]
+[ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="3_rmev1"]
+[ext_resource type="Resource" uid="uid://bgt5myttrgr3i" path="res://assets/bill_board_sides/arm_segment.tres" id="4_cnpwu"]
+[ext_resource type="Texture2D" uid="uid://b72o1n4yb7stn" path="res://assets/Textures/hand flat0005.png" id="7_v7nm5"]
+[ext_resource type="Resource" uid="uid://c7rn14cmid1uv" path="res://assets/bill_board_sides/hand_flat.tres" id="8_q7d7l"]
+[ext_resource type="Texture2D" uid="uid://dxfhohdx8fvtq" path="res://assets/Textures/hand grab0005.png" id="9_2nbo0"]
+[ext_resource type="Resource" uid="uid://b4gigcx2fpm4g" path="res://assets/bill_board_sides/hand_grab.tres" id="10_xx3bq"]
+
+[sub_resource type="GDScript" id="GDScript_ath2s"]
+script/source = "extends CharacterBody3D
+@onready var arm :=$'1'
+@onready var hand :=$hand
+
+@export var max_distance:=8.0
+@export var move_speed:=1.0
+
+enum states{rest,work,attack,seek}
+@export var state :states
+@onready var target=hand.global_position
+signal detected_body(body)
+
+#var cooldown :=0.0
+var time :=0.0
+func _physics_process(delta: float) -> void:
+	time = delta
+	if hand == null or arm == null:
+		return
+	exec_state()
+	clamp_hand()
+
+#	cooldown -= delta
+#	if cooldown>0:
+#		return
+#	choose_state()
+
+#func _input(event: InputEvent) -> void:
+#	if Input.is_action_just_pressed('attack'):
+#		target = hand.global_position+random_v3(seek_distance)
+#		state = states.attack
+
+func clamp_hand():
+	var hand_pos :Vector3= hand.global_position - arm.global_position
+	var dist = hand_pos.length()
+	if dist > max_distance:
+		hand.linear_velocity = -hand_pos/dist
+		state = states.rest
+
+func detected(body):
+	emit_signal('detected_body',body)
+	attack_mode(body)
+#	cooldown = 3
+func attack_mode(body):
+	if body.is_in_group(\"mechanical_arm\"):
+		return
+	target = body
+	state = states.attack
+
+func choose_state():
+	state = states.rest
+
+func exec_state():
+	match state:
+		states.rest:
+			rest()
+		states.work:
+			pass
+		states.attack:
+			attack()
+		states.seek:
+			seek()
+func toggle(active):
+	pass
+func rest():
+	pass
+func attack():
+	var reached = move_to_target(1.2)
+	if reached:
+		state = states.seek
+		seek_counter = 3
+
+@export var seek_distance:=1.0
+var seek_counter:=0
+func seek():
+	var reached = move_to_target(0.6)
+	if reached:
+		if target is Vector3:
+			target += random_v3(seek_distance)
+		seek_counter -=1
+		if seek_counter <=0:
+			state = states.rest
+
+func move_to_target(rate:float)->bool:
+	var pos :Vector3
+	if target is Vector3:
+		pos = target
+	else:
+		pos = target.global_position+Vector3(0,1,0)
+	pos -= hand.global_position
+	var length = pos.length()
+	if length < 0.4:return true
+	var normal = pos/length
+	hand.linear_velocity = normal * move_speed * rate
+	return false
+
+func random_v3(range)->Vector3:
+	var pos :=Vector3.ZERO
+	pos.x = randf_range(-range,range)
+	pos.y = randf_range(-range,range)
+	pos.z = randf_range(-range,range)
+	return pos
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gl4x8"]
+size = Vector3(0.2, 2, 0.2)
+
+[sub_resource type="GDScript" id="GDScript_x0ffu"]
+script/source = "extends Node3D
+
+@onready var parent = get_parent()
+
+@onready var shape_hand = $hand_shape
+@export var normal_hand :Sprite3D
+@export var attack_hand :Sprite3D
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	add_to_group(\"mechanical_arm\") 
+	connect('body_entered',body_entered)
+	connect('body_exited',body_exited)
+	toggle_hand()
+
+var is_attacking:=false
+func body_entered(body):
+	if body is RigidBody3D:
+		parent.detected(body)
+	if is_attacking:
+		Interface.change_health(body,-1)
+
+func body_exited(body):
+	pass
+
+var time :=0.0
+func _process(delta: float) -> void:
+	time= delta
+	switch_hand()
+
+func switch_hand():
+	var atk = parent.state == parent.states.attack
+	if atk == is_attacking:
+		return
+	is_attacking = atk
+	toggle_hand()
+
+func toggle_hand():
+	normal_hand.visible = !is_attacking
+	attack_hand.visible = is_attacking
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yby6y"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="arm" type="CharacterBody3D"]
+script = SubResource("GDScript_ath2s")
+max_distance = 10.0
+move_speed = 5.0
+
+[node name="ik_constraint" type="Node" parent="."]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(0, -360, 0)
+max_angles = Vector3(0, 360, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="Sprite3D4" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="Sprite3D5" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="Sprite3D6" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 3.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="Sprite3D7" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="Sprite3D8" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_d42xv")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("4_cnpwu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+shape = SubResource("BoxShape3D_gl4x8")
+
+[node name="1" parent="." instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+script = ExtResource("2_a3hs2")
+
+[node name="ik_constraint" type="Node" parent="1"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -10)
+max_angles = Vector3(45, 90, 100)
+
+[node name="2" parent="1" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -10)
+max_angles = Vector3(45, 90, 100)
+
+[node name="3" parent="1/2" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2/3"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -10)
+max_angles = Vector3(45, 90, 100)
+
+[node name="4" parent="1/2/3" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2/3/4"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -10)
+max_angles = Vector3(45, 90, 100)
+
+[node name="5" parent="1/2/3/4" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2/3/4/5"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -45)
+max_angles = Vector3(45, 90, 45)
+
+[node name="6" parent="1/2/3/4/5" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2/3/4/5/6"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -45)
+max_angles = Vector3(45, 90, 45)
+
+[node name="7" parent="1/2/3/4/5/6" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2/3/4/5/6/7"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -45)
+max_angles = Vector3(45, 90, 45)
+
+[node name="8" parent="1/2/3/4/5/6/7" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2/3/4/5/6/7/8"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -45)
+max_angles = Vector3(45, 90, 45)
+
+[node name="9" parent="1/2/3/4/5/6/7/8" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="1/2/3/4/5/6/7/8/9"]
+process_mode = 4
+script = ExtResource("3_dgrs3")
+min_angles = Vector3(-45, -90, -45)
+max_angles = Vector3(45, 90, 45)
+
+[node name="10" parent="1/2/3/4/5/6/7/8/9" instance=ExtResource("1_qmvfk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Node3D" type="Node3D" parent="1/2/3/4/5/6/7/8/9/10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.53674e-07, -1, 0)
+
+[node name="Node3D" type="Node3D" parent="1/2/3/4/5/6/7/8/9/10/Node3D"]
+transform = Transform3D(4.37114e-08, 1, 3.82137e-15, 1, -4.37114e-08, 8.74228e-08, 8.74228e-08, 0, -1, 0, -0.5, 0)
+
+[node name="hand" type="Sprite3D" parent="1/2/3/4/5/6/7/8/9/10/Node3D/Node3D"]
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("7_v7nm5")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("8_q7d7l")
+
+[node name="grab_hand" type="Sprite3D" parent="1/2/3/4/5/6/7/8/9/10/Node3D/Node3D"]
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("9_2nbo0")
+script = ExtResource("3_d2f60")
+sprites = ExtResource("10_xx3bq")
+
+[node name="IK" type="Node3D" parent="1/2/3/4/5/6/7/8/9/10/Node3D" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+rotation_edit_mode = 1
+script = ExtResource("3_rmev1")
+target = NodePath("../../../../../../../../../../../../hand")
+chain_length = 12
+max_distance = 20.0
+
+[node name="hand" type="RigidBody3D" parent="." node_paths=PackedStringArray("normal_hand", "attack_hand")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.5, -3, 0)
+top_level = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+max_contacts_reported = 1
+contact_monitor = true
+script = SubResource("GDScript_x0ffu")
+normal_hand = NodePath("../1/2/3/4/5/6/7/8/9/10/Node3D/Node3D/hand")
+attack_hand = NodePath("../1/2/3/4/5/6/7/8/9/10/Node3D/Node3D/grab_hand")
+
+[node name="hand_shape" type="CollisionShape3D" parent="hand"]
+transform = Transform3D(-4.37114e-08, 4.37114e-08, 1, 1, 0, 4.37114e-08, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_yby6y")

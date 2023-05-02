@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dj18ox7d3txaw"
+path="res://.godot/imported/Contemporary Shelves.obj-9bcae5741acd65fb27434e8afd67f1c0.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Contemporary Shelves.obj-9bcae5741acd65fb27434e8afd67f1c0.mesh"]
+
+source_file="res://assets/sloyd/Contemporary Shelves.obj"
+dest_files=["res://.godot/imported/Contemporary Shelves.obj-9bcae5741acd65fb27434e8afd67f1c0.mesh", "res://.godot/imported/Contemporary Shelves.obj-9bcae5741acd65fb27434e8afd67f1c0.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

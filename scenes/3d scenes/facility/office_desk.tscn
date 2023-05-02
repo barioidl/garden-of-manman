@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckbie3oc5yqig"]
+
+[ext_resource type="ArrayMesh" uid="uid://cqksjvxjf0eh" path="res://assets/factory/office desk.obj" id="1_6kqju"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xjbn4"]
+size = Vector3(1.427, 0.775, 0.738)
+
+[node name="OfficeDesk" type="RigidBody3D"]
+transform = Transform3D(1.94707e-07, 0, -1, 0, 1, 0, 1, 0, 1.94707e-07, 0, 0, 0)
+mass = 10.0
+linear_damp = 1.0
+angular_damp = 1.0
+
+[node name="OfficeDesk" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_6kqju")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.388, 0)
+shape = SubResource("BoxShape3D_xjbn4")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://biw3gpw5ysim8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_asia4"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="GDScript" id="GDScript_cvofw"]
+script/source = "extends MeshInstance3D
+@export var enabled:=false
+func _ready() -> void:
+	switch(enabled)
+
+func switch(input):
+	$bulb.visible = input
+"
+
+[node name="ceiling lamp" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+mesh = SubResource("BoxMesh_asia4")
+script = SubResource("GDScript_cvofw")
+
+[node name="bulb" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5, 0)
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2

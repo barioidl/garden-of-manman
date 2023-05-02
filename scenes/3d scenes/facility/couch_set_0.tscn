@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfppajnyvxilj"]
+
+[ext_resource type="ArrayMesh" uid="uid://b1a100ji48dv0" path="res://assets/factory/couch set 0.obj" id="1_goc7m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rflas"]
+size = Vector3(0.426, 0.230292, 0.426)
+
+[node name="CouchSet0" type="RigidBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = ExtResource("1_goc7m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.174, 0)
+shape = SubResource("BoxShape3D_rflas")

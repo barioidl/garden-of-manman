@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dixiiw3pwd15x"]
+
+[sub_resource type="GDScript" id="GDScript_176np"]
+script/source = "extends AudioStreamPlayer2D
+var loop:=1
+
+func _ready() -> void:
+	connect('finished',finished) # Replace with function body.
+	add_to_group('sfx_2d')
+	play()
+#func _process(delta: float) -> void:
+#	pass
+
+func finished():
+	loop -=1
+	if loop >0:return
+	queue_free()
+"
+
+[node name="speaker2d" type="AudioStreamPlayer2D"]
+bus = &"Sfx"
+script = SubResource("GDScript_176np")

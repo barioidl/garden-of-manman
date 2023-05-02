@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://coxvwwkiawb3m"]
+
+[sub_resource type="GDScript" id="GDScript_3g1yx"]
+script/source = "extends Node
+
+@export var speed :=5.0
+
+@export var can_dash:=true
+@export var dash_speed:=1.0
+@export var dash_duration:=0.5
+@export var dash_cool_down:=0.5
+@export var dash_time :=0.0
+
+@export var can_fly:=true
+@export var fly_speed:=0.9
+
+@export var can_glide:=true
+@export var glide_speed := 0.75
+@export var glide_down_speed := 0.5
+
+@export var can_swim := true
+@export var swim_speed := 0.5
+"
+
+[node name="aerial" type="Node"]
+process_mode = 4
+script = SubResource("GDScript_3g1yx")

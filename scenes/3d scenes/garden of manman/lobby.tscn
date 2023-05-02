@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://bv1bvetxrnpaq"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_io2ph"]
+[ext_resource type="ArrayMesh" uid="uid://byg6vqifq8ita" path="res://assets/borga map/room 2.obj" id="2_1iax0"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="3_mf2v4"]
+[ext_resource type="Texture2D" uid="uid://c31wdmh7jp5u6" path="res://assets/Textures/key_card0003.png" id="3_vmam2"]
+[ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="4_e5qnn"]
+[ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="5_8bx4v"]
+[ext_resource type="Texture2D" uid="uid://bb0njvok5atsc" path="res://assets/kenney/kenney_pixel-ui-pack/9-Slice/list.png" id="7_iiuwp"]
+
+[sub_resource type="GDScript" id="GDScript_sh4ht"]
+script/source = "extends Decal
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	queue_free() # Replace with function body.
+"
+
+[node name="lobby" type="Node3D"]
+script = ExtResource("1_io2ph")
+areas = [NodePath("../../-4 areas/Lobby"), NodePath("../../-4 areas/elevator"), NodePath("../../-4 areas/storage room"), NodePath("../../-4 areas/CNC room"), NodePath("../../-4 areas/camera room")]
+
+[node name="Room2" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_1iax0")
+skeleton = NodePath("../../../../..")
+
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 1.5, -16)
+modulate = Color(0, 1, 0, 1)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_vmam2")
+script = ExtResource("3_mf2v4")
+item = ExtResource("4_e5qnn")
+
+[node name="door" parent="." instance=ExtResource("5_8bx4v")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -24.2919)
+
+[node name="door2" parent="." instance=ExtResource("5_8bx4v")]
+transform = Transform3D(-2.62268e-08, 0, -1, 0, 1, 0, 0.6, 0, -4.37114e-08, -12, 0, -13.0819)
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.5, -24)
+texture_albedo = ExtResource("7_iiuwp")
+modulate = Color(0, 1, 0, 1)
+script = SubResource("GDScript_sh4ht")
+
+[node name="Decal2" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.5, -13)
+texture_albedo = ExtResource("7_iiuwp")
+modulate = Color(0, 1, 0, 1)
+script = SubResource("GDScript_sh4ht")

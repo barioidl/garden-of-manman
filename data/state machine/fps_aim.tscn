@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/modules/fps aim.gd" id="1_bw6er"]
+
+[node name="fps aim" type="Node" node_paths=PackedStringArray("root")]
+script = ExtResource("1_bw6er")
+root = NodePath("..")

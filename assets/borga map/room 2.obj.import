@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://byg6vqifq8ita"
+path="res://.godot/imported/room 2.obj-a4167299094cc470737c148cbfe23f6e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/room 2.obj-a4167299094cc470737c148cbfe23f6e.mesh"]
+
+source_file="res://assets/borga map/room 2.obj"
+dest_files=["res://.godot/imported/room 2.obj-a4167299094cc470737c148cbfe23f6e.mesh", "res://.godot/imported/room 2.obj-a4167299094cc470737c148cbfe23f6e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

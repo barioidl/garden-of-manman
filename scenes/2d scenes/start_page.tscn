@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq00ygi8ep1qk"]
+
+[ext_resource type="FontFile" uid="uid://kwync4yspidv" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future.ttf" id="1_yl0e1"]
+[ext_resource type="VideoStream" path="res://assets/video/start_clip.ogv" id="2_rgrxc"]
+[ext_resource type="PackedScene" uid="uid://cwjjqyorvakym" path="res://scenes/2d scenes/hud.tscn" id="7_vtsg1"]
+
+[sub_resource type="FontVariation" id="FontVariation_ynpee"]
+base_font = ExtResource("1_yl0e1")
+
+[sub_resource type="Theme" id="Theme_y07jn"]
+default_font = SubResource("FontVariation_ynpee")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 2
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 0.392157)
+RichTextLabel/colors/font_selected_color = Color(0, 0, 0, 0)
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
+RichTextLabel/constants/outline_size = 1
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 0
+RichTextLabel/constants/shadow_outline_size = 2
+
+[node name="root" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_y07jn")
+
+[node name="TextureRect" type="VideoStreamPlayer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_rgrxc")
+autoplay = true
+bus = &"Music"
+
+[node name="RichTextLabel" type="Label" parent="."]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 299.0
+offset_bottom = 190.0
+theme_override_font_sizes/font_size = 50
+text = "Garden 
+of
+Man Man"
+horizontal_alignment = 1
+text_direction = 1
+
+[node name="HUD" parent="." instance=ExtResource("7_vtsg1")]
+layout_mode = 1
+mouse_filter = 1
+state = 0

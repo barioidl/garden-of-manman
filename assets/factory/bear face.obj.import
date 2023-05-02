@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dw2n4y8hbqvv0"
+path="res://.godot/imported/bear face.obj-cfeb25563ebfdb0df899784498586099.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bear face.obj-cfeb25563ebfdb0df899784498586099.mesh"]
+
+source_file="res://assets/factory/bear face.obj"
+dest_files=["res://.godot/imported/bear face.obj-cfeb25563ebfdb0df899784498586099.mesh", "res://.godot/imported/bear face.obj-cfeb25563ebfdb0df899784498586099.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

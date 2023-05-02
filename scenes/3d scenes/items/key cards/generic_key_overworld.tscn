@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbi4o4f457egt"]
+
+[ext_resource type="Script" path="res://scripts/objects/key_cards_overworld.gd" id="1_ix07v"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="3_qt66p"]
+[ext_resource type="Resource" path="res://assets/bill_board_sides/key_card.tres" id="4_7wyhw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vqfqb"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="generic_key_overworld" type="CharacterBody3D"]
+rotation_edit_mode = 1
+script = ExtResource("1_ix07v")
+password = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+rotation_edit_mode = 1
+shape = SubResource("BoxShape3D_vqfqb")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+script = ExtResource("3_qt66p")
+sprites = ExtResource("4_7wyhw")

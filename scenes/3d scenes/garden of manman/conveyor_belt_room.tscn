@@ -1,0 +1,322 @@
+[gd_scene load_steps=26 format=3 uid="uid://cv1yxmhpapjbm"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_x5ckn"]
+[ext_resource type="ArrayMesh" uid="uid://k5ndm18prpga" path="res://assets/borga map/conveyor room mesh.obj" id="2_o702g"]
+[ext_resource type="Script" path="res://scripts/conveyor belt.gd" id="3_bo141"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="4_fwg0r"]
+[ext_resource type="PackedScene" uid="uid://ymiup8tchxbt" path="res://scenes/3d scenes/facility/assembling_mob.tscn" id="5_5pebb"]
+[ext_resource type="PackedScene" uid="uid://bfx86i5ctbb7" path="res://scenes/3d scenes/facility/long arm.tscn" id="6_nwhqs"]
+[ext_resource type="PackedScene" uid="uid://cchfco5i7ybjy" path="res://scenes/3d scenes/facility/shutter.tscn" id="7_3bs8k"]
+[ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="8_dhx5l"]
+[ext_resource type="ArrayMesh" uid="uid://g3pi6gnr5qhi" path="res://assets/borga map/conveyor belt.obj" id="9_cktnx"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="10_vtll1"]
+[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="10_w16t0"]
+[ext_resource type="Resource" uid="uid://ddlssuha00ffl" path="res://data/items/flash light.tres" id="11_wjsum"]
+
+[sub_resource type="GDScript" id="GDScript_wx0iv"]
+script/source = "extends StaticBody3D
+
+signal activate_belts
+signal reverse_belts
+signal deactivate_belts
+
+#func activate():
+#	emit_signal('activate_belts') 
+#
+#func deacivate():
+#	emit_signal('deactivate_belts') 
+
+
+func button_toggled(button_pressed) -> void:
+	if button_pressed:
+		emit_signal('activate_belts') 
+	else:
+		emit_signal('deactivate_belts') 
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dkeeb"]
+size = Vector3(1.25, 0.2, 43)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m0ht3"]
+size = Vector3(9, 0.2, 1.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2qcsj"]
+size = Vector3(15, 1, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwox0"]
+size = Vector3(9, 0.3, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ux2m"]
+size = Vector3(9, 0.3, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3mree"]
+size = Vector3(9, 0.3, 1.5)
+
+[sub_resource type="GDScript" id="GDScript_080x5"]
+script/source = "extends Node3D
+
+func wake_up_bodies():
+	for rigid in get_children():
+		if rigid is RigidBody3D:
+			rigid.sleeping = false
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5va2k"]
+size = Vector3(1.5, 0.3, 43)
+
+[sub_resource type="GDScript" id="GDScript_mxieg"]
+script/source = "extends Node3D
+
+func _on_3d_button_toggled(button_pressed) -> void:
+	for light in get_children():
+		light.switch(button_pressed)
+"
+
+[sub_resource type="GDScript" id="GDScript_1bxsr"]
+script/source = "extends OmniLight3D
+@export var enabled:=false
+func _ready() -> void:
+	switch(enabled)
+
+func switch(input):
+	visible = input
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qa8gy"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0jstt"]
+material = SubResource("StandardMaterial3D_qa8gy")
+size = Vector2(2, 20)
+orientation = 1
+
+[node name="conveyor belt room" type="Node3D"]
+script = ExtResource("1_x5ckn")
+areas = [NodePath("../../render bounds/conveyor room"), NodePath("../../render bounds/camera room"), NodePath("../../render bounds/hydro forming chamber"), NodePath("../../render bounds/disposal pit")]
+
+[node name="ConveyorBelt" type="MeshInstance3D" parent="."]
+mesh = ExtResource("9_cktnx")
+skeleton = NodePath("../../../../..")
+
+[node name="conveyor room" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -20)
+script = SubResource("GDScript_wx0iv")
+
+[node name="ConveyorRoomMesh" type="MeshInstance3D" parent="conveyor room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 20)
+mesh = ExtResource("2_o702g")
+skeleton = NodePath("../../../../../..")
+
+[node name="conveyor belt" type="StaticBody3D" parent="conveyor room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.3, -21.5)
+constant_linear_velocity = Vector3(0, 0, 1)
+script = ExtResource("3_bo141")
+velocity = Vector3(0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="conveyor room/conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21.5)
+shape = SubResource("BoxShape3D_dkeeb")
+
+[node name="side conveyor belt" type="StaticBody3D" parent="conveyor room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.3, 3)
+constant_linear_velocity = Vector3(-1, 0, 0)
+script = ExtResource("3_bo141")
+velocity = Vector3(-1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="conveyor room/side conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0, 0)
+shape = SubResource("BoxShape3D_m0ht3")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="conveyor room/side conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0, 11.9995)
+shape = SubResource("BoxShape3D_m0ht3")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="conveyor room/side conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0, -11.9995)
+shape = SubResource("BoxShape3D_m0ht3")
+
+[node name="up conveyor belt" type="StaticBody3D" parent="conveyor room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.25, 3)
+constant_linear_velocity = Vector3(-1, 1, 0)
+script = ExtResource("3_bo141")
+velocity = Vector3(-1, 1, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="conveyor room/up conveyor belt"]
+transform = Transform3D(0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 0, 0, 1, -14.6168, 4, 0)
+shape = SubResource("BoxShape3D_2qcsj")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="conveyor room/up conveyor belt"]
+transform = Transform3D(0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 0, 0, 1, -14.6168, 4, 12)
+shape = SubResource("BoxShape3D_2qcsj")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="conveyor room/up conveyor belt"]
+transform = Transform3D(0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 0, 0, 1, -14.6168, 4, -12)
+shape = SubResource("BoxShape3D_2qcsj")
+
+[node name="side base" type="CollisionShape3D" parent="conveyor room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.15, 3)
+shape = SubResource("BoxShape3D_uwox0")
+
+[node name="side base3" type="CollisionShape3D" parent="conveyor room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.15, 15)
+shape = SubResource("BoxShape3D_3ux2m")
+
+[node name="side base2" type="CollisionShape3D" parent="conveyor room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.15, -9)
+shape = SubResource("BoxShape3D_3mree")
+
+[node name="3d button" parent="conveyor room" instance=ExtResource("4_fwg0r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.8, 1.5, 0)
+
+[node name="active range" type="Node3D" parent="conveyor room"]
+script = SubResource("GDScript_080x5")
+
+[node name="assembling mob" parent="conveyor room/active range" instance=ExtResource("5_5pebb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -11.3966)
+
+[node name="assembling mob2" parent="conveyor room/active range" instance=ExtResource("5_5pebb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2.5)
+
+[node name="assembling mob3" parent="conveyor room/active range" instance=ExtResource("5_5pebb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.81712, 7.5)
+
+[node name="assembling mob4" parent="conveyor room/active range" instance=ExtResource("5_5pebb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 17.5)
+
+[node name="assembling mob5" parent="conveyor room/active range" instance=ExtResource("5_5pebb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 1, 15)
+
+[node name="assembling mob6" parent="conveyor room/active range" instance=ExtResource("5_5pebb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 1, 2.8592)
+
+[node name="assembling mob7" parent="conveyor room/active range" instance=ExtResource("5_5pebb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 1, -9.1408)
+
+[node name="shutter" parent="conveyor room" instance=ExtResource("7_3bs8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.6, -5.259, 2.5, 15)
+
+[node name="shutter2" parent="conveyor room" instance=ExtResource("7_3bs8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.6, -5.259, 2.5, 3)
+
+[node name="shutter3" parent="conveyor room" instance=ExtResource("7_3bs8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.6, -5.259, 2.5, -9)
+
+[node name="long arm" parent="." instance=ExtResource("6_nwhqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 7, -21)
+
+[node name="long arm2" parent="." instance=ExtResource("6_nwhqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 7, -9)
+
+[node name="main belt frame" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 33, 0, -20)
+
+[node name="shutter8" parent="main belt frame" instance=ExtResource("7_3bs8k")]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, -12.5, 2.5, 1)
+script = ExtResource("8_dhx5l")
+open_position = 4.25
+clode_position = 2.5
+direction = 1
+
+[node name="shutter7" parent="main belt frame" instance=ExtResource("7_3bs8k")]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 20.5, 3.5, 1)
+script = ExtResource("8_dhx5l")
+open_position = 3.5
+clode_position = 2.5
+direction = 1
+
+[node name="long base" type="CollisionShape3D" parent="main belt frame"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.15, 1)
+shape = SubResource("BoxShape3D_5va2k")
+
+[node name="lights" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 6, -17)
+script = SubResource("GDScript_mxieg")
+
+[node name="bulb" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.5, -1.75, 7)
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_1bxsr")
+
+[node name="bulb3" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -1.75, 14.5)
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_1bxsr")
+
+[node name="bulb4" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -1.75, -14.5)
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_1bxsr")
+
+[node name="bulb5" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -5, -1.75, -8)
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_1bxsr")
+
+[node name="bulb6" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -5, -1.75, 8)
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_1bxsr")
+
+[node name="bulb2" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.5, -1.75, -7)
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_1bxsr")
+
+[node name="flash light" type="Sprite3D" parent="."]
+transform = Transform3D(-0.656967, 0, 0.753919, 0, 1, 0, -0.753919, 0, -0.656967, 30.7596, 0.616564, -29.3614)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("10_w16t0")
+script = ExtResource("10_vtll1")
+item = ExtResource("11_wjsum")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 26, 12.5, -16.1013)
+mesh = SubResource("QuadMesh_0jstt")
+
+[connection signal="activate_belts" from="conveyor room" to="conveyor room/conveyor belt" method="start" flags=18]
+[connection signal="activate_belts" from="conveyor room" to="conveyor room/side conveyor belt" method="start" flags=18]
+[connection signal="activate_belts" from="conveyor room" to="conveyor room/up conveyor belt" method="start" flags=18]
+[connection signal="activate_belts" from="conveyor room" to="conveyor room/active range" method="wake_up_bodies"]
+[connection signal="deactivate_belts" from="conveyor room" to="conveyor room/conveyor belt" method="stop" flags=18]
+[connection signal="deactivate_belts" from="conveyor room" to="conveyor room/side conveyor belt" method="stop" flags=18]
+[connection signal="deactivate_belts" from="conveyor room" to="conveyor room/up conveyor belt" method="stop" flags=18]
+[connection signal="reverse_belts" from="conveyor room" to="conveyor room/conveyor belt" method="reverse" flags=18]
+[connection signal="reverse_belts" from="conveyor room" to="conveyor room/side conveyor belt" method="reverse" flags=18]
+[connection signal="reverse_belts" from="conveyor room" to="conveyor room/up conveyor belt" method="reverse" flags=18]
+[connection signal="toggled" from="conveyor room/3d button" to="conveyor room" method="button_toggled"]
+[connection signal="toggled" from="conveyor room/3d button" to="main belt frame/shutter8" method="slide"]
+[connection signal="toggled" from="conveyor room/3d button" to="main belt frame/shutter7" method="slide"]
+[connection signal="toggled" from="conveyor room/3d button" to="lights" method="_on_3d_button_toggled"]
+[connection signal="detected_body" from="long arm" to="long arm2" method="attack_mode"]
+[connection signal="detected_body" from="long arm2" to="long arm" method="attack_mode"]

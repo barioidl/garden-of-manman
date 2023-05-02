@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://df28f6i0hm2iq"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_o3na5"]
+[ext_resource type="ArrayMesh" uid="uid://devl1r834kqg2" path="res://assets/borga map/room 1.obj" id="2_nsb7n"]
+[ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="3_ams0f"]
+[ext_resource type="ArrayMesh" uid="uid://k6v13was2uue" path="res://assets/sloyd/Cubicals.obj" id="4_isrli"]
+[ext_resource type="Texture2D" uid="uid://bb0njvok5atsc" path="res://assets/kenney/kenney_pixel-ui-pack/9-Slice/list.png" id="8_c6wrw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdp5i"]
+albedo_color = Color(0.376856, 0.402086, 0.726195, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xxoi3"]
+material = SubResource("StandardMaterial3D_rdp5i")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 5.0
+
+[sub_resource type="GDScript" id="GDScript_8tpbd"]
+script/source = "extends Decal
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	queue_free() # Replace with function body.
+"
+
+[node name="storage room" type="Node3D"]
+script = ExtResource("1_o3na5")
+areas = [NodePath("../../-4 areas/storage room"), NodePath("../../-4 areas/disposable storage"), NodePath("../../-4 areas/Lobby")]
+
+[node name="Room1" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_nsb7n")
+skeleton = NodePath("../../../../..")
+
+[node name="door" parent="." instance=ExtResource("3_ams0f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2)
+password = 5
+
+[node name="Cubicals" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.82937, 0, -8.69591)
+mesh = ExtResource("4_isrli")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cubicals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.270707, 1.5, -0.27828)
+mesh = SubResource("CylinderMesh_xxoi3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cubicals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35807, 1.5, -0.27828)
+mesh = SubResource("CylinderMesh_xxoi3")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cubicals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51581, 1.5, -0.27828)
+mesh = SubResource("CylinderMesh_xxoi3")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
+texture_albedo = ExtResource("8_c6wrw")
+modulate = Color(1, 1, 0, 1)
+script = SubResource("GDScript_8tpbd")

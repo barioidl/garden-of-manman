@@ -1,0 +1,105 @@
+[gd_scene load_steps=30 format=3 uid="uid://c4mhabgadbkqi"]
+
+[ext_resource type="Texture2D" uid="uid://6oftlvv4u2sp" path="res://assets/Textures/player hand0001.png" id="1_01p68"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_totrv"]
+[ext_resource type="Texture2D" uid="uid://djt1m1ytf6cyc" path="res://assets/Textures/player hand0002.png" id="3_0fpsf"]
+[ext_resource type="Texture2D" uid="uid://cpafmodhkua4f" path="res://assets/Textures/player hand0005.png" id="4_obdes"]
+[ext_resource type="Texture2D" uid="uid://c61aqrr7us4px" path="res://assets/Textures/player hand0000.png" id="5_fnxf7"]
+[ext_resource type="Texture2D" uid="uid://bswf0xv8u5dq1" path="res://assets/Textures/player hand0003.png" id="6_vtxwa"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="7_knmw0"]
+[ext_resource type="Texture2D" uid="uid://d0cjfoda0cbee" path="res://assets/Textures/player hand0008.png" id="8_oiyrr"]
+[ext_resource type="Texture2D" uid="uid://q1ywq42xgo1b" path="res://assets/Textures/player hand0004.png" id="8_uks6y"]
+[ext_resource type="Texture2D" uid="uid://dvmgh73pnfcio" path="res://assets/Textures/player hand0011.png" id="9_sixo6"]
+[ext_resource type="Texture2D" uid="uid://dxn4fsrlec2x8" path="res://assets/Textures/player hand0006.png" id="10_qehww"]
+[ext_resource type="Texture2D" uid="uid://b7juaxjgcfjkv" path="res://assets/Textures/player hand0007.png" id="11_ib3aa"]
+[ext_resource type="Texture2D" uid="uid://dx5jol6p2id73" path="res://assets/Textures/player hand0009.png" id="12_twxpi"]
+[ext_resource type="Texture2D" uid="uid://cnm4j8d010bpi" path="res://assets/Textures/player hand0010.png" id="13_7r0kd"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="14_g821b"]
+[ext_resource type="AudioStream" uid="uid://b1k4aj6cpodc3" path="res://assets/audio/kenney_rpg-audio/Audio/cloth2.ogg" id="15_u7imj"]
+[ext_resource type="AudioStream" uid="uid://cwth10kj4d0gb" path="res://assets/audio/kenney_rpg-audio/Audio/cloth3.ogg" id="16_lfejc"]
+[ext_resource type="Texture2D" uid="uid://o1ir67ck4dwu" path="res://assets/Textures/hand grab0000.png" id="18_ymhqh"]
+[ext_resource type="Texture2D" uid="uid://cu08jokgw5vvd" path="res://assets/Textures/hand grab0001.png" id="19_1nmla"]
+[ext_resource type="Texture2D" uid="uid://brwxxdl1xeywh" path="res://assets/Textures/hand grab0002.png" id="20_sx6d8"]
+[ext_resource type="Texture2D" uid="uid://dds4tpisv2ino" path="res://assets/Textures/hand grab0003.png" id="21_aqait"]
+[ext_resource type="Texture2D" uid="uid://bral3vivhjqxa" path="res://assets/Textures/hand grab0004.png" id="22_6ro1c"]
+[ext_resource type="Texture2D" uid="uid://dxfhohdx8fvtq" path="res://assets/Textures/hand grab0005.png" id="23_xey2d"]
+
+[sub_resource type="GDScript" id="GDScript_hrdh5"]
+script/source = "extends ItemOverworld
+
+@export var right_hand:BillboardSides
+@export var left_hand:BillboardSides
+@onready var sprite = $Sprite3D
+
+func _ready() -> void:
+	if id > 0:
+		sprite.sprites=right_hand
+	else:
+		sprite.sprites=left_hand
+
+func use_item(head:HotbarUser)->bool:
+	play_fist_animation()
+	var body = head.target
+	if body == null: return false
+	if body is RigidBody3D:
+		body.linear_velocity += global_transform.basis.z*5
+		Interface.stunt(body,1)
+	return super.use_item(head)
+
+var tween :Tween
+var anim_ended:=true
+func play_fist_animation():
+	if !anim_ended: return
+	anim_ended = false
+	var pos = position+basis.z*0.5
+	tween = create_tween()
+	tween.tween_property(self,'position',pos,0.1)
+	tween.tween_property(self,'position',position,0.1)
+	tween.tween_property(self,'anim_ended',true,0)
+
+@export var sfx :AudioList
+func play_sfx():
+	var pos = global_position
+	AudioPool.create_sound_3d(pos,sfx)
+"
+
+[sub_resource type="Resource" id="Resource_phlh5"]
+script = ExtResource("7_knmw0")
+frames = Array[Texture]([ExtResource("5_fnxf7"), ExtResource("1_01p68"), ExtResource("3_0fpsf"), ExtResource("6_vtxwa"), ExtResource("8_uks6y"), ExtResource("4_obdes")])
+
+[sub_resource type="Resource" id="Resource_psp5v"]
+script = ExtResource("7_knmw0")
+frames = Array[Texture]([ExtResource("10_qehww"), ExtResource("11_ib3aa"), ExtResource("8_oiyrr"), ExtResource("12_twxpi"), ExtResource("13_7r0kd"), ExtResource("9_sixo6")])
+
+[sub_resource type="Resource" id="Resource_guxy1"]
+script = ExtResource("14_g821b")
+pitch_range = Vector2(1.25, 2)
+volume_range = Vector2(-5, 1)
+streams = Array[AudioStream]([ExtResource("15_u7imj"), ExtResource("16_lfejc")])
+
+[sub_resource type="Resource" id="Resource_els6q"]
+script = ExtResource("7_knmw0")
+frames = Array[Texture]([ExtResource("18_ymhqh"), ExtResource("19_1nmla"), ExtResource("20_sx6d8"), ExtResource("21_aqait"), ExtResource("22_6ro1c"), ExtResource("23_xey2d")])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4p4vs"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="place_holder_fist" type="CharacterBody3D"]
+script = SubResource("GDScript_hrdh5")
+right_hand = SubResource("Resource_phlh5")
+left_hand = SubResource("Resource_psp5v")
+sfx = SubResource("Resource_guxy1")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+script = ExtResource("2_totrv")
+sprites = SubResource("Resource_els6q")
+face_camera = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_4p4vs")
+disabled = true

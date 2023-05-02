@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://mjt0vji2na7s"]
+
+[ext_resource type="ArrayMesh" uid="uid://d3xoix0b7r1m2" path="res://assets/factory/box 1x1.obj" id="1_8h3a8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qmpqw"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Box1x1" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -38)
+
+[node name="Box1x1" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_8h3a8")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_qmpqw")

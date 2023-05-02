@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://csx6qoli5htt1"]
+
+[ext_resource type="ArrayMesh" uid="uid://cfes411g4lca0" path="res://assets/factory/fence.obj" id="1_uya5c"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nqwgi"]
+points = PackedVector3Array(0.075, 1.5, 0.5, 0.075, 1.5, -0.5, -0.075, 1.5, 0.5, 0.075, 0, 0.5, -0.075, 1.5, -0.5, 0.075, 0, -0.5, -0.075, 0, 0.5, -0.075, 0, -0.5)
+
+[node name="fence" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.5, 0, -42)
+
+[node name="Fence" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_uya5c")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_nqwgi")

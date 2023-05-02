@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dle0di617k73o"]
+
+[ext_resource type="ArrayMesh" uid="uid://cl6b8x4v4wy4y" path="res://assets/sloyd/Floor Shelf.obj" id="1_igse5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_adfym"]
+resource_name = "Material.001"
+albedo_color = Color(0.571125, 0.242281, 0.0865, 1)
+metallic = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qp15o"]
+size = Vector3(0.3, 0.425, 1)
+
+[node name="FloorShelf" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.801661, 1.83996, 5.861)
+
+[node name="FloorShelf" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_adfym")
+mesh = ExtResource("1_igse5")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.425, 0)
+shape = SubResource("BoxShape3D_qp15o")

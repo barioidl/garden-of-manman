@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=12 format=3 uid="uid://wmp0cpk11124"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_5dj5d"]
+[ext_resource type="AudioStream" uid="uid://bkqogr3dw3n2l" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/1.ogg" id="2_lb33y"]
+[ext_resource type="AudioStream" uid="uid://doan1l0uckmll" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/2.ogg" id="3_wxx86"]
+[ext_resource type="AudioStream" uid="uid://2pbpi4vlugu3" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/3.ogg" id="4_p7hbk"]
+[ext_resource type="AudioStream" uid="uid://dbifl2frqkd0k" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/4.ogg" id="5_qn6h6"]
+[ext_resource type="AudioStream" uid="uid://cy1hhxuqv27p8" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/5.ogg" id="6_p34sw"]
+[ext_resource type="AudioStream" uid="uid://cnvy1q66ab0d2" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/6.ogg" id="7_t5fk6"]
+[ext_resource type="AudioStream" uid="uid://xvrnjmjh1a5h" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/7.ogg" id="8_p8532"]
+[ext_resource type="AudioStream" uid="uid://ces7ggdobq03x" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/8.ogg" id="9_r33wk"]
+[ext_resource type="AudioStream" uid="uid://cavvgfa7r3f4" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/9.ogg" id="10_b3cfw"]
+[ext_resource type="AudioStream" uid="uid://dhtxx7g12wqry" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/10.ogg" id="11_pg6vo"]
+
+[resource]
+script = ExtResource("1_5dj5d")
+pitch_range = Vector2(-1, 1)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("2_lb33y"), ExtResource("3_wxx86"), ExtResource("4_p7hbk"), ExtResource("5_qn6h6"), ExtResource("6_p34sw"), ExtResource("7_t5fk6"), ExtResource("8_p8532"), ExtResource("9_r33wk"), ExtResource("10_b3cfw"), ExtResource("11_pg6vo")])

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl6xguxpm3f3y"]
+
+[ext_resource type="ArrayMesh" uid="uid://dshtcnlwtaj5b" path="res://assets/factory/coffee shelf.obj" id="1_b3hcg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gx0mf"]
+size = Vector3(0.8, 1.7, 0.5)
+
+[node name="CoffeeShelf" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 9.5)
+
+[node name="CoffeeShelf" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_b3hcg")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("BoxShape3D_gx0mf")

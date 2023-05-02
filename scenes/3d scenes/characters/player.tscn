@@ -1,0 +1,165 @@
+[gd_scene load_steps=13 format=3 uid="uid://dnwyoafck8xle"]
+
+[ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
+[ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
+[ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="2_7jd1i"]
+[ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="3_iebvc"]
+[ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_pj86h"]
+[ext_resource type="PackedScene" path="res://data/state machine/spawn_point.tscn" id="6_04aw7"]
+[ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]
+[ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
+[ext_resource type="Script" path="res://scripts/modules/head.gd" id="9_iwmnp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
+radius = 0.4
+
+[sub_resource type="GDScript" id="GDScript_cu82w"]
+script/source = "extends Node3D
+
+@onready var root:=$'..'
+func _init() -> void:
+	name = 'body'
+func _ready() -> void:
+	owner = root
+	$'../shape'.connect('position_changed',position_changed.bind())
+func position_changed(pos) -> void:
+	position = pos # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_l165g"]
+script/source = "extends Node3D
+class_name Hotbar
+
+var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
+var hands:=[]
+@onready var root:=$'../..'
+@onready var inventory:Inventory=$'../../inventory'
+
+@export var max_items:=2
+var hotbar_items:=[]
+
+@export var hand_positions :=[
+	Vector3(0.3,0,0.4),
+	Vector3(-0.3,0,0.4),
+	Vector3(0.2,0,0.5),
+	Vector3(-0.2,0,0.5),
+	Vector3(0.1,0,0.6),
+	Vector3(-0.1,0,0.6),
+	]
+signal hotbar_updated
+func _ready():
+	owner = root
+	hotbar_items.resize(max_items)
+	spawn_fists()
+	root.set_meta('append_item',Callable(append_item))
+	root.set_meta('append_item_node',Callable(append_item_node))
+	root.set_meta('get_hotbar_items',Callable(get_hotbar_items))
+	
+#	inventory.connect('inventory_changed', on_inventory_changed.bind())
+#	inventory.connect('inventory_swapped', inventory_swapped.bind())
+
+func append_item(item:ItemData)->bool:
+	var id = hotbar_items.find(null)#hotbar_items.size()-1
+	if id < 0: return false
+	var child = item.prefab.instantiate()
+	add_child(child)
+	child.item = item
+	setup_item(id,child)
+	return true
+
+func append_item_node(child:Node3D)->bool:
+	var id = hotbar_items.find(null)#hotbar_items.size()-1
+	if id < 0: return false
+	child.reparent(self)
+	setup_item(id,child)
+	return true
+
+func setup_item(id,child):
+	hotbar_items[id]=child
+	child.id = id
+	child.root = root
+	child.is_in_overworld = false
+	child.position = hand_positions[id]
+#	item.rotation = Vector3.ZERO
+	hands[id].visible = false
+	emit_signal('hotbar_updated')
+
+func spawn_fists():
+	hands.resize(max_items)
+	for i in max_items:
+		var _fist = fist.instantiate()
+		_fist.root = root
+		_fist.id = i
+		_fist.is_in_overworld = false
+		_fist.position = hand_positions[i]
+		_fist.rotation = Vector3.ZERO
+		_fist.visible = true
+		add_child(_fist)
+		hands[i] = _fist
+
+func get_hotbar_items()->Array:	return hotbar_items
+
+func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
+	if id >= hotbar_items.size():return
+	var drop_item=hotbar_items[id]
+	if drop_item == null: return
+	hotbar_items[id] = null
+	hands[id].visible = true
+	
+	drop_item.reparent(root.get_parent())
+	drop_item.is_in_overworld = true
+	
+	var speed = strength*10
+	var direction = drop_item.global_position.direction_to(target)
+	drop_item.velocity = direction*speed
+	
+	drop_item.add_collision_exception_with(root)
+	var tween = create_tween()
+	tween.tween_interval(0.2)
+	tween.tween_callback(reset_exception.bind(drop_item))
+func reset_exception(item):
+	item.remove_collision_exception_with(root)
+"
+
+[node name="player" type="RigidBody3D"]
+disable_mode = 1
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("1_bstlq")
+
+[node name="inputs" parent="." instance=ExtResource("1_s0o3g")]
+
+[node name="platformer" parent="." instance=ExtResource("2_7jd1i")]
+horizontal_speed = 3.0
+sneak_speed = 0.4
+extra_jumps = 0
+
+[node name="stats" parent="." instance=ExtResource("3_iebvc")]
+
+[node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
+
+[node name="spawn_point" parent="." instance=ExtResource("6_04aw7")]
+
+[node name="inventory" parent="." instance=ExtResource("7_co62e")]
+slots = [null, null]
+
+[node name="shape" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_uh8a4")
+script = ExtResource("8_ihxnv")
+crouch_height = 1.2
+
+[node name="body" type="Node3D" parent="."]
+script = SubResource("GDScript_cu82w")
+
+[node name="head" type="Node3D" parent="body" node_paths=PackedStringArray("hotbar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("9_iwmnp")
+hotbar = NodePath("../hotbar")
+normal_height = 0.5
+crouch_height = 0.25
+
+[node name="hotbar" type="Node3D" parent="body"]
+script = SubResource("GDScript_l165g")

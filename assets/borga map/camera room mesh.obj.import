@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://j7b4uied8t2r"
+path="res://.godot/imported/camera room mesh.obj-e2fa92a455e03b0e8977c1ea242f1140.mesh"
+
+[deps]
+
+files=["res://.godot/imported/camera room mesh.obj-e2fa92a455e03b0e8977c1ea242f1140.mesh"]
+
+source_file="res://assets/borga map/camera room mesh.obj"
+dest_files=["res://.godot/imported/camera room mesh.obj-e2fa92a455e03b0e8977c1ea242f1140.mesh", "res://.godot/imported/camera room mesh.obj-e2fa92a455e03b0e8977c1ea242f1140.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

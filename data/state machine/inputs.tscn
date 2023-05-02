@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/modules/inputs.gd" id="1_ri83b"]
+
+[node name="inputs" type="Node"]
+script = ExtResource("1_ri83b")

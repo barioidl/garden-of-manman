@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://djb2uolmirxo2"
+path="res://.godot/imported/blue  fancy chair.obj-75801143ba87c996359d55662e30747c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/blue  fancy chair.obj-75801143ba87c996359d55662e30747c.mesh"]
+
+source_file="res://assets/factory/blue  fancy chair.obj"
+dest_files=["res://.godot/imported/blue  fancy chair.obj-75801143ba87c996359d55662e30747c.mesh", "res://.godot/imported/blue  fancy chair.obj-75801143ba87c996359d55662e30747c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

@@ -1,0 +1,243 @@
+[gd_scene load_steps=22 format=3 uid="uid://diwb3s78ooaml"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_1pg7p"]
+[ext_resource type="ArrayMesh" uid="uid://7mp5j0wgjtp5" path="res://assets/borga map/power manager.obj" id="2_3gwhp"]
+[ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="3_6n4qc"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="4_7c172"]
+[ext_resource type="PackedScene" uid="uid://bqf20tqoefee4" path="res://scenes/3d scenes/facility/monitor_screen.tscn" id="5_njm54"]
+[ext_resource type="PackedScene" uid="uid://bb0t0bkhtha43" path="res://scenes/3d scenes/facility/blue_chair.tscn" id="7_lhcst"]
+[ext_resource type="PackedScene" uid="uid://bshnunhokr00h" path="res://scenes/3d scenes/facility/keyboard.tscn" id="7_oo35i"]
+[ext_resource type="PackedScene" uid="uid://56nemwotri3g" path="res://scenes/3d scenes/facility/mouse.tscn" id="8_gijrs"]
+[ext_resource type="PackedScene" uid="uid://b82jnj03qbcy8" path="res://scenes/3d scenes/facility/plant_shelf.tscn" id="9_4i7ii"]
+[ext_resource type="PackedScene" uid="uid://du7sf0vjhjree" path="res://scenes/3d scenes/facility/high_shelf.tscn" id="10_mtbs6"]
+[ext_resource type="PackedScene" uid="uid://mjt0vji2na7s" path="res://scenes/3d scenes/facility/box_1x1.tscn" id="10_s1j18"]
+[ext_resource type="ArrayMesh" uid="uid://dj18ox7d3txaw" path="res://assets/sloyd/Contemporary Shelves.obj" id="10_x5tm3"]
+[ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="11_bqfow"]
+[ext_resource type="PackedScene" uid="uid://spupjdpsnv8l" path="res://scenes/3d scenes/facility/box_1x_2.tscn" id="11_e4aop"]
+[ext_resource type="PackedScene" uid="uid://b8juleetenf1w" path="res://scenes/3d scenes/facility/box_2x_2.tscn" id="12_02i1j"]
+[ext_resource type="PackedScene" uid="uid://cg6fqa744ymlk" path="res://scenes/3d scenes/facility/box_2x_1.tscn" id="13_uht58"]
+[ext_resource type="PackedScene" uid="uid://dle0di617k73o" path="res://scenes/3d scenes/facility/floor_shelf.tscn" id="14_rrpv3"]
+
+[sub_resource type="GDScript" id="GDScript_weihl"]
+script/source = "extends Node3D
+
+func _on_3d_button_toggled(button_pressed) -> void:
+	for light in get_children():
+		light.switch(button_pressed)
+"
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_e3plo"]
+data = PackedVector3Array(0.9817, 0, 0, 0.9817, -0.0613, 0, -0.9817, 0, 0, 0.9817, -0.0613, 0, -1.0429, -0.0613, 0, -0.9817, 0, 0, -0.9817, 0, 0, -1.0429, -0.0613, 0, -0.9817, 0.92, 0, -1.0429, -0.0613, 0, -1.0429, 0.9813, 0, -0.9817, 0.92, 0, -0.9817, 0.92, 0, -1.0429, 0.9813, 0, 0.9817, 0.92, 0, -1.0429, 0.9813, 0, 0.9203, 0.9813, 0, 0.9817, 0.92, 0, 0.9817, 0.92, 0, 0.9203, 0.9813, 0, 0.9817, 1.84, 0, 0.9203, 0.9813, 0, 0.9203, 1.7787, 0, 0.9817, 1.84, 0, 0.9817, 1.84, 0, 0.9203, 1.7787, 0, -0.9817, 1.84, 0, 0.9203, 1.7787, 0, -1.0429, 1.7787, 0, -0.9817, 1.84, 0, -0.9817, 1.84, 0, -1.0429, 1.7787, 0, -0.9817, 2.46, 0, -1.0429, 1.7787, 0, -1.043, 2.5127, 0, -0.9817, 2.46, 0, -0.9817, 2.46, 0, -1.043, 2.5127, 0, 0.9817, 2.76, 0, -1.043, 2.5127, 0, 0.9724, 2.8206, 0, 0.9817, 2.76, 0, -0.9817, 0, -0.838, 0.9817, -0.0613, -0.838, 0.9817, 0, -0.838, -1.0429, -0.0613, -0.838, 0.9817, -0.0613, -0.838, -0.9817, 0, -0.838, -0.9817, 0.92, -0.838, -1.0429, -0.0613, -0.838, -0.9817, 0, -0.838, -1.0429, 0.9813, -0.838, -1.0429, -0.0613, -0.838, -0.9817, 0.92, -0.838, 0.9817, 0.92, -0.838, -1.0429, 0.9813, -0.838, -0.9817, 0.92, -0.838, 0.9203, 0.9813, -0.838, -1.0429, 0.9813, -0.838, 0.9817, 0.92, -0.838, 0.9817, 1.84, -0.838, 0.9203, 0.9813, -0.838, 0.9817, 0.92, -0.838, 0.9203, 1.7787, -0.838, 0.9203, 0.9813, -0.838, 0.9817, 1.84, -0.838, -0.9817, 1.84, -0.838, 0.9203, 1.7787, -0.838, 0.9817, 1.84, -0.838, -1.0429, 1.7787, -0.838, 0.9203, 1.7787, -0.838, -0.9817, 1.84, -0.838, -0.9817, 2.46, -0.838, -1.0429, 1.7787, -0.838, -0.9817, 1.84, -0.838, -1.043, 2.5127, -0.838, -1.0429, 1.7787, -0.838, -0.9817, 2.46, -0.838, 0.9817, 2.76, -0.838, -1.043, 2.5127, -0.838, -0.9817, 2.46, -0.838, 0.9724, 2.8206, -0.838, -1.043, 2.5127, -0.838, 0.9817, 2.76, -0.838, -0.9817, 0, 0, 0.9817, 0, -0.838, 0.9817, 0, 0, -0.9817, 0, 0, -0.9817, 0, -0.838, 0.9817, 0, -0.838, -0.9817, 0.92, 0, -0.9817, 0, -0.838, -0.9817, 0, 0, -0.9817, 0.92, 0, -0.9817, 0.92, -0.838, -0.9817, 0, -0.838, 0.9817, 0.92, 0, -0.9817, 0.92, -0.838, -0.9817, 0.92, 0, 0.9817, 0.92, 0, 0.9817, 0.92, -0.838, -0.9817, 0.92, -0.838, 0.9817, 1.84, 0, 0.9817, 0.92, -0.838, 0.9817, 0.92, 0, 0.9817, 1.84, 0, 0.9817, 1.84, -0.838, 0.9817, 0.92, -0.838, -0.9817, 1.84, 0, 0.9817, 1.84, -0.838, 0.9817, 1.84, 0, -0.9817, 1.84, 0, -0.9817, 1.84, -0.838, 0.9817, 1.84, -0.838, -0.9817, 2.46, 0, -0.9817, 1.84, -0.838, -0.9817, 1.84, 0, -0.9817, 2.46, 0, -0.9817, 2.46, -0.838, -0.9817, 1.84, -0.838, 0.9817, 2.76, 0, -0.9817, 2.46, -0.838, -0.9817, 2.46, 0, 0.9817, 2.76, 0, 0.9817, 2.76, -0.838, -0.9817, 2.46, -0.838, 0.9817, -0.0613, -0.838, -1.0429, -0.0613, 0, 0.9817, -0.0613, 0, -1.0429, -0.0613, -0.838, -1.0429, -0.0613, 0, 0.9817, -0.0613, -0.838, -1.0429, -0.0613, -0.838, -1.0429, 0.9813, 0, -1.0429, -0.0613, 0, -1.0429, 0.9813, -0.838, -1.0429, 0.9813, 0, -1.0429, -0.0613, -0.838, -1.0429, 0.9813, -0.838, 0.9203, 0.9813, 0, -1.0429, 0.9813, 0, 0.9203, 0.9813, -0.838, 0.9203, 0.9813, 0, -1.0429, 0.9813, -0.838, 0.9203, 0.9813, -0.838, 0.9203, 1.7787, 0, 0.9203, 0.9813, 0, 0.9203, 1.7787, -0.838, 0.9203, 1.7787, 0, 0.9203, 0.9813, -0.838, 0.9203, 1.7787, -0.838, -1.0429, 1.7787, 0, 0.9203, 1.7787, 0, -1.0429, 1.7787, -0.838, -1.0429, 1.7787, 0, 0.9203, 1.7787, -0.838, -1.0429, 1.7787, -0.838, -1.043, 2.5127, 0, -1.0429, 1.7787, 0, -1.043, 2.5127, -0.838, -1.043, 2.5127, 0, -1.0429, 1.7787, -0.838, -1.043, 2.5127, -0.838, 0.9724, 2.8206, 0, -1.043, 2.5127, 0, 0.9724, 2.8206, -0.838, 0.9724, 2.8206, 0, -1.043, 2.5127, -0.838, 0.9817, 0, 0, 0.9817, -0.0613, -0.838, 0.9817, -0.0613, 0, 0.9817, 0, -0.838, 0.9817, -0.0613, -0.838, 0.9817, 0, 0, 0.9724, 2.8206, 0, 0.9817, 2.76, -0.838, 0.9817, 2.76, 0, 0.9724, 2.8206, -0.838, 0.9817, 2.76, -0.838, 0.9724, 2.8206, 0, -0.7414, 0, -0.419, -0.7817, 2.76, -0.4592, -0.7817, 0, -0.4592, -0.7414, 2.76, -0.419, -0.7817, 2.76, -0.4592, -0.7414, 0, -0.419, -0.7817, 0, -0.3787, -0.7414, 2.76, -0.419, -0.7414, 0, -0.419, -0.7817, 2.76, -0.3787, -0.7414, 2.76, -0.419, -0.7817, 0, -0.3787, -0.8219, 0, -0.419, -0.7817, 2.76, -0.3787, -0.7817, 0, -0.3787, -0.8219, 2.76, -0.419, -0.7817, 2.76, -0.3787, -0.8219, 0, -0.419, -0.7817, 0, -0.4592, -0.8219, 2.76, -0.419, -0.8219, 0, -0.419, -0.7817, 2.76, -0.4592, -0.8219, 2.76, -0.419, -0.7817, 0, -0.4592, -0.7414, 2.76, -0.419, -0.7817, 2.76, -0.3787, -0.7817, 2.76, -0.4592, -0.7817, 2.76, -0.3787, -0.8219, 2.76, -0.419, -0.7817, 2.76, -0.4592, -0.7817, 0, -0.3787, -0.7414, 0, -0.419, -0.7817, 0, -0.4592, -0.8219, 0, -0.419, -0.7817, 0, -0.3787, -0.7817, 0, -0.4592)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aq3cj"]
+resource_name = "Material.001"
+albedo_color = Color(0.571125, 0.242281, 0.0865, 1)
+metallic = 0.5
+
+[sub_resource type="GDScript" id="GDScript_fah1d"]
+script/source = "extends Node3D
+
+@export var item :ItemData
+
+func _ready() -> void:
+	connect_all_buttons() # Replace with function body.
+
+func connect_all_buttons():
+	for button in get_children():
+		button.connect('pressed',button_pressed)
+
+var cd_tween :Tween
+func button_pressed():
+	if cd_tween != null:
+		cd_tween.kill()
+		
+	cd_tween = create_tween()
+	cd_tween.tween_interval(1)
+	cd_tween.tween_callback(check_pass)
+
+func check_pass():
+	var key := '0100110011110011'
+	var buttons = get_children()
+	for i in buttons.size():
+		var bin = '1' if buttons[i].active else '0'
+		if bin != key[i]:
+			return
+	spawn_item()
+
+func spawn_item():
+	if item == null: 
+		push_error('item spawner with null item'+ str(get_path()))
+		return
+	var child = item.prefab.instantiate()
+	child.item = item
+	get_parent().add_child(child)
+	child.global_transform = global_transform
+	queue_free()
+"
+
+[node name="power room" type="Node3D"]
+script = ExtResource("1_1pg7p")
+areas = [NodePath("../../render bounds/camera room"), NodePath("../../render bounds/power control room")]
+
+[node name="PowerManager" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_3gwhp")
+skeleton = NodePath("../../../../..")
+
+[node name="lights" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 4, -35.5)
+script = SubResource("GDScript_weihl")
+
+[node name="ceiling lamp" parent="lights" instance=ExtResource("3_6n4qc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="3d button" parent="." instance=ExtResource("4_7c172")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 14.2, 0.5, -38)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.05, 0, -40.861)
+
+[node name="MonitorScreen" parent="Node3D" instance=ExtResource("5_njm54")]
+transform = Transform3D(-0.0871558, 0, 0.996195, 0, 1, 0, -0.996195, 0, -0.0871558, 2.697, 0.58, 3.32906)
+
+[node name="MonitorScreen2" parent="Node3D" instance=ExtResource("5_njm54")]
+transform = Transform3D(0.173648, 0, 0.984808, 0, 1, 0, -0.984808, 0, 0.173648, 2.697, 0.58, 3.74556)
+
+[node name="Keyboard" parent="Node3D" instance=ExtResource("7_oo35i")]
+transform = Transform3D(-0.0871558, 0, 0.996195, 0, 1, 0, -0.996195, 0, -0.0871558, 2.46014, 0.58, 3.3328)
+
+[node name="BlueChair" parent="Node3D" instance=ExtResource("7_lhcst")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, 3.5)
+
+[node name="Mouse" parent="Node3D" instance=ExtResource("8_gijrs")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.42443, 0.58, 3.638)
+
+[node name="PlantShelf" parent="Node3D" instance=ExtResource("9_4i7ii")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.45, 0, 5.861)
+
+[node name="PlantShelf2" parent="Node3D" instance=ExtResource("9_4i7ii")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.145494, 0, 5.861)
+
+[node name="PlantShelf3" parent="Node3D" instance=ExtResource("9_4i7ii")]
+transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, -6.189, 0, 9.09759)
+
+[node name="Box1x1" parent="Node3D" instance=ExtResource("10_s1j18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.58409, 0.256506, 0.919987)
+
+[node name="Box1x2" parent="Node3D" instance=ExtResource("11_e4aop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60996, 0.261867, 2.04601)
+
+[node name="Box1x4" parent="Node3D" instance=ExtResource("10_s1j18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.41591, 1.43661, 3.68531)
+
+[node name="Box1x6" parent="Node3D" instance=ExtResource("10_s1j18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.56982, 1.93661, 2.0089)
+
+[node name="Box1x5" parent="Node3D" instance=ExtResource("11_e4aop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.39004, 0.161375, 3.89828)
+
+[node name="Box2x2" parent="Node3D" instance=ExtResource("12_02i1j")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 2.87342, 2.44114, 3.52304)
+
+[node name="Box2x6" parent="Node3D" instance=ExtResource("12_02i1j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.62658, 0.0204601, 0.523041)
+
+[node name="Box2x7" parent="Node3D" instance=ExtResource("12_02i1j")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.62658, 0.532906, 0.523041)
+
+[node name="Box2x4" parent="Node3D" instance=ExtResource("13_uht58")]
+transform = Transform3D(-0.0871558, 0, -0.996195, 0, 1, 0, 0.996195, 0, -0.0871558, 2.61105, 1.19186, 1.07559)
+
+[node name="Box2x5" parent="Node3D" instance=ExtResource("13_uht58")]
+transform = Transform3D(-0.0871558, 0, -0.996195, 0, 1, 0, 0.996195, 0, -0.0871558, -6.48884, 0.800247, 3.93728)
+
+[node name="Box2x8" parent="Node3D" instance=ExtResource("13_uht58")]
+transform = Transform3D(-0.0871558, 0, -0.996195, 0, 1, 0, 0.996195, 0, -0.0871558, -6.53879, 1.93145, 0.937283)
+
+[node name="Box1x3" parent="Node3D" instance=ExtResource("11_e4aop")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.61105, 2.05233, 1.00019)
+
+[node name="Box2x3" parent="Node3D" instance=ExtResource("13_uht58")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.60996, 2.06089, 2.04601)
+
+[node name="FloorShelf" parent="Node3D" instance=ExtResource("14_rrpv3")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.05, 0, -40.861)
+
+[node name="CollisionShape3D2" parent="StaticBody3D" instance=ExtResource("10_mtbs6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.73495, 0, 3.5)
+
+[node name="CollisionShape3D4" parent="StaticBody3D" instance=ExtResource("10_mtbs6")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 2.58003, 0, 1.5)
+
+[node name="CollisionShape3D3" parent="StaticBody3D" instance=ExtResource("10_mtbs6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.42518, 0, 3.5)
+
+[node name="CollisionShape3D5" parent="StaticBody3D" instance=ExtResource("10_mtbs6")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 1, 0, -2, 0, -8.74228e-08, -6.57482, 0, 1.23567)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-3.27835e-08, 0, 1, 0, 0.75, 0, -0.75, 0, -4.37114e-08, -6.1, 0.027, 4)
+shape = SubResource("ConcavePolygonShape3D_e3plo")
+
+[node name="ContemporaryShelves" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_aq3cj")
+mesh = ExtResource("10_x5tm3")
+skeleton = NodePath("../../..")
+
+[node name="switches" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.715, 1.5, -32)
+script = SubResource("GDScript_fah1d")
+item = ExtResource("11_bqfow")
+
+[node name="3d button" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.5)
+
+[node name="3d button2" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+
+[node name="3d button3" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+
+[node name="3d button4" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="3d button5" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="3d button6" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="3d button7" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="3d button8" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="3d button9" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -1.5)
+
+[node name="3d button10" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -1)
+
+[node name="3d button11" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.5)
+
+[node name="3d button12" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="3d button13" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -1.5)
+
+[node name="3d button14" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -1)
+
+[node name="3d button15" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.5)
+
+[node name="3d button16" parent="switches" instance=ExtResource("4_7c172")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf1h0gfkioxhx"]
+
+[ext_resource type="ArrayMesh" uid="uid://bo64v1dg0e2qq" path="res://assets/factory/hanging platform strings.obj" id="1_lu650"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxk76"]
+albedo_color = Color(0.407843, 0.427451, 0.878431, 1)
+
+[node name="hanging strings" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 20, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rxk76")
+mesh = ExtResource("1_lu650")

@@ -1,0 +1,96 @@
+[gd_scene load_steps=24 format=3 uid="uid://3ckp5hyougl0"]
+
+[ext_resource type="Script" path="res://scripts/objects/3d_button.gd" id="1_k0jrn"]
+[ext_resource type="Texture2D" uid="uid://dafhk2sc7rfgq" path="res://assets/Textures/lever0000.png" id="2_le2kq"]
+[ext_resource type="Texture2D" uid="uid://rpdvmpcfoyy" path="res://assets/Textures/lever_base0002.png" id="3_1ji2m"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="3_yjmfm"]
+[ext_resource type="Texture2D" uid="uid://b5ivwb1l4xl54" path="res://assets/Textures/lever0002.png" id="4_mcxjw"]
+[ext_resource type="Texture2D" uid="uid://cfd1s5af4aja1" path="res://assets/Textures/lever_base0005.png" id="4_o76vo"]
+[ext_resource type="Texture2D" uid="uid://h65ntwttqwiy" path="res://assets/Textures/lever_base0000.png" id="5_82mou"]
+[ext_resource type="Texture2D" uid="uid://j2cfvr5a7t8y" path="res://assets/Textures/lever0005.png" id="5_belr3"]
+[ext_resource type="Texture2D" uid="uid://ddtsogpjb18iv" path="res://assets/Textures/lever0001.png" id="6_ecmqj"]
+[ext_resource type="Texture2D" uid="uid://ibb1am7nkkvf" path="res://assets/Textures/lever_base0001.png" id="6_mycha"]
+[ext_resource type="Texture2D" uid="uid://5bf281th3g10" path="res://assets/Textures/lever0003.png" id="7_q8x54"]
+[ext_resource type="Texture2D" uid="uid://c3s2udtxdapbn" path="res://assets/Textures/lever_base0003.png" id="7_yk8wn"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_8ryb4"]
+[ext_resource type="Texture2D" uid="uid://rwycp4i23vy" path="res://assets/Textures/lever_base0004.png" id="9_kka0y"]
+[ext_resource type="Texture2D" uid="uid://cefel2t2kcq5s" path="res://assets/Textures/lever0004.png" id="9_tr30s"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="10_lfxxi"]
+[ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="13_mpt74"]
+[ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="14_8jgcq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_crg15"]
+
+[sub_resource type="Resource" id="Resource_gjb0p"]
+script = ExtResource("8_8ryb4")
+frames = Array[Texture]([ExtResource("5_82mou"), ExtResource("6_mycha"), ExtResource("3_1ji2m"), ExtResource("7_yk8wn"), ExtResource("9_kka0y"), ExtResource("4_o76vo")])
+
+[sub_resource type="GDScript" id="GDScript_cm3tg"]
+script/source = "extends Node3D
+
+var duration = 0.5
+@export var transition:Tween.TransitionType
+
+func _ready():
+	var button = get_parent()
+	button.connect(\"toggled\",_button_toggled.bind())
+	duration = button.duration
+
+@export var sfx_list:AudioList
+func _button_toggled(button_pressed) -> void:
+	var pos = global_position
+	AudioPool.create_sound_3d(pos,sfx_list)
+	var tween = get_tree().create_tween() # Replace with function body.
+	var angle = Vector3(0,0,55)
+	if button_pressed:
+		angle.z = 125
+	tween.tween_property(self,\"rotation_degrees\",angle, duration).set_trans(transition)
+"
+
+[sub_resource type="Resource" id="Resource_ordtx"]
+script = ExtResource("10_lfxxi")
+pitch_range = Vector2(0.5, 0.7)
+volume_range = Vector2(-5, 1)
+streams = Array[AudioStream]([ExtResource("13_mpt74"), ExtResource("14_8jgcq")])
+
+[sub_resource type="Resource" id="Resource_dfrjj"]
+script = ExtResource("8_8ryb4")
+frames = Array[Texture]([ExtResource("2_le2kq"), ExtResource("6_ecmqj"), ExtResource("4_mcxjw"), ExtResource("7_q8x54"), ExtResource("9_tr30s"), ExtResource("5_belr3")])
+
+[node name="3d button" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+script = ExtResource("1_k0jrn")
+duration = 0.3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.1, 0, 0)
+shape = SubResource("BoxShape3D_crg15")
+
+[node name="base" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0, 0)
+axis = 1
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_o76vo")
+script = ExtResource("3_yjmfm")
+sprites = SubResource("Resource_gjb0p")
+face_camera = 1
+
+[node name="lever" type="Node3D" parent="."]
+transform = Transform3D(-0.5, -0.866025, 0, 0.866025, -0.5, 0, 0, 0, 1, 0.1, 0, 0)
+script = SubResource("GDScript_cm3tg")
+transition = 2
+sfx_list = SubResource("Resource_ordtx")
+
+[node name="Sprite3D" type="Sprite3D" parent="lever"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("5_belr3")
+script = ExtResource("3_yjmfm")
+sprites = SubResource("Resource_dfrjj")
+face_camera = 2

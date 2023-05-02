@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://4h8y1noteodj"
+path="res://.godot/imported/2. Blue Chip LOOP.wav-845a1d282987d8b4d4797af3b15f41e8.sample"
+
+[deps]
+
+source_file="res://assets/audio/WAV/2. Blue Chip LOOP.wav"
+dest_files=["res://.godot/imported/2. Blue Chip LOOP.wav-845a1d282987d8b4d4797af3b15f41e8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

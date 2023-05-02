@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bo64v1dg0e2qq"
+path="res://.godot/imported/hanging platform strings.obj-13b194ac46e48444c1b221a8bcfbc81a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/hanging platform strings.obj-13b194ac46e48444c1b221a8bcfbc81a.mesh"]
+
+source_file="res://assets/factory/hanging platform strings.obj"
+dest_files=["res://.godot/imported/hanging platform strings.obj-13b194ac46e48444c1b221a8bcfbc81a.mesh", "res://.godot/imported/hanging platform strings.obj-13b194ac46e48444c1b221a8bcfbc81a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

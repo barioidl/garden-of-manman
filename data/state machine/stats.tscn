@@ -1,0 +1,19 @@
+[gd_scene load_steps=9 format=3 uid="uid://bs1s526y8omgb"]
+
+[ext_resource type="Script" path="res://scripts/modules/stats.gd" id="1_3asjt"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_qjlg8"]
+[ext_resource type="AudioStream" uid="uid://uep6835ru27l" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_carpet_000.ogg" id="3_j6bk3"]
+[ext_resource type="AudioStream" uid="uid://y5t38dxq4h21" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_carpet_001.ogg" id="4_t26k2"]
+[ext_resource type="AudioStream" uid="uid://bi8vi1t2jy7ls" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_carpet_002.ogg" id="5_mtx53"]
+[ext_resource type="AudioStream" uid="uid://d2k2axwa5q6ud" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_carpet_003.ogg" id="6_e2pwv"]
+[ext_resource type="AudioStream" uid="uid://7u4ojoqrg5dp" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_carpet_004.ogg" id="7_er01u"]
+
+[sub_resource type="Resource" id="Resource_i85r6"]
+script = ExtResource("2_qjlg8")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("3_j6bk3"), ExtResource("4_t26k2"), ExtResource("5_mtx53"), ExtResource("6_e2pwv"), ExtResource("7_er01u")])
+
+[node name="stats" type="Node"]
+script = ExtResource("1_3asjt")
+hurt_sounds = SubResource("Resource_i85r6")

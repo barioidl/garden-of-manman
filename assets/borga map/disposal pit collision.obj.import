@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://du6pffak2iq2j"
+path="res://.godot/imported/disposal pit collision.obj-358200a5b9886b3a022fa018fdf20584.mesh"
+
+[deps]
+
+files=["res://.godot/imported/disposal pit collision.obj-358200a5b9886b3a022fa018fdf20584.mesh"]
+
+source_file="res://assets/borga map/disposal pit collision.obj"
+dest_files=["res://.godot/imported/disposal pit collision.obj-358200a5b9886b3a022fa018fdf20584.mesh", "res://.godot/imported/disposal pit collision.obj-358200a5b9886b3a022fa018fdf20584.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

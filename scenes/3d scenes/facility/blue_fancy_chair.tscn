@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://6tbtkwr30efw"]
+
+[ext_resource type="ArrayMesh" uid="uid://djb2uolmirxo2" path="res://assets/factory/blue  fancy chair.obj" id="1_xapdn"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nvpft"]
+points = PackedVector3Array(0.0861848, 0.463605, 0.0492714, -0.1, 0.0046931, -0.100913, -0.1, 0.0046931, 0.0821428, 0.0991963, 2.77556e-17, 0.0841963, 0.0959007, 0.0215109, -0.113758, -0.103651, 0.244567, -0.118651, -0.0987583, 0.438488, 0.0809012, 0.100794, 0.244567, -0.118651, 0.0974997, 0.441912, 0.0824997, -0.0890419, 0.463605, 0.0492714, 0.0971724, 0.00462548, -0.100938, -0.0987579, 0.0215109, -0.113758, -0.103651, 0.448969, 0.0492714, -0.0859519, 0.455365, 0.0821884, 0.100794, 0.448969, 0.0492714, 0.0835897, 0.456685, 0.0827658)
+
+[node name="BlueFancyChair" type="RigidBody3D"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 2.419, 0, 4.637)
+
+[node name="BlueFancyChair" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_xapdn")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_nvpft")

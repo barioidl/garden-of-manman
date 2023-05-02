@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dshtcnlwtaj5b"
+path="res://.godot/imported/coffee shelf.obj-7afa94986bb4a4528c09e27ba48ec763.mesh"
+
+[deps]
+
+files=["res://.godot/imported/coffee shelf.obj-7afa94986bb4a4528c09e27ba48ec763.mesh"]
+
+source_file="res://assets/factory/coffee shelf.obj"
+dest_files=["res://.godot/imported/coffee shelf.obj-7afa94986bb4a4528c09e27ba48ec763.mesh", "res://.godot/imported/coffee shelf.obj-7afa94986bb4a4528c09e27ba48ec763.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

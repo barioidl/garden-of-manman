@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b44htpiyhf3hp"]
+
+[ext_resource type="ArrayMesh" uid="uid://blejce67vo35w" path="res://assets/factory/tv.obj" id="1_qa5pu"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_so6xy"]
+points = PackedVector3Array(-0.184745, -0.00538918, -0.0696349, 0.347835, 0.461968, 0.0064412, 0.347835, 0.461968, -0.037019, -0.347835, 0.461968, 0.0064412, 0.184745, -0.00538918, 0.071673, 0.347835, 0.0598469, -0.037019, -0.184745, -0.00538918, 0.071673, -0.347835, 0.461968, -0.037019, -0.347835, 0.0598469, 0.0064412, 0.184745, -0.00538918, -0.0696349, 0.347835, 0.0598469, 0.0064412, -0.347835, 0.0598469, -0.037019, 0.173917, 0.0163867, 0.071673, -0.173917, 0.0163867, -0.0696349, -0.173917, 0.0163867, 0.071673, 0.173917, 0.0163867, -0.0696349, -0.184745, 0.00549875, 0.071673, 0.184745, 0.00549875, 0.071673, -0.184745, 0.00549875, -0.0696349, 0.184745, 0.00549875, -0.0696349)
+
+[node name="tv" type="RigidBody3D"]
+transform = Transform3D(-0.996195, 0, 0.0871556, 0, 1, 0, -0.0871556, 0, -0.996195, -3.1167, 0.786358, 3.50267)
+
+[node name="Tv" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_qa5pu")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_so6xy")

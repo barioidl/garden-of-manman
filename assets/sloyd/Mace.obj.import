@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://eue373xlvs0l"
+path="res://.godot/imported/Mace.obj-2c136218ed6cbab42a19535fddc472a1.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Mace.obj-2c136218ed6cbab42a19535fddc472a1.mesh"]
+
+source_file="res://assets/sloyd/Mace.obj"
+dest_files=["res://.godot/imported/Mace.obj-2c136218ed6cbab42a19535fddc472a1.mesh", "res://.godot/imported/Mace.obj-2c136218ed6cbab42a19535fddc472a1.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

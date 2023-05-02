@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cib2pcj4k1b60"
+path="res://.godot/imported/Wine Rack.obj-ded1d37d2230744c4f8768180bd79439.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Wine Rack.obj-ded1d37d2230744c4f8768180bd79439.mesh"]
+
+source_file="res://assets/sloyd/Wine Rack.obj"
+dest_files=["res://.godot/imported/Wine Rack.obj-ded1d37d2230744c4f8768180bd79439.mesh", "res://.godot/imported/Wine Rack.obj-ded1d37d2230744c4f8768180bd79439.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

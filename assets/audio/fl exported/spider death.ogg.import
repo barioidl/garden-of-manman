@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bpd8sejvk65kh"
+path="res://.godot/imported/spider death.ogg-4e4c05a6d1282aecf6de46fdeda1bf7c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/fl exported/spider death.ogg"
+dest_files=["res://.godot/imported/spider death.ogg-4e4c05a6d1282aecf6de46fdeda1bf7c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

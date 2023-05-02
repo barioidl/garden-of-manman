@@ -1,0 +1,33 @@
+[gd_scene load_steps=15 format=3 uid="uid://5tj6nyl33ced"]
+
+[ext_resource type="Script" path="res://scripts/modules/platformer.gd" id="1_a6fu5"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_5hp2g"]
+[ext_resource type="AudioStream" uid="uid://ji5lvd670ds2" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_000.ogg" id="3_5shay"]
+[ext_resource type="AudioStream" uid="uid://bg5a0tp0b40xp" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_001.ogg" id="4_14tp1"]
+[ext_resource type="AudioStream" uid="uid://pvmk24nik86k" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_002.ogg" id="5_pvu8i"]
+[ext_resource type="AudioStream" uid="uid://co48n2hwvh20k" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_003.ogg" id="6_cvgfi"]
+[ext_resource type="AudioStream" uid="uid://c5hveyf804l4a" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_004.ogg" id="7_rf1rf"]
+[ext_resource type="AudioStream" uid="uid://bgwm41m36kur8" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_wood_000.ogg" id="8_t3ncr"]
+[ext_resource type="AudioStream" uid="uid://bnr4cbj2wg7p7" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_wood_001.ogg" id="9_g6c4d"]
+[ext_resource type="AudioStream" uid="uid://byv5puymgqih1" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_wood_002.ogg" id="10_nulft"]
+[ext_resource type="AudioStream" uid="uid://dw5i4dap0y752" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_wood_003.ogg" id="11_y7lmx"]
+[ext_resource type="AudioStream" uid="uid://bbscbumm2udm3" path="res://assets/audio/kenney_impact-sounds/Audio/footstep_wood_004.ogg" id="12_x5u6p"]
+
+[sub_resource type="Resource" id="Resource_6bk1g"]
+script = ExtResource("2_5hp2g")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("3_5shay"), ExtResource("4_14tp1"), ExtResource("5_pvu8i"), ExtResource("6_cvgfi"), ExtResource("7_rf1rf")])
+
+[sub_resource type="Resource" id="Resource_78alh"]
+script = ExtResource("2_5hp2g")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("8_t3ncr"), ExtResource("9_g6c4d"), ExtResource("10_nulft"), ExtResource("11_y7lmx"), ExtResource("12_x5u6p")])
+
+[node name="platformer" type="Node"]
+script = ExtResource("1_a6fu5")
+sprint_speed = 1.5
+step_speed = 0.5
+jump_sfx = SubResource("Resource_6bk1g")
+step_sfx = SubResource("Resource_78alh")

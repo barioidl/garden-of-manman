@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c78umtmw64emt"
+path="res://.godot/imported/Cubicals L.obj-a47c7895a6e43751150e624f9c79e26f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cubicals L.obj-a47c7895a6e43751150e624f9c79e26f.mesh"]
+
+source_file="res://assets/sloyd/Cubicals L.obj"
+dest_files=["res://.godot/imported/Cubicals L.obj-a47c7895a6e43751150e624f9c79e26f.mesh", "res://.godot/imported/Cubicals L.obj-a47c7895a6e43751150e624f9c79e26f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

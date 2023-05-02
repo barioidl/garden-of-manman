@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvqsnkankjt6b"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_fuygo"]
+[ext_resource type="ArrayMesh" uid="uid://vbacuigiwgcu" path="res://assets/borga map/room 3.obj" id="2_pgxss"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="3_ili5b"]
+[ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="4_f3qpr"]
+
+[node name="cnc room" type="Node3D"]
+script = ExtResource("1_fuygo")
+areas = [NodePath("../../-4 areas/CNC room"), NodePath("../../-4 areas/Lobby"), NodePath("../../-4 areas/camera room"), NodePath("../../-4 areas/plasma cutter room")]
+
+[node name="Room3" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_pgxss")
+skeleton = NodePath("../../../../..")
+
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -29)
+modulate = Color(0, 0, 1, 1)
+script = ExtResource("3_ili5b")
+item = ExtResource("4_f3qpr")

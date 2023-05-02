@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=3 format=3 uid="uid://dcrrxiwv8shyl"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_7g62r"]
+[ext_resource type="AudioStream" uid="uid://ds2snh802hyay" path="res://assets/audio/fl exported/bird up.mp3" id="2_e0cf2"]
+
+[resource]
+script = ExtResource("1_7g62r")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("2_e0cf2")])

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BillboardSides" load_steps=8 format=3 uid="uid://dhjey0fy4revt"]
+
+[ext_resource type="Texture2D" uid="uid://cqn7rw5emnhsl" path="res://assets/Textures/human naked0002.png" id="1_qnstc"]
+[ext_resource type="Texture2D" uid="uid://blet5n7op6pd5" path="res://assets/Textures/human naked0005.png" id="2_bcsjf"]
+[ext_resource type="Texture2D" uid="uid://cflxdotwanusp" path="res://assets/Textures/human naked0000.png" id="3_en2gv"]
+[ext_resource type="Texture2D" uid="uid://dwwres3d6xg5" path="res://assets/Textures/human naked0001.png" id="4_gvphm"]
+[ext_resource type="Texture2D" uid="uid://c2ywtf1jyo2ki" path="res://assets/Textures/human naked0003.png" id="5_6wsxn"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="6_jo3jw"]
+[ext_resource type="Texture2D" uid="uid://de0qc3u1pbjxx" path="res://assets/Textures/human naked0004.png" id="7_aup43"]
+
+[resource]
+script = ExtResource("6_jo3jw")
+frames = Array[Texture]([ExtResource("3_en2gv"), ExtResource("4_gvphm"), ExtResource("1_qnstc"), ExtResource("5_6wsxn"), ExtResource("7_aup43"), ExtResource("2_bcsjf")])

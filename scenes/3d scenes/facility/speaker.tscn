@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://otrj1kjtockh"]
+
+[ext_resource type="ArrayMesh" uid="uid://bqodnsxw1w41p" path="res://assets/factory/speaker.obj" id="1_6jbnv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c10xg"]
+size = Vector3(0.3, 1.275, 0.3)
+
+[node name="Speaker" type="RigidBody3D"]
+
+[node name="Speaker" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_6jbnv")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.638, 0)
+shape = SubResource("BoxShape3D_c10xg")

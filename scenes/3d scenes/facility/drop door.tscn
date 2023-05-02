@@ -1,0 +1,93 @@
+[gd_scene load_steps=20 format=3 uid="uid://dxoq1or5n41wx"]
+
+[ext_resource type="Script" path="res://scenes/3d scenes/facility/door controller.gd" id="1_585e0"]
+[ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_xvq1m"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_ticx8"]
+[ext_resource type="Script" path="res://scripts/objects/lock.gd" id="2_u7rai"]
+[ext_resource type="AudioStream" uid="uid://le84adcvsr4y" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_1.ogg" id="3_3hgk3"]
+[ext_resource type="AudioStream" uid="uid://c7h4n1akhjho7" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_2.ogg" id="4_g30xk"]
+[ext_resource type="AudioStream" uid="uid://n3fgt15re2q1" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_1.ogg" id="5_dddhu"]
+[ext_resource type="AudioStream" uid="uid://ctix3ut3bravx" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_2.ogg" id="6_tcm6h"]
+[ext_resource type="AudioStream" uid="uid://bt57slhjr1v0p" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_4.ogg" id="7_7nhrt"]
+
+[sub_resource type="Resource" id="Resource_vw06u"]
+script = ExtResource("2_ticx8")
+pitch_range = Vector2(0.1, 0.2)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("3_3hgk3"), ExtResource("4_g30xk")])
+
+[sub_resource type="Resource" id="Resource_xfxpr"]
+script = ExtResource("2_ticx8")
+pitch_range = Vector2(0.1, 0.2)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("5_dddhu"), ExtResource("6_tcm6h"), ExtResource("7_7nhrt")])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nyf5f"]
+size = Vector3(0.2, 6, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iovam"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iefee"]
+albedo_color = Color(1, 0.454902, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vr4sq"]
+material = SubResource("StandardMaterial3D_iefee")
+size = Vector3(0.2, 6, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f8f0v"]
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muxef"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j6k4r"]
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynqvj"]
+
+[node name="door" type="StaticBody3D" node_paths=PackedStringArray("lock")]
+script = ExtResource("1_585e0")
+password = 6
+lock = NodePath("lock")
+door_meshes = [NodePath("top/MeshInstance3D"), NodePath("lock/CollisionShape3D/MeshInstance3D"), NodePath("lock/CollisionShape3D2/MeshInstance3D")]
+door_open_sfx = SubResource("Resource_vw06u")
+door_close_sfx = SubResource("Resource_xfxpr")
+
+[node name="top" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("BoxShape3D_nyf5f")
+script = ExtResource("1_xvq1m")
+duration = 5.0
+open_position = 6.0
+clode_position = 3.0
+direction = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="top"]
+material_override = SubResource("StandardMaterial3D_iovam")
+mesh = SubResource("BoxMesh_vr4sq")
+skeleton = NodePath("../..")
+
+[node name="lock" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.5)
+script = ExtResource("2_u7rai")
+password = 6
+easy_close = true
+cooldown = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="lock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.5)
+shape = SubResource("BoxShape3D_f8f0v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="lock/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_muxef")
+mesh = SubResource("BoxMesh_j6k4r")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="lock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+shape = SubResource("BoxShape3D_f8f0v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="lock/CollisionShape3D2"]
+material_override = SubResource("StandardMaterial3D_ynqvj")
+mesh = SubResource("BoxMesh_j6k4r")
+
+[connection signal="lock_updated" from="lock" to="." method="updated"]
+[connection signal="lock_updated" from="lock" to="top" method="slide"]

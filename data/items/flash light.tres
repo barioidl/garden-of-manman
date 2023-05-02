@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://ddlssuha00ffl"]
+
+[ext_resource type="Texture2D" uid="uid://drjfjfx582ph4" path="res://assets/Textures/flash light0000.png" id="1_uy3b8"]
+[ext_resource type="PackedScene" uid="uid://7kc1g5a4vnch" path="res://scenes/3d scenes/items/flash_light_overworld.tscn" id="2_ooqje"]
+[ext_resource type="Script" path="res://scripts/items/item_data.gd" id="3_4emt4"]
+
+[resource]
+script = ExtResource("3_4emt4")
+id = 1
+name = "flash_light"
+quantity = 1
+max_quantity = 1
+icon = ExtResource("1_uy3b8")
+custom_properties = {}
+prefab = ExtResource("2_ooqje")

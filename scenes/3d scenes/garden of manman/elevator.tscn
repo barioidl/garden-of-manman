@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdygo1vh3hoq"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_jx5q0"]
+[ext_resource type="ArrayMesh" uid="uid://c8nmbyahwi26a" path="res://assets/borga map/elevator.obj" id="2_jecrp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3nvbo"]
+size = Vector3(4, 1, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sn3yd"]
+size = Vector3(4, 1, 4)
+
+[node name="elevator" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5, 0, -20)
+script = ExtResource("1_jx5q0")
+areas = [NodePath("../../render bounds/elevator"), NodePath("../../render bounds/Lobby"), NodePath("../../render bounds/upper lobby"), NodePath("../../render bounds/top floor")]
+
+[node name="Elevator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 0, 20)
+mesh = ExtResource("2_jecrp")
+skeleton = NodePath("../../../../..")
+
+[node name="platform" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_3nvbo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="platform/CollisionShape3D"]
+mesh = SubResource("BoxMesh_sn3yd")

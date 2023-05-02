@@ -1,0 +1,112 @@
+#@tool
+extends Node3D
+class_name CCDIK
+
+@export var target:Node3D
+@export var chain_length:=2
+@export var copy_rotation:=false
+@export var iterations:= 1
+@export var solve_backward:=false
+@export var average_weight:=0.75
+@export var accuracy:=0.01
+@export var max_distance := 100.0
+@export var solve_max_distance := false
+
+var chain_nodes:=Array()
+var constraints:=Array()
+
+func _ready() -> void:
+	average_weight = clampf(average_weight,0,1)
+	set_up()
+	if solve_max_distance:
+		max_distance = get_total_length()
+#		print('IK chain length: ' + str(max_distance))
+
+func _process(delta: float) -> void:
+	solve()
+	
+	if scale_cd >0:
+		scale_cd -= delta
+		return
+	scale_cd = 1
+	reset_scales()
+var scale_cd :=0.0
+func reset_scales():
+	for i in chain_nodes:
+		i.scale = Vector3.ONE
+
+func set_up():
+	var node = get_parent()
+	for i in chain_length:
+		chain_nodes.append(node) 
+		var constraint = node.get_node_or_null('ik_constraint')
+		constraints.append(constraint)
+		
+		node = node.get_parent()
+		if !(node is Node3D):	break
+		if node == get_node('/root'):	break
+	
+	var node_count = chain_nodes.size()
+	if chain_length>node_count:
+		chain_length = node_count
+		print('chain length is too long')
+
+func get_total_length()->float:
+	var total_length:= position.length()
+	for i in chain_length-1:
+		var joint = chain_nodes[i]
+		total_length += joint.position.length()
+	return total_length
+
+func solve():
+	if target == null:return
+	var root_dist :Vector3= target.global_position 
+	root_dist -=chain_nodes[chain_length-1].global_position
+	if root_dist.length_squared() > max_distance*max_distance: return
+	for j in iterations:
+		var dist = target.global_position-global_position
+		if dist.length_squared() < accuracy: return
+		
+		var start := 0
+		if copy_rotation:
+			start +=1
+			copy_target_rotation()
+		if solve_backward:
+			for i in range(start,chain_length,1):
+				solve_joint(i)
+		else:
+			for i in range(chain_length,start,-1):
+				solve_joint(i-1)
+
+func copy_target_rotation():
+	var tip = chain_nodes[0]
+	var constraint = constraints[0]
+	tip.global_rotation = target.global_rotation
+	if constraint == null:return
+	var rotation_deg :Vector3= tip.rotation_degrees
+	var min_angles = constraint.min_angles
+	var max_angles = constraint.max_angles
+	tip.rotation_degrees = rotation_deg.clamp(min_angles,max_angles)
+
+func solve_joint(i:int):
+	var joint :Node3D= chain_nodes[i]
+	var constraint :ik_constraint= constraints[i]
+	#rotate to target
+	var e_i:Vector3=global_position-joint.global_position
+	var t_i:Vector3=target.global_position-joint.global_position
+	if e_i == t_i: return
+	var angle = e_i.angle_to(t_i)
+	if angle < (accuracy):return
+	var weight := average_weight
+	if constraint != null:
+		var max_speed = constraint.max_speed
+		weight = constraint.weight*average_weight
+		angle = clampf(angle*weight,-max_speed,max_speed)
+		if angle ==0: return
+	joint.global_rotate(e_i.cross(t_i).normalized(), angle)
+	#clamp axis
+	if constraint != null:
+		var rotation_deg :Vector3= joint.rotation_degrees
+		var min_angles = constraint.min_angles
+		var max_angles = constraint.max_angles
+		joint.rotation_degrees = rotation_deg.clamp(min_angles,max_angles)

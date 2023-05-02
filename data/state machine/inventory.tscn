@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/modules/inventory.gd" id="1_8pvls"]
+
+[node name="inventory" type="Node"]
+script = ExtResource("1_8pvls")
+inventory_size = 2
+slots = []

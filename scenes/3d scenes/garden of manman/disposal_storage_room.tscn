@@ -1,0 +1,485 @@
+[gd_scene load_steps=15 format=3 uid="uid://ctb27xxr3m3cn"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_masev"]
+[ext_resource type="ArrayMesh" uid="uid://dx3broj3aebqb" path="res://assets/borga map/storage room mesh.obj" id="2_kde2s"]
+[ext_resource type="Resource" uid="uid://bla61rbgx17oc" path="res://data/items/eyejar brown.tres" id="3_4nni0"]
+[ext_resource type="PackedScene" uid="uid://du7sf0vjhjree" path="res://scenes/3d scenes/facility/high_shelf.tscn" id="3_bso4f"]
+[ext_resource type="Resource" uid="uid://di5h1i8a2on1e" path="res://data/items/eyejar red.tres" id="4_44ylj"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="4_gnuuk"]
+[ext_resource type="Resource" uid="uid://ddf6y7ffv0mcm" path="res://data/items/eyejar green.tres" id="5_fqi7d"]
+[ext_resource type="Resource" uid="uid://nt2yha0ae32k" path="res://data/items/eyejar blue.tres" id="6_k15cw"]
+[ext_resource type="Texture2D" uid="uid://cpfpb085plcvy" path="res://assets/Textures/key_card0004.png" id="10_xy52y"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="11_4wbu2"]
+[ext_resource type="Resource" uid="uid://cgcxr80vde6pl" path="res://data/items/key yellow.tres" id="12_5yfd8"]
+
+[sub_resource type="GDScript" id="GDScript_fawar"]
+script/source = "extends StaticBody3D
+
+@export var brown_jar:ItemData
+@export var red_jar:ItemData
+@export var green_jar:ItemData
+@export var blue_jar:ItemData
+
+@export var brown_jar_rate:=10
+@export var red_jar_rate:=2
+@export var green_jar_rate:=4
+@export var blue_jar_rate:=6
+var total_rate:=0
+
+@export var placement_template:Node3D
+@onready var room = get_parent()
+var local_spawnpoints:Array[Vector3]=[]
+
+func _ready() -> void:
+	total_rate = brown_jar_rate+red_jar_rate+green_jar_rate+blue_jar_rate
+	
+	get_spawnpoints()
+	var tween = create_tween()
+	tween.tween_interval(0.1)
+	tween.tween_callback(put_item_on_shelves)
+
+func get_spawnpoints():
+	var spoints = placement_template.get_children()
+	var iterations = spoints.size()
+	local_spawnpoints.resize(iterations)
+	for i in iterations:
+		var pos = spoints[i].position
+		local_spawnpoints[i] = pos
+	placement_template.queue_free()
+
+func put_item_on_shelves():
+	var tween = create_tween()
+	for shelf in get_children():
+		tween.tween_callback(fill_shelf.bind(shelf))
+		tween.tween_interval(0.05)
+
+func fill_shelf(shelf):
+	var points_size = local_spawnpoints.size()
+	var i = randi_range(0,4)
+	while i < points_size:
+		var point = local_spawnpoints[i]
+		var pos = shelf.to_global(point)
+		var jar= select_jar()
+		spawn_jar(pos,jar)
+		i += randi_range(1,30)
+
+func spawn_jar(pos,item):
+	var child = item.prefab.instantiate()
+	child.item = item
+	add_child(child)
+	child.global_position = pos
+
+func select_jar()->ItemData:
+	var rand_id :int= randi_range(0,total_rate)
+	if rand_id <brown_jar_rate:
+		return brown_jar
+	rand_id -= brown_jar_rate
+	
+	if rand_id < red_jar_rate:
+		return red_jar
+	rand_id -= red_jar_rate
+	
+	if rand_id < green_jar_rate:
+		return green_jar
+	rand_id -= green_jar_rate
+	
+#	if rand_id < blue_jar_rate:
+	return blue_jar
+"
+
+[sub_resource type="GDScript" id="GDScript_klqvp"]
+script/source = "extends Node3D
+
+func _on_3d_button_toggled(button_pressed) -> void:
+	for light in get_children():
+		light.switch(button_pressed)
+"
+
+[sub_resource type="GDScript" id="GDScript_smbdb"]
+script/source = "extends OmniLight3D
+@export var enabled:=false
+func _ready() -> void:
+	switch(enabled)
+
+func switch(input):
+	visible = input
+"
+
+[node name="disposal storage room" type="Node3D"]
+script = ExtResource("1_masev")
+areas = [NodePath("../../render bounds/disposable storage"), NodePath("../../render bounds/disposal pit"), NodePath("../../render bounds/camera room")]
+
+[node name="StorageRoomMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_kde2s")
+skeleton = NodePath("../../../../..")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="shelves" type="StaticBody3D" parent="." node_paths=PackedStringArray("placement_template")]
+script = SubResource("GDScript_fawar")
+brown_jar = ExtResource("3_4nni0")
+red_jar = ExtResource("4_44ylj")
+green_jar = ExtResource("5_fqi7d")
+blue_jar = ExtResource("6_k15cw")
+placement_template = NodePath("high shelf/jar position template")
+
+[node name="high shelf" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, -0.75)
+
+[node name="jar position template" type="Node3D" parent="shelves/high shelf"]
+
+[node name="Marker3D" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.3, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0.3, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.3, 0)
+
+[node name="Marker3D4" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.3, 0)
+
+[node name="Marker3D6" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.8, 0)
+
+[node name="Marker3D7" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0.8, 0)
+
+[node name="Marker3D8" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.8, 0)
+
+[node name="Marker3D9" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.8, 0)
+
+[node name="Marker3D10" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1.2, 0)
+
+[node name="Marker3D11" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.2, 0)
+
+[node name="Marker3D12" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 1.2, 0)
+
+[node name="Marker3D13" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 1.2, 0)
+
+[node name="Marker3D14" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1.7, 0)
+
+[node name="Marker3D15" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.7, 0)
+
+[node name="Marker3D16" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 1.7, 0)
+
+[node name="Marker3D17" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 1.7, 0)
+
+[node name="Marker3D18" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 2.1, 0)
+
+[node name="Marker3D19" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 2.1, 0)
+
+[node name="Marker3D20" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 2.1, 0)
+
+[node name="Marker3D21" type="Marker3D" parent="shelves/high shelf/jar position template"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 2.1, 0)
+
+[node name="high shelf7" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, 5)
+
+[node name="high shelf8" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3, 0, 5)
+
+[node name="high shelf2" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 4, 0, -0.75)
+
+[node name="high shelf68" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 2, 0, -0.75)
+
+[node name="high shelf3" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 6, 0, -0.75)
+
+[node name="high shelf4" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 12, 0, -0.75)
+
+[node name="high shelf5" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 12, 0, 5)
+
+[node name="high shelf6" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7, 0, 5)
+
+[node name="high shelf9" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, 10)
+
+[node name="high shelf10" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3, 0, 10)
+
+[node name="high shelf11" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 13.25)
+
+[node name="high shelf44" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 6.75)
+
+[node name="high shelf45" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 1)
+
+[node name="high shelf46" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 3.25)
+
+[node name="high shelf47" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 16.5)
+
+[node name="high shelf48" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 18.75)
+
+[node name="high shelf49" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 21.5)
+
+[node name="high shelf50" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 23.75)
+
+[node name="high shelf51" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 21.5)
+
+[node name="high shelf52" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 23.75)
+
+[node name="high shelf53" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 16.5)
+
+[node name="high shelf54" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 18.75)
+
+[node name="high shelf55" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 11.5)
+
+[node name="high shelf56" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 13.75)
+
+[node name="high shelf57" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 6.5)
+
+[node name="high shelf58" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 8.75)
+
+[node name="high shelf59" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 1.18278)
+
+[node name="high shelf60" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 3.43278)
+
+[node name="high shelf62" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -2.75, 0, 26.75)
+
+[node name="high shelf63" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 12.75, 0, 26.75)
+
+[node name="high shelf12" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7, 0, 10)
+
+[node name="high shelf61" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 11, 0, 10)
+
+[node name="high shelf13" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, 15)
+
+[node name="high shelf14" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3, 0, 15)
+
+[node name="high shelf15" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 12, 0, 15)
+
+[node name="high shelf16" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7, 0, 15)
+
+[node name="high shelf17" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, 20)
+
+[node name="high shelf18" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3, 0, 20)
+
+[node name="high shelf19" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 12, 0, 20)
+
+[node name="high shelf20" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7, 0, 20)
+
+[node name="high shelf21" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, 25)
+
+[node name="high shelf22" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3, 0, 25)
+
+[node name="high shelf23" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 12, 0, 25)
+
+[node name="high shelf24" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7, 0, 25)
+
+[node name="high shelf25" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, 28.5)
+
+[node name="high shelf26" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 2, 0, 28.5)
+
+[node name="high shelf66" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 4, 0, 28.5)
+
+[node name="high shelf27" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 12, 0, 28.5)
+
+[node name="high shelf28" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 8, 0, 28.5)
+
+[node name="high shelf67" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 6, 0, 28.5)
+
+[node name="high shelf64" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 10, 0, 28.5)
+
+[node name="high shelf65" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 28.5)
+
+[node name="high shelf29" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 9.25, 0, 22.5)
+
+[node name="high shelf30" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.5, 0, 22.5)
+
+[node name="high shelf31" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 9.25, 0, 17.5)
+
+[node name="high shelf32" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.5, 0, 17.5)
+
+[node name="high shelf33" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 9.25, 0, 12.5)
+
+[node name="high shelf34" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.5, 0, 12.5)
+
+[node name="high shelf35" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 9.25, 0, 7.5)
+
+[node name="high shelf36" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.5, 0, 7.5)
+
+[node name="high shelf37" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 9.25, 0, 2.5)
+
+[node name="high shelf39" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 5, 0, 22.5)
+
+[node name="high shelf40" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 5, 0, 17.5)
+
+[node name="high shelf41" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 5, 0, 12.5)
+
+[node name="high shelf42" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 5, 0, 7.5)
+
+[node name="high shelf43" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 5, 0, 2.5)
+
+[node name="high shelf38" parent="shelves" instance=ExtResource("3_bso4f")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.5, 0, 2.5)
+
+[node name="lights" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25, 0)
+script = SubResource("GDScript_klqvp")
+
+[node name="bulb" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 13, 0, 4)
+visible = false
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_smbdb")
+
+[node name="bulb3" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 13, 0, 16)
+visible = false
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_smbdb")
+
+[node name="bulb7" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 13, 4.76837e-07, 24)
+visible = false
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_smbdb")
+
+[node name="bulb4" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3, 9.53674e-07, 4)
+visible = false
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_smbdb")
+
+[node name="bulb5" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3, 0, 10)
+visible = false
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_smbdb")
+
+[node name="bulb6" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3, 0, 18)
+visible = false
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_smbdb")
+
+[node name="bulb2" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3, 1.43051e-06, 24)
+visible = false
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_length = 20.0
+omni_range = 10.0
+omni_attenuation = 0.2
+script = SubResource("GDScript_smbdb")
+
+[node name="3d button" parent="." instance=ExtResource("4_gnuuk")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.8, 1, 0)
+
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.5, 22.5)
+modulate = Color(1, 1, 0, 1)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("10_xy52y")
+script = ExtResource("11_4wbu2")
+item = ExtResource("12_5yfd8")
+
+[connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]

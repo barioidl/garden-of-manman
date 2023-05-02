@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BillboardSides" load_steps=8 format=3 uid="uid://md7vpkr5xcdi"]
+
+[ext_resource type="Texture2D" uid="uid://di7qbdj4whxsl" path="res://assets/Textures/moon face0002.png" id="1_gp3k4"]
+[ext_resource type="Texture2D" uid="uid://2alss76jbdw6" path="res://assets/Textures/moon face0005.png" id="2_nyimk"]
+[ext_resource type="Texture2D" uid="uid://cujdgqyl4jwnx" path="res://assets/Textures/moon face0000.png" id="3_4eo68"]
+[ext_resource type="Texture2D" uid="uid://llxiwutr822q" path="res://assets/Textures/moon face0001.png" id="4_0c0b3"]
+[ext_resource type="Texture2D" uid="uid://bnactdmwo6odg" path="res://assets/Textures/moon face0003.png" id="5_63y6i"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="6_n18fy"]
+[ext_resource type="Texture2D" uid="uid://b0yd44qot5h7o" path="res://assets/Textures/moon face0004.png" id="7_3h4m8"]
+
+[resource]
+script = ExtResource("6_n18fy")
+frames = Array[Texture]([ExtResource("3_4eo68"), ExtResource("4_0c0b3"), ExtResource("1_gp3k4"), ExtResource("5_63y6i"), ExtResource("7_3h4m8"), ExtResource("2_nyimk")])

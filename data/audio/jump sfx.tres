@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=7 format=3 uid="uid://cfyfseowrm8sv"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_l6f68"]
+[ext_resource type="AudioStream" uid="uid://ji5lvd670ds2" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_000.ogg" id="2_rn5gh"]
+[ext_resource type="AudioStream" uid="uid://bg5a0tp0b40xp" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_001.ogg" id="3_rftir"]
+[ext_resource type="AudioStream" uid="uid://pvmk24nik86k" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_002.ogg" id="4_phye1"]
+[ext_resource type="AudioStream" uid="uid://co48n2hwvh20k" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_003.ogg" id="5_4j86v"]
+[ext_resource type="AudioStream" uid="uid://c5hveyf804l4a" path="res://assets/audio/kenney_impact-sounds/Audio/impactPlank_medium_004.ogg" id="6_slkvj"]
+
+[resource]
+script = ExtResource("1_l6f68")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("2_rn5gh"), ExtResource("3_rftir"), ExtResource("4_phye1"), ExtResource("5_4j86v"), ExtResource("6_slkvj")])

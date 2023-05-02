@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cjr6ebej08al3"
+path="res://.godot/imported/slide door lock.obj-9317d6af027dc7fc2013362a9046b831.mesh"
+
+[deps]
+
+files=["res://.godot/imported/slide door lock.obj-9317d6af027dc7fc2013362a9046b831.mesh"]
+
+source_file="res://assets/factory/slide door lock.obj"
+dest_files=["res://.godot/imported/slide door lock.obj-9317d6af027dc7fc2013362a9046b831.mesh", "res://.godot/imported/slide door lock.obj-9317d6af027dc7fc2013362a9046b831.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

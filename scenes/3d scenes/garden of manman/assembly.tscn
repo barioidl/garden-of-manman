@@ -1,0 +1,175 @@
+[gd_scene load_steps=14 format=3 uid="uid://cji1p5w5q6tjd"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_e7qpp"]
+[ext_resource type="ArrayMesh" uid="uid://d3pkv3rbrtlps" path="res://assets/borga map/room 5.obj" id="2_mw8lh"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="3_xa1xe"]
+[ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="4_63jnq"]
+[ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="5_4mdgt"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_7cq0s"]
+[ext_resource type="Texture2D" uid="uid://c31wdmh7jp5u6" path="res://assets/Textures/key_card0003.png" id="7_qhq43"]
+[ext_resource type="PackedScene" uid="uid://bb0t0bkhtha43" path="res://scenes/3d scenes/facility/blue_chair.tscn" id="7_vpjkm"]
+[ext_resource type="PackedScene" uid="uid://6tbtkwr30efw" path="res://scenes/3d scenes/facility/blue_fancy_chair.tscn" id="8_jha4t"]
+[ext_resource type="ArrayMesh" uid="uid://bfk44idlnxatj" path="res://assets/factory/big screen.obj" id="10_jhoe8"]
+[ext_resource type="PackedScene" uid="uid://otrj1kjtockh" path="res://scenes/3d scenes/facility/speaker.tscn" id="11_sol71"]
+
+[sub_resource type="GDScript" id="GDScript_bwgd4"]
+script/source = "extends Node3D
+
+func _on_3d_button_toggled(button_pressed) -> void:
+	for light in get_children():
+		light.switch(button_pressed)
+"
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0yufo"]
+points = PackedVector3Array(-0.69567, 0.12823, -0.0643698, 0.69567, 0.910859, 0.0225804, 0.69567, 0.910859, -0.0643698, -0.69567, 0.910859, 0.0225804, 0.69567, 0.12823, 0.0225804, 0.69567, 0.12823, -0.0643698, -0.69567, 0.910859, -0.0643698, -0.69567, 0.12823, 0.0225804)
+
+[node name="assembly" type="Node3D"]
+script = ExtResource("1_e7qpp")
+areas = [NodePath("../../-4 areas/pcb assembly"), NodePath("../../-4 areas/camera room"), NodePath("../../-4 areas/plasma cutter room")]
+
+[node name="Room5" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_mw8lh")
+skeleton = NodePath("../../../../..")
+
+[node name="lights" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.5, 3.4, -52)
+script = SubResource("GDScript_bwgd4")
+
+[node name="ceiling lamp" parent="lights" instance=ExtResource("5_4mdgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+skeleton = NodePath("../..")
+
+[node name="ceiling lamp3" parent="lights" instance=ExtResource("5_4mdgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+skeleton = NodePath("../..")
+
+[node name="3d button" parent="." instance=ExtResource("6_7cq0s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 1.5, -53.5)
+
+[node name="Node3D" type="Node3D" parent="."]
+editor_description = "01100010"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, -52.5)
+
+[node name="BlueChair" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7.5, 0, -4.25)
+
+[node name="BlueChair2" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7, 0, -4.25)
+
+[node name="BlueChair3" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -5, 0, -4.25)
+
+[node name="BlueFancyChair" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -8, 0, -4.25)
+
+[node name="BlueFancyChair2" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -6.5, 0, -4.25)
+
+[node name="BlueFancyChair3" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -6, 0, -4.25)
+
+[node name="BlueFancyChair4" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -5.5, 0, -4.25)
+
+[node name="BlueFancyChair5" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.5, 0, -4.25)
+
+[node name="BlueChair4" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3, 0, -4.25)
+
+[node name="BlueChair5" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.5, 0, -4.25)
+
+[node name="BlueChair6" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -4.25)
+
+[node name="BlueFancyChair6" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.5, 0, -4.25)
+
+[node name="BlueFancyChair7" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, -4.25)
+
+[node name="BlueFancyChair8" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.5, 0, -4.25)
+
+[node name="BlueFancyChair9" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1, 0, -4.25)
+
+[node name="BlueFancyChair10" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.5, 0, -4.25)
+
+[node name="BlueChair7" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.25, 0, -4.25)
+
+[node name="BlueChair8" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.75, 0, -4.25)
+
+[node name="BlueChair9" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.75, 0, -4.25)
+
+[node name="BlueChair10" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.25, 0, -4.25)
+
+[node name="BlueFancyChair11" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.75, 0, -4.25)
+
+[node name="BlueFancyChair12" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.25, 0, -4.25)
+
+[node name="BlueFancyChair15" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.75, 0, -4.25)
+
+[node name="BlueFancyChair16" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.25, 0, -4.25)
+
+[node name="BlueChair11" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.75, 0, -4.25)
+
+[node name="BlueChair12" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 6.25, 0, -4.25)
+
+[node name="BlueChair13" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 7.25, 0, -4.25)
+
+[node name="BlueChair14" parent="Node3D" instance=ExtResource("7_vpjkm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 7.75, 0, -4.25)
+
+[node name="BlueFancyChair13" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.25, 0, -4.25)
+
+[node name="BlueFancyChair14" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 6.75, 0, -4.25)
+
+[node name="BlueFancyChair17" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.25, 0, -4.25)
+
+[node name="BlueFancyChair18" parent="Node3D" instance=ExtResource("8_jha4t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.75, 0, -4.25)
+
+[node name="green key" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 1, -53)
+modulate = Color(0, 1, 0.0313726, 1)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("7_qhq43")
+script = ExtResource("3_xa1xe")
+item = ExtResource("4_63jnq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -47)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -0.147)
+shape = SubResource("ConvexPolygonShape3D_0yufo")
+
+[node name="BigScreen" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = ExtResource("10_jhoe8")
+skeleton = NodePath("../../..")
+
+[node name="Speaker" parent="StaticBody3D" instance=ExtResource("11_sol71")]
+transform = Transform3D(0.888217, 0, 0.459425, 0, 1, 0, -0.459425, 0, 0.888217, 3.53826, 0, -0.5)
+
+[node name="Speaker2" parent="StaticBody3D" instance=ExtResource("11_sol71")]
+transform = Transform3D(0.885799, 0, -0.464069, 0, 1, 0, 0.464069, 0, 0.885799, -3.46174, 0, -0.5)
+
+[connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]

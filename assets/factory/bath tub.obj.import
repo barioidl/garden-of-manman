@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bnda6c747pnps"
+path="res://.godot/imported/bath tub.obj-fe522386d329d360fd412879f135f7f9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bath tub.obj-fe522386d329d360fd412879f135f7f9.mesh"]
+
+source_file="res://assets/factory/bath tub.obj"
+dest_files=["res://.godot/imported/bath tub.obj-fe522386d329d360fd412879f135f7f9.mesh", "res://.godot/imported/bath tub.obj-fe522386d329d360fd412879f135f7f9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

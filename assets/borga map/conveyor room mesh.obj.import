@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://k5ndm18prpga"
+path="res://.godot/imported/conveyor room mesh.obj-49a04cf2808255d1b40e21d968e942b8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/conveyor room mesh.obj-49a04cf2808255d1b40e21d968e942b8.mesh"]
+
+source_file="res://assets/borga map/conveyor room mesh.obj"
+dest_files=["res://.godot/imported/conveyor room mesh.obj-49a04cf2808255d1b40e21d968e942b8.mesh", "res://.godot/imported/conveyor room mesh.obj-49a04cf2808255d1b40e21d968e942b8.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

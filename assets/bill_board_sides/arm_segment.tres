@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BillboardSides" load_steps=8 format=3 uid="uid://bgt5myttrgr3i"]
+
+[ext_resource type="Texture2D" uid="uid://chpwft4ebmd38" path="res://assets/Textures/0002.png" id="1_kqa2i"]
+[ext_resource type="Texture2D" uid="uid://lb8mhyjg3f0j" path="res://assets/Textures/0005.png" id="2_cg4dh"]
+[ext_resource type="Texture2D" uid="uid://dgryml76hg8pb" path="res://assets/Textures/0000.png" id="3_yuv0b"]
+[ext_resource type="Texture2D" uid="uid://bcqporayxlsl4" path="res://assets/Textures/0001.png" id="4_ly6gl"]
+[ext_resource type="Texture2D" uid="uid://web8mggemqwq" path="res://assets/Textures/0003.png" id="5_gbntl"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="6_fm5rn"]
+[ext_resource type="Texture2D" uid="uid://bl83w3ntsbvq" path="res://assets/Textures/0004.png" id="7_s7h4l"]
+
+[resource]
+script = ExtResource("6_fm5rn")
+frames = Array[Texture]([ExtResource("3_yuv0b"), ExtResource("4_ly6gl"), ExtResource("1_kqa2i"), ExtResource("5_gbntl"), ExtResource("7_s7h4l"), ExtResource("2_cg4dh")])

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvblfg4p6toqu"]
+
+[ext_resource type="ArrayMesh" uid="uid://dfg0vj2c0bdxo" path="res://assets/factory/couch set 1.obj" id="1_7gac2"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_t5y8r"]
+points = PackedVector3Array(-0.40442, 0.241027, -0.222778, 0.380192, 0.46, 0.184642, 0.460602, 0.37, 0.181539, -0.48172, 2.77556e-17, 0.190448, 0.466551, 0.00734769, -0.195, -0.380192, 0.46, 0.184642, 0.469778, 0.358111, -0.166889, 0.48172, 2.77556e-17, 0.190448, -0.466551, 0.00734769, -0.195, -0.460602, 0.37, -0.149499, 0.40442, 0.474444, 0.103857, 0.40442, 0.241027, -0.222778, -0.40442, 0.474444, 0.103857, -0.460602, 0.37, 0.181539, -0.466551, 0.328099, -0.195, 0.466551, 0.328099, -0.195, -0.469778, 0.358111, -0.166889, 0.460602, 0.37, -0.149499)
+
+[node name="CouchSet1" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.8592, 0, 6.45818)
+
+[node name="CouchSet1" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 2.13163e-14, 0, 2, 0, -2.13163e-14, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_7gac2")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 2.13163e-14, 0, 2, 0, -2.13163e-14, 0, 2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_t5y8r")

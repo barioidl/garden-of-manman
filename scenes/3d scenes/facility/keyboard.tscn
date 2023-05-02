@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bshnunhokr00h"]
+
+[ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="1_kqw4p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1h50u"]
+size = Vector3(0.280871, 0.027, 0.119177)
+
+[node name="Keyboard" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50234, 0.768816, -7.71016)
+
+[node name="Keyboard" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_kqw4p")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014, 0)
+shape = SubResource("BoxShape3D_1h50u")

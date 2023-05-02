@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4xcxnsym6u2h"]
+
+[sub_resource type="GDScript" id="GDScript_kq8gl"]
+script/source = "extends Node
+
+@export var can_interact:= true
+@export var interact_time:= 0.0
+signal interact
+
+@export var can_attack:= true
+@export var attack_time:= 0.0
+signal attack()
+
+@export var can_skill:= true
+@export var skill_time:= 0.0
+signal skill()
+
+@export var can_item:= true
+@export var item_time:= 0.0
+signal misc
+#---------------------------
+
+
+var time :=0.0
+func _process(delta):
+	time = delta
+
+"
+
+[node name="actions" type="Node"]
+script = SubResource("GDScript_kq8gl")

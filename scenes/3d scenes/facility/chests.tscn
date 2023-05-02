@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyhtga7i6ln0w"]
+
+[ext_resource type="ArrayMesh" uid="uid://dhnp8caujdqgj" path="res://assets/sloyd/Chests.obj" id="1_t2yl7"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i3kqx"]
+points = PackedVector3Array(0.473204, 0.977754, 0.198952, 0.473204, 0.733698, 0.397908, 0.535368, 0.522375, 0.0400309, 0.533691, 0.539315, 0.0400309, 0.473204, 0.977754, -0.199041, -0.473308, 0.977754, 0.198952, 0.0498993, 0.77782, 0.391737, 0.473204, 0, 0.397908, 0.025998, 0.66967, 0.424382, 0.535368, 0.522375, -0.04012, 0.533691, 0.539315, -0.04012, 0.473204, 0.733698, -0.397997, 0.30862, 0.805575, -0.395399, -0.473308, 0.977754, -0.199041, -0.533796, 0.539315, 0.0400309, -0.535473, 0.522375, 0.0400309, -0.473308, 0.733698, 0.397908, -0.0500039, 0.77782, 0.391737, 0.473204, 0, -0.397997, 0.025998, 0.65761, 0.424382, -0.473308, 0, 0.397908, -0.0261027, 0.66967, 0.424382, 0.308725, 0.733698, -0.405225, -0.308725, 0.805575, -0.395399, -0.473308, 0.733698, -0.397997, -0.535473, 0.522375, -0.04012, -0.533796, 0.539315, -0.04012, -0.473308, 0, -0.397997, -0.0261027, 0.65761, 0.424382, -0.30883, 0.733698, -0.405225)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjvl8"]
+albedo_color = Color(0.415686, 0.690196, 0.298039, 1)
+
+[node name="Chests" type="CollisionShape3D"]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 9.15675, 0, 3.93709)
+shape = SubResource("ConvexPolygonShape3D_i3kqx")
+
+[node name="Chests" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_tjvl8")
+mesh = ExtResource("1_t2yl7")
+skeleton = NodePath("../../../../../../..")

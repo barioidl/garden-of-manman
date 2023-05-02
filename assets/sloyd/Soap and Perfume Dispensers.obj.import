@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://buba2i52ax1bj"
+path="res://.godot/imported/Soap and Perfume Dispensers.obj-49f039c6ee6f2195d496a3be3e1fcec9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Soap and Perfume Dispensers.obj-49f039c6ee6f2195d496a3be3e1fcec9.mesh"]
+
+source_file="res://assets/sloyd/Soap and Perfume Dispensers.obj"
+dest_files=["res://.godot/imported/Soap and Perfume Dispensers.obj-49f039c6ee6f2195d496a3be3e1fcec9.mesh", "res://.godot/imported/Soap and Perfume Dispensers.obj-49f039c6ee6f2195d496a3be3e1fcec9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

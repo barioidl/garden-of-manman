@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b82jnj03qbcy8"]
+
+[ext_resource type="ArrayMesh" uid="uid://be7fkmgtc54q0" path="res://assets/factory/plant shelf.obj" id="1_ecq7c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cv5pg"]
+size = Vector3(0.8, 1.76, 0.5)
+
+[node name="PlantShelf" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3.387)
+
+[node name="PlantShelf" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_ecq7c")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
+shape = SubResource("BoxShape3D_cv5pg")

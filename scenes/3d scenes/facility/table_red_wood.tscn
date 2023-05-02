@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bca7k6hv73vxi"]
+
+[ext_resource type="ArrayMesh" uid="uid://rhxjgr8eklts" path="res://assets/factory/table red wood.obj" id="1_um30j"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_t6qs5"]
+points = PackedVector3Array(0.4207, 0.324603, 0.220164, -0.410283, 0, -0.221296, -0.414808, 0.322301, -0.2237, -0.4207, 0.324603, 0.220164, -0.410283, 0, 0.214629, 0.410283, 0, -0.221296, 0.414808, 0.322301, -0.2237, 0.410283, 0, 0.214629)
+
+[node name="TableRedWood" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01823, 0, 6.38073)
+
+[node name="TableRedWood" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_um30j")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_t6qs5")

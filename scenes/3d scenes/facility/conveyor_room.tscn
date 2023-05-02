@@ -1,0 +1,160 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/conveyor belt.gd" id="1_hr61d"]
+
+[sub_resource type="GDScript" id="GDScript_wx0iv"]
+script/source = "extends StaticBody3D
+
+signal activate_belts
+signal reverse_belts
+signal deactivate_belts
+
+#func activate():
+#	emit_signal('activate_belts') 
+#
+#func deacivate():
+#	emit_signal('deactivate_belts') 
+
+
+func button_toggled(button_pressed) -> void:
+	if button_pressed:
+		emit_signal('activate_belts') 
+	else:
+		emit_signal('deactivate_belts') 
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dkeeb"]
+size = Vector3(1.8, 0.1, 43)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m0ht3"]
+size = Vector3(9, 0.1, 1.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2qcsj"]
+size = Vector3(15, 1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utbto"]
+albedo_color = Color(0.352941, 0.337255, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xap22"]
+material = SubResource("StandardMaterial3D_utbto")
+size = Vector3(15, 1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5va2k"]
+size = Vector3(2, 0.5, 43)
+
+[sub_resource type="BoxMesh" id="BoxMesh_maj8c"]
+material = SubResource("StandardMaterial3D_utbto")
+size = Vector3(2, 0.5, 43)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwox0"]
+size = Vector3(9, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vtott"]
+albedo_color = Color(0.352941, 0.337255, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8cyh4"]
+material = SubResource("StandardMaterial3D_vtott")
+size = Vector3(9, 0.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ux2m"]
+size = Vector3(9, 0.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3mree"]
+size = Vector3(9, 0.5, 2)
+
+[node name="conveyor room" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -20)
+script = SubResource("GDScript_wx0iv")
+
+[node name="conveyor belt" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -21.5)
+constant_linear_velocity = Vector3(0, 0, 1)
+script = ExtResource("1_hr61d")
+velocity = Vector3(0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21.5)
+shape = SubResource("BoxShape3D_dkeeb")
+
+[node name="side conveyor belt" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 3)
+constant_linear_velocity = Vector3(-1, 0, 0)
+script = ExtResource("1_hr61d")
+velocity = Vector3(-1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="side conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0, 0)
+shape = SubResource("BoxShape3D_m0ht3")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="side conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0, 11.9995)
+shape = SubResource("BoxShape3D_m0ht3")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="side conveyor belt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0, -11.9995)
+shape = SubResource("BoxShape3D_m0ht3")
+
+[node name="up conveyor belt" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+constant_linear_velocity = Vector3(-1, 1, 0)
+script = ExtResource("1_hr61d")
+velocity = Vector3(-1, 1, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="up conveyor belt"]
+transform = Transform3D(0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 0, 0, 1, -14.6168, 4, 0)
+shape = SubResource("BoxShape3D_2qcsj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="up conveyor belt/CollisionShape3D2"]
+mesh = SubResource("BoxMesh_xap22")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="up conveyor belt"]
+transform = Transform3D(0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 0, 0, 1, -14.6168, 4, 12)
+shape = SubResource("BoxShape3D_2qcsj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="up conveyor belt/CollisionShape3D4"]
+mesh = SubResource("BoxMesh_xap22")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="up conveyor belt"]
+transform = Transform3D(0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 0, 0, 1, -14.6168, 4, -12)
+shape = SubResource("BoxShape3D_2qcsj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="up conveyor belt/CollisionShape3D6"]
+mesh = SubResource("BoxMesh_xap22")
+
+[node name="long base" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.25, 0)
+shape = SubResource("BoxShape3D_5va2k")
+
+[node name="CollisionShape3D" type="MeshInstance3D" parent="long base"]
+mesh = SubResource("BoxMesh_maj8c")
+
+[node name="side base" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.25, 3)
+shape = SubResource("BoxShape3D_uwox0")
+
+[node name="CollisionShape3D" type="MeshInstance3D" parent="side base"]
+mesh = SubResource("BoxMesh_8cyh4")
+
+[node name="side base3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.25, 14.9995)
+shape = SubResource("BoxShape3D_3ux2m")
+
+[node name="CollisionShape3D" type="MeshInstance3D" parent="side base3"]
+mesh = SubResource("BoxMesh_8cyh4")
+
+[node name="side base2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.25, -8.99954)
+shape = SubResource("BoxShape3D_3mree")
+
+[node name="CollisionShape3D" type="MeshInstance3D" parent="side base2"]
+mesh = SubResource("BoxMesh_8cyh4")
+
+[connection signal="activate_belts" from="." to="conveyor belt" method="start"]
+[connection signal="activate_belts" from="." to="side conveyor belt" method="start"]
+[connection signal="activate_belts" from="." to="up conveyor belt" method="start"]
+[connection signal="deactivate_belts" from="." to="conveyor belt" method="stop"]
+[connection signal="deactivate_belts" from="." to="side conveyor belt" method="stop"]
+[connection signal="deactivate_belts" from="." to="up conveyor belt" method="stop"]
+[connection signal="reverse_belts" from="." to="conveyor belt" method="reverse"]
+[connection signal="reverse_belts" from="." to="side conveyor belt" method="reverse"]
+[connection signal="reverse_belts" from="." to="up conveyor belt" method="reverse"]

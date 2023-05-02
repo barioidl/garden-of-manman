@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://btebnhvtt4x02"]
+
+[ext_resource type="ArrayMesh" uid="uid://djshf6nnd80xm" path="res://assets/factory/high lamp.obj" id="1_giaq0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vbyxg"]
+albedo_color = Color(0.67, 0.513667, 0, 1)
+emission_enabled = true
+emission = Color(0.67, 0.513667, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rb8rg"]
+points = PackedVector3Array(-0.0282115, 0.866825, -0.0672944, 0.0127088, 0.716656, 0.0964857, -0.0145661, 0.716656, 0.0964857, 0.0673066, -0.00682539, -0.0672944, -0.0691639, -0.00682539, 0.0691547, -0.0691639, -0.00682539, -0.0672944, -0.0828254, 0.730253, 0.0555173, 0.0673066, -0.00682539, 0.0691547, 0.0809841, 0.743936, -0.053657, 0.0673066, 0.866825, 0.0418799, 0.0127088, 0.730253, -0.0946254, -0.0828254, 0.743936, -0.053657, -0.0691639, 0.853142, 0.0418799, 0.0809841, 0.675607, 0.0555173, 0.0536612, 0.866825, -0.053657, -0.0145661, 0.675607, -0.0946254, -0.0145661, 0.866825, 0.0691547, 0.0673066, 0.702973, 0.0691547, -0.0691639, 0.853142, -0.0400195, -0.0691639, 0.702973, -0.0672944, 0.0673066, 0.716656, -0.0672944, -0.0691639, 0.68929, 0.0691547, 0.0263542, 0.866825, 0.0691547, -0.0828254, 0.675607, -0.053657, 0.0127088, 0.675607, 0.0964857, 0.0809841, 0.743936, 0.0555173, 0.0673066, 0.866825, -0.0400195, -0.0145661, 0.825862, -0.0809693, 0.0809841, 0.675607, -0.053657, -0.0145661, 0.812179, 0.0828296, -0.0828254, 0.675607, 0.0555173, 0.0263542, 0.866825, -0.0672944)
+
+[node name="HighLamp" type="RigidBody3D"]
+
+[node name="HighLamp" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = ExtResource("1_giaq0")
+skeleton = NodePath("../../..")
+surface_material_override/1 = SubResource("StandardMaterial3D_vbyxg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="HighLamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shadow_enabled = true
+omni_range = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_rb8rg")

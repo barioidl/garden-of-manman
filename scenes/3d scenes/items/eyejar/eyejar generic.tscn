@@ -1,0 +1,99 @@
+[gd_scene load_steps=33 format=3 uid="uid://bgw8svxhyt4s5"]
+
+[ext_resource type="Texture2D" uid="uid://bttbjjlkvyh00" path="res://assets/Textures/eye jar 00000.png" id="1_ou174"]
+[ext_resource type="Texture2D" uid="uid://csqkpsbvh7xnu" path="res://assets/Textures/eye jar 00001.png" id="2_stjrf"]
+[ext_resource type="Texture2D" uid="uid://y68u6q4kfykq" path="res://assets/Textures/eye jar 00002.png" id="3_e8w5g"]
+[ext_resource type="Texture2D" uid="uid://uepv7ne7q3xn" path="res://assets/Textures/eye jar 00003.png" id="4_4cpms"]
+[ext_resource type="Texture2D" uid="uid://tfbm6exr23rt" path="res://assets/Textures/eye jar 00004.png" id="5_1a35s"]
+[ext_resource type="Texture2D" uid="uid://bapwb06d3xqf7" path="res://assets/Textures/eye jar 00005.png" id="6_4sbwx"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="6_103j3"]
+[ext_resource type="Texture2D" uid="uid://djh28ut703e11" path="res://assets/Textures/eye jar 10000.png" id="7_t25xw"]
+[ext_resource type="Texture2D" uid="uid://b33svyqta18g8" path="res://assets/Textures/eye jar 10001.png" id="8_qdgmi"]
+[ext_resource type="Texture2D" uid="uid://b1idtvj0gb7md" path="res://assets/Textures/eye jar 10002.png" id="9_28mmk"]
+[ext_resource type="Texture2D" uid="uid://cfhhj61jtwj6e" path="res://assets/Textures/eye jar 10003.png" id="10_qv67m"]
+[ext_resource type="Texture2D" uid="uid://b4gwl8r6yerb1" path="res://assets/Textures/eye jar 10004.png" id="11_gkbh1"]
+[ext_resource type="Texture2D" uid="uid://dt41uxs8b43cy" path="res://assets/Textures/eye jar 10005.png" id="12_4umi4"]
+[ext_resource type="Texture2D" uid="uid://031iv0uy06dq" path="res://assets/Textures/eye jar 20000.png" id="13_jl0ss"]
+[ext_resource type="Texture2D" uid="uid://ckse2utneqem3" path="res://assets/Textures/eye jar 20001.png" id="14_gnp58"]
+[ext_resource type="Texture2D" uid="uid://dw47v4y7urmgr" path="res://assets/Textures/eye jar 20002.png" id="15_y48ap"]
+[ext_resource type="Texture2D" uid="uid://dgvt04e1vdt7v" path="res://assets/Textures/eye jar 20003.png" id="16_5qmnq"]
+[ext_resource type="Texture2D" uid="uid://dq7by25nof35f" path="res://assets/Textures/eye jar 20004.png" id="17_xxkh0"]
+[ext_resource type="Texture2D" uid="uid://7tbfycgu8y2f" path="res://assets/Textures/eye jar 20005.png" id="18_n3sb1"]
+[ext_resource type="Texture2D" uid="uid://6x8yn6swgur7" path="res://assets/Textures/eye jar 30000.png" id="19_av1w3"]
+[ext_resource type="Texture2D" uid="uid://qavwxgcvhc2t" path="res://assets/Textures/eye jar 30001.png" id="20_03new"]
+[ext_resource type="Texture2D" uid="uid://bevr8uc65u7uy" path="res://assets/Textures/eye jar 30002.png" id="21_viml1"]
+[ext_resource type="Texture2D" uid="uid://ccsk451yh4yh4" path="res://assets/Textures/eye jar 30003.png" id="22_x40ov"]
+[ext_resource type="Texture2D" uid="uid://c5dl85t2k2yoa" path="res://assets/Textures/eye jar 30004.png" id="23_n7h81"]
+[ext_resource type="Texture2D" uid="uid://c8yysjle7n8si" path="res://assets/Textures/eye jar 30005.png" id="24_o0ee3"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="25_6v08h"]
+
+[sub_resource type="GDScript" id="GDScript_7vpa8"]
+script/source = "extends ItemOverworld
+
+@export var brown_sprites:BillboardSides
+@export var red_sprites:BillboardSides
+@export var green_sprites:BillboardSides
+@export var blue_sprites:BillboardSides
+
+enum colors{brown,red,green,blue}
+@export var color:=colors.brown
+
+func _ready() -> void:
+	$AnimatedSprite3D.sprites = get_color()
+
+func get_color()->BillboardSides:
+	match color:
+		colors.brown:
+			return brown_sprites
+		colors.red:
+			return red_sprites
+		colors.green:
+			return green_sprites
+		colors.blue:
+			return blue_sprites
+	return brown_sprites
+"
+
+[sub_resource type="Resource" id="Resource_nw28g"]
+script = ExtResource("6_103j3")
+frames = Array[Texture]([ExtResource("1_ou174"), ExtResource("2_stjrf"), ExtResource("3_e8w5g"), ExtResource("4_4cpms"), ExtResource("5_1a35s"), ExtResource("6_4sbwx")])
+
+[sub_resource type="Resource" id="Resource_bi0pm"]
+script = ExtResource("6_103j3")
+frames = Array[Texture]([ExtResource("7_t25xw"), ExtResource("8_qdgmi"), ExtResource("9_28mmk"), ExtResource("10_qv67m"), ExtResource("11_gkbh1"), ExtResource("12_4umi4")])
+
+[sub_resource type="Resource" id="Resource_whypl"]
+script = ExtResource("6_103j3")
+frames = Array[Texture]([ExtResource("13_jl0ss"), ExtResource("14_gnp58"), ExtResource("15_y48ap"), ExtResource("16_5qmnq"), ExtResource("17_xxkh0"), ExtResource("18_n3sb1")])
+
+[sub_resource type="Resource" id="Resource_rb00o"]
+script = ExtResource("6_103j3")
+frames = Array[Texture]([ExtResource("19_av1w3"), ExtResource("20_03new"), ExtResource("21_viml1"), ExtResource("22_x40ov"), ExtResource("23_n7h81"), ExtResource("24_o0ee3")])
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mgenm"]
+height = 0.4
+radius = 0.15
+
+[node name="eyejar generic" type="CharacterBody3D"]
+script = SubResource("GDScript_7vpa8")
+brown_sprites = SubResource("Resource_nw28g")
+red_sprites = SubResource("Resource_bi0pm")
+green_sprites = SubResource("Resource_whypl")
+blue_sprites = SubResource("Resource_rb00o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_mgenm")
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+axis = 1
+shaded = true
+double_sided = false
+texture_filter = 0
+texture = ExtResource("1_ou174")
+script = ExtResource("25_6v08h")
+sprites = SubResource("Resource_nw28g")
+alphacut = 0
+face_camera = 1
+select_cd_range = Vector2(0.5, 4)
+rotate_cd_range = Vector2(0.2, 2)

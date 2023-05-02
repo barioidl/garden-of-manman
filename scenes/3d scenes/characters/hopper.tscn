@@ -1,0 +1,357 @@
+[gd_scene load_steps=63 format=3 uid="uid://bk0gpt7acyutf"]
+
+[ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_73ab1"]
+[ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_yxun5"]
+[ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="3_jmniv"]
+[ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_y37rl"]
+[ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_00syt"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="6_ydnw7"]
+[ext_resource type="AudioStream" uid="uid://cdvne12qw6201" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_002.ogg" id="7_wfdak"]
+[ext_resource type="AudioStream" uid="uid://dm5ugx5hl5oyy" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_003.ogg" id="8_3x3cb"]
+[ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_fuun6"]
+[ext_resource type="Texture2D" uid="uid://cnavpoy7en535" path="res://assets/Textures/hopper face0000.png" id="8_hw8o4"]
+[ext_resource type="AudioStream" uid="uid://bt8p8h7mmaqjp" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_004.ogg" id="9_i8gmt"]
+[ext_resource type="Script" path="res://scripts/modules/head.gd" id="9_v6scq"]
+[ext_resource type="AudioStream" uid="uid://de5pj6sonpstx" path="res://assets/audio/kenney_impact-sounds/Audio/impactSoft_heavy_000.ogg" id="10_or3i5"]
+[ext_resource type="Texture2D" uid="uid://xy7ii2sksbd3" path="res://assets/Textures/hopper face0001.png" id="10_uep5s"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="11_0rio8"]
+[ext_resource type="Texture2D" uid="uid://downsydx5vnkd" path="res://assets/Textures/hopper face0002.png" id="11_7fenw"]
+[ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="11_8v364"]
+[ext_resource type="AudioStream" uid="uid://critbawjgv8sl" path="res://assets/audio/kenney_impact-sounds/Audio/impactSoft_heavy_001.ogg" id="11_o3nem"]
+[ext_resource type="Texture2D" uid="uid://djpodplwqvkt6" path="res://assets/Textures/hopper face0003.png" id="12_8idm8"]
+[ext_resource type="AudioStream" uid="uid://cl11e4xiwnkey" path="res://assets/audio/kenney_impact-sounds/Audio/impactSoft_heavy_002.ogg" id="12_8n7gr"]
+[ext_resource type="AudioStream" uid="uid://bsstgbygtt0ti" path="res://assets/audio/kenney_impact-sounds/Audio/impactSoft_heavy_003.ogg" id="13_7skru"]
+[ext_resource type="Texture2D" uid="uid://b0rdfxiigkskr" path="res://assets/Textures/hopper face0004.png" id="13_p3k3x"]
+[ext_resource type="Texture2D" uid="uid://cylwq1m2dx3h2" path="res://assets/Textures/hopper face0005.png" id="14_5ksj0"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="17_r2vp7"]
+[ext_resource type="Texture2D" uid="uid://dl3bwowias55q" path="res://assets/Textures/hopper leg0017.png" id="17_syugh"]
+[ext_resource type="Texture2D" uid="uid://dgoengb8v53bd" path="res://assets/Textures/hopper leg0012.png" id="18_uyuim"]
+[ext_resource type="Texture2D" uid="uid://co46nt0sox6xu" path="res://assets/Textures/hopper leg0013.png" id="19_gaa1n"]
+[ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="19_sgh8y"]
+[ext_resource type="Texture2D" uid="uid://bsow4841aus5f" path="res://assets/Textures/hopper leg0014.png" id="20_0flgf"]
+[ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="20_hq5f6"]
+[ext_resource type="Texture2D" uid="uid://bwaa1t4gl57x0" path="res://assets/Textures/hopper leg0015.png" id="21_jddra"]
+[ext_resource type="Script" path="res://scripts/procedural animation/leg step animation.gd" id="21_knqcp"]
+[ext_resource type="Texture2D" uid="uid://bn7ywahkh8lie" path="res://assets/Textures/hopper leg0016.png" id="22_eovp7"]
+[ext_resource type="Texture2D" uid="uid://c88vvmxs7vxoj" path="res://assets/Textures/hopper leg0002.png" id="23_ivtdd"]
+[ext_resource type="Texture2D" uid="uid://1ltiliea6lo1" path="res://assets/Textures/hopper leg0007.png" id="23_v64qg"]
+[ext_resource type="Texture2D" uid="uid://b2lnrl7xw1nr4" path="res://assets/Textures/hopper leg0000.png" id="24_2be53"]
+[ext_resource type="Texture2D" uid="uid://cmnku6uf7emxa" path="res://assets/Textures/hopper leg0006.png" id="24_itj4c"]
+[ext_resource type="Texture2D" uid="uid://d1uispw2q4184" path="res://assets/Textures/hopper leg0001.png" id="25_3vqqk"]
+[ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="25_b527h"]
+[ext_resource type="Texture2D" uid="uid://bgnv70iyx43iw" path="res://assets/Textures/hopper leg0008.png" id="25_i2wc0"]
+[ext_resource type="Texture2D" uid="uid://cqwa5wngifqvb" path="res://assets/Textures/hopper leg0003.png" id="26_f381b"]
+[ext_resource type="Texture2D" uid="uid://c2as1u86t7vt1" path="res://assets/Textures/hopper leg0009.png" id="26_i5buv"]
+[ext_resource type="Texture2D" uid="uid://84p3pxs4tt38" path="res://assets/Textures/hopper leg0010.png" id="27_fseed"]
+[ext_resource type="Texture2D" uid="uid://bffye3oa85iti" path="res://assets/Textures/hopper leg0004.png" id="27_hevlx"]
+[ext_resource type="Texture2D" uid="uid://njwm0twj7m3y" path="res://assets/Textures/hopper leg0011.png" id="28_j274b"]
+[ext_resource type="Texture2D" uid="uid://dpd47evr4aw7j" path="res://assets/Textures/hopper leg0005.png" id="28_tw2xt"]
+[ext_resource type="Texture2D" uid="uid://5r6g7lwnrjwj" path="res://assets/Textures/hopper leg0018.png" id="44_xi65v"]
+[ext_resource type="Texture2D" uid="uid://cthw17sndlm0y" path="res://assets/Textures/hopper leg0019.png" id="45_g46sx"]
+[ext_resource type="Texture2D" uid="uid://0rr1h2qas0ib" path="res://assets/Textures/hopper leg0020.png" id="46_cw8pq"]
+[ext_resource type="Texture2D" uid="uid://k8826u31apm0" path="res://assets/Textures/hopper leg0021.png" id="47_mi8nu"]
+[ext_resource type="Texture2D" uid="uid://b7chbjo0o4088" path="res://assets/Textures/hopper leg0022.png" id="48_vjccb"]
+[ext_resource type="Texture2D" uid="uid://dnprl8n548b18" path="res://assets/Textures/hopper leg0023.png" id="49_bfm1t"]
+
+[sub_resource type="GDScript" id="GDScript_b1b5h"]
+script/source = "extends Node
+
+var player
+var player_head
+
+@onready var root = $\"..\"
+@onready var input :Inputs= $\"../inputs\"
+@onready var body = $\"../body\"
+@onready var head = $\"../body/head\"
+
+var is_sun:=true
+
+var target:= Vector3.ZERO
+@export var active_range:=20.0
+@export var jump_range:=20.0
+
+func _ready() -> void:
+	root.connect(\"body_entered\",body_entered.bind())
+#	root.connect(\"body_exited\",body_exited.bind())
+	player = get_tree().get_first_node_in_group('player')
+	if player != null:
+		player_head = player.get_node(\"body/head\")
+
+@export var attack_sfx :AudioList
+func body_entered(body):
+	if body == player:
+		Interface.change_health(player,-3)
+		var pos = root.global_position
+		AudioPool.create_sound_3d(pos,attack_sfx)
+
+var time :=0.0
+func _process(delta: float) -> void:
+	time = delta
+	choose()
+
+var cd:=0.0
+func choose():
+	if cd >0:
+		cd-=time
+		return
+	
+	if player == null: return
+	if get_tree().is_paused():return
+	global_states()
+	
+
+func global_states():
+	var distsq :float=root.global_position. distance_squared_to(player.global_position)
+	
+	var disable_range = active_range +5
+	if distsq > disable_range*disable_range:
+		cd = 1
+		root.visible = false
+		root.process_mode = Node.PROCESS_MODE_DISABLED
+		return
+	
+	if !root.visible:
+		cd = 1
+		root.visible = true
+		root.process_mode = Node.PROCESS_MODE_INHERIT
+	
+	
+	target = player.global_position
+	face_player(target)
+	
+	if distsq > jump_range*jump_range:
+		jump_to_player()
+	else:
+		input.jump = false
+		input.dpad1 = Vector2.ZERO
+
+var jump_cd :=0.0
+func jump_to_player():
+	jump_cd -= time
+	if jump_cd >0:	return
+	jump_cd = 0.2
+	
+	input.emit_signal('jump_pressed')
+	input.jump = true
+	chase_player(target)
+		
+func chase_player(target:Vector3):
+	var target_local = body.to_local(target)
+	target_local.y = 0
+	if target_local.length_squared() <0.5: return
+	var dpad1 := Vector2(target_local.x,target_local.z)
+	if dpad1 != Vector2.ZERO:
+		input.dpad1 = dpad1.normalized()
+
+@export var turn_speed:=50
+func face_player(target:Vector3):
+	var local:Vector3=head.to_local(target)
+	local = local.normalized()
+	var x = clampf(local.x *10,-1,1)*turn_speed
+	var y = clampf(local.y *10,-1,1)*turn_speed
+	input.dpad2.x = x
+	input.dpad2.y = -y
+
+"
+
+[sub_resource type="Resource" id="Resource_bic33"]
+script = ExtResource("6_ydnw7")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("7_wfdak"), ExtResource("8_3x3cb"), ExtResource("9_i8gmt"), ExtResource("10_or3i5"), ExtResource("11_o3nem"), ExtResource("12_8n7gr"), ExtResource("13_7skru")])
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_la7lu"]
+radius = 0.4
+
+[sub_resource type="GDScript" id="GDScript_wgajf"]
+script/source = "extends Node3D
+
+@onready var root:=$'..'
+func _init() -> void:
+	name = 'body'
+func _ready() -> void:
+	owner = root
+	$'../shape'.connect('position_changed',position_changed.bind())
+func position_changed(pos) -> void:
+	position = pos # Replace with function body.
+"
+
+[sub_resource type="Resource" id="Resource_rqyp2"]
+script = ExtResource("17_r2vp7")
+frames = Array[Texture]([ExtResource("8_hw8o4"), ExtResource("10_uep5s"), ExtResource("11_7fenw"), ExtResource("12_8idm8"), ExtResource("13_p3k3x"), ExtResource("14_5ksj0")])
+
+[sub_resource type="Resource" id="Resource_kxq82"]
+script = ExtResource("17_r2vp7")
+frames = Array[Texture]([ExtResource("18_uyuim"), ExtResource("19_gaa1n"), ExtResource("20_0flgf"), ExtResource("21_jddra"), ExtResource("22_eovp7"), ExtResource("17_syugh")])
+
+[sub_resource type="Resource" id="Resource_665qg"]
+script = ExtResource("17_r2vp7")
+frames = Array[Texture]([ExtResource("24_itj4c"), ExtResource("23_v64qg"), ExtResource("25_i2wc0"), ExtResource("26_i5buv"), ExtResource("27_fseed"), ExtResource("28_j274b")])
+
+[sub_resource type="Resource" id="Resource_8g876"]
+script = ExtResource("17_r2vp7")
+frames = Array[Texture]([ExtResource("24_2be53"), ExtResource("25_3vqqk"), ExtResource("23_ivtdd"), ExtResource("26_f381b"), ExtResource("27_hevlx"), ExtResource("28_tw2xt")])
+
+[sub_resource type="Resource" id="Resource_2dvs4"]
+script = ExtResource("17_r2vp7")
+frames = Array[Texture]([ExtResource("44_xi65v"), ExtResource("45_g46sx"), ExtResource("46_cw8pq"), ExtResource("47_mi8nu"), ExtResource("48_vjccb"), ExtResource("49_bfm1t")])
+
+[sub_resource type="BoxMesh" id="BoxMesh_n7cik"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="hopper" type="RigidBody3D"]
+gravity_scale = 1.5
+script = ExtResource("1_73ab1")
+
+[node name="inputs" parent="." instance=ExtResource("2_yxun5")]
+
+[node name="platformer" parent="." instance=ExtResource("3_jmniv")]
+horizontal_speed = 10.0
+sneak_speed = 0.4
+jump_height = 6.0
+extra_jumps = 0
+
+[node name="stats" parent="." instance=ExtResource("4_y37rl")]
+
+[node name="fps aim" parent="." instance=ExtResource("5_00syt")]
+
+[node name="brain" type="Node" parent="."]
+process_mode = 3
+script = SubResource("GDScript_b1b5h")
+jump_range = 5.0
+attack_sfx = SubResource("Resource_bic33")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_la7lu")
+script = ExtResource("8_fuun6")
+crouch_height = 1.5
+
+[node name="body" type="Node3D" parent="."]
+script = SubResource("GDScript_wgajf")
+
+[node name="head" type="Node3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("9_v6scq")
+normal_height = 1.5
+crouch_height = 1.25
+
+[node name="body" type="Node3D" parent="body"]
+
+[node name="Sprite3D2" type="Sprite3D" parent="body/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0.1)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("8_hw8o4")
+region_rect = Rect2(42, 41, 29, 31)
+script = ExtResource("11_0rio8")
+sprites = SubResource("Resource_rqyp2")
+
+[node name="leg" type="Node3D" parent="body/body"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.75, 0)
+
+[node name="ik_constraint" type="Node" parent="body/body/leg"]
+script = ExtResource("11_8v364")
+min_angles = Vector3(-45, -60, -60)
+max_angles = Vector3(45, 60, 60)
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg"]
+transform = Transform3D(1, 0, 0, 0, -1, -1.50996e-07, 0, 1.50996e-07, -1, 0, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("17_syugh")
+script = ExtResource("11_0rio8")
+sprites = SubResource("Resource_kxq82")
+select_cd_range = Vector2(0.1, 2)
+
+[node name="leg" type="Node3D" parent="body/body/leg"]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="body/body/leg/leg"]
+script = ExtResource("11_8v364")
+min_angles = Vector3(-720, -30, -30)
+max_angles = Vector3(720, 30, 30)
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg/leg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("28_j274b")
+script = ExtResource("11_0rio8")
+sprites = SubResource("Resource_665qg")
+select_cd_range = Vector2(0.1, 2)
+
+[node name="leg br" type="Node3D" parent="body/body/leg/leg"]
+transform = Transform3D(0.999999, 0, 0, 0, 0.707106, -0.707107, 0, 0.707106, 0.707107, 0, -1, -1.49012e-08)
+
+[node name="ik_constraint" type="Node" parent="body/body/leg/leg/leg br"]
+script = ExtResource("11_8v364")
+min_angles = Vector3(-720, -30, -30)
+max_angles = Vector3(720, 30, 30)
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg/leg/leg br"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("28_tw2xt")
+script = ExtResource("11_0rio8")
+sprites = SubResource("Resource_8g876")
+select_cd_range = Vector2(0.1, 2)
+
+[node name="foot" type="Node3D" parent="body/body/leg/leg/leg br"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ik_constraint" type="Node" parent="body/body/leg/leg/leg br/foot"]
+script = ExtResource("11_8v364")
+min_angles = Vector3(-720, -30, -30)
+max_angles = Vector3(720, 30, 30)
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg/leg/leg br/foot"]
+transform = Transform3D(1, 0, 0, 0, 0.0871559, 0.996195, 0, -0.996195, 0.0871559, 0, -0.1, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("49_bfm1t")
+script = ExtResource("11_0rio8")
+sprites = SubResource("Resource_2dvs4")
+select_cd_range = Vector2(0.1, 2)
+
+[node name="IK" type="Node3D" parent="body/body/leg/leg/leg br/foot" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.9738e-14, 1, 0, -0.3, 0)
+rotation_edit_mode = 1
+script = ExtResource("25_b527h")
+target = NodePath("../../../../../../feet casters/feet/leg ik tl")
+chain_length = 4
+copy_rotation = true
+
+[node name="feet casters" type="Node3D" parent="body"]
+script = ExtResource("19_sgh8y")
+step_duration = 0.25
+legs = [NodePath("feet/leg ik tl")]
+offset = 10.0
+body_pos = Vector3(0, 0.1, 0)
+body_mid_pos = Vector3(0, -0.1, 0)
+
+[node name="feet" type="RayCast3D" parent="body/feet casters"]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
+exclude_parent = false
+target_position = Vector3(0, -2, 1)
+script = ExtResource("20_hq5f6")
+
+[node name="leg ik tl" type="Marker3D" parent="body/feet casters/feet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2716, 0.32721)
+top_level = true
+script = ExtResource("21_knqcp")
+step_distance = 0.5
+step_height = 0.2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/feet casters/feet/leg ik tl"]
+mesh = SubResource("BoxMesh_n7cik")

@@ -1,0 +1,355 @@
+[gd_scene load_steps=19 format=3 uid="uid://bfnn3wq2r476j"]
+
+[ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_yvqmc"]
+[ext_resource type="ArrayMesh" uid="uid://bud257jx4cy8q" path="res://assets/borga map/disposal pit mesh.obj" id="2_myn5q"]
+[ext_resource type="PackedScene" uid="uid://cchfco5i7ybjy" path="res://scenes/3d scenes/facility/shutter.tscn" id="3_4fwgt"]
+[ext_resource type="PackedScene" uid="uid://fbskajw2hjb7" path="res://scenes/3d scenes/facility/attached_platform.tscn" id="4_1s2vx"]
+[ext_resource type="PackedScene" uid="uid://dljnsowyktm2" path="res://scenes/3d scenes/facility/hanging_platform.tscn" id="5_rgvsn"]
+[ext_resource type="PackedScene" uid="uid://bf1h0gfkioxhx" path="res://scenes/3d scenes/facility/hanging_strings.tscn" id="6_usfqs"]
+[ext_resource type="Texture2D" uid="uid://cpfpb085plcvy" path="res://assets/Textures/key_card0004.png" id="7_fea1j"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_l3o7c"]
+[ext_resource type="Resource" uid="uid://b3elydd8a3xp5" path="res://data/items/key generic.tres" id="8_ihofh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ea8x"]
+size = Vector3(1.5, 0.4, 3.97601)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mbn3a"]
+size = Vector3(1.5, 0.4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wcfaw"]
+size = Vector3(1.5, 0.4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d2uuw"]
+size = Vector3(1.5, 0.4, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4w1s"]
+size = Vector3(1.5, 0.4, 5)
+
+[sub_resource type="GDScript" id="GDScript_vo5xc"]
+script/source = "extends Area3D
+
+func _ready() -> void:
+	connect('body_entered',body_entered)
+
+var time :=0.0
+var scanning :=false
+func _process(delta: float) -> void:
+	if !scanning:return
+	time -= delta
+	if time >0:return
+	time = 1
+	var bodies = get_overlapping_bodies()
+	if bodies.size() <=0:
+		scanning = false
+		return
+	for body in bodies:
+		if !body.is_in_group('character'):
+			body.queue_free()
+		else:
+			Interface.change_health(body,-1)
+
+func body_entered(body):
+	scanning = true
+	time = 1
+	if body is RigidBody3D:
+		Interface.change_health(body,-1)
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gbwtc"]
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hndcf"]
+albedo_color = Color(0.415686, 0.690196, 0.298039, 1)
+emission_enabled = true
+emission = Color(0.729412, 0.862745, 0.345098, 1)
+emission_energy_multiplier = 0.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_mttlx"]
+material = SubResource("StandardMaterial3D_hndcf")
+size = Vector2(20, 20)
+orientation = 1
+
+[node name="disposal pit" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 11)
+script = ExtResource("1_yvqmc")
+areas = [NodePath("../../render bounds/disposal pit"), NodePath("../../render bounds/conveyor room"), NodePath("../../render bounds/disposable storage"), NodePath("../../render bounds/kitchen")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="DisposalPitMesh" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -11)
+mesh = ExtResource("2_myn5q")
+skeleton = NodePath("../../../../../..")
+
+[node name="shutter4" parent="StaticBody3D" instance=ExtResource("3_4fwgt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 10.5, -10.3234)
+
+[node name="shutter5" parent="StaticBody3D" instance=ExtResource("3_4fwgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1072, 14.9605, 5)
+
+[node name="shutter9" parent="StaticBody3D" instance=ExtResource("3_4fwgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1547, 23.9698, -5)
+
+[node name="shutter10" parent="StaticBody3D" instance=ExtResource("3_4fwgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2.75, -1)
+
+[node name="shutter6" parent="StaticBody3D" instance=ExtResource("3_4fwgt")]
+transform = Transform3D(1, 0, 0, 0, 1.4, 0, 0, 0, 1, 10.5, 5.47206, -1)
+
+[node name="belt" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.5, 3.25, -1)
+shape = SubResource("BoxShape3D_8ea8x")
+metadata/_edit_group_ = true
+
+[node name="belt2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 13.2, 5)
+shape = SubResource("BoxShape3D_mbn3a")
+metadata/_edit_group_ = true
+
+[node name="belt4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 8.2, -10.5)
+shape = SubResource("BoxShape3D_wcfaw")
+metadata/_edit_group_ = true
+
+[node name="belt5" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 22.7, -11.946)
+shape = SubResource("BoxShape3D_d2uuw")
+metadata/_edit_group_ = true
+
+[node name="belt3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.5, 22.2, -5)
+shape = SubResource("BoxShape3D_g4w1s")
+metadata/_edit_group_ = true
+
+[node name="attached_platform" parent="StaticBody3D" instance=ExtResource("4_1s2vx")]
+transform = Transform3D(4.96929, 0.224951, 0, -1.14725, 0.97437, 0, 0, 0, 1, 1, -0.15, -9)
+
+[node name="attached_platform2" parent="StaticBody3D" instance=ExtResource("4_1s2vx")]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -9)
+
+[node name="attached_platform5" parent="StaticBody3D" instance=ExtResource("4_1s2vx")]
+transform = Transform3D(0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 1, -9.1, -0.5, -1)
+
+[node name="attached_platform3" parent="StaticBody3D" instance=ExtResource("4_1s2vx")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, -9)
+
+[node name="attached_platform4" parent="StaticBody3D" instance=ExtResource("4_1s2vx")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 8, 14, 9)
+
+[node name="hanging platform2" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.25, -5.5)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform2" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform11" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 12, -5.5)
+
+[node name="hanging platform25" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 21.5, -5.5)
+
+[node name="hanging platform14" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 10, 3)
+
+[node name="hanging platform23" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.5, 3)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform23" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform34" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 7, 7)
+
+[node name="hanging platform36" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 15, 7)
+
+[node name="hanging platform44" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 21, 7)
+
+[node name="hanging platform35" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, -0.5, 7)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform35" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform21" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 18, 3)
+
+[node name="hanging platform15" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 11, 5)
+
+[node name="hanging platform31" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 6, 5)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform31" instance=ExtResource("6_usfqs")]
+transform = Transform3D(1, 0, 0, 0, 20, 0, 0, 0, 1, 0, -7, 0)
+
+[node name="hanging platform22" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 17.25, 5)
+
+[node name="hanging platform3" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform3" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform13" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 0)
+
+[node name="hanging platform27" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="hanging platform5" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2.5, 4)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform5" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform17" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 12, 4)
+
+[node name="hanging platform40" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 21, 4)
+
+[node name="hanging platform18" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 11.5, -1)
+
+[node name="hanging platform33" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, -1)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform33" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform29" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 19, -1)
+
+[node name="hanging platform39" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 22.5, -1)
+
+[node name="hanging platform8" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 4.5, -5.5)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform8" instance=ExtResource("6_usfqs")]
+transform = Transform3D(1, 0, 0, 0, 20, 0, 0, 0, 1, 0, -5, 0)
+
+[node name="hanging platform37" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 21.5, -5.5)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform37" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform38" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 13.5, -5.5)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform38" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform9" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 7, -5.5)
+
+[node name="hanging platform30" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2, -5.5)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform30" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform28" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 18, -5.5)
+
+[node name="hanging platform10" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 9.5, -6)
+
+[node name="hanging platform32" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5, -6)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform32" instance=ExtResource("6_usfqs")]
+transform = Transform3D(1, 0, 0, 0, 20, 0, 0, 0, 1, 0, -5, 0)
+
+[node name="hanging platform16" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 17, -6)
+
+[node name="hanging platform41" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 22, -6)
+
+[node name="hanging platform6" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform6" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform20" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 5)
+
+[node name="hanging platform42" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 5)
+
+[node name="hanging platform7" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 7)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform7" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform19" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 15, 7)
+
+[node name="hanging platform43" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 20, 7)
+
+[node name="hanging platform4" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -2)
+
+[node name="hanging strings" parent="StaticBody3D/hanging platform4" instance=ExtResource("6_usfqs")]
+
+[node name="hanging platform12" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 9, -2)
+
+[node name="hanging platform24" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 17, -2)
+
+[node name="hanging platform26" parent="StaticBody3D" instance=ExtResource("5_rgvsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 21, -2)
+
+[node name="acid" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+collision_layer = 0
+collision_mask = 129
+script = SubResource("GDScript_vo5xc")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="acid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_gbwtc")
+
+[node name="acid surface" type="MeshInstance3D" parent="acid"]
+mesh = SubResource("QuadMesh_mttlx")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="acid/acid surface"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+light_color = Color(0.415686, 0.690196, 0.298039, 1)
+light_energy = 0.2
+shadow_enabled = true
+omni_range = 15.0
+omni_attenuation = 0.1
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="acid/acid surface"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+light_color = Color(0.415686, 0.690196, 0.298039, 1)
+light_energy = 0.2
+shadow_enabled = true
+omni_range = 15.0
+omni_attenuation = 0.1
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="acid/acid surface"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+light_color = Color(0.415686, 0.690196, 0.298039, 1)
+light_energy = 0.2
+shadow_enabled = true
+omni_range = 15.0
+omni_attenuation = 0.1
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="acid/acid surface"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+light_color = Color(0.415686, 0.690196, 0.298039, 1)
+light_energy = 0.2
+shadow_enabled = true
+omni_range = 15.0
+omni_attenuation = 0.1
+
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.46864, 14.3105, 8.89658)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("7_fea1j")
+script = ExtResource("7_l3o7c")
+item = ExtResource("8_ihofh")

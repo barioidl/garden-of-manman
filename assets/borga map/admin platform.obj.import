@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b1f7erti8b3jw"
+path="res://.godot/imported/admin platform.obj-71769afc101d70f282aef2c527ae6e09.mesh"
+
+[deps]
+
+files=["res://.godot/imported/admin platform.obj-71769afc101d70f282aef2c527ae6e09.mesh"]
+
+source_file="res://assets/borga map/admin platform.obj"
+dest_files=["res://.godot/imported/admin platform.obj-71769afc101d70f282aef2c527ae6e09.mesh", "res://.godot/imported/admin platform.obj-71769afc101d70f282aef2c527ae6e09.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

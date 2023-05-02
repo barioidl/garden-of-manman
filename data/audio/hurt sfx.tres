@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=7 format=3 uid="uid://cgv2xg7u6mdmk"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_47l77"]
+[ext_resource type="AudioStream" uid="uid://cpkkuvey0aphm" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_000.ogg" id="2_vqkke"]
+[ext_resource type="AudioStream" uid="uid://bmarsit8tp23h" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_001.ogg" id="3_60psv"]
+[ext_resource type="AudioStream" uid="uid://cdvne12qw6201" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_002.ogg" id="4_maok4"]
+[ext_resource type="AudioStream" uid="uid://dm5ugx5hl5oyy" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_003.ogg" id="5_m13sj"]
+[ext_resource type="AudioStream" uid="uid://bt8p8h7mmaqjp" path="res://assets/audio/kenney_impact-sounds/Audio/impactPunch_medium_004.ogg" id="6_ds7e0"]
+
+[resource]
+script = ExtResource("1_47l77")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("2_vqkke"), ExtResource("3_60psv"), ExtResource("4_maok4"), ExtResource("5_m13sj"), ExtResource("6_ds7e0")])

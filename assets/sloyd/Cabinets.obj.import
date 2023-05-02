@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c8osi5hehycft"
+path="res://.godot/imported/Cabinets.obj-9ee04f8bbf24a14e1a36d6603ae24c37.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cabinets.obj-9ee04f8bbf24a14e1a36d6603ae24c37.mesh"]
+
+source_file="res://assets/sloyd/Cabinets.obj"
+dest_files=["res://.godot/imported/Cabinets.obj-9ee04f8bbf24a14e1a36d6603ae24c37.mesh", "res://.godot/imported/Cabinets.obj-9ee04f8bbf24a14e1a36d6603ae24c37.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8w550sq1alti"]
+
+[ext_resource type="ArrayMesh" uid="uid://dt22i2ieaff2j" path="res://assets/factory/office chair.obj" id="1_xf8ka"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ufrem"]
+size = Vector3(0.14, 0.465, 0.14)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hmqg1"]
+size = Vector3(0.6, 0.0891309, 0.53315)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jcohw"]
+size = Vector3(0.540082, 0.720767, 0.122903)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sjpvw"]
+height = 0.05
+radius = 0.3
+
+[node name="OfficeChair" type="RigidBody3D"]
+transform = Transform3D(1.94707e-07, 0, -1, 0, 1, 0, 1, 0, 1.94707e-07, 0, 0, 0)
+mass = 2.0
+linear_damp = 1.0
+angular_damp = 1.0
+
+[node name="OfficeChair" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_xf8ka")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.96224e-10, 0.233, 0.00460294)
+shape = SubResource("BoxShape3D_ufrem")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.66356e-09, 0.424874, -0.0394953)
+shape = SubResource("BoxShape3D_hmqg1")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.95914e-08, 0.857553, 0.259698)
+shape = SubResource("BoxShape3D_jcohw")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0.005)
+shape = SubResource("CylinderShape3D_sjpvw")

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb0t0bkhtha43"]
+
+[ext_resource type="ArrayMesh" uid="uid://dswfxoi5kwpt3" path="res://assets/factory/blue chair.obj" id="1_xfq7q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h4rle"]
+size = Vector3(0.394415, 0.485, 0.408368)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n2e76"]
+size = Vector3(0.394415, 0.485, 0.0658171)
+
+[node name="BlueChair" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="BlueChair" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_xfq7q")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.242, 0)
+shape = SubResource("BoxShape3D_h4rle")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 5.03598e-09, 0.676358, 0.16898)
+shape = SubResource("BoxShape3D_n2e76")

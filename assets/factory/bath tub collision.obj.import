@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ewvah61r2ghf"
+path="res://.godot/imported/bath tub collision.obj-a6a84f263f5aeb48bac1a8cf60158f5d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bath tub collision.obj-a6a84f263f5aeb48bac1a8cf60158f5d.mesh"]
+
+source_file="res://assets/factory/bath tub collision.obj"
+dest_files=["res://.godot/imported/bath tub collision.obj-a6a84f263f5aeb48bac1a8cf60158f5d.mesh", "res://.godot/imported/bath tub collision.obj-a6a84f263f5aeb48bac1a8cf60158f5d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

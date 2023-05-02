@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgxcgakxd0p17"]
+
+[ext_resource type="ArrayMesh" uid="uid://cgfwt17xqtehv" path="res://assets/factory/laptop.obj" id="1_aflvj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wdhms"]
+size = Vector3(0.415803, 0.02, 0.255538)
+
+[node name="laptop" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+center_of_mass_mode = 1
+linear_damp = 10.0
+angular_damp = 10.0
+
+[node name="Laptop" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = ExtResource("1_aflvj")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+shape = SubResource("BoxShape3D_wdhms")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.397452, 0.917623, 0, -0.917623, 0.397452, 0, 0.121215, 0.172136)
+shape = SubResource("BoxShape3D_wdhms")

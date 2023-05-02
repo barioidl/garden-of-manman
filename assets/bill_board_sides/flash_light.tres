@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BillboardSides" load_steps=8 format=3 uid="uid://dxlxd7palu4s0"]
+
+[ext_resource type="Texture2D" uid="uid://1vqvrkw4iih0" path="res://assets/Textures/flash light0002.png" id="1_2l0dr"]
+[ext_resource type="Texture2D" uid="uid://cgvrq000r3chi" path="res://assets/Textures/flash light0005.png" id="2_icsi1"]
+[ext_resource type="Texture2D" uid="uid://drjfjfx582ph4" path="res://assets/Textures/flash light0000.png" id="3_p5t1f"]
+[ext_resource type="Texture2D" uid="uid://dlx8qraife6di" path="res://assets/Textures/flash light0001.png" id="4_jma35"]
+[ext_resource type="Texture2D" uid="uid://bbhyboy3qerqj" path="res://assets/Textures/flash light0003.png" id="5_tdivb"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="6_87xni"]
+[ext_resource type="Texture2D" uid="uid://50jcjwl0sgnp" path="res://assets/Textures/flash light0004.png" id="7_sh7e3"]
+
+[resource]
+script = ExtResource("6_87xni")
+frames = Array[Texture]([ExtResource("3_p5t1f"), ExtResource("4_jma35"), ExtResource("1_2l0dr"), ExtResource("5_tdivb"), ExtResource("7_sh7e3"), ExtResource("2_icsi1")])

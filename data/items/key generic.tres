@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://b3elydd8a3xp5"]
+
+[ext_resource type="Texture2D" uid="uid://cpfpb085plcvy" path="res://assets/Textures/key_card0004.png" id="1_p6d0g"]
+[ext_resource type="Script" path="res://scripts/items/item_data.gd" id="3_dniov"]
+[ext_resource type="PackedScene" uid="uid://cbi4o4f457egt" path="res://scenes/3d scenes/items/key cards/generic_key_overworld.tscn" id="3_hlbt2"]
+
+[resource]
+script = ExtResource("3_dniov")
+id = 6
+name = "generic_key"
+quantity = 1
+max_quantity = 1
+icon = ExtResource("1_p6d0g")
+custom_properties = {}
+prefab = ExtResource("3_hlbt2")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=3 format=3 uid="uid://duy4eq8ii5263"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_6v8js"]
+[ext_resource type="AudioStream" uid="uid://bm44g8fpxx2nx" path="res://assets/audio/fl exported/spider hunt.ogg" id="2_rthe8"]
+
+[resource]
+script = ExtResource("1_6v8js")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("2_rthe8")])

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://dchaj8okv8xr3"]
+
+[sub_resource type="GDScript" id="GDScript_1480n"]
+script/source = "extends Node
+
+var input
+var body
+var platformer
+
+var cool_down :=0.0
+
+@export var can_climb:=true
+@export var climb_speed:=1.0
+
+@export var can_wall_grab:=true
+@export var wall_grab_duration:=0.5
+@export var wall_fall_speed:=0.5
+var wall_grab_time:=0.0
+
+@export var can_wall_jump:=true
+@export var wall_jump_speed:=1.0
+@export var wall_jump_height:=1.0
+"
+
+[node name="climb" type="Node"]
+process_mode = 4
+script = SubResource("GDScript_1480n")
