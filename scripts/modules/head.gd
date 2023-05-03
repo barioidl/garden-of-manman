@@ -16,7 +16,6 @@ func _ready() -> void:
 
 func get_dependencies():
 	if hotbar != null:
-		print('connect hotbar')
 		input.connect('drop_pressed',drop_start)
 		input.connect('drop_released',drop_stop)
 		
@@ -62,7 +61,6 @@ func misc():
 	use_item(2)
 
 func use_item(id:int):
-	print('use item')
 	if hotbar.hotbar_items.size() < id: return
 	var item = hotbar.hotbar_items[id]
 	if item == null: 
