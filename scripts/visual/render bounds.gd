@@ -37,12 +37,11 @@ func update_area(delta):
 		disable()
 
 func enable():
-#	print("enter") # Replace with function body.
 	for node in get_children():
 		node.process_mode = Node.PROCESS_MODE_INHERIT
 		node.visible = true
+
 func disable():
-#	print("exit") # Replace with function body.
 	for node in get_children():
 		node.process_mode = Node.PROCESS_MODE_DISABLED
 		node.visible = false

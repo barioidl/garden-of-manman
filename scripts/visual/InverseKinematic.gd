@@ -5,11 +5,11 @@ class_name CCDIK
 @export var target:Node3D
 @export var chain_length:=2
 @export var copy_rotation:=false
-@export var iterations:= 1
+@export var joints_per_frame:= 5
 @export var solve_backward:=false
 @export var average_weight:=0.75
 @export var accuracy:=0.01
-@export var max_distance := 100.0
+#@export var max_distance := 100.0
 @export var solve_max_distance := false
 
 var chain_nodes:=Array()
@@ -18,18 +18,19 @@ var constraints:=Array()
 func _ready() -> void:
 	average_weight = clampf(average_weight,0,1)
 	set_up()
-	if solve_max_distance:
-		max_distance = get_total_length()
+#	if solve_max_distance:
+#		max_distance = get_total_length()
 #		print('IK chain length: ' + str(max_distance))
 
 func _process(delta: float) -> void:
 	solve()
 	
-	if scale_cd >0:
-		scale_cd -= delta
-		return
-	scale_cd = 1
-	reset_scales()
+#	if scale_cd >0:
+#		scale_cd -= delta
+#		return
+#	scale_cd = 1
+#	reset_scales()
+
 var scale_cd :=0.0
 func reset_scales():
 	for i in chain_nodes:
@@ -58,25 +59,22 @@ func get_total_length()->float:
 		total_length += joint.position.length()
 	return total_length
 
+var current_joint_id:=0
 func solve():
 	if target == null:return
-	var root_dist :Vector3= target.global_position 
-	root_dist -=chain_nodes[chain_length-1].global_position
-	if root_dist.length_squared() > max_distance*max_distance: return
-	for j in iterations:
-		var dist = target.global_position-global_position
-		if dist.length_squared() < accuracy: return
-		
-		var start := 0
-		if copy_rotation:
-			start +=1
-			copy_target_rotation()
+	var dist_sq = target.global_position.distance_squared_to(global_position)
+	if dist_sq < accuracy: return
+	
+	var start := 1 if copy_rotation else 0
+	if copy_rotation and current_joint_id == start:
+		copy_target_rotation()
+	for i in joints_per_frame:
 		if solve_backward:
-			for i in range(start,chain_length,1):
-				solve_joint(i)
+			current_joint_id +=1
 		else:
-			for i in range(chain_length,start,-1):
-				solve_joint(i-1)
+			current_joint_id -=1
+		current_joint_id = wrapi(current_joint_id, start, chain_length)
+		solve_joint(current_joint_id)
 
 func copy_target_rotation():
 	var tip = chain_nodes[0]
@@ -96,17 +94,15 @@ func solve_joint(i:int):
 	var t_i:Vector3=target.global_position-joint.global_position
 	if e_i == t_i: return
 	var angle = e_i.angle_to(t_i)
-	if angle < (accuracy):return
-	var weight := average_weight
 	if constraint != null:
 		var max_speed = constraint.max_speed
-		weight = constraint.weight*average_weight
+		var weight = constraint.weight*average_weight
 		angle = clampf(angle*weight,-max_speed,max_speed)
-		if angle ==0: return
+	if angle < (accuracy):return
 	joint.global_rotate(e_i.cross(t_i).normalized(), angle)
 	#clamp axis
-	if constraint != null:
-		var rotation_deg :Vector3= joint.rotation_degrees
-		var min_angles = constraint.min_angles
-		var max_angles = constraint.max_angles
-		joint.rotation_degrees = rotation_deg.clamp(min_angles,max_angles)
+	if constraint == null: return
+	var rotation_deg :Vector3= joint.rotation_degrees
+	var min_angles = constraint.min_angles
+	var max_angles = constraint.max_angles
+	joint.rotation_degrees = rotation_deg.clamp(min_angles,max_angles)

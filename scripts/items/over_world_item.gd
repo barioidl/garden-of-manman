@@ -15,7 +15,8 @@ var is_in_overworld:=true:
 @export var interact_range:=2.0
 
 func use_item(head:HotbarUser)->bool:
-	var body = head.target
+	print('item using')
+	var body = head.get_target()
 	if body == null: return false
 	var point = head.get_contact()
 	var dist = global_position.distance_squared_to(point)
@@ -57,4 +58,3 @@ func toggle_shapes(is_overworld):
 	for shape in get_children():
 		if not shape is CollisionShape3D: continue
 		shape.disabled = !is_overworld
-	

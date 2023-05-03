@@ -39,7 +39,7 @@ func _ready() -> void:
 
 func use_item(head:HotbarUser)->bool:
 	play_fist_animation()
-	var body = head.target
+	var body = head.get_target()
 	if body == null: return false
 	if body is RigidBody3D:
 		body.linear_velocity += global_transform.basis.z*5
@@ -98,7 +98,6 @@ alpha_cut = 1
 texture_filter = 0
 script = ExtResource("2_totrv")
 sprites = SubResource("Resource_els6q")
-face_camera = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_4p4vs")

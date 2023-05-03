@@ -29,9 +29,9 @@ func _process(delta):
 	time = delta
 	copy_head_transform()
 
-func _physics_process(delta):
-	cursor_cast()
-	get_keys()
+#func _physics_process(delta):
+#	cursor_cast()
+#	get_keys()
 
 func copy_head_transform():
 	if head == null: return
@@ -42,17 +42,18 @@ var event:InputEvent
 func _input(_event):
 	if(input == null):return
 	event = _event
-	get_movement(event)
-	crosshair_move(event)
-	cursor_raycast(event)
+	get_movement()
+	crosshair_move()
+#	cursor_raycast()
 	
-	key_update(event)
-	mouse_update(event)
+	key_update()
+	mouse_update()
+	get_keys()
 
 var main_keys_updated:=false
 var interact_keys_updated:=false
 var mgr_keys_updated:=false
-func key_update(event:InputEvent):
+func key_update():
 	if !event is InputEventKey and !event is InputEventJoypadButton:
 		return
 	if event.is_echo(): return
@@ -60,7 +61,7 @@ func key_update(event:InputEvent):
 	interact_keys_updated = true
 	mgr_keys_updated = true
 
-func mouse_update(event):
+func mouse_update():
 	if !event is InputEventMouseButton:	return
 	interact_keys_updated = true
 
@@ -106,7 +107,7 @@ func assign_button(button:String,action:String):
 		if Input.is_action_just_released(action):
 			input.emit_signal(button+"_released")
 
-func get_movement(event: InputEvent):
+func get_movement():
 	if event is InputEventKey:
 		input.dpad1 = -Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		return
@@ -118,7 +119,7 @@ func get_movement(event: InputEvent):
 		return
 
 var ch_tween :Tween
-func crosshair_move(event:InputEvent):
+func crosshair_move():
 	if ch_tween != null:
 		ch_tween.kill()
 	ch_tween = create_tween()
@@ -137,28 +138,28 @@ func crosshair_move(event:InputEvent):
 			input.dpad2.y = event.axis_value * time * joypad_speed*invert_y
 		return
 
-const RAY_LENGTH = 50.0
-func cursor_raycast(event:InputEvent):
-	if !event.is_echo(): 
-		cursor_cast_updated = false
-	if event is InputEventMouseMotion:
-		cursor_position = event.position
-
-var cursor_position:=Vector2.ONE
-var cursor_cast_updated:=false
-func cursor_cast():
-	var set_target = attach_to.get_meta('set_target')
-	if set_target == null:return
-	if cursor_cast_updated: return
-	cursor_cast_updated = true
-	var rc_from:Vector3=camera3d.project_ray_origin(cursor_position)
-	var rc_to:Vector3=rc_from + camera3d.project_ray_normal(cursor_position) * RAY_LENGTH
-	# use global coordinates, not local to node	
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(rc_from, rc_to)
-	var result = space_state.intersect_ray(query)
-	if !result.has('collider'):
-		result.collider = null
-	result.start_point = rc_from
-	result.end_point = rc_to
-	set_target.call(result)
+#const RAY_LENGTH = 50.0
+#func cursor_raycast(event:InputEvent):
+#	if !event.is_echo(): 
+#		cursor_cast_updated = false
+#	if event is InputEventMouseMotion:
+#		cursor_position = event.position
+#
+#var cursor_position:=Vector2.ONE
+#var cursor_cast_updated:=false
+#func cursor_cast():
+#	var set_target = attach_to.get_meta('set_target')
+#	if set_target == null:return
+#	if cursor_cast_updated: return
+#	cursor_cast_updated = true
+#	var rc_from:Vector3=camera3d.project_ray_origin(cursor_position)
+#	var rc_to:Vector3=rc_from + camera3d.project_ray_normal(cursor_position) * RAY_LENGTH
+#	# use global coordinates, not local to node	
+#	var space_state = get_world_3d().direct_space_state
+#	var query = PhysicsRayQueryParameters3D.create(rc_from, rc_to)
+#	var result = space_state.intersect_ray(query)
+#	if !result.has('collider'):
+#		result.collider = null
+#	result.start_point = rc_from
+#	result.end_point = rc_to
+#	set_target.call(result)

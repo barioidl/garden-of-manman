@@ -12,8 +12,8 @@
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="6_plbnf"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="6_uojeq"]
 [ext_resource type="Resource" uid="uid://duy4eq8ii5263" path="res://data/audio/hunt sfx.tres" id="7_dpko6"]
-[ext_resource type="Script" path="res://scripts/modules/head.gd" id="7_o2h6r"]
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_dey3p"]
+[ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="10_b2yls"]
 [ext_resource type="Texture2D" uid="uid://csq3o2if2rgk3" path="res://assets/Textures/sun face0005.png" id="11_8l8of"]
 [ext_resource type="Resource" uid="uid://btsyxe3lav3p0" path="res://assets/bill_board_sides/sun face.tres" id="12_a1o4m"]
 [ext_resource type="Script" path="res://scripts/3d_billboard_animated.gd" id="14_iahpp"]
@@ -90,7 +90,7 @@ func global_states():
 		root.visible = false
 		root.process_mode = Node.PROCESS_MODE_DISABLED
 		return
-	
+
 	if !root.visible:
 		root.visible = true
 		root.process_mode = Node.PROCESS_MODE_INHERIT
@@ -307,9 +307,8 @@ crouch_height = 2.0
 [node name="body" type="Node3D" parent="."]
 script = SubResource("GDScript_wgajf")
 
-[node name="head" type="Node3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("7_o2h6r")
+[node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("10_b2yls")]
+hotbar = NodePath("")
 normal_height = 0.1
 crouch_height = -0.1
 

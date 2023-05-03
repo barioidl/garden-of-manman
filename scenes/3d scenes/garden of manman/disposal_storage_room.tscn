@@ -61,7 +61,7 @@ func fill_shelf(shelf):
 		var pos = shelf.to_global(point)
 		var jar= select_jar()
 		spawn_jar(pos,jar)
-		i += randi_range(1,30)
+		i += randi_range(1,50)
 
 func spawn_jar(pos,item):
 	var child = item.prefab.instantiate()

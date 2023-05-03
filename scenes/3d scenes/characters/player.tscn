@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://data/state machine/spawn_point.tscn" id="6_04aw7"]
 [ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
-[ext_resource type="Script" path="res://scripts/modules/head.gd" id="9_iwmnp"]
+[ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
 radius = 0.4
@@ -154,12 +154,8 @@ crouch_height = 1.2
 [node name="body" type="Node3D" parent="."]
 script = SubResource("GDScript_cu82w")
 
-[node name="head" type="Node3D" parent="body" node_paths=PackedStringArray("hotbar")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("9_iwmnp")
+[node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
 hotbar = NodePath("../hotbar")
-normal_height = 0.5
-crouch_height = 0.25
 
 [node name="hotbar" type="Node3D" parent="body"]
 script = SubResource("GDScript_l165g")

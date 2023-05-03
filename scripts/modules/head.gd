@@ -1,4 +1,4 @@
-extends Node3D
+extends RayCast3D
 class_name HotbarUser
 @export var hotbar:Node3D
 
@@ -6,13 +6,17 @@ class_name HotbarUser
 @onready var input:Inputs=$'../../inputs'
 @onready var platformer=$'../../platformer'
 #var body
+func _init() -> void:
+	name = 'head'
 func _ready() -> void:
 	owner = root
+	add_exception(root)
 	add_to_group('has_root')
 	get_dependencies()
 
 func get_dependencies():
 	if hotbar != null:
+		print('connect hotbar')
 		input.connect('drop_pressed',drop_start)
 		input.connect('drop_released',drop_stop)
 		
@@ -21,8 +25,8 @@ func get_dependencies():
 		input.connect("skill_pressed",skill)
 		input.connect("misc_pressed",misc)
 	
-	root.set_meta('get_target',Callable(get_target))
-	root.set_meta('set_target',Callable(set_target))
+#	root.set_meta('get_target',Callable(get_target))
+#	root.set_meta('set_target',Callable(set_target))
 	
 	platformer.connect("on_state_changed", on_state_changed.bind())
 
@@ -34,33 +38,13 @@ func on_state_changed(state):
 	var height = crouch_height if is_sneaking else normal_height
 	tween.tween_property(self,'position', Vector3(0,height,0),0.1).set_trans(Tween.TRANS_SINE)
 
-var target:PhysicsBody3D
-var target_contact:=Vector3.ZERO
-var target_normal:=Vector3.ONE
-#var target_collider
-#var target_collider_id
-#var target_shape
-#var target_rid
 func get_target()->PhysicsBody3D:
-	return target
-func get_contact()->Vector3:
-	if target_contact != Vector3.ZERO:
-		return target_contact
-	return to_global(Vector3(0,0,10))
+	return get_collider()
 
-func set_target(raycast_result:Dictionary):
-	if raycast_result.collider == null:
-		target = null
-		target_contact = Vector3.ZERO
-		target_normal = Vector3.ZERO
-		return
-	target = raycast_result.collider
-	target_contact = raycast_result.position
-	target_normal=raycast_result.normal
-#	target_collider=raycast_result.collider
-#	target_collider_id=raycast_result.collider_id
-#	target_shape=raycast_result.shape
-#	target_rid=raycast_result.rid
+func get_contact()->Vector3:
+	if is_colliding():
+		return get_collision_point()
+	return to_global(target_position)
 
 func act():
 	var body = get_target()
@@ -78,6 +62,7 @@ func misc():
 	use_item(2)
 
 func use_item(id:int):
+	print('use item')
 	if hotbar.hotbar_items.size() < id: return
 	var item = hotbar.hotbar_items[id]
 	if item == null: 
