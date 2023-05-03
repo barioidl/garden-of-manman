@@ -623,92 +623,90 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 16)
 
 [node name="dinning room" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -29.5)
-visible = false
 script = ExtResource("8_plspx")
 areas = [NodePath("../../-1 areas/upper corridor"), NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/dinning room")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="map/garden of manman/floor -1/dinning room"]
 
 [node name="StandingDesk" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -3.5)
 
 [node name="StandingDesk3" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3.5)
 
 [node name="StandingDesk2" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.5)
 
 [node name="StandingDesk4" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3.5)
 
 [node name="StandingDesk5" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 3.5)
 
 [node name="StandingDesk6" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
 [node name="StandingDesk7" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 
 [node name="StandingDesk8" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 
 [node name="StandingDesk9" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="SimpleBenches" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, 0, 0, 1)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 1)
 
 [node name="SimpleBenches2" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, 0, 0, -1)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -1)
 
 [node name="SimpleBenches3" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, -5, 0, 1)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, 1)
 
 [node name="SimpleBenches4" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, -5, 0, -1)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, -1)
 
 [node name="SimpleBenches5" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, 5, 0, 1)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 1)
 
 [node name="SimpleBenches6" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, 5, 0, -1)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, -1)
 
 [node name="SimpleBenches7" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, 0, 0, 4.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 4.5)
 
 [node name="SimpleBenches8" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, 0, 0, 2.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2.5)
 
 [node name="SimpleBenches9" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, -5, 0, 4.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, 4.5)
 
 [node name="SimpleBenches10" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, -5, 0, 2.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, 2.5)
 
 [node name="SimpleBenches11" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, 5, 0, 4.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 4.5)
 
 [node name="SimpleBenches12" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, 5, 0, 2.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 2.5)
 
 [node name="SimpleBenches13" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, 0, 0, -2.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2.5)
 
 [node name="SimpleBenches14" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, 0, 0, -4.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -4.5)
 
 [node name="SimpleBenches15" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, -5, 0, -2.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, -2.5)
 
 [node name="SimpleBenches16" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, -5, 0, -4.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, -4.5)
 
 [node name="SimpleBenches17" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, 5, 0, -2.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, -2.5)
 
 [node name="SimpleBenches18" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, 5, 0, -4.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, -4.5)
 
 [node name="Room8" type="MeshInstance3D" parent="map/garden of manman/floor -1/dinning room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -22.5, 29.5)

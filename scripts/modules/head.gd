@@ -11,7 +11,6 @@ func _init() -> void:
 func _ready() -> void:
 	owner = root
 	add_exception(root)
-	add_to_group('has_root')
 	get_dependencies()
 
 func get_dependencies():
@@ -24,8 +23,7 @@ func get_dependencies():
 		input.connect("skill_pressed",skill)
 		input.connect("misc_pressed",misc)
 	
-#	root.set_meta('get_target',Callable(get_target))
-#	root.set_meta('set_target',Callable(set_target))
+	root.set_meta('get_target',Callable(get_target))
 	
 	platformer.connect("on_state_changed", on_state_changed.bind())
 

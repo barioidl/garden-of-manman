@@ -32,7 +32,9 @@ class_name Hotbar
 
 var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
 var hands:=[]
+
 @onready var root:=$'../..'
+@onready var head :HotbarUser=$\"../head\"
 @onready var inventory:Inventory=$'../../inventory'
 
 @export var max_items:=2
@@ -76,9 +78,7 @@ func append_item_node(child:Node3D)->bool:
 
 func setup_item(id,child):
 	hotbar_items[id]=child
-	child.id = id
-	child.root = root
-	child.is_in_overworld = false
+	child.equip_item(root,id)
 	child.position = hand_positions[id]
 #	item.rotation = Vector3.ZERO
 	hands[id].visible = false
@@ -87,10 +87,8 @@ func setup_item(id,child):
 func spawn_fists():
 	hands.resize(max_items)
 	for i in max_items:
-		var _fist = fist.instantiate()
-		_fist.root = root
-		_fist.id = i
-		_fist.is_in_overworld = false
+		var _fist :ItemOverworld= fist.instantiate()
+		_fist.equip_item(root,i)
 		_fist.position = hand_positions[i]
 		_fist.rotation = Vector3.ZERO
 		_fist.visible = true
@@ -101,24 +99,17 @@ func get_hotbar_items()->Array:	return hotbar_items
 
 func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
 	if id >= hotbar_items.size():return
-	var drop_item=hotbar_items[id]
+	var drop_item:ItemOverworld=hotbar_items[id]
 	if drop_item == null: return
 	hotbar_items[id] = null
 	hands[id].visible = true
 	
 	drop_item.reparent(root.get_parent())
-	drop_item.is_in_overworld = true
+	drop_item.unequip_item()
 	
 	var speed = strength*10
 	var direction = drop_item.global_position.direction_to(target)
 	drop_item.velocity = direction*speed
-	
-	drop_item.add_collision_exception_with(root)
-	var tween = create_tween()
-	tween.tween_interval(0.2)
-	tween.tween_callback(reset_exception.bind(drop_item))
-func reset_exception(item):
-	item.remove_collision_exception_with(root)
 "
 
 [node name="player" type="RigidBody3D"]
@@ -155,6 +146,7 @@ crouch_height = 1.2
 script = SubResource("GDScript_cu82w")
 
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
+target_position = Vector3(0, 0, 10)
 hotbar = NodePath("../hotbar")
 
 [node name="hotbar" type="Node3D" parent="body"]

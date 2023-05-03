@@ -22,8 +22,8 @@ enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 @export var reference_frame:Node3D
 @export var camera :Camera3D
 
-@export var select_cd_range:=Vector2(0.5,5)
-@export var rotate_cd_range:=Vector2(0.2,2)
+@export var select_cd_range:=Vector2(0.3,6)
+@export var rotate_cd_range:=Vector2(0.1,3)
 var select_cd:=0.0
 var rotate_cd:=0.1
 

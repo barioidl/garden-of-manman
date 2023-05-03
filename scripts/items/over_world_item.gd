@@ -5,17 +5,34 @@ var item:Resource
 
 var root:RigidCharacter
 var id :=-1
-var is_in_overworld:=true:
-	get:
-		return is_in_overworld
-	set(value):
-		is_in_overworld = value
-		toggle_shapes(value)
+var is_in_overworld:=true
 
 @export var interact_range:=2.0
+signal item_equipped
+signal item_unequipped
+signal item_used
+
+func equip_item(_root,_id:=-1):
+	emit_signal('item_equipped')
+	root = _root
+	id=_id
+	is_in_overworld = false
+	add_collision_exception_with(root)
+
+func unequip_item():
+	emit_signal('item_unequipped')
+	var tween = create_tween()
+	tween.tween_interval(0.2)
+	tween.tween_callback(reset_exception.bind(root))
+	root = null
+	id = -1
+	is_in_overworld = true
+
+func reset_exception(_root):
+	remove_collision_exception_with(_root)
 
 func use_item(head:HotbarUser)->bool:
-	print('item using')
+	emit_signal('item_used')
 	var body = head.get_target()
 	if body == null: return false
 	var point = head.get_contact()
@@ -54,7 +71,7 @@ func _physics_process(delta: float) -> void:
 			time = 1
 			move_and_slide()
 
-func toggle_shapes(is_overworld):
+func toggle_physics(is_overworld):
 	for shape in get_children():
 		if not shape is CollisionShape3D: continue
 		shape.disabled = !is_overworld

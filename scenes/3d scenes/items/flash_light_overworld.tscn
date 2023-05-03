@@ -7,13 +7,22 @@
 [sub_resource type="GDScript" id="GDScript_bxoe2"]
 script/source = "extends ItemOverworld
 
-@onready var _head = get_node_or_null(\"../../head\")
+var head :Node3D
 
-func use_item(head:HotbarUser)->bool:
-	var used_item = super.use_item(head)
+func _ready() -> void:
+	connect(\"item_equipped\",setup)
+	connect(\"item_unequipped\",cleanup)
+	connect('item_used',use)
+
+func setup():
+	head = get_parent().head
+func cleanup():
+	head = null
+
+func use():
 	aim_at_target(head)
-	_head = head
-	return used_item
+	head = head
+	cd = 0.5
 
 var cd :=0.0
 func _process(delta: float) -> void:
@@ -21,11 +30,10 @@ func _process(delta: float) -> void:
 		cd -= delta
 		return
 	cd = 0.5
-	aim_at_target(_head)
+	aim_at_target(head)
 
 func aim_at_target(head):
 	if head == null: return
-	if is_in_overworld:return
 	var point = head.get_contact()
 	var forward = global_position.direction_to(point)
 	var up = root.global_transform.basis.y
