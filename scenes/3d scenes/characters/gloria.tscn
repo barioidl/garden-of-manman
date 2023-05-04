@@ -78,17 +78,6 @@ func choose():
 func global_states():
 	var distsq :float=root.global_position. distance_to(player.global_position)
 	
-	var disable_range = active_range +5
-	if distsq > disable_range:
-		cd = 1
-		root.visible = false
-		root.process_mode = Node.PROCESS_MODE_DISABLED
-		return
-	
-	if !root.visible:
-		root.visible = true
-		root.process_mode = Node.PROCESS_MODE_INHERIT
-	
 	it_field.level = lerp(11,0,distsq/(active_range)) 
 
 func chase_player(target:Vector3):
@@ -287,7 +276,6 @@ extra_jumps = 0
 body_limits = Vector2(-90, 90)
 
 [node name="brain" type="Node" parent="."]
-process_mode = 3
 script = SubResource("GDScript_eytq4")
 active_range = 33.0
 
@@ -345,6 +333,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("11_017nn")
 script = ExtResource("9_x3282")
 sprites = SubResource("Resource_5ypd8")
 
@@ -365,6 +354,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("13_1y47m")
 region_rect = Rect2(42, 41, 29, 31)
 script = ExtResource("9_x3282")
 sprites = SubResource("Resource_2i5x0")
@@ -405,6 +395,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("25_717i3")
 script = ExtResource("9_x3282")
 sprites = SubResource("Resource_g34ch")
 

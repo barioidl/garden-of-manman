@@ -27,6 +27,8 @@ enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 var select_cd:=0.0
 var rotate_cd:=0.1
 
+@export var axis_ratio:=Vector3.ONE
+
 var current_side:=-1
 enum axises{x,_x,y,_y,z,_z,local}
 var axis_forward:=axises.z
@@ -94,11 +96,15 @@ func _process(delta: float) -> void:
 
 func choose_side():
 	var ref = reference_frame.global_transform.basis
-	var cam_forward = global_position.direction_to(camera.global_position)
+
+	var x = (forward - ref.x).length_squared()-2
+	var y = (forward - ref.y).length_squared()-2
+	var z = (forward - ref.z).length_squared()-2
+	if axis_ratio != Vector3.ONE:
+		x *= axis_ratio.x
+		y *= axis_ratio.y
+		z *= axis_ratio.z
 	
-	var x = (cam_forward - ref.x).length_squared()-2
-	var y = (cam_forward - ref.y).length_squared()-2
-	var z = (cam_forward - ref.z).length_squared()-2
 	var maximum = abs(x)
 	var cardinal := 0 
 	var abs_y = abs(y)
@@ -109,6 +115,7 @@ func choose_side():
 	if maximum < abs_z:
 		maximum = abs_z
 		cardinal = 2
+	
 	match cardinal:
 		0:
 			if x <0:

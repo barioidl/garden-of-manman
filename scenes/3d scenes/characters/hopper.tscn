@@ -103,19 +103,6 @@ func choose():
 func global_states():
 	var distsq :float=root.global_position. distance_squared_to(player.global_position)
 	
-	var disable_range = active_range +5
-	if distsq > disable_range*disable_range:
-		cd = 1
-		root.visible = false
-		root.process_mode = Node.PROCESS_MODE_DISABLED
-		return
-	
-	if !root.visible:
-		cd = 1
-		root.visible = true
-		root.process_mode = Node.PROCESS_MODE_INHERIT
-	
-	
 	target = player.global_position
 	face_player(target)
 	
@@ -216,7 +203,6 @@ extra_jumps = 0
 [node name="fps aim" parent="." instance=ExtResource("5_00syt")]
 
 [node name="brain" type="Node" parent="."]
-process_mode = 3
 script = SubResource("GDScript_b1b5h")
 jump_range = 5.0
 attack_sfx = SubResource("Resource_bic33")

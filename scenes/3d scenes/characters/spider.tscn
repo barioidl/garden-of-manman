@@ -84,17 +84,6 @@ func global_states():
 	
 	var distsq :float=root.global_position. distance_squared_to(player.global_position)
 	
-	var disable_range = active_range + 5
-	if distsq > disable_range*disable_range:
-		cd = 1
-		root.visible = false
-		root.process_mode = Node.PROCESS_MODE_DISABLED
-		return
-
-	if !root.visible:
-		root.visible = true
-		root.process_mode = Node.PROCESS_MODE_INHERIT
-	
 	var is_hunting = distsq < hunt_range*hunt_range
 	if is_hunting:
 		state = states.hunt
@@ -291,7 +280,6 @@ step_speed = 0.2
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
 [node name="BOT AI" type="Node" parent="."]
-process_mode = 3
 script = SubResource("GDScript_l4ycn")
 puzzle_sfx = ExtResource("6_nwf6q")
 hunt_sfx = ExtResource("7_dpko6")

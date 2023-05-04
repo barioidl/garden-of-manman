@@ -23,3 +23,4 @@ texture_filter = 0
 texture = ExtResource("4_ievhj")
 script = ExtResource("2_umxrs")
 sprites = ExtResource("3_q4wtj")
+axis_ratio = Vector3(1, 0.5, 1)

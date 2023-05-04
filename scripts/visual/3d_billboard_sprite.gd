@@ -1,4 +1,4 @@
-#@tool
+@tool
 extends Billboard3d
 class_name BillboardSprite
 

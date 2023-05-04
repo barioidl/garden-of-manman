@@ -28,6 +28,7 @@ alpha_cut = 1
 texture_filter = 0
 script = ExtResource("2_ccwc4")
 sprites = ExtResource("3_hkrq2")
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -85,6 +86,7 @@ alpha_cut = 1
 texture_filter = 0
 script = ExtResource("2_ccwc4")
 sprites = ExtResource("3_hkrq2")
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Sprite3D2" type="Sprite3D" parent="arm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -142,6 +144,7 @@ alpha_cut = 1
 texture_filter = 0
 script = ExtResource("2_ccwc4")
 sprites = ExtResource("3_hkrq2")
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Sprite3D2" type="Sprite3D" parent="arm2/arm3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -199,6 +202,7 @@ alpha_cut = 1
 texture_filter = 0
 script = ExtResource("2_ccwc4")
 sprites = ExtResource("3_hkrq2")
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Sprite3D2" type="Sprite3D" parent="arm2/arm3/arm3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -256,6 +260,7 @@ alpha_cut = 1
 texture_filter = 0
 script = ExtResource("2_ccwc4")
 sprites = ExtResource("3_hkrq2")
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Sprite3D2" type="Sprite3D" parent="arm2/arm3/arm3/arm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -313,6 +318,7 @@ alpha_cut = 1
 texture_filter = 0
 script = ExtResource("2_ccwc4")
 sprites = ExtResource("3_hkrq2")
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Sprite3D2" type="Sprite3D" parent="arm2/arm3/arm3/arm/arm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -364,4 +370,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 script = ExtResource("4_01gg3")
 chain_length = 6
 average_weight = 0.2
-max_distance = 50.0

@@ -7,13 +7,14 @@
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="3_dgrs3"]
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="3_rmev1"]
 [ext_resource type="Resource" uid="uid://bgt5myttrgr3i" path="res://assets/bill_board_sides/arm_segment.tres" id="4_cnpwu"]
+[ext_resource type="Script" path="res://scripts/visual/billboard_clone.gd" id="5_mln50"]
 [ext_resource type="Texture2D" uid="uid://b72o1n4yb7stn" path="res://assets/Textures/hand flat0005.png" id="7_v7nm5"]
 [ext_resource type="Resource" uid="uid://c7rn14cmid1uv" path="res://assets/bill_board_sides/hand_flat.tres" id="8_q7d7l"]
 [ext_resource type="Texture2D" uid="uid://dxfhohdx8fvtq" path="res://assets/Textures/hand grab0005.png" id="9_2nbo0"]
 [ext_resource type="Resource" uid="uid://b4gigcx2fpm4g" path="res://assets/bill_board_sides/hand_grab.tres" id="10_xx3bq"]
 
 [sub_resource type="GDScript" id="GDScript_ath2s"]
-script/source = "extends CharacterBody3D
+script/source = "extends Node3D
 @onready var arm :=$'1'
 @onready var hand :=$hand
 
@@ -116,9 +117,6 @@ func random_v3(range)->Vector3:
 	return pos
 "
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gl4x8"]
-size = Vector3(0.2, 2, 0.2)
-
 [sub_resource type="GDScript" id="GDScript_x0ffu"]
 script/source = "extends Node3D
 
@@ -164,7 +162,7 @@ func toggle_hand():
 [sub_resource type="BoxShape3D" id="BoxShape3D_yby6y"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="arm" type="CharacterBody3D"]
+[node name="arm" type="Node3D"]
 script = SubResource("GDScript_ath2s")
 max_distance = 10.0
 move_speed = 5.0
@@ -184,16 +182,17 @@ texture_filter = 0
 texture = ExtResource("2_d42xv")
 script = ExtResource("3_d2f60")
 sprites = ExtResource("4_cnpwu")
+axis_ratio = Vector3(1, 0.5, 1)
 
-[node name="Sprite3D2" type="Sprite3D" parent="."]
+[node name="Sprite3D2" type="Sprite3D" parent="." node_paths=PackedStringArray("billboard_sprite")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.5, 0)
 shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_d42xv")
-script = ExtResource("3_d2f60")
-sprites = ExtResource("4_cnpwu")
+script = ExtResource("5_mln50")
+billboard_sprite = NodePath("")
 
 [node name="Sprite3D3" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5, 0)
@@ -202,8 +201,7 @@ double_sided = false
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_d42xv")
-script = ExtResource("3_d2f60")
-sprites = ExtResource("4_cnpwu")
+script = ExtResource("5_mln50")
 
 [node name="Sprite3D4" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.5, 0)
@@ -212,8 +210,7 @@ double_sided = false
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_d42xv")
-script = ExtResource("3_d2f60")
-sprites = ExtResource("4_cnpwu")
+script = ExtResource("5_mln50")
 
 [node name="Sprite3D5" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5, 0)
@@ -222,8 +219,7 @@ double_sided = false
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_d42xv")
-script = ExtResource("3_d2f60")
-sprites = ExtResource("4_cnpwu")
+script = ExtResource("5_mln50")
 
 [node name="Sprite3D6" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 3.5, 0)
@@ -232,8 +228,7 @@ double_sided = false
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_d42xv")
-script = ExtResource("3_d2f60")
-sprites = ExtResource("4_cnpwu")
+script = ExtResource("5_mln50")
 
 [node name="Sprite3D7" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4.5, 0)
@@ -242,8 +237,7 @@ double_sided = false
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_d42xv")
-script = ExtResource("3_d2f60")
-sprites = ExtResource("4_cnpwu")
+script = ExtResource("5_mln50")
 
 [node name="Sprite3D8" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5.5, 0)
@@ -252,14 +246,7 @@ double_sided = false
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_d42xv")
-script = ExtResource("3_d2f60")
-sprites = ExtResource("4_cnpwu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-visible = false
-shape = SubResource("BoxShape3D_gl4x8")
+script = ExtResource("5_mln50")
 
 [node name="1" parent="." instance=ExtResource("1_qmvfk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
@@ -376,7 +363,6 @@ rotation_edit_mode = 1
 script = ExtResource("3_rmev1")
 target = NodePath("../../../../../../../../../../../../hand")
 chain_length = 12
-max_distance = 20.0
 
 [node name="hand" type="RigidBody3D" parent="." node_paths=PackedStringArray("normal_hand", "attack_hand")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.5, -3, 0)

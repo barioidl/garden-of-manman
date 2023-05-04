@@ -75,18 +75,6 @@ func choose():
 func global_states():
 	var distsq :float=root.global_position. distance_to(player.global_position)
 	
-	var disable_range = active_range +5
-	if distsq > disable_range:
-		cd = 1
-		root.visible = false
-		root.process_mode = Node.PROCESS_MODE_DISABLED
-		return
-	
-	if !root.visible:
-		cd = 1
-		root.visible = true
-		root.process_mode = Node.PROCESS_MODE_INHERIT
-	
 	get_closest_sound()
 
 var hear_cd :=0.0
@@ -166,7 +154,6 @@ extra_jumps = 0
 [node name="fps aim" parent="." instance=ExtResource("5_m2nsj")]
 
 [node name="brain" type="Node" parent="."]
-process_mode = 3
 script = SubResource("GDScript_rqpy0")
 bird_up_sfx = SubResource("Resource_3csay")
 turn_speed = 200
