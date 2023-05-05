@@ -230,12 +230,14 @@ func _ready() -> void:
 
 [sub_resource type="GDScript" id="GDScript_17foq"]
 script/source = "extends Label3D
-var content:={
-	\"aaa\":4,
-	\"bbb\":3,
-	'ccc':12,
-	'ddd':15
-}
+var content:={}:
+	get:
+		return content
+	set(value):
+		if value == content: return
+		content = value
+		refresh_text()
+
 func _ready() -> void:
 	if !OS.is_debug_build():
 		queue_free()
@@ -329,6 +331,7 @@ turn_speed = 100
 script = SubResource("GDScript_g145v")
 
 [node name="debug display" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 billboard = 1
 double_sided = false
 text = "asdavsdasdvwasdvw"

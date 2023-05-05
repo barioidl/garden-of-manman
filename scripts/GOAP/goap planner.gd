@@ -7,7 +7,7 @@ var actions:Array=[]:
 	set(value):
 		actions = value
 
-func get_plan(goal,data)->Array:
+func get_plan(goal,self_state)->Array:
 	return []
 
 func find_best_plan():
