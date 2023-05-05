@@ -1,10 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://d2rpfewvdycna"]
+[gd_scene load_steps=30 format=3 uid="uid://djulvkmrx1g60"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
 [ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
-[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_a6yx4"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_nkc5e"]
-[ext_resource type="Resource" uid="uid://md7vpkr5xcdi" path="res://assets/bill_board_sides/moon face.tres" id="3_hsgsl"]
 [ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="3_lrbm0"]
 [ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_nxtod"]
 [ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_e85df"]
@@ -14,15 +12,15 @@
 [ext_resource type="Resource" uid="uid://duy4eq8ii5263" path="res://data/audio/hunt sfx.tres" id="7_dpko6"]
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_dey3p"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="10_b2yls"]
-[ext_resource type="Texture2D" uid="uid://csq3o2if2rgk3" path="res://assets/Textures/sun face0005.png" id="11_8l8of"]
-[ext_resource type="Resource" uid="uid://btsyxe3lav3p0" path="res://assets/bill_board_sides/sun face.tres" id="12_a1o4m"]
 [ext_resource type="Script" path="res://scripts/3d_billboard_animated.gd" id="14_iahpp"]
+[ext_resource type="PackedScene" uid="uid://ndbyfw2cr242" path="res://assets/blender models/moonface.glb" id="17_b5hlb"]
 [ext_resource type="AudioStream" uid="uid://c2u51bnc0pxtb" path="res://assets/audio/kenney_ui-audio/Audio/switch2.ogg" id="17_r80fm"]
 [ext_resource type="AudioStream" uid="uid://cbqcmde5jwqpe" path="res://assets/audio/kenney_ui-audio/Audio/switch4.ogg" id="18_xur3e"]
 [ext_resource type="AudioStream" uid="uid://bysyj6wa0fieu" path="res://assets/audio/kenney_ui-audio/Audio/switch10.ogg" id="19_f4yt5"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="21_cbu30"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="22_crgkt"]
 [ext_resource type="Script" path="res://scripts/procedural animation/leg step animation.gd" id="23_oikep"]
+[ext_resource type="PackedScene" uid="uid://ipa4u7ne5cla" path="res://assets/blender models/sunface.gltf" id="24_yya5h"]
 
 [sub_resource type="GDScript" id="GDScript_l4ycn"]
 script/source = "extends Node
@@ -356,49 +354,43 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.
 script = SubResource("GDScript_8ht6u")
 
 [node name="head" type="Node3D" parent="body/body" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.85)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.6)
 script = SubResource("GDScript_0ufrt")
 target = NodePath("../../head")
 
-[node name="Sprite3D" type="Sprite3D" parent="body/body/head"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-cast_shadow = 0
-shaded = true
-double_sided = false
-alpha_cut = 1
-texture_filter = 0
-texture = ExtResource("11_8l8of")
-script = ExtResource("2_a6yx4")
-sprites = ExtResource("12_a1o4m")
-select_cd_range = Vector2(0.3, 6)
-rotate_cd_range = Vector2(0.1, 3)
-
-[node name="face_switch" type="Node" parent="body/body/head/Sprite3D"]
-script = ExtResource("14_iahpp")
-sun_face = ExtResource("12_a1o4m")
-moon_face = ExtResource("3_hsgsl")
-switch_sfx = SubResource("Resource_rr2e5")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="body/body/head/Sprite3D"]
-transform = Transform3D(0.5, 0, -1.04399e-21, 0, 0.5, 0, 1.04399e-21, 0, 0.5, 0, 0, 0.25)
+[node name="OmniLight3D" type="OmniLight3D" parent="body/body/head"]
+transform = Transform3D(1, 0, -2.08798e-21, 0, 1, 0, 2.08798e-21, 0, 1, 0, 0, 0)
 light_color = Color(1, 0.916667, 0.5, 1)
+light_energy = 0.1
 shadow_enabled = true
 omni_range = 20.0
 
+[node name="face_switch" type="Node" parent="body/body/head/OmniLight3D" node_paths=PackedStringArray("sun_face", "moon_face", "lamp")]
+script = ExtResource("14_iahpp")
+sun_face = NodePath("../../sunface")
+moon_face = NodePath("../../moonface")
+lamp = NodePath("..")
+switch_sfx = SubResource("Resource_rr2e5")
+
+[node name="sunface" parent="body/body/head" instance=ExtResource("24_yya5h")]
+visible = false
+
+[node name="moonface" parent="body/body/head" instance=ExtResource("17_b5hlb")]
+
 [node name="spider leg" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
-transform = Transform3D(-0.122788, 0.696364, -0.707107, -0.122788, 0.696364, 0.707107, 0.984807, 0.173649, -3.09086e-08, 0, 0, 0)
+transform = Transform3D(0.241844, 0.664463, -0.707107, 0.241844, 0.664463, 0.707107, 0.939692, -0.34202, -2.67677e-08, 0, 0, 0)
 ik_target = NodePath("../../feet casters/top left feet/leg ik tl")
 
 [node name="spider leg2" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
-transform = Transform3D(-0.122788, 0.696364, 0.707107, 0.122788, -0.696364, 0.707107, 0.984807, 0.173648, 9.23514e-08, 0, 0, 0)
+transform = Transform3D(0.241844, 0.664463, 0.707107, -0.241844, -0.664463, 0.707107, 0.939692, -0.34202, -2.67677e-08, 0, 0, 0)
 ik_target = NodePath("../../feet casters/bottom left feet/leg ik tr")
 
 [node name="spider leg3" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
-transform = Transform3D(0.122788, -0.696364, 0.707107, 0.122788, -0.696364, -0.707107, 0.984807, 0.173648, -9.23514e-08, 0, 0, 0)
+transform = Transform3D(-0.241844, -0.664463, 0.707107, -0.241844, -0.664463, -0.707107, 0.939692, -0.34202, -2.67677e-08, 0, 0, 0)
 ik_target = NodePath("../../feet casters/bottom right feet/leg ik br")
 
 [node name="spider leg4" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
-transform = Transform3D(0.122788, -0.696364, -0.707107, -0.122788, 0.696364, -0.707107, 0.984807, 0.173648, -9.45337e-08, 0, 0, 0)
+transform = Transform3D(-0.241844, -0.664463, -0.707107, 0.241844, 0.664463, -0.707107, 0.939692, -0.34202, -2.67677e-08, 0, 0, 0)
 ik_target = NodePath("../../feet casters/top right feet/leg ik bl")
 
 [node name="feet casters" type="Node3D" parent="body"]
@@ -407,9 +399,9 @@ legs_per_steps = 2
 legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik br"), NodePath("top right feet/leg ik bl"), NodePath("bottom left feet/leg ik tr")]
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters"]
-transform = Transform3D(0.696363, 0.122788, -0.707107, -0.173648, 0.984807, 0, 0.696363, 0.122788, 0.707107, 0, 0, 0)
+transform = Transform3D(0.664462, 0.241845, -0.707107, -0.342019, 0.939692, 0, 0.664462, 0.241845, 0.707107, -1, 0.25, -1)
 exclude_parent = false
-target_position = Vector3(-2.5, -2.5, 0)
+target_position = Vector3(0, -2.5, 0)
 script = ExtResource("22_crgkt")
 
 [node name="leg ik tl" type="Marker3D" parent="body/feet casters/top left feet"]
@@ -418,9 +410,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters"]
-transform = Transform3D(-0.696363, -0.122788, -0.707107, -0.173648, 0.984807, 0, 0.696363, 0.122788, -0.707107, 0, 0, 0)
+transform = Transform3D(-0.664462, -0.241845, -0.707107, -0.342019, 0.939692, 0, 0.664462, 0.241845, -0.707107, 1, 0.25, -1)
 exclude_parent = false
-target_position = Vector3(-2.5, -2.5, 0)
+target_position = Vector3(0, -2.5, 0)
 script = ExtResource("22_crgkt")
 
 [node name="leg ik bl" type="Marker3D" parent="body/feet casters/top right feet"]
@@ -429,9 +421,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters"]
-transform = Transform3D(0.696363, 0.122788, 0.707107, -0.173648, 0.984807, 0, -0.696363, -0.122788, 0.707107, 0, 0, 0)
+transform = Transform3D(0.664462, 0.241845, 0.707107, -0.342019, 0.939692, 0, -0.664462, -0.241845, 0.707107, -1, 0.25, 1)
 exclude_parent = false
-target_position = Vector3(-2.5, -2.5, 0)
+target_position = Vector3(0, -2.5, 0)
 script = ExtResource("22_crgkt")
 
 [node name="leg ik tr" type="Marker3D" parent="body/feet casters/bottom left feet"]
@@ -440,9 +432,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters"]
-transform = Transform3D(-0.696363, -0.122788, 0.707107, -0.173648, 0.984807, 0, -0.696363, -0.122788, -0.707107, 0, 0, 0)
+transform = Transform3D(-0.664462, -0.241845, 0.707107, -0.342019, 0.939692, 0, -0.664462, -0.241845, -0.707107, 1, 0.25, 1)
 exclude_parent = false
-target_position = Vector3(-2.5, -2.5, 0)
+target_position = Vector3(0, -2.5, 0)
 script = ExtResource("22_crgkt")
 
 [node name="leg ik br" type="Marker3D" parent="body/feet casters/bottom right feet"]

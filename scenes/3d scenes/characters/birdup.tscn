@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cf5v3dfvq0e77"]
+[gd_scene load_steps=19 format=3 uid="uid://cf5v3dfvq0e77"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_xo83f"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_7661p"]
@@ -8,15 +8,8 @@
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="6_yk66e"]
 [ext_resource type="AudioStream" uid="uid://ds2snh802hyay" path="res://assets/audio/fl exported/bird up.mp3" id="7_5pebu"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="7_bbk8o"]
-[ext_resource type="Texture2D" uid="uid://c64dxrjew67ku" path="res://assets/Textures/birdup0000.png" id="8_o4cw0"]
-[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="9_5ceam"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_wjqy0"]
-[ext_resource type="Texture2D" uid="uid://d1rqcgn6lteaf" path="res://assets/Textures/birdup0002.png" id="10_v3gol"]
-[ext_resource type="Texture2D" uid="uid://bnua3gc0cbhgb" path="res://assets/Textures/birdup0005.png" id="11_0k7su"]
-[ext_resource type="Texture2D" uid="uid://7jpisfd3qiwa" path="res://assets/Textures/birdup0001.png" id="12_sd73q"]
-[ext_resource type="Texture2D" uid="uid://dsrbhpl4kw0up" path="res://assets/Textures/birdup0003.png" id="13_kfmq5"]
-[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="14_by31f"]
-[ext_resource type="Texture2D" uid="uid://d1027xs1yc8q6" path="res://assets/Textures/birdup0004.png" id="15_d3nve"]
+[ext_resource type="ArrayMesh" uid="uid://ds3ue8j81p4pl" path="res://assets/blender models/birdup body.obj" id="10_60b4q"]
 [ext_resource type="PackedScene" uid="uid://b0dn0cxtk0swu" path="res://scenes/3d scenes/characters/bird up legs.tscn" id="18_csnq7"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="19_7yrht"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="20_bqx6t"]
@@ -135,10 +128,6 @@ func position_changed(pos) -> void:
 	position = pos # Replace with function body.
 "
 
-[sub_resource type="Resource" id="Resource_x2w00"]
-script = ExtResource("14_by31f")
-frames = Array[Texture]([ExtResource("8_o4cw0"), ExtResource("12_sd73q"), ExtResource("10_v3gol"), ExtResource("13_kfmq5"), ExtResource("15_d3nve"), ExtResource("11_0k7su")])
-
 [node name="birdup" type="RigidBody3D"]
 script = ExtResource("1_xo83f")
 
@@ -173,16 +162,9 @@ crouch_height = 1.25
 
 [node name="body" type="Node3D" parent="body"]
 
-[node name="Sprite3D2" type="Sprite3D" parent="body/body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.2)
-shaded = true
-double_sided = false
-alpha_cut = 1
-texture_filter = 0
-texture = ExtResource("11_0k7su")
-region_rect = Rect2(42, 41, 29, 31)
-script = ExtResource("9_5ceam")
-sprites = SubResource("Resource_x2w00")
+[node name="BirdupBody" type="MeshInstance3D" parent="body/body"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.35, 0.2)
+mesh = ExtResource("10_60b4q")
 
 [node name="spider leg" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("18_csnq7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.2, -0.2)

@@ -1,20 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://b0dn0cxtk0swu"]
+[gd_scene load_steps=6 format=3 uid="uid://b0dn0cxtk0swu"]
 
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_oawh0"]
-[ext_resource type="Texture2D" uid="uid://vwdeqkwgwp75" path="res://assets/Textures/birdup leg0000.png" id="2_fqp1c"]
-[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_s5w4d"]
-[ext_resource type="Texture2D" uid="uid://tklgf0b20ggn" path="res://assets/Textures/birdup leg0001.png" id="3_alqem"]
-[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="3_qy2hl"]
-[ext_resource type="Texture2D" uid="uid://b41tcpv2pnlyc" path="res://assets/Textures/birdup leg0002.png" id="4_ptv8s"]
-[ext_resource type="Texture2D" uid="uid://beskr633nadxr" path="res://assets/Textures/birdup leg0003.png" id="5_b04y0"]
-[ext_resource type="Texture2D" uid="uid://d0kjufxaapjli" path="res://assets/Textures/birdup leg0004.png" id="6_7fqyq"]
-[ext_resource type="Texture2D" uid="uid://twap4tcpeoeq" path="res://assets/Textures/birdup leg0005.png" id="7_b1hws"]
-[ext_resource type="Texture2D" uid="uid://buu0c4cl7jpih" path="res://assets/Textures/birdup leg0006.png" id="9_a2goo"]
-[ext_resource type="Texture2D" uid="uid://3ic7u6dlj31n" path="res://assets/Textures/birdup leg0007.png" id="10_mkb4a"]
-[ext_resource type="Texture2D" uid="uid://b13oy2gijn7xq" path="res://assets/Textures/birdup leg0008.png" id="11_uydcp"]
-[ext_resource type="Texture2D" uid="uid://b7jwwfoupm5o5" path="res://assets/Textures/birdup leg0009.png" id="12_3x0v7"]
-[ext_resource type="Texture2D" uid="uid://6m0y3rya14v5" path="res://assets/Textures/birdup leg0010.png" id="13_alefu"]
-[ext_resource type="Texture2D" uid="uid://cfests5pjegmv" path="res://assets/Textures/birdup leg0011.png" id="14_yh8jq"]
+[ext_resource type="ArrayMesh" uid="uid://oegkjk7m6sfk" path="res://assets/blender models/birdupleg 0.obj" id="2_2ifs4"]
+[ext_resource type="ArrayMesh" uid="uid://ddxuek0eecn2a" path="res://assets/blender models/birdupleg 1.obj" id="3_ks6ho"]
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="28_ae5dp"]
 
 [sub_resource type="GDScript" id="GDScript_10n4p"]
@@ -26,14 +14,6 @@ func _ready() -> void:
 	ik.target = ik_target # Replace with 
 "
 
-[sub_resource type="Resource" id="Resource_23jvs"]
-script = ExtResource("3_qy2hl")
-frames = Array[Texture]([ExtResource("2_fqp1c"), ExtResource("3_alqem"), ExtResource("4_ptv8s"), ExtResource("5_b04y0"), ExtResource("6_7fqyq"), ExtResource("7_b1hws")])
-
-[sub_resource type="Resource" id="Resource_t7ftq"]
-script = ExtResource("3_qy2hl")
-frames = Array[Texture]([ExtResource("9_a2goo"), ExtResource("10_mkb4a"), ExtResource("11_uydcp"), ExtResource("12_3x0v7"), ExtResource("13_alefu"), ExtResource("14_yh8jq")])
-
 [node name="leg" type="Node3D" node_paths=PackedStringArray("ik")]
 script = SubResource("GDScript_10n4p")
 ik = NodePath("leg br/IK")
@@ -43,16 +23,9 @@ script = ExtResource("1_oawh0")
 min_angles = Vector3(-75, -10, -10)
 max_angles = Vector3(75, 10, 10)
 
-[node name="AnimatedSprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shaded = true
-double_sided = false
-alpha_cut = 1
-texture_filter = 0
-texture = ExtResource("7_b1hws")
-script = ExtResource("2_s5w4d")
-sprites = SubResource("Resource_23jvs")
-select_cd_range = Vector2(0.1, 2)
+[node name="Birdupleg0" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.22, 0)
+mesh = ExtResource("2_2ifs4")
 
 [node name="leg br" type="Node3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, -0.46, 0)
@@ -62,16 +35,10 @@ script = ExtResource("1_oawh0")
 min_angles = Vector3(1, -5, -5)
 max_angles = Vector3(90, 5, 5)
 
-[node name="AnimatedSprite3D" type="Sprite3D" parent="leg br"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
-shaded = true
-double_sided = false
-alpha_cut = 1
-texture_filter = 0
-texture = ExtResource("14_yh8jq")
-script = ExtResource("2_s5w4d")
-sprites = SubResource("Resource_t7ftq")
-select_cd_range = Vector2(0.1, 2)
+[node name="Birdupleg1" type="MeshInstance3D" parent="leg br"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.2, 0)
+mesh = ExtResource("3_ks6ho")
+skeleton = NodePath("../..")
 
 [node name="IK" type="Node3D" parent="leg br"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)

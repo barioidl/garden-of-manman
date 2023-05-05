@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d1iwaku1maluf"
+path="res://.godot/imported/spider foot.obj-1cc3475951a278aaf319e3282ec88a7b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/spider foot.obj-1cc3475951a278aaf319e3282ec88a7b.mesh"]
+
+source_file="res://assets/blender models/spider foot.obj"
+dest_files=["res://.godot/imported/spider foot.obj-1cc3475951a278aaf319e3282ec88a7b.mesh", "res://.godot/imported/spider foot.obj-1cc3475951a278aaf319e3282ec88a7b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

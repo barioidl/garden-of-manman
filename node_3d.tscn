@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://xayofk8l0rxi"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
-[ext_resource type="PackedScene" uid="uid://d2rpfewvdycna" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
+[ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
 [ext_resource type="Script" path="res://scripts/modules/player.gd" id="3_e2b3m"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 
@@ -62,3 +62,7 @@ script = SubResource("GDScript_af2yt")
 
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91523, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0)
+light_energy = 0.5

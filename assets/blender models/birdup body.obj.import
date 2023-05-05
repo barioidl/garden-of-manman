@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ds3ue8j81p4pl"
+path="res://.godot/imported/birdup body.obj-bf8357b5ed9ea8ff5d71c53d3d84971f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/birdup body.obj-bf8357b5ed9ea8ff5d71c53d3d84971f.mesh"]
+
+source_file="res://assets/blender models/birdup body.obj"
+dest_files=["res://.godot/imported/birdup body.obj-bf8357b5ed9ea8ff5d71c53d3d84971f.mesh", "res://.godot/imported/birdup body.obj-bf8357b5ed9ea8ff5d71c53d3d84971f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

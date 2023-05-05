@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cnoh54go8t10b"
+path="res://.godot/imported/spider leg.obj-17c5fe3e6dc138ef297003c32b598aed.mesh"
+
+[deps]
+
+files=["res://.godot/imported/spider leg.obj-17c5fe3e6dc138ef297003c32b598aed.mesh"]
+
+source_file="res://assets/blender models/spider leg.obj"
+dest_files=["res://.godot/imported/spider leg.obj-17c5fe3e6dc138ef297003c32b598aed.mesh", "res://.godot/imported/spider leg.obj-17c5fe3e6dc138ef297003c32b598aed.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
