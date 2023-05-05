@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d2rpfewvdycna"]
+[gd_scene load_steps=32 format=3 uid="uid://d2rpfewvdycna"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
 [ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
@@ -41,6 +41,7 @@ enum states{idle,puzzle,hunt,kill}
 var state = states.idle
 
 func _ready() -> void:
+	return
 	root.connect(\"body_entered\",body_entered.bind())
 	root.connect(\"body_exited\",body_exited.bind())
 	player = get_tree().get_first_node_in_group('player')
@@ -49,6 +50,7 @@ func _ready() -> void:
 var time :=0.0
 func _process(delta: float) -> void:
 	time = delta
+	return
 	choose()
 
 func body_entered(body):
@@ -216,6 +218,42 @@ func play_sfx(sfx, volume:=10, pitch:=1):
 #	AudioLibrary.gm_time
 "
 
+[sub_resource type="GDScript" id="GDScript_g145v"]
+script/source = "extends GOAPAgent
+
+func _ready() -> void:
+	goals = [
+		GoalJumpscare.new(),
+		GoalSurvive.new()
+	]
+"
+
+[sub_resource type="GDScript" id="GDScript_17foq"]
+script/source = "extends Label3D
+var content:={
+	\"aaa\":4,
+	\"bbb\":3,
+	'ccc':12,
+	'ddd':15
+}
+func _ready() -> void:
+	if !OS.is_debug_build():
+		queue_free()
+		return
+	refresh_text()
+
+func refresh_text():
+	var keys = content.keys()
+	var values = content.values()
+	var output:=''
+	for i in content.size():
+		output += keys[i]
+		output += ': '
+		output += str(values[i])
+		output += '\\n'
+	text = output
+"
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
 height = 3.0
 
@@ -280,11 +318,21 @@ step_speed = 0.2
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
 [node name="BOT AI" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_l4ycn")
 puzzle_sfx = ExtResource("6_nwf6q")
 hunt_sfx = ExtResource("7_dpko6")
 kill_sfx = ExtResource("8_dey3p")
 turn_speed = 100
+
+[node name="GOAP AGENT" type="Node" parent="."]
+script = SubResource("GDScript_g145v")
+
+[node name="debug display" type="Label3D" parent="."]
+billboard = 1
+double_sided = false
+text = "asdavsdasdvwasdvw"
+script = SubResource("GDScript_17foq")
 
 [node name="shape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_plrhc")
@@ -319,6 +367,8 @@ texture_filter = 0
 texture = ExtResource("11_8l8of")
 script = ExtResource("2_a6yx4")
 sprites = ExtResource("12_a1o4m")
+select_cd_range = Vector2(0.3, 6)
+rotate_cd_range = Vector2(0.1, 3)
 
 [node name="face_switch" type="Node" parent="body/body/head/Sprite3D"]
 script = ExtResource("14_iahpp")

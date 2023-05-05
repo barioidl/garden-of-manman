@@ -1,0 +1,2 @@
+extends GOAPGoal
+class_name GoalJumpscare

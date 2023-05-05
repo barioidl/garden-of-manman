@@ -14,7 +14,9 @@ func _ready() -> void:
 	get_dependencies()
 
 func get_dependencies():
-	if hotbar != null:
+	var enable = hotbar != null
+	enabled = enable
+	if enable:
 		input.connect('drop_pressed',drop_start)
 		input.connect('drop_released',drop_stop)
 		
@@ -25,7 +27,8 @@ func get_dependencies():
 	
 	root.set_meta('get_target',Callable(get_target))
 	
-	platformer.connect("on_state_changed", on_state_changed.bind())
+	if platformer != null:
+		platformer.connect("on_state_changed", on_state_changed.bind())
 
 @export var normal_height:= 2.0
 @export var crouch_height:= 1.4

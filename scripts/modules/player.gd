@@ -22,7 +22,8 @@ func get_dependencies():
 	input = attach_to.get_node('inputs')
 	head = attach_to.get_node('body/head')
 	stats = attach_to.get_node('stats')
-	stat_display.attach_to(stats)
+	if stat_display != null:
+		stat_display.attach_to(stats)
 
 var time:=0.0
 func _process(delta):

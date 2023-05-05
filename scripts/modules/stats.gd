@@ -34,6 +34,9 @@ func hurt_sfx(delta:float):
 	AudioPool.create_sound_3d(pos,hurt_sounds)
 
 func body_entered(body):
+	fall_damage(body)
+
+func fall_damage(body):
 	if !has_fall_damage:return
 	var velocity:=Vector3.ZERO
 	if body is RigidBody3D:

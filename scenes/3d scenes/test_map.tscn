@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://cwkqkp2ulstjn"]
 
 [ext_resource type="Texture2D" uid="uid://dwxijhsutr857" path="res://assets/kenney/kenney_prototype_textures/orange/texture_01.png" id="1_hypp1"]
 
@@ -22,6 +22,14 @@ transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -5, 0)
 shape = SubResource("BoxShape3D_6x5x2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="down"]
+mesh = SubResource("BoxMesh_bmegv")
+skeleton = NodePath("../..")
+
+[node name="down2" type="CollisionShape3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 5, 0)
+shape = SubResource("BoxShape3D_6x5x2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="down2"]
 mesh = SubResource("BoxMesh_bmegv")
 skeleton = NodePath("../..")
 

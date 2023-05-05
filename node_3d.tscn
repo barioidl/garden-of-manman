@@ -1,143 +1,64 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://xayofk8l0rxi"]
 
-[ext_resource type="PackedScene" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
-[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_cc8pn"]
-[ext_resource type="Script" path="res://scripts/visual/3d_billboard_animated.gd" id="3_8r8q2"]
-[ext_resource type="Texture2D" uid="uid://b1idtvj0gb7md" path="res://assets/Textures/eye jar 10002.png" id="4_41rs4"]
-[ext_resource type="Texture2D" uid="uid://dt41uxs8b43cy" path="res://assets/Textures/eye jar 10005.png" id="5_imnse"]
-[ext_resource type="Texture2D" uid="uid://c64dxrjew67ku" path="res://assets/Textures/birdup0000.png" id="5_omxyp"]
-[ext_resource type="Texture2D" uid="uid://djh28ut703e11" path="res://assets/Textures/eye jar 10000.png" id="6_4365u"]
-[ext_resource type="Texture2D" uid="uid://7jpisfd3qiwa" path="res://assets/Textures/birdup0001.png" id="6_slcaq"]
-[ext_resource type="Texture2D" uid="uid://b33svyqta18g8" path="res://assets/Textures/eye jar 10001.png" id="7_7ilda"]
-[ext_resource type="Texture2D" uid="uid://d1rqcgn6lteaf" path="res://assets/Textures/birdup0002.png" id="7_y85qu"]
-[ext_resource type="Texture2D" uid="uid://cfhhj61jtwj6e" path="res://assets/Textures/eye jar 10003.png" id="8_8tv4g"]
-[ext_resource type="Texture2D" uid="uid://dsrbhpl4kw0up" path="res://assets/Textures/birdup0003.png" id="8_yefm6"]
-[ext_resource type="Texture2D" uid="uid://d1027xs1yc8q6" path="res://assets/Textures/birdup0004.png" id="9_868y1"]
-[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="9_ljdb1"]
-[ext_resource type="Texture2D" uid="uid://b4gwl8r6yerb1" path="res://assets/Textures/eye jar 10004.png" id="10_1x45e"]
-[ext_resource type="Texture2D" uid="uid://bnua3gc0cbhgb" path="res://assets/Textures/birdup0005.png" id="10_kqkw6"]
+[ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
+[ext_resource type="PackedScene" uid="uid://d2rpfewvdycna" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
+[ext_resource type="Script" path="res://scripts/modules/player.gd" id="3_e2b3m"]
+[ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 
-[sub_resource type="Resource" id="Resource_xoppj"]
-script = ExtResource("9_ljdb1")
-forward = ExtResource("6_4365u")
-left = ExtResource("7_7ilda")
-backward = ExtResource("4_41rs4")
-right = ExtResource("8_8tv4g")
-up = ExtResource("10_1x45e")
-down = ExtResource("5_imnse")
+[sub_resource type="GDScript" id="GDScript_pc2qk"]
+script/source = "extends Node3D
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ai4yf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_omxyp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_slcaq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_y85qu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_yefm6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_868y1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_kqkw6")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
-[sub_resource type="GDScript" id="GDScript_1yqbr"]
-script/source = "extends Camera3D
-var joypad_speed:=3.0
-var mouse_speed:=3.0
-
-var dpad1:=Vector2.ZERO
-var dpad2:=Vector2.ZERO
-
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) 
 
 func _process(delta: float) -> void:
-	var velo:=Vector3.ZERO
-	velo.x = dpad1.x*30
-	velo.z = dpad1.y*30
-	global_position+= velo*delta
+	pass
+"
 
-func _input(event: InputEvent) -> void:
-	get_movement(event)
-	crosshair_move(event)
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7j3lg"]
+friction = 0.2
 
-func get_movement(event: InputEvent):
-	if event is InputEventKey:
-		dpad1 = -Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
-		return
-	if event is InputEventJoypadMotion:
-		if event.axis == JOY_AXIS_RIGHT_X:
-			dpad1.x = event.axis_value * joypad_speed
-		if event.axis == JOY_AXIS_RIGHT_Y:
-			dpad1.y = event.axis_value * joypad_speed
-		return
+[sub_resource type="GDScript" id="GDScript_af2yt"]
+script/source = "extends RemoteTransform3D
 
-var ch_tween :Tween
-func crosshair_move(event:InputEvent):
-	if ch_tween != null:
-		ch_tween.kill()
-	ch_tween = create_tween()
-	ch_tween.tween_interval(0.1)
-	ch_tween.tween_callback(reset_crosshair)
-	
-	if event is InputEventMouseMotion:
-		var head_rotate = event.relative.y * mouse_speed
-		var body_rotate =  event.relative.x * mouse_speed
-		dpad2 = Vector2(-body_rotate,head_rotate)
-		return
-	if event is InputEventJoypadMotion:
-		if event.axis == JOY_AXIS_RIGHT_X:
-			dpad2.x = event.axis_value * joypad_speed
-		if event.axis == JOY_AXIS_RIGHT_Y:
-			dpad2.y = event.axis_value * joypad_speed
-		return
-func reset_crosshair():
-	dpad2 = Vector2.ZERO
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	queue_free() # Replace with function body.
 "
 
 [node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_pc2qk")
 
 [node name="test map" parent="." instance=ExtResource("1_014iv")]
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-0.0489841, -0.464404, -0.884268, 0, 0.885331, -0.464962, 0.998799, -0.0227758, -0.0433672, -1, 5, -2.98023e-08)
-shaded = true
-double_sided = false
-alpha_cut = 1
-texture_filter = 0
-texture = ExtResource("7_7ilda")
-script = ExtResource("2_cc8pn")
-sprites = SubResource("Resource_xoppj")
-disable_dist = 50.0
-select_dist = 0.5
-rotate_dist = 0.25
+[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("attach_to", "stat_display")]
+transform = Transform3D(0.999997, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 2.1225, -6.68638)
+script = ExtResource("3_e2b3m")
+attach_to = NodePath("../timmy")
+stat_display = NodePath("../HUD/Gameplay/Display stats")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(-0.0236216, -0.180106, -0.983363, 0, 0.983638, -0.180156, 0.999722, -0.00425558, -0.023235, 1, 5, 2.98023e-08)
-shaded = true
-double_sided = false
-alpha_cut = 1
-texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_ai4yf")
-frame = 1
-script = ExtResource("3_8r8q2")
-disable_dist = 50.0
-select_dist = 0.5
-rotate_dist = 0.25
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(-1, 0, -8.7423e-08, 0, 1, 0, 8.7423e-08, 0, -1, 0, 0, 0)
+keep_aspect = 0
+current = true
+fov = 90.0
+size = 0.1
+far = 50.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-process_mode = 3
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.85939, 3.81688, -0.0911903)
-script = SubResource("GDScript_1yqbr")
+[node name="timmy" parent="." instance=ExtResource("4_t373y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6225, -6.68638)
+collision_layer = 129
+physics_material_override = SubResource("PhysicsMaterial_7j3lg")
+max_contacts_reported = 3
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="timmy"]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+remote_path = NodePath("../../Player")
+update_scale = false
+script = SubResource("GDScript_af2yt")
+
+[node name="spider" parent="." instance=ExtResource("2_s84ga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91523, 0)

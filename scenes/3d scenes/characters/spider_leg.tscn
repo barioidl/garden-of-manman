@@ -72,8 +72,11 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("12_0erpq")
 script = ExtResource("2_do167")
 sprites = SubResource("Resource_3ug1y")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="leg br" type="Node3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, -1, 0)
@@ -89,8 +92,11 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("5_a4ra4")
 script = ExtResource("2_do167")
 sprites = SubResource("Resource_hspaa")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="leg2" type="Node3D" parent="leg br"]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0, -1, 0)
@@ -106,8 +112,11 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("18_2w2w2")
 script = ExtResource("2_do167")
 sprites = SubResource("Resource_b00tc")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="leg3" type="Node3D" parent="leg br/leg2"]
 transform = Transform3D(0.258819, -0.965926, 0, 0.965926, 0.258819, 0, 0, 0, 1, 5.96046e-08, -1, 0)
@@ -123,8 +132,11 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("24_es2a2")
 script = ExtResource("2_do167")
 sprites = SubResource("Resource_rns1o")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="IK" type="Node3D" parent="leg br/leg2/leg3"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, -1, 0)
