@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwkqkp2ulstjn"]
+[gd_scene load_steps=6 format=3 uid="uid://cwkqkp2ulstjn"]
 
 [ext_resource type="Texture2D" uid="uid://dwxijhsutr857" path="res://assets/kenney/kenney_prototype_textures/orange/texture_01.png" id="1_hypp1"]
 
@@ -14,6 +14,10 @@ uv1_world_triplanar = true
 material = SubResource("StandardMaterial3D_x4614")
 size = Vector3(10, 1, 10)
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_0y80s"]
+vertices = PackedVector3Array(-5, 0.5, 5, 5, 0.5, -5, 5, 0.5, 5, -5, 0.5, -5, -5, -0.5, 5, 5, -0.5, -5, 5, -0.5, 5, -5, -0.5, -5, 5, 0.5, 5, -5, 0.5, -5, 5, 0.5, -5, -5, 0.5, 5, 5, -0.5, 5, -5, -0.5, -5, 5, -0.5, -5, -5, -0.5, 5, 5, 0.5, 5, -5, -0.5, 5, -5, 0.5, 5, 5, -0.5, 5, 5, 0.5, -5, -5, -0.5, -5, -5, 0.5, -5, 5, -0.5, -5)
+polygons = [PackedInt32Array(0, 2, 4), PackedInt32Array(2, 6, 4), PackedInt32Array(1, 3, 5), PackedInt32Array(3, 7, 5), PackedInt32Array(8, 10, 12), PackedInt32Array(10, 14, 12), PackedInt32Array(9, 11, 13), PackedInt32Array(11, 15, 13), PackedInt32Array(16, 18, 20), PackedInt32Array(18, 22, 20), PackedInt32Array(17, 19, 21), PackedInt32Array(19, 23, 21)]
+
 [node name="test map" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 
@@ -25,8 +29,12 @@ shape = SubResource("BoxShape3D_6x5x2")
 mesh = SubResource("BoxMesh_bmegv")
 skeleton = NodePath("../..")
 
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="down/MeshInstance3D"]
+navigation_mesh = SubResource("NavigationMesh_0y80s")
+
 [node name="down2" type="CollisionShape3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 5, 0)
+visible = false
 shape = SubResource("BoxShape3D_6x5x2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="down2"]

@@ -1,7 +1,7 @@
 extends RigidBody3D
 class_name RigidCharacter
 
-var root := self
+var root = self
 
 var rotation_y := 0.0
 var offset_rotation:Quaternion
