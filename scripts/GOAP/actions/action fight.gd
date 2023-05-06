@@ -4,4 +4,7 @@ func get_name()->StringName:
 	return 'fight'
 
 func get_inputs()->Dictionary:
-	return{}
+	return{
+#		Goap.keys.beep:true,
+#		Goap.keys.boop:2
+		}

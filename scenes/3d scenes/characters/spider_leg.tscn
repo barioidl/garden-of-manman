@@ -1,11 +1,33 @@
-[gd_scene load_steps=8 format=3 uid="uid://2e2b7uitefcl"]
+[gd_scene load_steps=34 format=3 uid="uid://2e2b7uitefcl"]
 
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_i02uj"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_do167"]
+[ext_resource type="Texture2D" uid="uid://ca5cfa5yh7aka" path="res://assets/Textures/spider root leg0000.png" id="2_rbpd1"]
+[ext_resource type="Texture2D" uid="uid://d0rv8vd62b00l" path="res://assets/Textures/spider root leg0002.png" id="4_onhqo"]
+[ext_resource type="Texture2D" uid="uid://brxgkwah3vptn" path="res://assets/Textures/spider root leg0005.png" id="5_a4ra4"]
+[ext_resource type="Texture2D" uid="uid://dtmxfm3eyj5hf" path="res://assets/Textures/spider root leg0001.png" id="6_e7qn5"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="7_0fk8d"]
+[ext_resource type="Texture2D" uid="uid://dwgfg3mils7at" path="res://assets/Textures/spider root leg0003.png" id="7_78pm4"]
+[ext_resource type="Texture2D" uid="uid://bg6gggiy2mxyu" path="res://assets/Textures/spider root leg0004.png" id="9_0x5rt"]
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="9_a4d0h"]
-[ext_resource type="ArrayMesh" uid="uid://co1re7dts8qj4" path="res://assets/blender models/spider leg root.obj" id="10_ug0q0"]
-[ext_resource type="ArrayMesh" uid="uid://cnoh54go8t10b" path="res://assets/blender models/spider leg.obj" id="30_gt8m2"]
-[ext_resource type="ArrayMesh" uid="uid://d1iwaku1maluf" path="res://assets/blender models/spider foot.obj" id="31_t1b77"]
-[ext_resource type="ArrayMesh" uid="uid://csoixpay6pasi" path="res://assets/blender models/spider thigh.obj" id="32_4kgfa"]
+[ext_resource type="Texture2D" uid="uid://bsi2xeugu5532" path="res://assets/Textures/spider thigh0000.png" id="10_h1pk4"]
+[ext_resource type="Texture2D" uid="uid://clsdwgq3favi3" path="res://assets/Textures/spider thigh0002.png" id="11_wmqbd"]
+[ext_resource type="Texture2D" uid="uid://7wwcqrk8uvtr" path="res://assets/Textures/spider thigh0005.png" id="12_0erpq"]
+[ext_resource type="Texture2D" uid="uid://6idr8o8ah31x" path="res://assets/Textures/spider thigh0001.png" id="13_7n7xn"]
+[ext_resource type="Texture2D" uid="uid://pwv7wq5v0h03" path="res://assets/Textures/spider thigh0003.png" id="14_yh3mt"]
+[ext_resource type="Texture2D" uid="uid://bqk38oxcga8v" path="res://assets/Textures/spider thigh0004.png" id="15_o6v06"]
+[ext_resource type="Texture2D" uid="uid://deakh4vh0g4yl" path="res://assets/Textures/spider leg0000.png" id="16_nddug"]
+[ext_resource type="Texture2D" uid="uid://6agr7apxwgdo" path="res://assets/Textures/spider leg0002.png" id="17_6xbvp"]
+[ext_resource type="Texture2D" uid="uid://bhuysn00y5gri" path="res://assets/Textures/spider leg0005.png" id="18_2w2w2"]
+[ext_resource type="Texture2D" uid="uid://cnvvt4wtn5nwt" path="res://assets/Textures/spider leg0001.png" id="19_w78in"]
+[ext_resource type="Texture2D" uid="uid://dh5dn2ldkqtvb" path="res://assets/Textures/spider leg0003.png" id="20_j5yw6"]
+[ext_resource type="Texture2D" uid="uid://cyfdlk4340i8r" path="res://assets/Textures/spider leg0004.png" id="21_okfp5"]
+[ext_resource type="Texture2D" uid="uid://bb8qhxcyhwg88" path="res://assets/Textures/spider foot0000.png" id="22_q3djk"]
+[ext_resource type="Texture2D" uid="uid://bkjbgiffqv2s4" path="res://assets/Textures/spider foot0002.png" id="23_3bp7y"]
+[ext_resource type="Texture2D" uid="uid://cta83uwm8ewhx" path="res://assets/Textures/spider foot0005.png" id="24_es2a2"]
+[ext_resource type="Texture2D" uid="uid://cgx835xaqp1fr" path="res://assets/Textures/spider foot0001.png" id="25_gi06t"]
+[ext_resource type="Texture2D" uid="uid://cl25bo6bv6gqv" path="res://assets/Textures/spider foot0003.png" id="26_v3qy3"]
+[ext_resource type="Texture2D" uid="uid://cdrxdjqhty8ds" path="res://assets/Textures/spider foot0004.png" id="27_amek7"]
 
 [sub_resource type="GDScript" id="GDScript_10n4p"]
 script/source = "extends Node3D
@@ -15,6 +37,22 @@ script/source = "extends Node3D
 func _ready() -> void:
 	ik.target = ik_target # Replace with 
 "
+
+[sub_resource type="Resource" id="Resource_3ug1y"]
+script = ExtResource("7_0fk8d")
+frames = Array[Texture]([ExtResource("10_h1pk4"), ExtResource("13_7n7xn"), ExtResource("11_wmqbd"), ExtResource("14_yh3mt"), ExtResource("15_o6v06"), ExtResource("12_0erpq")])
+
+[sub_resource type="Resource" id="Resource_hspaa"]
+script = ExtResource("7_0fk8d")
+frames = Array[Texture]([ExtResource("2_rbpd1"), ExtResource("6_e7qn5"), ExtResource("4_onhqo"), ExtResource("7_78pm4"), ExtResource("9_0x5rt"), ExtResource("5_a4ra4")])
+
+[sub_resource type="Resource" id="Resource_b00tc"]
+script = ExtResource("7_0fk8d")
+frames = Array[Texture]([ExtResource("16_nddug"), ExtResource("19_w78in"), ExtResource("17_6xbvp"), ExtResource("20_j5yw6"), ExtResource("21_okfp5"), ExtResource("18_2w2w2")])
+
+[sub_resource type="Resource" id="Resource_rns1o"]
+script = ExtResource("7_0fk8d")
+frames = Array[Texture]([ExtResource("22_q3djk"), ExtResource("25_gi06t"), ExtResource("23_3bp7y"), ExtResource("26_v3qy3"), ExtResource("27_amek7"), ExtResource("24_es2a2")])
 
 [node name="spider leg" type="Node3D" node_paths=PackedStringArray("ik")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -28,9 +66,17 @@ max_angles = Vector3(15, 15, 15)
 weight = 0.5
 max_speed = 1.0
 
-[node name="SpiderLegRoot" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.5, 0)
-mesh = ExtResource("10_ug0q0")
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 5.96046e-08, 2, 0, 0, 0, 2, 0, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("12_0erpq")
+script = ExtResource("2_do167")
+sprites = SubResource("Resource_3ug1y")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.65, 1)
 
 [node name="leg br" type="Node3D" parent="."]
 transform = Transform3D(0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 0, 0, 1, 0, -1, 0)
@@ -40,10 +86,17 @@ script = ExtResource("1_i02uj")
 min_angles = Vector3(0, -15, -90)
 max_angles = Vector3(0, 15, 90)
 
-[node name="SpiderThigh" type="MeshInstance3D" parent="leg br"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.5, 0)
-mesh = ExtResource("32_4kgfa")
-skeleton = NodePath("../..")
+[node name="Sprite3D" type="Sprite3D" parent="leg br"]
+transform = Transform3D(2, 0, 0, 5.96046e-08, 2, 0, 0, 0, 2, 0, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("5_a4ra4")
+script = ExtResource("2_do167")
+sprites = SubResource("Resource_hspaa")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.65, 1)
 
 [node name="leg2" type="Node3D" parent="leg br"]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0, -1, 0)
@@ -53,10 +106,17 @@ script = ExtResource("1_i02uj")
 min_angles = Vector3(0, -15, -90)
 max_angles = Vector3(0, 15, 90)
 
-[node name="SpiderLeg" type="MeshInstance3D" parent="leg br/leg2"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.5, 0)
-mesh = ExtResource("30_gt8m2")
-skeleton = NodePath("../../..")
+[node name="Sprite3D" type="Sprite3D" parent="leg br/leg2"]
+transform = Transform3D(2, 0, 0, 5.96046e-08, 2, 0, 0, 0, 2, -1.19209e-07, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("18_2w2w2")
+script = ExtResource("2_do167")
+sprites = SubResource("Resource_b00tc")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.65, 1)
 
 [node name="leg3" type="Node3D" parent="leg br/leg2"]
 transform = Transform3D(0.258819, -0.965926, 0, 0.965926, 0.258819, 0, 0, 0, 1, 5.96046e-08, -1, 0)
@@ -66,10 +126,17 @@ script = ExtResource("1_i02uj")
 min_angles = Vector3(0, -15, -90)
 max_angles = Vector3(0, 15, 90)
 
-[node name="SpiderFoot" type="MeshInstance3D" parent="leg br/leg2/leg3"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.5, 0)
-mesh = ExtResource("31_t1b77")
-skeleton = NodePath("../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="leg br/leg2/leg3"]
+transform = Transform3D(2, -5.96046e-08, 0, 0, 2, 0, 0, 0, 2, 0, -0.5, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("24_es2a2")
+script = ExtResource("2_do167")
+sprites = SubResource("Resource_rns1o")
+select_cd_range = Vector2(0.2, 3)
+axis_ratio = Vector3(1, 0.65, 1)
 
 [node name="IK" type="Node3D" parent="leg br/leg2/leg3"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, -1, 0)

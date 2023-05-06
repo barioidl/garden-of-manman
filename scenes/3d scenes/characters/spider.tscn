@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://djulvkmrx1g60"]
+[gd_scene load_steps=33 format=3 uid="uid://djulvkmrx1g60"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
 [ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
@@ -13,15 +13,17 @@
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_dey3p"]
 [ext_resource type="FontFile" uid="uid://bdf26hkq2td8r" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future_thin.ttf" id="9_o75q3"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="10_b2yls"]
+[ext_resource type="Texture2D" uid="uid://2alss76jbdw6" path="res://assets/Textures/moon face0005.png" id="12_d46mv"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="13_decgv"]
+[ext_resource type="Resource" uid="uid://md7vpkr5xcdi" path="res://assets/bill_board_sides/moon face.tres" id="14_ga2t5"]
 [ext_resource type="Script" path="res://scripts/3d_billboard_animated.gd" id="14_iahpp"]
-[ext_resource type="PackedScene" uid="uid://ndbyfw2cr242" path="res://assets/blender models/moonface.glb" id="17_b5hlb"]
+[ext_resource type="Resource" uid="uid://btsyxe3lav3p0" path="res://assets/bill_board_sides/sun face.tres" id="16_450uj"]
 [ext_resource type="AudioStream" uid="uid://c2u51bnc0pxtb" path="res://assets/audio/kenney_ui-audio/Audio/switch2.ogg" id="17_r80fm"]
 [ext_resource type="AudioStream" uid="uid://cbqcmde5jwqpe" path="res://assets/audio/kenney_ui-audio/Audio/switch4.ogg" id="18_xur3e"]
 [ext_resource type="AudioStream" uid="uid://bysyj6wa0fieu" path="res://assets/audio/kenney_ui-audio/Audio/switch10.ogg" id="19_f4yt5"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="21_cbu30"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="22_crgkt"]
 [ext_resource type="Script" path="res://scripts/procedural animation/leg step animation.gd" id="23_oikep"]
-[ext_resource type="PackedScene" uid="uid://ipa4u7ne5cla" path="res://assets/blender models/sunface.gltf" id="24_yya5h"]
 
 [sub_resource type="GDScript" id="GDScript_l4ycn"]
 script/source = "extends Node
@@ -324,7 +326,7 @@ step_speed = 0.2
 [node name="BOT AI" type="Node" parent="." node_paths=PackedStringArray("face_swapper")]
 process_mode = 4
 script = SubResource("GDScript_l4ycn")
-face_swapper = NodePath("../body/body/head/OmniLight3D/face_switch")
+face_swapper = NodePath("../body/body/head/face/OmniLight3D/face_switch")
 puzzle_sfx = ExtResource("6_nwf6q")
 hunt_sfx = ExtResource("7_dpko6")
 kill_sfx = ExtResource("8_dey3p")
@@ -361,31 +363,39 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.
 script = SubResource("GDScript_8ht6u")
 
 [node name="head" type="Node3D" parent="body/body" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.6)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.75)
 script = SubResource("GDScript_0ufrt")
 target = NodePath("../../head")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="body/body/head"]
-transform = Transform3D(1, 0, -2.08798e-21, 0, 1, 0, 2.08798e-21, 0, 1, 0, 0, 0)
+[node name="face" type="Sprite3D" parent="body/body/head"]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 0, 0)
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("12_d46mv")
+script = ExtResource("13_decgv")
+sprites = ExtResource("14_ga2t5")
+select_cd_range = Vector2(0.2, 1)
+rotate_cd_range = Vector2(0.1, 5)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/body/head/face"]
+transform = Transform3D(1, 0, -2.08798e-21, 0, 1, 0, 2.08798e-21, 0, 1, 0, 0, 0.25)
 light_color = Color(1, 0.916667, 0.5, 1)
 light_energy = 0.1
 shadow_enabled = true
 omni_range = 20.0
 
-[node name="face_switch" type="Node" parent="body/body/head/OmniLight3D" node_paths=PackedStringArray("sun_face", "moon_face", "lamp")]
+[node name="face_switch" type="Node" parent="body/body/head/face/OmniLight3D" node_paths=PackedStringArray("face", "lamp")]
 script = ExtResource("14_iahpp")
-sun_face = NodePath("../../sunface")
-moon_face = NodePath("../../moonface")
+sun_face = ExtResource("16_450uj")
+moon_face = ExtResource("14_ga2t5")
+face = NodePath("../..")
 lamp = NodePath("..")
 switch_sfx = SubResource("Resource_rr2e5")
 
-[node name="sunface" parent="body/body/head" instance=ExtResource("24_yya5h")]
-visible = false
-
-[node name="moonface" parent="body/body/head" instance=ExtResource("17_b5hlb")]
-
 [node name="spider leg" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]
-transform = Transform3D(0.241844, 0.664463, -0.707107, 0.241844, 0.664463, 0.707107, 0.939692, -0.34202, -2.67677e-08, 0, 0, 0)
+transform = Transform3D(0.241845, 0.664463, -0.707107, 0.241845, 0.664463, 0.707107, 0.939692, -0.34202, 3.09086e-08, 0, 0, 0)
 ik_target = NodePath("../../feet casters/top left feet/leg ik tl")
 
 [node name="spider leg2" parent="body/body" node_paths=PackedStringArray("ik_target") instance=ExtResource("1_s3sio")]

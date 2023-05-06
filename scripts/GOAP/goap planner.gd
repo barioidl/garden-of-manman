@@ -1,6 +1,8 @@
 extends Resource
 class_name GOAPPlanner
 
+var group_inputs:={}
+var group_outputs:={}
 var actions:Array=[]:
 	get:
 		return actions
@@ -8,9 +10,6 @@ var actions:Array=[]:
 		actions = value
 		bake_inputs()
 		bake_outputs()
-
-var group_inputs:={}
-var group_outputs:={}
 
 func bake_inputs():
 	for act in actions:
@@ -44,13 +43,13 @@ func print_group(group:Dictionary):
 			actions += ', '
 		print(key[i]+': '+ actions)
 
-func get_plan(goal:GOAPGoal,self_state)->Array:
+func get_plan(goal:GOAPGoal,local_state:Dictionary)->Array:
 	var desired_result := goal.get_result()
 	if desired_result.is_empty(): return[]
 	
-	return find_best_plan()
+	return find_best_plan(goal,desired_result,local_state)
 
-func find_best_plan()->Array:
+func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dictionary)->Array:
 	
 	return[]
 

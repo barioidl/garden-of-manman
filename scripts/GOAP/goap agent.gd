@@ -2,7 +2,7 @@ extends Node
 class_name GOAPAgent
 
 var root:Node3D
-var self_state:={}
+var local_state:={}
 
 var goals:=[]:
 	get:
@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 func follow_plan():
 	return
 	if current_step >= plan_size:return
-	var completed = current_plan[current_step].perform(self_state,time)
+	var completed = current_plan[current_step].perform(local_state,time)
 	if completed:
 		current_step += 1
 
@@ -48,13 +48,16 @@ func generate_plan():
 	var best_goal = select_goal()
 	if best_goal == null: return
 	if best_goal == current_goal: return
+	current_goal = best_goal
 	var planner :GOAPPlanner= Goap.get_action_planner()
-	current_plan = planner.get_plan(best_goal,self_state)
+	current_plan = planner.get_plan(current_goal,local_state)
 	current_step = 0
 	
 	if debug_display != null:
 		var content = planner.print_plan(current_plan)
 		debug_display.set_content('goap_plan',content)
+		debug_display.set_content('goal',current_goal.name())
+		print(current_goal.name())
 
 func select_goal()-> GOAPGoal:
 	goals.sort_custom(compare_goals)
@@ -64,15 +67,6 @@ func select_goal()-> GOAPGoal:
 	if best_goal.priority() <= 0: 
 		return current_goal
 	return best_goal
-
-#var tween_sort:Tween
-#func sort_goals():
-#	if tween_sort != null:return
-#	tween_sort = create_tween()
-#	tween_sort.tween_interval(1.0)
-#	tween_sort.tween_callback(func(): tween_sort = null)
-#
-#	goals.sort_custom(compare_goals)
 
 func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
 	if !a.is_valid():
