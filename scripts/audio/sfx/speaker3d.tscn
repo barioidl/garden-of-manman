@@ -4,22 +4,22 @@
 
 [sub_resource type="GDScript" id="GDScript_k2ol7"]
 script/source = "extends AudioStreamPlayer3D
-var loop:=1
 
 func _ready() -> void:
 	connect('finished',finished) # Replace with function body.
-	add_to_group('sfx_3d')
+
+func play_sfx(audio):
+	add_to_group('audio_player_3d')
+	stream = audio
 	play()
-#func _process(delta: float) -> void:
-#	pass
 
 func finished():
-	loop -=1
-	if loop >0:return
-	queue_free()
+	remove_from_group('audio_player_3d')
+	var pool :AudioPool= get_parent()
+	pool.add_player_3d(self)
 "
 
-[node name="speaker" type="AudioStreamPlayer3D"]
+[node name="speaker3d" type="AudioStreamPlayer3D"]
 stream = ExtResource("1_flgk3")
 bus = &"Sfx"
 script = SubResource("GDScript_k2ol7")

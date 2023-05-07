@@ -50,14 +50,28 @@ func get_plan(goal:GOAPGoal,local_state:Dictionary)->Array:
 	return find_best_plan(goal,desired_result,local_state)
 
 func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dictionary)->Array:
+	var available_plans:=[]
+	var generating_plans:=[]
+	var first_branch:={}
+	first_branch.desired_result = desired_result.duplicate()
+	first_branch.plan = []
 	
+	var kill_switch:=20
+	while !first_branch.desired_result.is_empty():
+		kill_switch -= 1
+		if kill_switch <0:break
+		for condition in first_branch.desired_result:
+			pass
+	
+		
+#	generating_plans.append(first_branch)
 	return[]
 
 func _get_cheapest_plan():
 	pass
 
-func build_plan():
-	pass
+#func build_plan():
+#	pass
 
 func print_plan(plan:Array)->String:
 	var content :=''

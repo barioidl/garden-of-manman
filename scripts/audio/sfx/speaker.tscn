@@ -2,19 +2,19 @@
 
 [sub_resource type="GDScript" id="GDScript_176np"]
 script/source = "extends AudioStreamPlayer
-var loop:=1
 
 func _ready() -> void:
 	connect('finished',finished) # Replace with function body.
-	add_to_group('sfx')
+
+func play_sfx(audio):
+	add_to_group('audio_player')
+	stream = audio
 	play()
-#func _process(delta: float) -> void:
-#	pass
 
 func finished():
-	loop -=1
-	if loop >0:return
-	queue_free()
+	remove_from_group('audio_player')
+	var pool :AudioPool= get_parent()
+	pool.add_player(self)
 "
 
 [node name="speaker" type="AudioStreamPlayer"]

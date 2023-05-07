@@ -3,12 +3,14 @@ class_name GOAPAgent
 
 var root:Node3D
 var local_state:={}
+var planner :GOAPPlanner
 
 var goals:=[]:
 	get:
 		return goals
 	set(value):
 		goals = value
+		goal_size = goals.size()
 
 var current_goal:GOAPGoal
 var current_plan:Array:
@@ -17,13 +19,18 @@ var current_plan:Array:
 	set(value):
 		current_plan = value
 		plan_size = current_plan.size()
+
+var goal_size:=0
 var plan_size:=0
 var current_step:=0
 
 @onready var debug_display = get_node_or_null('../debug_display')
 
+func _init() -> void:
+	name = 'goap_agent'
+
 func _ready() -> void:
-	pass
+	planner = Goap.get_action_planner()
 
 var time:=0.0
 func _process(delta: float) -> void:
@@ -31,9 +38,16 @@ func _process(delta: float) -> void:
 	generate_plan()
 	follow_plan()
 
+func set_local_state(key,value):
+	if local_state.has(key):
+		if local_state[key] == value:	return
+	local_state[key] = value
+	debug_local_state()
+
 func follow_plan():
-	return
-	if current_step >= plan_size:return
+	if current_step >= plan_size:
+		current_step=0
+		return
 	var completed = current_plan[current_step].perform(local_state,time)
 	if completed:
 		current_step += 1
@@ -49,26 +63,45 @@ func generate_plan():
 	if best_goal == null: return
 	if best_goal == current_goal: return
 	current_goal = best_goal
-	var planner :GOAPPlanner= Goap.get_action_planner()
+	
 	current_plan = planner.get_plan(current_goal,local_state)
 	current_step = 0
 	
-	if debug_display != null:
-		var content = planner.print_plan(current_plan)
-		debug_display.set_content('goap_plan',content)
-		debug_display.set_content('goal',current_goal.name())
-		print(current_goal.name())
+	debug_plan()
 
 func select_goal()-> GOAPGoal:
 	goals.sort_custom(compare_goals)
-	var best_goal :GOAPGoal= goals[0]
-	if !best_goal.is_valid(): 
-		return current_goal
-	if best_goal.priority() <= 0: 
-		return current_goal
-	return best_goal
+	var iterations:= min(3,goal_size)
+	for i in iterations:
+		var best_goal :GOAPGoal= goals[i]
+		if !best_goal.is_valid(): 
+			continue
+		if best_goal.priority() <= 0: 
+			continue
+		return best_goal
+	return current_goal
 
 func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
 	if !a.is_valid():
 		return false
 	return a.priority() > b.priority()
+
+func debug_local_state():
+	if debug_display == null: return
+	var keys = local_state.keys()
+	var values = local_state.values()
+	var iterations = local_state.size()
+	var output:=''
+	var key_strings = Goap.keys.keys()
+	for i in iterations:
+		output += key_strings[keys[i]]
+		output += ': '
+		output += str(values[i])
+		output += ', '
+	debug_display.set_content('local_state',output)
+
+func debug_plan():
+	if debug_display == null: return
+	var content = planner.print_plan(current_plan)
+	debug_display.set_content('goap_plan',content)
+	debug_display.set_content('current_goal', current_goal.name())

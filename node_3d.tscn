@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://xayofk8l0rxi"]
+[gd_scene load_steps=10 format=3 uid="uid://xayofk8l0rxi"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
 [ext_resource type="Script" path="res://scripts/modules/player.gd" id="3_e2b3m"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
+[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="5_d5ux6"]
 
 [sub_resource type="GDScript" id="GDScript_pc2qk"]
 script/source = "extends Node3D
@@ -26,6 +27,16 @@ script/source = "extends RemoteTransform3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	queue_free() # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_f4uey"]
+script/source = "extends Sprite3D
+
+func _ready() -> void:
+	add_to_group('food') # Replace with function body.
+
+func consoom():
+	queue_free()
 "
 
 [node name="Node3D" type="Node3D"]
@@ -61,11 +72,15 @@ update_scale = false
 script = SubResource("GDScript_af2yt")
 
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91523, 0)
+transform = Transform3D(-0.999947, 0.00151077, -0.0101682, 0, 0.989142, 0.146964, 0.0102799, 0.146956, -0.98909, 0, 1.91523, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.707107, 0.612372, -0.353553, 0, 0, 0)
-visible = false
+transform = Transform3D(-0.87106, -0.425372, 0.245589, 0, 0.5, 0.866025, -0.491177, 0.75436, -0.43553, 0, 0, 0)
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 50.0
+
+[node name="prop food" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.63078, 1.32936, 4.76837e-07)
+texture = ExtResource("5_d5ux6")
+script = SubResource("GDScript_f4uey")

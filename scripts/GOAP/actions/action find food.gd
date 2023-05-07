@@ -1,8 +1,7 @@
 extends GOAPAction
-class_name ActionFight
-
+class_name ActionFindFood
 func get_name()->StringName:
-	return 'fight'
+	return 'find food'
 
 func get_inputs()->Dictionary:
 	return{

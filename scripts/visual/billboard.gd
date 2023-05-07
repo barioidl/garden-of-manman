@@ -82,9 +82,10 @@ func _process(delta: float) -> void:
 			bill_board_modes.six_sides:
 				axis_rotate()
 		return
+	
 	rotate_cd -=delta
 	if rotate_cd <0:
-		rotate_cd = lerpf(rotate_cd_range.x,rotate_cd_range.y,dist_ratio)
+		rotate_cd = lerpf(rotate_cd_range.x, rotate_cd_range.y, dist_ratio)
 		match face_camera:
 			bill_board_modes.bill_board:
 				billboard_forward()
@@ -97,9 +98,9 @@ func _process(delta: float) -> void:
 func choose_side():
 	var ref = reference_frame.global_transform.basis
 
-	var x = (forward - ref.x).length_squared()-2
-	var y = (forward - ref.y).length_squared()-2
-	var z = (forward - ref.z).length_squared()-2
+	var x = forward.distance_squared_to(ref.x)-2
+	var y = forward.distance_squared_to(ref.y)-2
+	var z = forward.distance_squared_to(ref.z)-2
 	if axis_ratio != Vector3.ONE:
 		x *= axis_ratio.x
 		y *= axis_ratio.y
@@ -115,7 +116,8 @@ func choose_side():
 	if maximum < abs_z:
 		maximum = abs_z
 		cardinal = 2
-	
+	var deadzone := 1.5
+#	print(Vector3(x,y,z))
 	match cardinal:
 		0:
 			if x <0:

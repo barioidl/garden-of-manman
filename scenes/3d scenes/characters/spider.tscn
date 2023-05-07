@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://djulvkmrx1g60"]
+[gd_scene load_steps=32 format=3 uid="uid://djulvkmrx1g60"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
 [ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="6_uojeq"]
 [ext_resource type="Resource" uid="uid://duy4eq8ii5263" path="res://data/audio/hunt sfx.tres" id="7_dpko6"]
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_dey3p"]
-[ext_resource type="FontFile" uid="uid://bdf26hkq2td8r" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future_thin.ttf" id="9_o75q3"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="10_b2yls"]
 [ext_resource type="Texture2D" uid="uid://2alss76jbdw6" path="res://assets/Textures/moon face0005.png" id="12_d46mv"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="13_decgv"]
@@ -226,8 +225,13 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalJumpscare.new(),
-		GoalSurvive.new()
+		GoalSurvive.new(),
+		GoalEatFood.new()
 	]
+	
+	set_local_state(Goap.keys.is_hungry,1)
+	set_local_state(Goap.keys.is_low_hp,0)
+	set_local_state(Goap.keys.is_in_danger,1)
 "
 
 [sub_resource type="GDScript" id="GDScript_17foq"]
@@ -251,8 +255,9 @@ func set_content(key,value):
 func refresh_text():
 	var keys = content.keys()
 	var values = content.values()
+	var iterations = content.size()
 	var output:=''
-	for i in content.size():
+	for i in iterations:
 		output += keys[i]
 		output += ': '
 		output += str(values[i])
@@ -332,16 +337,19 @@ hunt_sfx = ExtResource("7_dpko6")
 kill_sfx = ExtResource("8_dey3p")
 turn_speed = 100
 
-[node name="GOAP AGENT" type="Node" parent="."]
+[node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")
 
 [node name="debug_display" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.5, 0)
 billboard = 1
 double_sided = false
+fixed_size = true
+texture_filter = 0
 text = "debug"
-font = ExtResource("9_o75q3")
-font_size = 16
+font_size = 20
+outline_size = 5
+autowrap_mode = 2
 script = SubResource("GDScript_17foq")
 
 [node name="shape" type="CollisionShape3D" parent="."]
