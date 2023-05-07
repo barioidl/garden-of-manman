@@ -424,9 +424,9 @@ legs_per_steps = 2
 legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik br"), NodePath("top right feet/leg ik bl"), NodePath("bottom left feet/leg ik tr")]
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, 0.707107, -1, 0.25, -1)
+transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, 0.707107, -1, 0, -1)
 exclude_parent = false
-target_position = Vector3(-1, -2.5, 0)
+target_position = Vector3(-1, -2, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -436,9 +436,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, -0.707107, 1, 0.25, -1)
+transform = Transform3D(-0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, -0.707107, 1, 0, -1)
 exclude_parent = false
-target_position = Vector3(-1, -2.5, 0)
+target_position = Vector3(-1, -2, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -448,9 +448,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, 0.707107, -1, 0.25, 1)
+transform = Transform3D(0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, 0.707107, -1, 0, 1)
 exclude_parent = false
-target_position = Vector3(-1, -2.5, 0)
+target_position = Vector3(-1, -2, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -460,9 +460,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, -0.707107, 1, 0.25, 1)
+transform = Transform3D(-0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, -0.707107, 1, 0, 1)
 exclude_parent = false
-target_position = Vector3(-1, -2.5, 0)
+target_position = Vector3(-1, -2, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 

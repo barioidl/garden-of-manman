@@ -1,6 +1,9 @@
 extends Node
 
 enum keys{
+	plan_width,
+	plan_depth,
+	
 	has_food,
 	hungriness,
 	health,

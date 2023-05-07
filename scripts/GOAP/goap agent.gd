@@ -31,6 +31,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	planner = Goap.get_action_planner()
+	set_local_state(Goap.keys.plan_width,3)
+	set_local_state(Goap.keys.plan_depth,10)
 
 var time:=0.0
 func _process(delta: float) -> void:
@@ -45,6 +47,7 @@ func set_local_state(key,value):
 	debug_local_state()
 
 func follow_plan():
+	return
 	if current_step >= plan_size:
 		current_step=0
 		return
@@ -52,16 +55,15 @@ func follow_plan():
 	if completed:
 		current_step += 1
 
-var tween_plan :Tween
+var generate_cd :=0.0
 func generate_plan():
-	if tween_plan != null:return
-	tween_plan = create_tween()
-	tween_plan.tween_interval(1.0)
-	tween_plan.tween_callback(func(): tween_plan = null)
+#	generate_cd -= time
+#	if generate_cd >0:return
+#	generate_cd = 1
 	
 	var best_goal = select_goal()
 	if best_goal == null: return
-	if best_goal == current_goal: return
+#	if best_goal == current_goal: return
 	current_goal = best_goal
 	
 	current_plan = planner.get_plan(current_goal, local_state)
