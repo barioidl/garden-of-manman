@@ -15,3 +15,6 @@ func get_inputs(self_state:Dictionary)->Dictionary:
 
 func get_outputs(self_state:Dictionary)->Dictionary:
 	return{}
+
+func perform(local_state:Dictionary,time:float)->bool:
+	return false

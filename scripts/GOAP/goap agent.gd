@@ -44,12 +44,12 @@ func set_local_state(key,value):
 	if local_state.has(key):
 		if local_state[key] == value:	return
 	local_state[key] = value
+	var a :=[] 
 	debug_local_state()
 
 func follow_plan():
-	return
 	if current_step >= plan_size:
-		current_step=0
+#		current_step=0
 		return
 	var completed = current_plan[current_step].perform(local_state,time)
 	if completed:
@@ -60,7 +60,7 @@ func generate_plan():
 	generate_cd -= time
 	if generate_cd >0:return
 	if Goap.reached_limit(): return
-	generate_cd = 1
+	generate_cd = 10
 	
 	var best_goal = select_goal()
 	if best_goal == null: return

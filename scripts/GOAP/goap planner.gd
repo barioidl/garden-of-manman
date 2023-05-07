@@ -35,8 +35,7 @@ func bake_outputs():
 func print_group(group:Dictionary):
 	var key = group.keys()
 	var values = group.values()
-	var iterations:= group.size()
-	for i in iterations:
+	for i in group.size():
 		var actions:=''
 		for j in values[i]:
 			actions += j.get_name()
@@ -55,10 +54,15 @@ func get_plan(goal:GOAPGoal,local_state:Dictionary)->Array:
 	if desired_result.is_empty(): 
 		return[]
 	local_state = local_state.duplicate()#make sure it's read-only 
-	return find_best_plan(goal, desired_result, local_state)
+	var result := find_best_plan(goal, desired_result, local_state)
+	result.reverse()
+	return result
 
 enum index{conditions,plan,cost}
 func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dictionary)->Array:
+	var max_depth :int= local_state[Goap.keys.plan_depth]
+	var max_width :int = local_state[Goap.keys.plan_width]
+	
 	var available_plans:=[]
 	var generating_plans:=[]
 	
@@ -69,17 +73,22 @@ func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dicti
 	}
 	generating_plans.append(first_branch)
 	
-	var max_steps :int= local_state[Goap.keys.plan_depth]
-	for i in max_steps:
-		var iterations = generating_plans.size()
-		for id in iterations:
+	for i in max_depth:
+		if available_plans.size() > max_width:
+			break
+		var id :=0
+		while id < generating_plans.size():
 			expand_branch(id, generating_plans, available_plans, local_state)
+			id+=1
 	
+	print('a: ' + str(available_plans.size()) + ', '+ str(generating_plans.size()))
+	
+	if available_plans.is_empty():
+		return select_plan(generating_plans,local_state)
 	return select_plan(available_plans,local_state)
 
 func is_conditions_cleared(conditions:Dictionary)->bool:
-	var values = conditions.values()
-	for i in values:
+	for i in conditions.values():
 		if i != 0:
 			return false
 	return true
@@ -93,9 +102,8 @@ func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionar
 		return
 	
 	var unique_actions:=[]
-	var iterations = conditions.size()
 	var keys = conditions.keys()
-	for i in iterations:
+	for i in conditions.size():
 		var key = keys[i]
 		var actions = get_suitable_actions(i, key, conditions[key], local_state)
 		for act in actions:
@@ -105,22 +113,29 @@ func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionar
 	var new_branches = unique_actions.size()
 	if new_branches <=0: 
 		return
+	if new_branches > 1: 
+		for i in range(1,new_branches):
+			var action = unique_actions[i]
+			var new_branch = branch.duplicate(true)
+			new_branch[index.plan].append(action)
+			append_action_conditions(new_branch[index.conditions], action, local_state)
+			in_progress.append(new_branch)
+	
 	var act :GOAPAction= unique_actions[0]
 	branch[index.plan].append(act)
-	
-	var outputs = act.get_outputs(local_state)
-	for i in iterations:
-		var key = keys[i]
+	branch[index.cost] += act.get_cost(local_state)
+	append_action_conditions(conditions,act,local_state)
+
+func append_action_conditions(conditions:Dictionary, action:GOAPAction, local_state:Dictionary):
+	var outputs = action.get_outputs(local_state)
+	for key in conditions.keys():
 		if !outputs.has(key): continue
 		conditions[key] -= outputs[key]
 		
-	var inputs = act.get_inputs(local_state)
-	var inputs_size = inputs.size()
-	var input_keys = inputs.keys()
-	for i in inputs_size:
-		var key = input_keys[i]
+	var inputs = action.get_inputs(local_state)
+	for key in inputs.keys():
 		if conditions.has(key):
-			conditions[key]+= inputs[key]
+			conditions[key] += inputs[key]
 		else:
 			conditions[key] = inputs[key]
 
@@ -154,15 +169,14 @@ func select_plan(available_plans: Array, local_state: Dictionary)->Array:
 	available_plans.sort_custom(plan_sort)
 	
 	var max_options:int=local_state[Goap.keys.plan_width]
+	if max_options <=1:
+		return available_plans[0][index.plan]
+	
 	max_options = mini(max_options,size)
 	var id = randi_range(0,max_options)
 	return available_plans[id][index.plan]
 
 func plan_sort(a,b)->bool:
+	if a == null:
+		return false
 	return a[index.cost] < b[index.cost]
-
-
-#func build_plan():
-#	pass
-
-

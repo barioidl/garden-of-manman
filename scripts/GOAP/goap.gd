@@ -27,6 +27,7 @@ func _ready() -> void:
 		ActionFight.new(),
 		GOAPAction.new(),
 		ActionFindFood.new(),
+		ActionTakeFoodFromItem.new(),
 		ActionEatFood.new(),
 	]
 
