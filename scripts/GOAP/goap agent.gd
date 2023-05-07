@@ -64,7 +64,7 @@ func generate_plan():
 	if best_goal == current_goal: return
 	current_goal = best_goal
 	
-	current_plan = planner.get_plan(current_goal,local_state)
+	current_plan = planner.get_plan(current_goal, local_state)
 	current_step = 0
 	
 	debug_plan()
@@ -74,17 +74,17 @@ func select_goal()-> GOAPGoal:
 	var iterations:= min(3,goal_size)
 	for i in iterations:
 		var best_goal :GOAPGoal= goals[i]
-		if !best_goal.is_valid(): 
+		if !best_goal.is_valid(local_state): 
 			continue
-		if best_goal.priority() <= 0: 
+		if best_goal.priority(local_state) <= 0: 
 			continue
 		return best_goal
 	return current_goal
 
 func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
-	if !a.is_valid():
+	if !a.is_valid(local_state):
 		return false
-	return a.priority() > b.priority()
+	return a.priority(local_state) > b.priority(local_state)
 
 func debug_local_state():
 	if debug_display == null: return

@@ -1,9 +1,10 @@
 extends Node
 
 enum keys{
-	is_hungry,
-	is_low_hp,
-	is_in_danger
+	has_food,
+	hungriness,
+	health,
+	adrenaline,
 	}
 
 var planner_action = GOAPPlanner.new()

@@ -49,11 +49,9 @@ func get_audio_2d()->AudioStreamPlayer2D:
 func get_audio_3d()->AudioStreamPlayer3D:
 	var available_player = queue_player_3d.pop_back()
 	if available_player != null:
-		print('beep')
 		return available_player
 	var player = audio_player_3d.instantiate()
 	add_child(player)
-	print('boop')
 	return player
 
 
