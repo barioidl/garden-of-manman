@@ -77,20 +77,27 @@ func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dicti
 	
 	return select_plan(available_plans,local_state)
 
+func is_conditions_cleared(conditions:Dictionary)->bool:
+	var values = conditions.values()
+	for i in values:
+		if i != 0:
+			return false
+	return true
+
 func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionary):
 	var branch = in_progress[id]
-	if branch[index.conditions].is_empty():
+	var conditions = branch[index.conditions]
+	if is_conditions_cleared(conditions):
 		in_progress.remove_at(id)
 		done.append(branch)
 		return
 	
 	var unique_actions:=[]
-	
-	var iterations = branch[index.conditions].size()
-	var keys = branch[index.conditions].keys()
-	var values = branch[index.conditions].values()
+	var iterations = conditions.size()
+	var keys = conditions.keys()
 	for i in iterations:
-		var actions = get_suitable_actions(i, keys[i], values[i], branch[index.conditions], local_state)
+		var key = keys[i]
+		var actions = get_suitable_actions(i, key, conditions[key], local_state)
 		for act in actions:
 			if !unique_actions.has(act):
 				unique_actions.append(act)
@@ -100,11 +107,25 @@ func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionar
 		return
 	var act :GOAPAction= unique_actions[0]
 	branch[index.plan].append(act)
+	
 	var outputs = act.get_outputs(local_state)
-	branch[index.conditions]
+	for i in iterations:
+		var key = keys[i]
+		if !outputs.has(key): continue
+		conditions[key] -= outputs[key]
+		
+	var inputs = act.get_inputs(local_state)
+	var inputs_size = inputs.size()
+	var input_keys = inputs.keys()
+	for i in inputs_size:
+		var key = input_keys[i]
+		if conditions.has(key):
+			conditions[key]+= inputs[key]
+		else:
+			conditions[key] = inputs[key]
 
 #prioritize actions with lowest cost
-func get_suitable_actions(id, key, result, conditions:Dictionary, local_state: Dictionary)->Array:
+func get_suitable_actions(id, key, result, local_state: Dictionary)->Array:
 	var min_cost:=10000.0
 	var actions:=[]
 	for act in group_outputs[key]:

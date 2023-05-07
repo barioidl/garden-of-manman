@@ -57,9 +57,10 @@ func follow_plan():
 
 var generate_cd :=0.0
 func generate_plan():
-#	generate_cd -= time
-#	if generate_cd >0:return
-#	generate_cd = 1
+	generate_cd -= time
+	if generate_cd >0:return
+	if Goap.reached_limit(): return
+	generate_cd = 1
 	
 	var best_goal = select_goal()
 	if best_goal == null: return
