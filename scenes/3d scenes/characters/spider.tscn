@@ -225,14 +225,12 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalJumpscare.new(),
-		GoalSurvive.new(),
+		GoalFlee.new(),
 		GoalEatFood.new()
 	]
 	
-	set_local_state(Goap.keys.hungriness,1)
-	set_local_state(Goap.keys.health,0)
-	set_local_state(Goap.keys.adrenaline,1)
-	set_local_state(Goap.keys.dopamine,1)
+	set_local_state(NameList.hungriness,1)
+	set_local_state(NameList.health,0)
 "
 
 [sub_resource type="GDScript" id="GDScript_17foq"]
@@ -326,6 +324,14 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_nxtod")]
+health = null
+max_health = null
+hunger = null
+max_hunger = null
+has_fall_damage = null
+fall_speed_offset = null
+fall_speed_range = null
+fall_max_damage = null
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 

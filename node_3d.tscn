@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://xayofk8l0rxi"]
+[gd_scene load_steps=11 format=3 uid="uid://xayofk8l0rxi"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
@@ -25,10 +25,27 @@ friction = 0.2
 script/source = "extends Sprite3D
 
 func _ready() -> void:
-	add_to_group('food') # Replace with function body.
+	add_to_group(NameList.food) # Replace with function body.
 
 func consoom():
 	queue_free()
+"
+
+[sub_resource type="GDScript" id="GDScript_3372j"]
+script/source = "extends Sprite3D
+
+func _ready() -> void:
+	add_to_group(NameList.healing_item) 
+
+func consoom():
+	queue_free()
+"
+
+[sub_resource type="GDScript" id="GDScript_jff7r"]
+script/source = "extends Camera3D
+
+func _ready() -> void:
+	queue_free() # Replace with function body.
 "
 
 [node name="Node3D" type="Node3D"]
@@ -46,7 +63,7 @@ max_contacts_reported = 3
 script = ExtResource("3_65qyn")
 
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
-transform = Transform3D(-0.999947, 0.00151077, -0.0101682, 0, 0.989142, 0.146964, 0.0102799, 0.146956, -0.98909, 0, 1.91523, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91523, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.87106, -0.425372, 0.245589, 0, 0.5, 0.866025, -0.491177, 0.75436, -0.43553, 0, 0, 0)
@@ -58,3 +75,12 @@ directional_shadow_max_distance = 50.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.63078, 1.32936, 4.76837e-07)
 texture = ExtResource("5_d5ux6")
 script = SubResource("GDScript_f4uey")
+
+[node name="prop healing item" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36922, 1.32936, 8)
+texture = ExtResource("5_d5ux6")
+script = SubResource("GDScript_3372j")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10)
+script = SubResource("GDScript_jff7r")

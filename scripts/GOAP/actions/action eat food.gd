@@ -5,9 +5,9 @@ func name()->StringName:
 
 func get_inputs(self_state:Dictionary)->Dictionary:
 	return{
-		Goap.keys.has_food:1,
+		NameList.has_food:1,
 		}
 func get_outputs(self_state:Dictionary)->Dictionary:
 	return {
-		Goap.keys.hungriness: -0.5
+		NameList.hungriness: -0.5
 	}

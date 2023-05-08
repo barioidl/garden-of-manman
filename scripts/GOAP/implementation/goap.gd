@@ -1,18 +1,5 @@
 extends Node
 
-enum keys{
-	plan_width,
-	plan_depth,
-	
-	has_food,
-	hungriness,
-	health,
-	
-	adrenaline,
-	dopamine,
-	
-	}
-
 var planner_action = GOAPPlanner.new()
 #var planner_dialogue
 #var planner_music

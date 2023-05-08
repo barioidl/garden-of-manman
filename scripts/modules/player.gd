@@ -11,9 +11,8 @@ var head:Node3D
 var invert_x :=1
 var invert_y :=1
 
-#func _ready():
-#	if !is_inside_tree():
-#		get_tree().root.add_child(self)
+func _ready():
+	camera3d.current = true
 
 func attach_to(character):
 	character.add_to_group('player')

@@ -16,5 +16,5 @@ func get_inputs(self_state:Dictionary)->Dictionary:
 
 func get_outputs(self_state:Dictionary)->Dictionary:
 	return{
-		Goap.keys.has_food:1,
+		NameList.has_food:1,
 	}

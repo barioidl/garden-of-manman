@@ -60,8 +60,8 @@ func get_plan(goal:GOAPGoal,local_state:Dictionary)->Array:
 
 enum index{conditions,plan,cost}
 func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dictionary)->Array:
-	var max_depth :int= local_state[Goap.keys.plan_depth]
-	var max_width :int = local_state[Goap.keys.plan_width]
+	var max_depth :int= local_state[NameList.plan_depth]
+	var max_width :int = local_state[NameList.plan_width]
 	
 	var available_plans:=[]
 	var generating_plans:=[]
@@ -155,7 +155,7 @@ func get_suitable_actions(id, key, result, local_state: Dictionary)->Array:
 		else:
 			actions.push_back(act)
 	
-	var max_options:int=local_state[Goap.keys.plan_width]
+	var max_options:int=local_state[NameList.plan_width]
 	if actions.size() > max_options:
 		actions.resize(max_options)
 	return actions
@@ -166,7 +166,7 @@ func select_plan(available_plans: Array, local_state: Dictionary)->Array:
 	if size ==1: return available_plans[0][index.plan]
 	available_plans.sort_custom(plan_sort)
 	
-	var max_options:int=local_state[Goap.keys.plan_width]
+	var max_options:int=local_state[NameList.plan_width]
 	if max_options <=1:
 		return available_plans[0][index.plan]
 	

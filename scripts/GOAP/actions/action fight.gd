@@ -6,6 +6,4 @@ func name()->StringName:
 
 func get_inputs(self_state:Dictionary)->Dictionary:
 	return{
-#		Goap.keys.beep:true,
-#		Goap.keys.boop:2
 		}

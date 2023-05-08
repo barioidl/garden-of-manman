@@ -31,8 +31,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	planner = Goap.get_action_planner()
-	set_local_state(Goap.keys.plan_width,3)
-	set_local_state(Goap.keys.plan_depth,6)
+	set_local_state(NameList.plan_width,3)
+	set_local_state(NameList.plan_depth,6)
 
 var time:=0.0
 func _process(delta: float) -> void:
@@ -95,9 +95,8 @@ func debug_local_state():
 	var values = local_state.values()
 	var iterations = local_state.size()
 	var output:=''
-	var key_strings = Goap.keys.keys()
 	for i in iterations:
-		output += key_strings[keys[i]]
+		output += keys[i]
 		output += ': '
 		output += str(values[i])
 		output += ', '
