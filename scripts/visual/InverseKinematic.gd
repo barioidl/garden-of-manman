@@ -55,10 +55,10 @@ func get_total_length()->float:
 
 var current_joint_id:=0
 func solve():
-	if !PerformanceCap.allow_IK(): return
 	if target == null:return
 	var dist_sq = target.global_position.distance_squared_to(global_position)
 	if dist_sq < accuracy: return
+	if !PerformanceCap.allow_IK(): return
 	
 	var start := 1 if copy_rotation else 0
 	if copy_rotation and current_joint_id == start:

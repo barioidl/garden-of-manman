@@ -85,12 +85,6 @@ func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dicti
 		return select_plan(generating_plans,local_state)
 	return select_plan(available_plans,local_state)
 
-func is_conditions_cleared(conditions:Dictionary)->bool:
-	for i in conditions.values():
-		if i != 0:
-			return false
-	return true
-
 func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionary):
 	var branch = in_progress[id]
 	var conditions = branch[index.conditions]
@@ -105,12 +99,12 @@ func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionar
 		var key = keys[i]
 		var actions = get_suitable_actions(i, key, conditions[key], local_state)
 		for act in actions:
-			if !unique_actions.has(act):
-				unique_actions.append(act)
+			if unique_actions.has(act): continue
+			unique_actions.append(act)
 	
 	var new_branches = unique_actions.size()
-	if new_branches <=0: 
-		return
+	if new_branches <=0: return
+	#duplicate branch before it gets modified
 	if new_branches > 1: 
 		for i in range(1,new_branches):
 			var action = unique_actions[i]
@@ -123,6 +117,12 @@ func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionar
 	branch[index.plan].append(act)
 	branch[index.cost] += act.get_cost(local_state)
 	append_action_conditions(conditions,act,local_state)
+
+func is_conditions_cleared(conditions:Dictionary)->bool:
+	for i in conditions.values():
+		if i != 0:
+			return false
+	return true
 
 func append_action_conditions(conditions:Dictionary, action:GOAPAction, local_state:Dictionary):
 	var outputs = action.get_outputs(local_state)
