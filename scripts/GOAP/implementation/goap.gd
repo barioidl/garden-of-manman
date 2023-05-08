@@ -7,7 +7,10 @@ enum keys{
 	has_food,
 	hungriness,
 	health,
+	
 	adrenaline,
+	dopamine,
+	
 	}
 
 var planner_action = GOAPPlanner.new()

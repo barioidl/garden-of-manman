@@ -7,6 +7,9 @@ func name()->StringName:
 func get_cost(self_state:Dictionary)->int:
 	return 12
 
+func is_valid(self_state:Dictionary)->bool:
+	return false
+
 func get_inputs(self_state:Dictionary)->Dictionary:
 	return{
 		}

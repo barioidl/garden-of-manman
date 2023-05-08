@@ -38,13 +38,13 @@ func _ready() -> void:
 	ik.target = ik_target # Replace with 
 "
 
-[sub_resource type="Resource" id="Resource_3ug1y"]
-script = ExtResource("7_0fk8d")
-frames = Array[Texture]([ExtResource("10_h1pk4"), ExtResource("13_7n7xn"), ExtResource("11_wmqbd"), ExtResource("14_yh3mt"), ExtResource("15_o6v06"), ExtResource("12_0erpq")])
-
 [sub_resource type="Resource" id="Resource_hspaa"]
 script = ExtResource("7_0fk8d")
 frames = Array[Texture]([ExtResource("2_rbpd1"), ExtResource("6_e7qn5"), ExtResource("4_onhqo"), ExtResource("7_78pm4"), ExtResource("9_0x5rt"), ExtResource("5_a4ra4")])
+
+[sub_resource type="Resource" id="Resource_3ug1y"]
+script = ExtResource("7_0fk8d")
+frames = Array[Texture]([ExtResource("10_h1pk4"), ExtResource("13_7n7xn"), ExtResource("11_wmqbd"), ExtResource("14_yh3mt"), ExtResource("15_o6v06"), ExtResource("12_0erpq")])
 
 [sub_resource type="Resource" id="Resource_b00tc"]
 script = ExtResource("7_0fk8d")
@@ -72,9 +72,9 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("12_0erpq")
+texture = ExtResource("5_a4ra4")
 script = ExtResource("2_do167")
-sprites = SubResource("Resource_3ug1y")
+sprites = SubResource("Resource_hspaa")
 select_cd_range = Vector2(0.2, 3)
 axis_ratio = Vector3(1, 0.65, 1)
 
@@ -87,14 +87,14 @@ min_angles = Vector3(0, -15, -90)
 max_angles = Vector3(0, 15, 90)
 
 [node name="Sprite3D" type="Sprite3D" parent="leg br"]
-transform = Transform3D(2, 0, 0, 5.96046e-08, 2, 0, 0, 0, 2, 0, -0.5, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.5, 0)
 shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("5_a4ra4")
+texture = ExtResource("11_wmqbd")
 script = ExtResource("2_do167")
-sprites = SubResource("Resource_hspaa")
+sprites = SubResource("Resource_3ug1y")
 select_cd_range = Vector2(0.2, 3)
 axis_ratio = Vector3(1, 0.65, 1)
 

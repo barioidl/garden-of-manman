@@ -1,29 +1,24 @@
 extends Node3D
 class_name Player
 
-@export var attach_to:Node
-@export var stat_display:Control
 @onready var camera3d = $Camera3D
 
 var input:Node
 var head:Node3D
-var stats:Node
 
 @export var mouse_speed = 3
 @export var joypad_speed = 1.5
 var invert_x :=1
 var invert_y :=1
 
-func _ready():
-	get_dependencies()
+#func _ready():
+#	if !is_inside_tree():
+#		get_tree().root.add_child(self)
 
-func get_dependencies():
-	attach_to.add_to_group('player')
-	input = attach_to.get_node('inputs')
-	head = attach_to.get_node('body/head')
-	stats = attach_to.get_node('stats')
-	if stat_display != null:
-		stat_display.attach_to(stats)
+func attach_to(character):
+	character.add_to_group('player')
+	input = character.get_node('inputs')
+	head = character.get_node('body/head')
 
 var time:=0.0
 func _process(delta):
@@ -36,8 +31,8 @@ func _process(delta):
 
 func copy_head_transform():
 	if head == null: return
-	global_position = head.global_position
-	global_rotation = head.global_rotation
+	position = head.global_position
+	rotation = head.global_rotation
 
 var event:InputEvent
 func _input(_event):

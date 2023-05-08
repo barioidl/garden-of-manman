@@ -171,7 +171,7 @@ func select_plan(available_plans: Array, local_state: Dictionary)->Array:
 		return available_plans[0][index.plan]
 	
 	max_options = mini(max_options,size)
-	var id = randi_range(0,max_options)
+	var id = randi_range(0,max_options-1)
 	return available_plans[id][index.plan]
 
 func plan_sort(a,b)->bool:

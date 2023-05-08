@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwmt7cpk5otdo"]
+
+[ext_resource type="Script" path="res://scripts/modules/player.gd" id="1_7xksl"]
+
+[node name="Player" type="Node3D"]
+transform = Transform3D(-0.81915, 0, -0.573574, 0, 1, 0, 0.573574, 0, -0.81915, 7.57562, 3.04995, -48.8665)
+script = ExtResource("1_7xksl")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.7423e-08, 0, 1, 0, 8.7423e-08, 0, -1, 0, 0, 0)
+keep_aspect = 0
+current = true
+fov = 90.0
+size = 0.1
+far = 50.0

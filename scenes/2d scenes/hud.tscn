@@ -80,6 +80,7 @@ default_font = SubResource("FontVariation_6xpj3")
 
 [sub_resource type="GDScript" id="GDScript_5kh0j"]
 script/source = "extends Control
+
 enum states{start_page,gameplay,gameover,pause,settings,exit}
 @export var state := states.gameplay
 var prev_states:Array[states]=[]
@@ -272,35 +273,49 @@ func _input(event: InputEvent) -> void:
 script/source = "extends Control
 @onready var root = $'../..'
 var stats
-func attach_to(_stats):
-	if _stats == null:
-		print(\"can't find node to display stats\")
-	stats=_stats
-	stats.connect(\"health_updated\",update_health.bind())
-	update_health(stats.health,stats.max_health)
 
-func _disconnect():
-	if stats == null:return
-	stats.disconnect(\"health_updated\",update_health.bind())
-	stats= null
+func _ready() -> void:
+	var call = Callable(connect_to)
+	root.set_meta('connect_stats_display', call)
+
+func connect_to(_stats):
+	if _stats == stats: return
+	if stats != null:
+		stats.disconnect(\"health_updated\",update_health)
+		stats = null
+	if _stats != null:
+		stats=_stats
+		stats.connect(\"health_updated\",update_health)
+		update_health(stats.health,stats.max_health)
 
 @onready var hp :=$hp
 func update_health(value,max):
 	if value <=0:
 		root.change_state(root.states.gameover)
-#	print(value)
-#	print(max)
-	var tween = get_tree().create_tween()
-	tween.tween_property(hp,\"value\",value, 0.1).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(hp,\"max_value\",max, 0.1).set_trans(Tween.TRANS_BACK)
-#	hp.value = value
-#	hp.max_value = max
+	change_slider_value(hp, value, max)
+	show_slider(hp,0.2,1)
 
 func refill_health():
+	if stats == null: return
 	stats.change_health(stats.max_health)
 	var sp = stats.get_node('../spawn_point')
-	sp.call_deferred('respawn')
-#	sp.respawn()
+	if sp != null:
+		sp.call_deferred('respawn')
+
+
+func change_slider_value(slider, value, max):
+	var tween = get_tree().create_tween()
+	tween.tween_property(slider, \"value\", value, 0.1).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(slider, \"max_value\", max, 0.1).set_trans(Tween.TRANS_BACK)
+
+func show_slider(slider,transition,duration):
+	slider.visible = true
+	slider.modulate.a = 0
+	var tween = create_tween()
+	tween.tween_property(slider, \"modulate:a\", 1, transition)
+	tween.tween_interval(duration)
+	tween.tween_property(slider, \"modulate:a\", 0, transition)
+	tween.tween_property(slider, \"visible\", false, 0)
 "
 
 [sub_resource type="GDScript" id="GDScript_s874g"]

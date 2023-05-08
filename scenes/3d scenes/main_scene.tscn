@@ -1,14 +1,12 @@
-[gd_scene load_steps=92 format=3 uid="uid://18fxmepjaxdw"]
+[gd_scene load_steps=90 format=3 uid="uid://18fxmepjaxdw"]
 
-[ext_resource type="PackedScene" uid="uid://cwjjqyorvakym" path="res://scenes/2d scenes/hud.tscn" id="1_64qux"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
-[ext_resource type="Script" path="res://scripts/modules/player.gd" id="2_srofl"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_dn1r6"]
 [ext_resource type="Resource" uid="uid://b3elydd8a3xp5" path="res://data/items/key generic.tres" id="5_6kfeo"]
 [ext_resource type="Script" path="res://scripts/bound.gd" id="5_yctgw"]
 [ext_resource type="Resource" uid="uid://ddlssuha00ffl" path="res://data/items/flash light.tres" id="6_f6ljs"]
 [ext_resource type="PackedScene" uid="uid://bk0gpt7acyutf" path="res://scenes/3d scenes/characters/hopper.tscn" id="7_2ewu1"]
-[ext_resource type="PackedScene" uid="uid://d2rpfewvdycna" path="res://scenes/3d scenes/characters/spider.tscn" id="7_8jvxy"]
+[ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="7_8jvxy"]
 [ext_resource type="PackedScene" uid="uid://cf5v3dfvq0e77" path="res://scenes/3d scenes/characters/birdup.tscn" id="7_jdoo3"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="8_10ffh"]
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="8_plspx"]
@@ -250,26 +248,9 @@ data = PackedVector3Array(-28.1998, 32.5, -16.5499, -23.3, 30, -16.5499, -23.3, 
 
 [node name="root" type="Node3D"]
 
-[node name="HUD" parent="." instance=ExtResource("1_64qux")]
-z_index = 1
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pe2si")
 camera_attributes = SubResource("CameraAttributesPractical_3ytga")
-
-[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("attach_to", "stat_display")]
-transform = Transform3D(-0.81915, 0, -0.573574, 0, 1, 0, 0.573574, 0, -0.81915, 7.57562, 3.04995, -48.8665)
-script = ExtResource("2_srofl")
-attach_to = NodePath("../map/timmy")
-stat_display = NodePath("../HUD/Gameplay/Display stats")
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(-1, 0, -8.7423e-08, 0, 1, 0, 8.7423e-08, 0, -1, 0, 0, 0)
-keep_aspect = 0
-current = true
-fov = 90.0
-size = 0.1
-far = 50.0
 
 [node name="map" type="Node3D" parent="."]
 
@@ -282,7 +263,6 @@ max_contacts_reported = 3
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="map/timmy"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-remote_path = NodePath("../../../Player")
 update_scale = false
 script = SubResource("GDScript_052wj")
 

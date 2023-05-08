@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://xayofk8l0rxi"]
+[gd_scene load_steps=9 format=3 uid="uid://xayofk8l0rxi"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
-[ext_resource type="Script" path="res://scripts/modules/player.gd" id="3_e2b3m"]
+[ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 [ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="5_d5ux6"]
 
@@ -21,14 +21,6 @@ func _process(delta: float) -> void:
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7j3lg"]
 friction = 0.2
 
-[sub_resource type="GDScript" id="GDScript_af2yt"]
-script/source = "extends RemoteTransform3D
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	queue_free() # Replace with function body.
-"
-
 [sub_resource type="GDScript" id="GDScript_f4uey"]
 script/source = "extends Sprite3D
 
@@ -44,32 +36,14 @@ script = SubResource("GDScript_pc2qk")
 
 [node name="test map" parent="." instance=ExtResource("1_014iv")]
 
-[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("attach_to", "stat_display")]
-transform = Transform3D(0.999997, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 2.1225, -6.68638)
-script = ExtResource("3_e2b3m")
-attach_to = NodePath("../timmy")
-stat_display = NodePath("../HUD/Gameplay/Display stats")
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(-1, 0, -8.7423e-08, 0, 1, 0, 8.7423e-08, 0, -1, 0, 0, 0)
-keep_aspect = 0
-current = true
-fov = 90.0
-size = 0.1
-far = 50.0
-
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6225, -6.68638)
 collision_layer = 129
 physics_material_override = SubResource("PhysicsMaterial_7j3lg")
 max_contacts_reported = 3
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="timmy"]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-remote_path = NodePath("../../Player")
-update_scale = false
-script = SubResource("GDScript_af2yt")
+[node name="attach player control" type="Node" parent="timmy"]
+script = ExtResource("3_65qyn")
 
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
 transform = Transform3D(-0.999947, 0.00151077, -0.0101682, 0, 0.989142, 0.146964, 0.0102799, 0.146956, -0.98909, 0, 1.91523, 0)
