@@ -24,6 +24,8 @@ var goal_size:=0
 var plan_size:=0
 var current_step:=0
 
+@export var planner_limits:=Vector2(3,6)
+
 @onready var debug_display = get_node_or_null('../debug_display')
 
 func _init() -> void:
@@ -31,8 +33,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	planner = Goap.get_action_planner()
-	set_local_state(NameList.plan_width,3)
-	set_local_state(NameList.plan_depth,6)
+	set_local_state(NameList.plan_width,planner_limits.x)
+	set_local_state(NameList.plan_depth,planner_limits.y)
 
 var time:=0.0
 func _process(delta: float) -> void:

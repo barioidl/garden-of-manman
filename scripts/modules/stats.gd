@@ -20,11 +20,21 @@ var agent
 func connect_goap_agent():
 	agent = get_node_or_null("../goap_agent")
 	if agent == null: return
-	connect("health_updated",update_agent_hp)
+	update_agent_hp(health,max_health)
+	connect(NameList.health_updated,update_agent_hp)
+	
+func update_agent_hp(_health,_max_health):
+	agent.set_local_state(NameList.health,_health)
+	agent.set_local_state(NameList.max_health,_max_health)
 
-func update_agent_hp(health,max_health):
-	agent.set_local_state(Goap.keys.health,health)
-	agent.set_local_state(Goap.keys.max_health,max_health)
+func update_agent_mp(_mana,_max_mana):
+	agent.set_local_state(NameList.mana,_mana)
+	agent.set_local_state(NameList.max_mana,_max_mana)
+
+func update_agent_hunger(_hunger,_max_hunger):
+	agent.set_local_state(NameList.hunger,_hunger)
+	agent.set_local_state(NameList.max_hunger,_max_hunger)
+
 
 @export_category('health')
 @export var health := 10.0
@@ -33,7 +43,7 @@ signal health_updated(hp,maxhp)
 func change_health(delta):
 	if delta == 0:return
 	health = clampf(health+delta, 0, max_health)
-	emit_signal('health_updated',health,max_health)
+	emit_signal(NameList.health_updated,health,max_health)
 	
 	hurt_sfx(delta)
 	if health <= 0:
@@ -42,6 +52,15 @@ func change_health(delta):
 func die():
 	pass
 
+@export_category('mana')
+@export var mana:=0.0
+@export var max_mana:=10.0
+signal mana_updated(hp,maxhp)
+func change_mana(delta):
+	if delta == 0:return
+	mana = clampf(mana+delta, 0, max_mana)
+	emit_signal(NameList.mana_updated,mana,max_mana)
+
 @export_category('hunger')
 @export var hunger:=0.0
 @export var max_hunger:=10.0
@@ -49,7 +68,7 @@ signal hunger_updated(hp,maxhp)
 func change_hunger(delta):
 	if delta == 0:return
 	hunger = clampf(hunger+delta, 0, max_hunger)
-	emit_signal('hunger_updated',hunger,max_hunger)
+	emit_signal(NameList.hunger_updated,hunger,max_hunger)
 
 @export_category('fall damage')
 @export var has_fall_damage:=false

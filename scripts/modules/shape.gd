@@ -11,7 +11,7 @@ func _init() -> void:
 	name = 'shape'
 func _ready() -> void:
 	owner = root
-	platformer.connect("on_state_changed",on_state_changed.bind())
+	platformer.connect(NameList.on_state_changed,on_state_changed.bind())
 
 func on_state_changed(state):
 	var tween = get_tree().create_tween()

@@ -1,5 +1,5 @@
 extends Node
-
+#list of goap states
 var creativity :StringName= 'creativity'
 var curiosity :StringName= 'curiosity'
 var integrity :StringName= 'integrity'
@@ -13,7 +13,11 @@ var plan_width :StringName= 'plan_width'
 var plan_depth :StringName= 'plan_depth'
 
 var has_food :StringName= 'has_food'
-var hungriness :StringName= 'hungriness'
+var has_drink :StringName= 'has_drink'
+var has_key :StringName= 'has_key'
+
+var hunger :StringName= 'hunger'
+var max_hunger :StringName= 'max_hunger'
 
 var health :StringName= 'health'
 var max_health :StringName= 'max_health'
@@ -21,25 +25,22 @@ var max_health :StringName= 'max_health'
 var mana :StringName= 'mana'
 var max_mana :StringName= 'max_mana'
 
+#list of group names
 var food :StringName= 'food'
 var drink :StringName= 'drink'
 var healing_item :StringName= 'healing_item'
 var key :StringName= 'key'
 
-#	plan_width,
-#	plan_depth,
-#
-#	has_food,
-#	hungriness,
-#
-#	health,
-#	max_health,
-#
-#	creativity,
-#	curiosity,
-#	integrity,
-#	compassion,
-#	efficient,
-#	ambitious,
-#	honesty,
-#	bravery,
+#list of meta
+var connect_stats_display:StringName='connect_stats_display'
+var get_inputs:StringName='get_inputs'
+var delay_platformer:StringName='delay_platformer'
+var get_target :StringName='get_target'
+
+
+#list of signals
+var health_updated:StringName='health_updated'
+var mana_updated:StringName='mana_updated'
+var hunger_updated:StringName='hunger_updated'
+var on_state_changed :StringName='on_state_changed'
+

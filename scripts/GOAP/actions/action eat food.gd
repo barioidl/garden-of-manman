@@ -9,5 +9,5 @@ func get_inputs(self_state:Dictionary)->Dictionary:
 		}
 func get_outputs(self_state:Dictionary)->Dictionary:
 	return {
-		NameList.hungriness: -0.5
+		NameList.hunger: -0.5
 	}

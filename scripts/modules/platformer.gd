@@ -33,8 +33,8 @@ func _init() -> void:
 	name = 'platformer'
 func _ready():
 	owner = root
-	input.connect("jump_pressed",trigger_jump.bind())
-	root.set_meta('delay_platformer',Callable(delay_platformer))
+	input.connect( "jump_pressed", trigger_jump.bind())
+	root.set_meta( NameList.delay_platformer, Callable(delay_platformer))
 	
 func delay_platformer(duration):
 	cool_down = duration
@@ -53,7 +53,7 @@ func _process(delta):
 
 	if state != old_state:
 		old_state = state
-		emit_signal('on_state_changed',state)
+		emit_signal(NameList.on_state_changed,state)
 
 var jump_pressed := false
 func trigger_jump():

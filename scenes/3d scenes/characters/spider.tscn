@@ -228,9 +228,6 @@ func _ready() -> void:
 		GoalFlee.new(),
 		GoalEatFood.new()
 	]
-	
-	set_local_state(NameList.hungriness,1)
-	set_local_state(NameList.health,0)
 "
 
 [sub_resource type="GDScript" id="GDScript_17foq"]
@@ -324,14 +321,6 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_nxtod")]
-health = null
-max_health = null
-hunger = null
-max_hunger = null
-has_fall_damage = null
-fall_speed_offset = null
-fall_speed_range = null
-fall_max_damage = null
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
@@ -357,6 +346,7 @@ text = "debug"
 font_size = 20
 outline_size = 5
 autowrap_mode = 2
+width = 1000.0
 script = SubResource("GDScript_17foq")
 
 [node name="shape" type="CollisionShape3D" parent="."]

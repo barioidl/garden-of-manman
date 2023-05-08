@@ -12,5 +12,5 @@ func priority(self_state:Dictionary)->int:
 
 func get_result(self_state:Dictionary)->Dictionary:
 	return{
-		NameList.hungriness:-1,
+		NameList.hunger:-1,
 	}

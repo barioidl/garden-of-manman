@@ -276,16 +276,16 @@ var stats
 
 func _ready() -> void:
 	var call = Callable(connect_to)
-	root.set_meta('connect_stats_display', call)
+	root.set_meta(NameList.connect_stats_display, call)
 
 func connect_to(_stats):
 	if _stats == stats: return
 	if stats != null:
-		stats.disconnect(\"health_updated\",update_health)
+		stats.disconnect(NameList.health_updated,update_health)
 		stats = null
 	if _stats != null:
 		stats=_stats
-		stats.connect(\"health_updated\",update_health)
+		stats.connect(NameList.health_updated,update_health)
 		update_health(stats.health,stats.max_health)
 
 @onready var hp :=$hp

@@ -25,10 +25,10 @@ func get_dependencies():
 		input.connect("skill_pressed",skill)
 		input.connect("misc_pressed",misc)
 	
-	root.set_meta('get_target',Callable(get_target))
+	root.set_meta(NameList.get_target,Callable(get_target))
 	
 	if platformer != null:
-		platformer.connect("on_state_changed", on_state_changed.bind())
+		platformer.connect(NameList.on_state_changed, on_state_changed.bind())
 
 @export var normal_height:= 2.0
 @export var crouch_height:= 1.4
