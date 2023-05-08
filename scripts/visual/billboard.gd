@@ -22,8 +22,8 @@ enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 @export var reference_frame:Node3D
 @export var camera :Camera3D
 
-@export var select_cd_range:=Vector2(0.3,3)
-@export var rotate_cd_range:=Vector2(0.1,1)
+@export var select_cd_range:=Vector2(0.3,1)
+@export var rotate_cd_range:=Vector2(0.1,0.5)
 var select_cd:=0.0
 var rotate_cd:=0.1
 
@@ -70,9 +70,9 @@ func _process(delta: float) -> void:
 	forward = dir.normalized()
 	
 	select_cd -= delta
-	if select_cd <0:
+	if select_cd <0 and PerformanceCap.allow_billboard_select():
 		select_cd = lerpf(select_cd_range.x,select_cd_range.y,dist_ratio)
-		rotate_cd = select_cd
+		rotate_cd = select_cd*0.5
 		choose_side()
 		match face_camera:
 			bill_board_modes.bill_board:
@@ -84,8 +84,8 @@ func _process(delta: float) -> void:
 		return
 	
 	rotate_cd -=delta
-	if rotate_cd <0:
-		rotate_cd = lerpf(rotate_cd_range.x, rotate_cd_range.y, dist_ratio)
+	if rotate_cd <0 and PerformanceCap.allow_billboard_rotate():
+		rotate_cd = lerpf(rotate_cd_range.x,rotate_cd_range.y,dist_ratio)
 		match face_camera:
 			bill_board_modes.bill_board:
 				billboard_forward()

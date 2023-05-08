@@ -32,7 +32,7 @@ func _init() -> void:
 func _ready() -> void:
 	planner = Goap.get_action_planner()
 	set_local_state(Goap.keys.plan_width,3)
-	set_local_state(Goap.keys.plan_depth,10)
+	set_local_state(Goap.keys.plan_depth,6)
 
 var time:=0.0
 func _process(delta: float) -> void:
@@ -59,7 +59,7 @@ var generate_cd :=0.0
 func generate_plan():
 	generate_cd -= time
 	if generate_cd >0:return
-	if Goap.reached_limit(): return
+	if !PerformanceCap.allow_goap_planner(): return
 	generate_cd = 10
 	
 	var best_goal = select_goal()

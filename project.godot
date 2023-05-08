@@ -30,7 +30,8 @@ driver/driver=""
 AudioPool="*res://scripts/audio/audio_pool.gd"
 Interface="*res://scripts/interface_accessor.gd"
 WorldState="*res://scripts/GOAP/world state.gd"
-Goap="*res://scripts/GOAP/goap.gd"
+Goap="*res://scripts/GOAP/implementation/goap.gd"
+PerformanceCap="*res://scripts/performance cap.gd"
 
 [debug]
 

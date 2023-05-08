@@ -24,12 +24,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	solve()
-	
-#	if scale_cd >0:
-#		scale_cd -= delta
-#		return
-#	scale_cd = 1
-#	reset_scales()
 
 var scale_cd :=0.0
 func reset_scales():
@@ -61,6 +55,7 @@ func get_total_length()->float:
 
 var current_joint_id:=0
 func solve():
+	if !PerformanceCap.allow_IK(): return
 	if target == null:return
 	var dist_sq = target.global_position.distance_squared_to(global_position)
 	if dist_sq < accuracy: return

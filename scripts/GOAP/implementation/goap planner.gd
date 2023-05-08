@@ -81,8 +81,6 @@ func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dicti
 			expand_branch(id, generating_plans, available_plans, local_state)
 			id+=1
 	
-	print('a: ' + str(available_plans.size()) + ', '+ str(generating_plans.size()))
-	
 	if available_plans.is_empty():
 		return select_plan(generating_plans,local_state)
 	return select_plan(available_plans,local_state)
