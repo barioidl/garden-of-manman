@@ -4,7 +4,7 @@
 [ext_resource type="ArrayMesh" uid="uid://devl1r834kqg2" path="res://assets/borga map/room 1.obj" id="2_nsb7n"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="3_ams0f"]
 [ext_resource type="ArrayMesh" uid="uid://k6v13was2uue" path="res://assets/sloyd/Cubicals.obj" id="4_isrli"]
-[ext_resource type="Texture2D" uid="uid://bb0njvok5atsc" path="res://assets/kenney/kenney_pixel-ui-pack/9-Slice/list.png" id="8_c6wrw"]
+[ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="5_m732t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdp5i"]
 albedo_color = Color(0.376856, 0.402086, 0.726195, 1)
@@ -54,6 +54,6 @@ mesh = SubResource("CylinderMesh_xxoi3")
 
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
-texture_albedo = ExtResource("8_c6wrw")
+texture_albedo = ExtResource("5_m732t")
 modulate = Color(1, 1, 0, 1)
 script = SubResource("GDScript_8tpbd")
