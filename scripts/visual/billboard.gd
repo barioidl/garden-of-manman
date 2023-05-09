@@ -20,7 +20,7 @@ enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 		set_face_axis()
 
 @export var reference_frame:Node3D
-@export var camera :Camera3D
+@onready var camera := get_viewport().get_camera_3d()
 
 @export var select_cd_range:=Vector2(0.3,1)
 @export var rotate_cd_range:=Vector2(0.1,0.5)
@@ -42,8 +42,6 @@ func _ready() -> void:
 	set_face_axis()
 	if reference_frame == null:
 		reference_frame = get_parent()
-	if camera == null:
-		camera = get_viewport().get_camera_3d()
 
 func set_up_sprite():
 	set_draw_flag(SpriteBase3D.FLAG_DOUBLE_SIDED, false)
@@ -61,6 +59,7 @@ func set_face_axis():
 			axis = Vector3.AXIS_Z
 
 func _process(delta: float) -> void:
+	if reference_frame == null: return
 	if camera == null:return
 	if !visible:return
 	
@@ -71,8 +70,9 @@ func _process(delta: float) -> void:
 	
 	select_cd -= delta
 	if select_cd <0 and PerformanceCap.allow_billboard_select():
-		select_cd = lerpf(select_cd_range.x,select_cd_range.y,dist_ratio)
+		select_cd = lerpf(select_cd_range.x, select_cd_range.y, dist_ratio)
 		rotate_cd = select_cd*0.5
+		camera = get_viewport().get_camera_3d()
 		choose_side()
 		match face_camera:
 			bill_board_modes.bill_board:
@@ -160,6 +160,8 @@ func select(side):
 
 func billboard_forward():
 	var up := convert_to_axis(axis_up)
+	if up == Vector3.ZERO: return
+	if forward == Vector3.ZERO: return
 	look_at(global_position - forward*10,up)
 	emit_signal("rotation_changed")
 

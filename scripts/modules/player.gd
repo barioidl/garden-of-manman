@@ -23,6 +23,7 @@ var time:=0.0
 func _process(delta):
 	time = delta
 	copy_head_transform()
+	reset_dpad2()
 
 #func _physics_process(delta):
 #	cursor_cast()
@@ -113,25 +114,33 @@ func get_movement():
 			input.dpad1.y = event.axis_value
 		return
 
-var ch_tween :Tween
+var reset_dpad_2:=0
+func reset_dpad2():
+	if input == null: return
+	if reset_dpad_2 <=-2: return
+	reset_dpad_2-=1
+	if reset_dpad_2<=0:
+		input.dpad2 = Vector2.ZERO
+
 func crosshair_move():
-	if ch_tween != null:
-		ch_tween.kill()
-	ch_tween = create_tween()
-	ch_tween.tween_interval(time)
-	ch_tween.tween_property(input,"dpad2", Vector2.ZERO,0)
-	
+	reset_dpad_2 = 2
 	if event is InputEventMouseMotion:
-		var head_rotate = event.relative.y * mouse_speed*invert_x
-		var body_rotate =  event.relative.x * mouse_speed*invert_y
+		var head_rotate = event.relative.y 
+		head_rotate*= mouse_speed*invert_x
+		var body_rotate =  event.relative.x 
+		body_rotate*= mouse_speed*invert_y
 		input.dpad2 = Vector2(-body_rotate,head_rotate)
 		return
+	
 	if event is InputEventJoypadMotion:
 		if event.axis == JOY_AXIS_RIGHT_X:
-			input.dpad2.x = event.axis_value * time * joypad_speed*invert_x
+			input.dpad2.x = event.axis_value 
+			input.dpad2.x *= time * joypad_speed*invert_x
+			return
 		if event.axis == JOY_AXIS_RIGHT_Y:
-			input.dpad2.y = event.axis_value * time * joypad_speed*invert_y
-		return
+			input.dpad2.y = event.axis_value 
+			input.dpad2.y *= time * joypad_speed*invert_y
+			return
 
 #const RAY_LENGTH = 50.0
 #func cursor_raycast(event:InputEvent):

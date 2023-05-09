@@ -2,7 +2,10 @@ extends GOAPAction
 class_name ActionFindFood
 
 func name()->StringName:
-	return 'action find food'
+	return 'A find food'
+
+func get_cost(self_state:Dictionary)->int:
+	return 10
 
 func get_inputs(self_state:Dictionary)->Dictionary:
 	return{

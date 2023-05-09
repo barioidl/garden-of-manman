@@ -154,7 +154,7 @@ func walk(dir:Vector2, speed:float)->Vector3:
 
 func play_jump_sound():
 	var pos = root.global_position
-	var player = AudioPool.create_sound_3d(pos,jump_sfx)
+	AudioPool.create_sound_3d(pos,jump_sfx)
 
 var step_cd:=0.0
 func play_step_sound(speed):
@@ -163,4 +163,4 @@ func play_step_sound(speed):
 		return
 	step_cd = speed*step_speed
 	var pos = root.global_position
-	var player = AudioPool.create_sound_3d(pos,step_sfx)
+	AudioPool.create_sound_3d(pos,step_sfx)

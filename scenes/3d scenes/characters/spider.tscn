@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://duy4eq8ii5263" path="res://data/audio/hunt sfx.tres" id="7_dpko6"]
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_dey3p"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="10_b2yls"]
+[ext_resource type="Script" path="res://scripts/modules/body.gd" id="10_hc070"]
 [ext_resource type="Texture2D" uid="uid://2alss76jbdw6" path="res://assets/Textures/moon face0005.png" id="12_d46mv"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="13_decgv"]
 [ext_resource type="Resource" uid="uid://md7vpkr5xcdi" path="res://assets/bill_board_sides/moon face.tres" id="14_ga2t5"]
@@ -264,34 +265,22 @@ func refresh_text():
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
 height = 3.0
 
-[sub_resource type="GDScript" id="GDScript_wgajf"]
-script/source = "extends Node3D
-
-@onready var root=$'..'.root
-func _init() -> void:
-	name = 'body'
-func _ready() -> void:
-	owner = root
-	$'../shape'.connect('position_changed',position_changed.bind())
-func position_changed(pos) -> void:
-	position = pos # Replace with function body.
-"
-
 [sub_resource type="GDScript" id="GDScript_8ht6u"]
 script/source = "extends Node3D
-@onready var parent:=get_parent()
-var time :=0.0
-func _process(delta: float) -> void:
-	time = delta
 
-func _on_normal_changed(normal:Vector3) -> void:
-	if normal == basis.z:return
-	normal = normal.lerp(basis.z,time)
-	look_at(parent.global_position + normal*10,parent.basis.z)
+@onready var platformer=$\"../../platformer\"
 
-func _average_pos(position) -> void:
-	return
-	var direction =global_position.direction_to(position)*10
+@export var normal_height:= 2.0
+@export var crouch_height:= 1.4
+signal position_changed(pos)
+func _ready() -> void:
+	platformer.connect(NameList.on_state_changed, on_state_changed.bind())
+
+func on_state_changed(state):
+	var tween = get_tree().create_tween()
+	var is_sneaking = state == platformer.states.sneak
+	var end = crouch_height if is_sneaking else normal_height
+	tween.tween_property(self,\"position:y\", end, 0.1).set_trans(Tween.TRANS_SINE)
 "
 
 [sub_resource type="GDScript" id="GDScript_0ufrt"]
@@ -337,7 +326,7 @@ turn_speed = 100
 script = SubResource("GDScript_g145v")
 
 [node name="debug_display" type="Label3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.5, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 3.5, 0)
 billboard = 1
 double_sided = false
 fixed_size = true
@@ -350,22 +339,26 @@ width = 1000.0
 script = SubResource("GDScript_17foq")
 
 [node name="shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_plrhc")
 script = ExtResource("6_uojeq")
 normal_height = 3.0
 crouch_height = 2.0
 
 [node name="body" type="Node3D" parent="."]
-script = SubResource("GDScript_wgajf")
+script = ExtResource("10_hc070")
 
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("10_b2yls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 hotbar = NodePath("")
-normal_height = 0.1
-crouch_height = -0.1
+normal_height = 2.5
+crouch_height = 1.5
 
 [node name="body" type="Node3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.6, 0)
 script = SubResource("GDScript_8ht6u")
+normal_height = 1.6
+crouch_height = 0.75
 
 [node name="head" type="Node3D" parent="body/body" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.75)
@@ -419,11 +412,12 @@ ik_target = NodePath("../../feet casters/top right feet/leg ik bl")
 script = ExtResource("21_cbu30")
 legs_per_steps = 2
 legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik br"), NodePath("top right feet/leg ik bl"), NodePath("bottom left feet/leg ik tr")]
+body_mid_pos = Vector3(0, 0.1, 0)
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, 0.707107, -1, 0, -1)
+transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, 0.707107, -1, 2, -1)
 exclude_parent = false
-target_position = Vector3(-1, -2, 0)
+target_position = Vector3(-1.5, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -433,9 +427,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, -0.707107, 1, 0, -1)
+transform = Transform3D(-0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, -0.707107, 1, 2, -1)
 exclude_parent = false
-target_position = Vector3(-1, -2, 0)
+target_position = Vector3(-1.5, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -445,9 +439,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, 0.707107, -1, 0, 1)
+transform = Transform3D(0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, 0.707107, -1, 2, 1)
 exclude_parent = false
-target_position = Vector3(-1, -2, 0)
+target_position = Vector3(-1.5, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -457,9 +451,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, -0.707107, 1, 0, 1)
+transform = Transform3D(-0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, -0.707107, 1, 2, 1)
 exclude_parent = false
-target_position = Vector3(-1, -2, 0)
+target_position = Vector3(-1.5, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 

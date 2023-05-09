@@ -76,7 +76,7 @@ func generate_plan():
 
 func select_goal()-> GOAPGoal:
 	goals.sort_custom(compare_goals)
-	var iterations:= min(3,goal_size)
+	var iterations:= mini(3,goal_size)
 	for i in iterations:
 		var best_goal :GOAPGoal= goals[i]
 		if !best_goal.is_valid(local_state): 

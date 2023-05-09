@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwmt7cpk5otdo"]
+[gd_scene load_steps=3 format=3 uid="uid://cwmt7cpk5otdo"]
 
 [ext_resource type="Script" path="res://scripts/modules/player.gd" id="1_7xksl"]
+[ext_resource type="PackedScene" uid="uid://c42utff503e02" path="res://materials/postprocess.tscn" id="2_xif7o"]
 
 [node name="Player" type="Node3D"]
-transform = Transform3D(-0.81915, 0, -0.573574, 0, 1, 0, 0.573574, 0, -0.81915, 7.57562, 3.04995, -48.8665)
+transform = Transform3D(0.999997, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 0, 0)
 script = ExtResource("1_7xksl")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -13,3 +14,5 @@ current = true
 fov = 90.0
 size = 0.1
 far = 50.0
+
+[node name="Postprocess" parent="Camera3D" instance=ExtResource("2_xif7o")]

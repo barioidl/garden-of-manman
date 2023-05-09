@@ -3,7 +3,7 @@ extends Node
 
 func _process(delta: float) -> void:
 	limit_billboard_select = 10
-	limit_billboard_rotate = 20
+	limit_billboard_rotate = 30
 	
 	limit_IK_solver = 10
 	

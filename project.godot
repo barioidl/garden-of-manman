@@ -38,16 +38,17 @@ NameList="*res://scripts/name list.gd"
 
 [debug]
 
-gdscript/warnings/enable=false
 gdscript/warnings/unsafe_property_access=1
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/initial_position_type=2
-window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
 window/vsync/vsync_mode=2
 
 [filesystem]
@@ -197,7 +198,6 @@ common/enable_object_picking=false
 
 [rendering]
 
-renderer/rendering_method="mobile"
 lights_and_shadows/directional_shadow/size=2048
 limits/opengl/max_renderable_elements=5000
 limits/opengl/max_renderable_lights=16

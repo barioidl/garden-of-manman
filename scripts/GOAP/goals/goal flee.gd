@@ -2,7 +2,7 @@ extends GOAPGoal
 class_name GoalFlee
 
 func name() -> StringName:
-	return 'goal flee'
+	return 'G flee'
 
 func is_valid(self_state:Dictionary)->bool:
 	return true

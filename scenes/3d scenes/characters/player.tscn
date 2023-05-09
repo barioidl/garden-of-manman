@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
+[ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
 
 [sub_resource type="GDScript" id="GDScript_a3k3s"]
 script/source = "extends Node
@@ -43,20 +44,8 @@ func receive_message(content):
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
-radius = 0.4
-
-[sub_resource type="GDScript" id="GDScript_cu82w"]
-script/source = "extends Node3D
-
-@onready var root:=$'..'
-func _init() -> void:
-	name = 'body'
-func _ready() -> void:
-	owner = root
-	$'../shape'.connect('position_changed',position_changed.bind())
-func position_changed(pos) -> void:
-	position = pos # Replace with function body.
-"
+radius = 0.2
+height = 0.8
 
 [sub_resource type="GDScript" id="GDScript_l165g"]
 script/source = "extends Node3D
@@ -173,16 +162,22 @@ script = SubResource("GDScript_a3k3s")
 slots = [null, null]
 
 [node name="shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 shape = SubResource("CapsuleShape3D_uh8a4")
 script = ExtResource("8_ihxnv")
-crouch_height = 1.2
+normal_height = 1.2
+crouch_height = 0.8
 
 [node name="body" type="Node3D" parent="."]
-script = SubResource("GDScript_cu82w")
+script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 target_position = Vector3(0, 0, 10)
 hotbar = NodePath("../hotbar")
+normal_height = 1.0
+crouch_height = 0.6
 
 [node name="hotbar" type="Node3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = SubResource("GDScript_l165g")

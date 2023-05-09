@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://cwjjqyorvakym"]
+[gd_scene load_steps=103 format=3 uid="uid://cwjjqyorvakym"]
 
 [ext_resource type="FontFile" uid="uid://bdf26hkq2td8r" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future_thin.ttf" id="1_cnwah"]
 [ext_resource type="Texture2D" uid="uid://bl824tvr05ine" path="res://assets/kenney/kenney_ui-pack/PNG/grey_button00.png" id="2_3ahfj"]
@@ -71,7 +71,6 @@
 [ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="49_7bn0o"]
 [ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="50_1y8jn"]
 [ext_resource type="AudioStream" uid="uid://07k2diroxtl1" path="res://assets/audio/kenney_ui-audio/Audio/rollover6.ogg" id="51_48odo"]
-[ext_resource type="Texture2D" uid="uid://y68u6q4kfykq" path="res://assets/Textures/eye jar 00002.png" id="66_3knud"]
 
 [sub_resource type="FontVariation" id="FontVariation_6xpj3"]
 base_font = ExtResource("1_cnwah")
@@ -351,13 +350,22 @@ func new_line(text):
 
 [sub_resource type="GDScript" id="GDScript_nevrt"]
 script/source = "extends TextureRect
+
+@onready var root = $\"../..\"
+
 func _ready() -> void:
 	visible = false
+	var callable= Callable(show_image)
+	root.set_meta(NameList.show_image,callable)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if !visible: return
 	if event.is_echo():return
 	visible = false
+	
+func show_image(image):
+	visible = true
+	texture = image
 "
 
 [sub_resource type="GDScript" id="GDScript_elmo7"]
@@ -431,7 +439,7 @@ TabContainer/styles/tabbar_background = null
 
 [sub_resource type="GDScript" id="GDScript_tlnk4"]
 script/source = "extends BoxContainer
-@onready var player = get_node_or_null(\"/root/root/Player\")
+@onready var player = PlayerInputs
 
 @onready var root = $\"../../..\"
 
@@ -729,10 +737,8 @@ func update_all_settings():
 
 func adjust_bus(changed:bool,slider,bus:int):
 	if changed: return
-	var value = slider.value/slider.max_value
-	value = lerpf(-40,10,value)
+	var value = slider.value
 	AudioServer.set_bus_volume_db(bus,value)
-	print('bus: '+str(bus)+'value: '+str(value))
 
 func toggle_music(pressed:bool):
 	pass
@@ -745,7 +751,6 @@ func toggle_sfx_2d(pressed:bool):
 
 func toggle_sfx_3d(pressed:bool):
 	AudioPool.disable_sfx_3d = !pressed
-	print(AudioPool.disable_sfx_3d)
 
 func _save():
 	var save_dict = {
@@ -867,13 +872,11 @@ script/source = "extends Node
 @export var disable_when_debug:=false
 
 var save:=Callable(save_game)
-var load:=Callable(load_game)
 
 func _ready() -> void:
 	if disable_when_debug:
 		if OS.is_debug_build():
 			save=Callable(dud)
-			load=Callable(dud)
 			return
 	load_game()
 
@@ -885,7 +888,7 @@ func save_game():
 	var save_nodes = get_tree().get_nodes_in_group( NameList.ui_save_load)
 	for node in save_nodes:
 		if !node.has_method(\"_save\"):
-			print(\"ui node '%s' is missing a _save() function, skipped\" % node.name)
+			print(str(node.name) + \"is missing a _save() function\")
 			continue
 		var node_data = node.call(\"_save\")
 		var json_string = JSON.stringify(node_data)
@@ -917,11 +920,10 @@ func load_game():
 process_mode = 3
 texture_filter = 1
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+scale = Vector2(0.5, 0.5)
 theme = SubResource("Theme_7t2kr")
 script = SubResource("GDScript_5kh0j")
 ui_start_page = NodePath("main page")
@@ -948,9 +950,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 25.0
+offset_left = 10.0
 offset_top = -520.0
-offset_right = 245.0
+offset_right = 230.0
 offset_bottom = -20.0
 grow_vertical = 0
 texture = ExtResource("2_whvft")
@@ -1232,7 +1234,6 @@ Impact Sounds (1.0) by Kenney (www.kenney.nl)
 Interface Sounds (1.0) by Kenney (www.kenney.nl)"
 
 [node name="Gameplay" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1314,11 +1315,6 @@ alignment = 2
 vertical = true
 script = SubResource("GDScript_s874g")
 
-[node name="Label" type="Label" parent="Gameplay/chat_box"]
-layout_mode = 2
-text = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-autowrap_mode = 3
-
 [node name="image content" type="TextureRect" parent="Gameplay"]
 layout_mode = 1
 anchors_preset = 8
@@ -1332,12 +1328,10 @@ offset_right = 120.0
 offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("66_3knud")
 stretch_mode = 4
 script = SubResource("GDScript_nevrt")
 
 [node name="Pause" type="NinePatchRect" parent="."]
-visible = false
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
 anchors_preset = 4
@@ -1439,6 +1433,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -1464,7 +1459,6 @@ all_tabs_in_front = true
 use_hidden_tabs_for_min_size = true
 
 [node name="Control" type="BoxContainer" parent="Settings/TabContainer"]
-visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_tlnk4")
@@ -1536,6 +1530,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Audio" type="BoxContainer" parent="Settings/TabContainer"]
+visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_j6o1j")
@@ -1547,8 +1542,8 @@ text = "Master:"
 [node name="Master" type="HSlider" parent="Settings/TabContainer/Audio"]
 layout_mode = 2
 size_flags_vertical = 1
-max_value = 50.0
-value = 40.0
+min_value = -40.0
+max_value = 10.0
 tick_count = 11
 ticks_on_borders = true
 
@@ -1563,8 +1558,8 @@ text = "Music"
 [node name="Music" type="HSlider" parent="Settings/TabContainer/Audio"]
 visible = false
 layout_mode = 2
-max_value = 50.0
-value = 40.0
+min_value = -40.0
+max_value = 10.0
 tick_count = 11
 ticks_on_borders = true
 
@@ -1577,8 +1572,8 @@ text = "Sound effects"
 
 [node name="SFX" type="HSlider" parent="Settings/TabContainer/Audio"]
 layout_mode = 2
-max_value = 50.0
-value = 40.0
+min_value = -40.0
+max_value = 10.0
 tick_count = 11
 ticks_on_borders = true
 
@@ -1591,8 +1586,8 @@ text = "2d sound effects"
 
 [node name="SFX2d" type="HSlider" parent="Settings/TabContainer/Audio"]
 layout_mode = 2
-max_value = 50.0
-value = 40.0
+min_value = -40.0
+max_value = 10.0
 tick_count = 11
 ticks_on_borders = true
 
@@ -1605,8 +1600,8 @@ text = "3d sound effects"
 
 [node name="SFX3d" type="HSlider" parent="Settings/TabContainer/Audio"]
 layout_mode = 2
-max_value = 50.0
-value = 40.0
+min_value = -40.0
+max_value = 10.0
 tick_count = 11
 ticks_on_borders = true
 
