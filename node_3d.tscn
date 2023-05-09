@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://xayofk8l0rxi"]
+[gd_scene load_steps=13 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]

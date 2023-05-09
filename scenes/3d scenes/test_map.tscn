@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cwkqkp2ulstjn"]
 
-[ext_resource type="Texture2D" uid="uid://dwxijhsutr857" path="res://assets/kenney/kenney_prototype_textures/orange/texture_01.png" id="1_hypp1"]
+[ext_resource type="Texture2D" uid="uid://dwxijhsutr857" path="res://assets/kenney/kenney_pixel-ui-pack/Preview.png" id="1_hypp1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6x5x2"]
 size = Vector3(10, 1, 10)

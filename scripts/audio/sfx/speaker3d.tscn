@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxo4xi3nrjdip"]
-
-[ext_resource type="AudioStream" uid="uid://drnpmco8pn6vn" path="res://assets/audio/kenney_casino-audio/Audio/cardPlace1.ogg" id="1_flgk3"]
+[gd_scene load_steps=2 format=3 uid="uid://cxo4xi3nrjdip"]
 
 [sub_resource type="GDScript" id="GDScript_k2ol7"]
 script/source = "extends AudioStreamPlayer3D
@@ -20,6 +18,4 @@ func finished():
 "
 
 [node name="speaker3d" type="AudioStreamPlayer3D"]
-stream = ExtResource("1_flgk3")
-bus = &"Sfx3d"
 script = SubResource("GDScript_k2ol7")
