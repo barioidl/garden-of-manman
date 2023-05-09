@@ -4,7 +4,7 @@ class_name HotbarUser
 
 @onready var root:=$'../..'
 @onready var input:Inputs=$'../../inputs'
-@onready var platformer=$'../../platformer'
+#@onready var platformer=$'../../platformer'
 #var body
 func _init() -> void:
 	name = 'head'
@@ -27,16 +27,16 @@ func get_dependencies():
 	
 	root.set_meta(NameList.get_target,Callable(get_target))
 	
-	if platformer != null:
-		platformer.connect(NameList.on_state_changed, on_state_changed.bind())
+#	if platformer != null:
+#		platformer.connect(NameList.on_state_changed, on_state_changed.bind())
 
-@export var normal_height:= 2.0
-@export var crouch_height:= 1.4
-func on_state_changed(state):
-	var tween = get_tree().create_tween()
-	var is_sneaking = state == platformer.states.sneak
-	var height = crouch_height if is_sneaking else normal_height
-	tween.tween_property(self,'position', Vector3(0,height,0),0.1).set_trans(Tween.TRANS_SINE)
+#@export var normal_height:= 2.0
+#@export var crouch_height:= 1.4
+#func on_state_changed(state):
+#	var tween = get_tree().create_tween()
+#	var is_sneaking = state == platformer.states.sneak
+#	var height = crouch_height if is_sneaking else normal_height
+#	tween.tween_property(self,'position', Vector3(0,height,0),0.1).set_trans(Tween.TRANS_SINE)
 
 func get_target()->PhysicsBody3D:
 	return get_collider()

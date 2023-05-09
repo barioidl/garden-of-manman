@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=16 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -7,45 +7,14 @@
 [ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_pj86h"]
 [ext_resource type="PackedScene" path="res://data/state machine/spawn_point.tscn" id="6_04aw7"]
 [ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]
+[ext_resource type="PackedScene" uid="uid://dn2adgtnmjtxs" path="res://data/state machine/communication.tscn" id="7_ojp8w"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
 
-[sub_resource type="GDScript" id="GDScript_a3k3s"]
-script/source = "extends Node
-class_name Communication
-@onready var root:RigidCharacter=$'..'.root
-
-@export var speech_range:=10.0
-@export var listen_range:=10.0
-
-func _init() -> void:
-	name = 'communication'
-
-func _ready() -> void:
-	owner = root
-	var callable = Callable(receive_message)
-	root.set_meta(NameList.receive_message, callable)
-
-func send_message(content:='')->Dictionary:
-	var result:={}
-	result.name = 'cap'
-	result.speaker = root
-	result.content = content
-	return result
-
-func receive_message(content):
-	if content is String:
-		
-		return
-	if content is Texture:
-		
-		return
-"
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
 radius = 0.2
-height = 0.8
+height = 1.2
 
 [sub_resource type="GDScript" id="GDScript_l165g"]
 script/source = "extends Node3D
@@ -133,6 +102,17 @@ func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
 	drop_item.velocity = direction*speed
 "
 
+[sub_resource type="GDScript" id="GDScript_ity66"]
+script/source = "extends Marker3D
+
+
+# Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+#
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_et74j"]
+
 [node name="player" type="RigidBody3D"]
 disable_mode = 1
 axis_lock_angular_x = true
@@ -155,29 +135,162 @@ extra_jumps = 0
 
 [node name="spawn_point" parent="." instance=ExtResource("6_04aw7")]
 
-[node name="communication" type="Node" parent="."]
-script = SubResource("GDScript_a3k3s")
+[node name="communication" parent="." instance=ExtResource("7_ojp8w")]
 
 [node name="inventory" parent="." instance=ExtResource("7_co62e")]
 slots = [null, null]
 
 [node name="shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 shape = SubResource("CapsuleShape3D_uh8a4")
 script = ExtResource("8_ihxnv")
-normal_height = 1.2
-crouch_height = 0.8
 
 [node name="body" type="Node3D" parent="."]
 script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-target_position = Vector3(0, 0, 10)
+target_position = Vector3(0, 0, 5)
 hotbar = NodePath("../hotbar")
-normal_height = 1.0
-crouch_height = 0.6
 
 [node name="hotbar" type="Node3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = SubResource("GDScript_l165g")
+
+[node name="rig" type="Node3D" parent="body"]
+
+[node name="RayCast3D" type="RayCast3D" parent="body/rig"]
+target_position = Vector3(0, 0.5, 0)
+debug_shape_custom_color = Color(1, 0, 0, 0.0196078)
+
+[node name="ik target" type="Marker3D" parent="body/rig/RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+top_level = true
+gizmo_extents = 0.1
+
+[node name="hip" type="Marker3D" parent="body/rig"]
+gizmo_extents = 0.02
+script = SubResource("GDScript_ity66")
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip"]
+transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.02, 0, 0.1, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="spine" type="Marker3D" parent="body/rig/hip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/spine"]
+transform = Transform3D(0.04, 0, 0, 0, 0.2, 0, 0, 0, 0.04, 0, 0.1, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="chest" type="Marker3D" parent="body/rig/hip/spine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/spine/chest"]
+transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="head" type="Marker3D" parent="body/rig/hip/spine/chest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/spine/chest/head"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="arm" type="Node3D" parent="body/rig/hip/spine/chest"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.15, 0, 0)
+
+[node name="arm raycast" type="RayCast3D" parent="body/rig/hip/spine/chest/arm"]
+target_position = Vector3(0, -0.5, 0)
+debug_shape_custom_color = Color(1, 0, 0, 0.0196078)
+
+[node name="ik target" type="Marker3D" parent="body/rig/hip/spine/chest/arm/arm raycast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+top_level = true
+gizmo_extents = 0.1
+
+[node name="arm" type="Marker3D" parent="body/rig/hip/spine/chest/arm"]
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/spine/chest/arm/arm"]
+transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.02, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="elbow" type="Marker3D" parent="body/rig/hip/spine/chest/arm/arm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/spine/chest/arm/arm/elbow"]
+transform = Transform3D(0.04, 0, 0, 0, 0.2, 0, 0, 0, 0.04, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="wrist" type="Marker3D" parent="body/rig/hip/spine/chest/arm/arm/elbow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/spine/chest/arm/arm/elbow/wrist"]
+transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, -0.05, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="hand" type="Marker3D" parent="body/rig/hip/spine/chest/arm/arm/elbow/wrist"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/spine/chest/arm/arm/elbow/wrist/hand"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="leg" type="Node3D" parent="body/rig/hip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
+
+[node name="leg raycast" type="RayCast3D" parent="body/rig/hip/leg"]
+target_position = Vector3(0, -0.5, 0)
+debug_shape_custom_color = Color(1, 0, 0, 0.0196078)
+
+[node name="ik target" type="Marker3D" parent="body/rig/hip/leg/leg raycast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+top_level = true
+gizmo_extents = 0.1
+
+[node name="leg" type="Marker3D" parent="body/rig/hip/leg"]
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/leg/leg"]
+transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.02, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="knee" type="Marker3D" parent="body/rig/hip/leg/leg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/leg/leg/knee"]
+transform = Transform3D(0.04, 0, 0, 0, 0.2, 0, 0, 0, 0.04, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="ankle" type="Marker3D" parent="body/rig/hip/leg/leg/knee"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/leg/leg/knee/ankle"]
+transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, -0.05, 0)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")
+
+[node name="foot" type="Marker3D" parent="body/rig/hip/leg/leg/knee/ankle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip/leg/leg/knee/ankle/foot"]
+transform = Transform3D(0.05, 0, 0, 0, -4.37114e-09, 0.02, 0, -0.1, -8.74228e-10, 0, 0, 0.03)
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../..")

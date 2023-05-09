@@ -50,6 +50,7 @@ var turn_head_toward:StringName='turn_head_toward'
 var send_message:StringName = 'send_message'
 var receive_message:StringName = 'receive_message'
 
+var respawn :StringName= 'respawn'
 
 func list_of_signals():pass
 var health_updated:StringName='health_updated'
