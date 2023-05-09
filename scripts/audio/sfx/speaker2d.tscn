@@ -18,5 +18,5 @@ func finished():
 "
 
 [node name="speaker2d" type="AudioStreamPlayer2D"]
-bus = &"Sfx"
+bus = &"Sfx2d"
 script = SubResource("GDScript_176np")

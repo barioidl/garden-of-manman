@@ -1,4 +1,5 @@
 extends Node
+
 #list of goap states
 var creativity :StringName= 'creativity'
 var curiosity :StringName= 'curiosity'
@@ -25,17 +26,25 @@ var max_health :StringName= 'max_health'
 var mana :StringName= 'mana'
 var max_mana :StringName= 'max_mana'
 
+
 #list of group names
 var food :StringName= 'food'
 var drink :StringName= 'drink'
 var healing_item :StringName= 'healing_item'
 var key :StringName= 'key'
+var character :StringName= 'character'
+var ui_save_load :StringName= 'ui_save_load'
 
 #list of meta
-var connect_stats_display:StringName='connect_stats_display'
-var get_inputs:StringName='get_inputs'
-var delay_platformer:StringName='delay_platformer'
+var show_dialogue:StringName = 'show_dialogue'
+var connect_stats_display :StringName='connect_stats_display'
+
+var get_inputs :StringName='get_inputs'
+var delay_platformer :StringName='delay_platformer'
 var get_target :StringName='get_target'
+var turn_head_toward:StringName='turn_head_toward' 
+var send_message:StringName = 'send_message'
+var receive_message:StringName = 'receive_message'
 
 
 #list of signals

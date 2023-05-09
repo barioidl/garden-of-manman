@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=14 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -9,6 +9,38 @@
 [ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
+
+[sub_resource type="GDScript" id="GDScript_a3k3s"]
+script/source = "extends Node
+class_name Communication
+@onready var root:RigidCharacter=$'..'.root
+
+@export var speech_range:=10.0
+@export var listen_range:=10.0
+
+func _init() -> void:
+	name = 'communication'
+
+func _ready() -> void:
+	owner = root
+	var callable = Callable(receive_message)
+	root.set_meta(NameList.receive_message, callable)
+
+func send_message(content:='')->Dictionary:
+	var result:={}
+	result.name = 'cap'
+	result.speaker = root
+	result.content = content
+	return result
+
+func receive_message(content):
+	if content is String:
+		
+		return
+	if content is Texture:
+		
+		return
+"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
 radius = 0.4
@@ -133,6 +165,9 @@ extra_jumps = 0
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
 
 [node name="spawn_point" parent="." instance=ExtResource("6_04aw7")]
+
+[node name="communication" type="Node" parent="."]
+script = SubResource("GDScript_a3k3s")
 
 [node name="inventory" parent="." instance=ExtResource("7_co62e")]
 slots = [null, null]

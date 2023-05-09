@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://cwjjqyorvakym"]
+[gd_scene load_steps=104 format=3 uid="uid://cwjjqyorvakym"]
 
 [ext_resource type="FontFile" uid="uid://bdf26hkq2td8r" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future_thin.ttf" id="1_cnwah"]
 [ext_resource type="Texture2D" uid="uid://bl824tvr05ine" path="res://assets/kenney/kenney_ui-pack/PNG/grey_button00.png" id="2_3ahfj"]
@@ -71,6 +71,7 @@
 [ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="49_7bn0o"]
 [ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="50_1y8jn"]
 [ext_resource type="AudioStream" uid="uid://07k2diroxtl1" path="res://assets/audio/kenney_ui-audio/Audio/rollover6.ogg" id="51_48odo"]
+[ext_resource type="Texture2D" uid="uid://y68u6q4kfykq" path="res://assets/Textures/eye jar 00002.png" id="66_3knud"]
 
 [sub_resource type="FontVariation" id="FontVariation_6xpj3"]
 base_font = ExtResource("1_cnwah")
@@ -81,9 +82,29 @@ default_font = SubResource("FontVariation_6xpj3")
 [sub_resource type="GDScript" id="GDScript_5kh0j"]
 script/source = "extends Control
 
-enum states{start_page,gameplay,gameover,pause,settings,exit}
+enum states{
+	start_page,
+	gameplay,
+	gameover,
+	pause,
+	settings,
+	exit
+}
+
+@export var ui_start_page:Control
+@export var ui_game:Control
+@export var ui_over:Control
+@export var ui_pause:Control
+@export var ui_settings:Control
+@export var ui_exit:Control
+
 @export var state := states.gameplay
 var prev_states:Array[states]=[]
+
+var sfx_cd:=1.0
+@export var button_sounds:AudioList
+@export var switch_sounds:AudioList
+@export var roll_sounds:AudioList
 
 func _ready():
 	update_ui()
@@ -109,23 +130,18 @@ func change_state(new_state,add_to_stack:=true):
 	save_file(state,new_state)
 	state=new_state
 	update_ui()
+	
 	play_roll_sfx()
 
-func save_file(state,new_state):
-	if state != states.settings:	return
-	$save_loader.save_game()
+func save_file(old_state,new_state):
+	if old_state != states.settings:return
+	$save_loader.save.call()
 
 func update_ui():
 	show_UI()
 	toggle_mouse_lock()
 	pause_world()
 
-@export var ui_start_page:Control
-@export var ui_game:Control
-@export var ui_over:Control
-@export var ui_pause:Control
-@export var ui_settings:Control
-@export var ui_exit:Control
 func show_UI():
 	ui_start_page.visible = state == states.start_page
 	ui_game.visible = state == states.gameplay
@@ -143,15 +159,10 @@ func toggle_mouse_lock():
 
 func pause_world():
 	var is_in_game = state == states.gameplay or state == states.start_page
-	if is_in_game:
-		get_tree().paused = false
-	else:
-		get_tree().paused = true
+	get_tree().paused = !is_in_game
 
-var sfx_cd:=1.0
-@export var button_sounds:AudioList
-@export var switch_sounds:AudioList
-@export var roll_sounds:AudioList
+
+
 func play_button_sfx():
 	if sfx_cd >0: return
 	sfx_cd = 0.1
@@ -320,18 +331,33 @@ func show_slider(slider,transition,duration):
 
 [sub_resource type="GDScript" id="GDScript_s874g"]
 script/source = "extends Control
+
+@onready var root = $\"../..\"
 var text_box = preload('res://scenes/2d scenes/dialouge_box_line.tscn')
 @export var max_lines:=5
+
 func _ready() -> void:
-	add_to_group('dialogue box') # Replace with function body.
+	var show_dialogue= Callable(new_line)
+	root.set_meta(NameList.show_dialogue,show_dialogue)
 
 func new_line(text):
 	var box = text_box.instantiate()
 	box.text = text
 	add_child(box)
-	
+
 	if get_child_count() > max_lines:
 		get_child(0).delete()
+"
+
+[sub_resource type="GDScript" id="GDScript_nevrt"]
+script/source = "extends TextureRect
+func _ready() -> void:
+	visible = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if !visible: return
+	if event.is_echo():return
+	visible = false
 "
 
 [sub_resource type="GDScript" id="GDScript_elmo7"]
@@ -415,7 +441,7 @@ script/source = "extends BoxContainer
 @onready var invert_y = $\"invert y\"
 
 func _ready() -> void:
-	add_to_group('ui_save_load')
+	add_to_group(NameList.ui_save_load)
 	mouse_slider.connect('drag_ended',mouse_changed.bind())
 	gamepad_slider.connect('drag_ended',gamepad_changed.bind())
 	invert_x.connect('pressed',invert_x_toggled)
@@ -476,65 +502,6 @@ func _load(data:Dictionary):
 	invert_x.button_pressed = data.invert_x
 	invert_y.button_pressed = data.invert_y
 
-"
-
-[sub_resource type="GDScript" id="GDScript_j6o1j"]
-script/source = "extends Control
-
-@onready var master_slider = $Master
-@onready var music_slider = $Music
-@onready var sfx_slider = $SFX
-
-var master_id:int=AudioServer.get_bus_index('Master')
-var music_id:int=AudioServer.get_bus_index('Music')
-var sfx_id:int=AudioServer.get_bus_index('Sfx')
-
-func _ready() -> void:
-	add_to_group('ui_save_load')
-	master_slider.connect('drag_ended',changed_master.bind())
-	music_slider.connect('drag_ended',changed_music.bind())
-	sfx_slider.connect('drag_ended',changed_sfx.bind())
-	
-	var tween = create_tween()
-	tween.tween_interval(0.2)
-	tween.tween_callback(update_all)
-
-func update_all():
-	changed_master(false)
-	changed_music(false)
-	changed_sfx(false)
-
-func changed_master(changed:bool):
-	if changed: return
-	var value = master_slider.value/master_slider.max_value
-	value = lerpf(-20,10,value)
-	AudioServer.set_bus_volume_db(master_id,value)
-
-func changed_music(changed:bool):
-	if changed: return
-	var value = music_slider.value/music_slider.max_value
-	value = lerpf(-50,10,value)
-	AudioServer.set_bus_volume_db(music_id,value)
-
-func changed_sfx(changed:bool):
-	if changed: return
-	var value = sfx_slider.value/sfx_slider.max_value
-	value = lerpf(-50,10,value)
-	AudioServer.set_bus_volume_db(sfx_id,value)
-
-func _save():
-		var save_dict = {
-				\"node_path\" : get_path(),
-				\"master_value\" : master_slider.value,
-				\"music_value\" : music_slider.value,
-				\"sfx_value\" : sfx_slider.value,
-		}
-		return save_dict
-
-func _load(data:Dictionary):
-	master_slider.value = data.master_value
-	music_slider.value = data.music_value
-	sfx_slider.value = data.sfx_value
 "
 
 [sub_resource type="GDScript" id="GDScript_6c6nf"]
@@ -690,6 +657,166 @@ func _load(save_dict:Dictionary):
 
 "
 
+[sub_resource type="GDScript" id="GDScript_j6o1j"]
+script/source = "extends Control
+
+@onready var master_slider = $Master
+
+@onready var music_slider = $Music
+@onready var sfx_slider = $SFX
+@onready var sfx_2d_slider = $SFX2d
+@onready var sfx_3d_slider = $SFX3d
+
+@onready var music_button = $music_toggle
+@onready var sfx_button = $sfx_toggle
+@onready var sfx_2d_button = $sfx_toggle_2
+@onready var sfx_3d_button = $sfx_toggle_3
+
+var master_id:int=AudioServer.get_bus_index('Master')
+var music_id:int=AudioServer.get_bus_index('Music')
+var sfx_id:int=AudioServer.get_bus_index('Sfx')
+var sfx_2d_id:int=AudioServer.get_bus_index('Sfx_2d')
+var sfx_3d_id:int=AudioServer.get_bus_index('Sfx_3d')
+
+func _ready() -> void:
+	add_to_group(NameList.ui_save_load)
+	setup_sliders()
+	setup_buttons()
+	
+	var tween = create_tween()
+	tween.tween_interval(0.2)
+	tween.tween_callback(update_all_settings)
+
+func setup_sliders():
+	var args:=[master_slider,master_id]
+	master_slider.connect('drag_ended',adjust_bus.bindv(args))
+	
+	args=[music_slider,music_id]
+	music_slider.connect('drag_ended',adjust_bus.bindv(args))
+	
+	args=[sfx_slider,sfx_id]
+	sfx_slider.connect('drag_ended',adjust_bus.bindv(args))
+	
+	args=[sfx_2d_slider,sfx_2d_id]
+	sfx_2d_slider.connect('drag_ended', adjust_bus.bindv(args))
+	
+	args=[sfx_3d_slider,sfx_3d_id]
+	sfx_3d_slider.connect('drag_ended', adjust_bus.bindv(args))
+
+func setup_buttons():
+	music_button.connect('toggled',toggle_music.bind())
+	sfx_button.connect('toggled',toggle_sfx.bind())
+	sfx_2d_button.connect('toggled',toggle_sfx_2d.bind())
+	sfx_3d_button.connect('toggled',toggle_sfx_3d.bind())
+
+func update_all_settings():
+	var args:=[]
+	args=[false,master_slider,master_id]
+	adjust_bus.callv(args)
+	args=[false,music_slider,music_id]
+	adjust_bus.callv(args)
+	args=[false,sfx_slider,sfx_id]
+	adjust_bus.callv(args)
+	args=[false,sfx_2d_slider,sfx_2d_id]
+	adjust_bus.callv(args)
+	args=[false,sfx_3d_slider,sfx_3d_id]
+	adjust_bus.callv(args)
+	
+	toggle_music(music_button.button_pressed)
+	toggle_sfx(sfx_button.button_pressed)
+	toggle_sfx_2d(sfx_2d_button.button_pressed)
+	toggle_sfx_3d(sfx_3d_button.button_pressed)
+
+func adjust_bus(changed:bool,slider,bus:int):
+	if changed: return
+	var value = slider.value/slider.max_value
+	value = lerpf(-40,10,value)
+	AudioServer.set_bus_volume_db(bus,value)
+	print('bus: '+str(bus)+'value: '+str(value))
+
+func toggle_music(pressed:bool):
+	pass
+
+func toggle_sfx(pressed:bool):
+	AudioPool.disable_sfx = !pressed
+
+func toggle_sfx_2d(pressed:bool):
+	AudioPool.disable_sfx_2d = !pressed
+
+func toggle_sfx_3d(pressed:bool):
+	AudioPool.disable_sfx_3d = !pressed
+	print(AudioPool.disable_sfx_3d)
+
+func _save():
+	var save_dict = {
+		\"node_path\" : get_path(),
+		
+		\"master_value\" : master_slider.value,
+		\"music_value\" : music_slider.value,
+		
+		\"sfx_toggled\": sfx_button.button_pressed,
+		\"sfx_2d_toggled\": sfx_2d_button.button_pressed,
+		\"sfx_3d_toggled\": sfx_3d_button.button_pressed,
+		
+		\"sfx_value\" : sfx_slider.value,
+		\"sfx_2d_value\" : sfx_2d_slider.value,
+		\"sfx_3d_value\" : sfx_3d_slider.value,
+	}
+	return save_dict
+
+func _load(data:Dictionary):
+	master_slider.value = data.master_value
+	music_slider.value = data.music_value
+	
+	sfx_button.button_pressed = data.sfx_toggled
+	sfx_2d_button.button_pressed = data.sfx_2d_toggled
+	sfx_3d_button.button_pressed = data.sfx_3d_toggled
+	
+	sfx_slider.value = data.sfx_value
+	sfx_2d_slider.value = data.sfx_2d_value
+	sfx_3d_slider.value = data.sfx_3d_value
+"
+
+[sub_resource type="GDScript" id="GDScript_yc5g0"]
+script/source = "extends BoxContainer
+
+@onready var vsync_button = $vsync
+
+func _ready() -> void:
+	add_to_group(NameList.ui_save_load)
+	vsync_button.connect('toggled',set_vsync)
+	
+	var tween = create_tween()
+	tween.tween_interval(0.2)
+	tween.tween_callback(update_all_settings)
+
+func update_all_settings():
+	set_vsync(vsync_button.button_pressed)
+
+func set_vsync(value):
+	var mode = DisplayServer.VSYNC_DISABLED 
+	if value:
+		mode = DisplayServer.VSYNC_ENABLED
+	DisplayServer.window_set_vsync_mode(mode)
+
+func set_brightness():
+	pass
+	var a = WorldEnvironment.new()
+	
+	
+	get_viewport()
+
+func _save():
+	var save_dict = {
+		\"node_path\" : get_path(),
+		\"vsync\" : vsync_button.button_pressed,
+	}
+	return save_dict
+
+func _load(data:Dictionary):
+	vsync_button.button_pressed = data.vsync
+"
+
 [sub_resource type="GDScript" id="GDScript_a2aip"]
 script/source = "extends Control
 @onready var root = $'..'
@@ -737,13 +864,25 @@ func yes() -> void:
 [sub_resource type="GDScript" id="GDScript_akyhh"]
 script/source = "extends Node
 
+@export var disable_when_debug:=false
+
+var save:=Callable(save_game)
+var load:=Callable(load_game)
+
 func _ready() -> void:
+	if disable_when_debug:
+		if OS.is_debug_build():
+			save=Callable(dud)
+			load=Callable(dud)
+			return
 	load_game()
+
+func dud():pass
 
 var file_path := \"user://ui_save.save\"
 func save_game():
 	var save_game = FileAccess.open(file_path, FileAccess.WRITE)
-	var save_nodes = get_tree().get_nodes_in_group(\"ui_save_load\")
+	var save_nodes = get_tree().get_nodes_in_group( NameList.ui_save_load)
 	for node in save_nodes:
 		if !node.has_method(\"_save\"):
 			print(\"ui node '%s' is missing a _save() function, skipped\" % node.name)
@@ -1174,7 +1313,28 @@ pivot_offset = Vector2(0, 250)
 alignment = 2
 vertical = true
 script = SubResource("GDScript_s874g")
-max_lines = 10
+
+[node name="Label" type="Label" parent="Gameplay/chat_box"]
+layout_mode = 2
+text = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+autowrap_mode = 3
+
+[node name="image content" type="TextureRect" parent="Gameplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("66_3knud")
+stretch_mode = 4
+script = SubResource("GDScript_nevrt")
 
 [node name="Pause" type="NinePatchRect" parent="."]
 visible = false
@@ -1279,7 +1439,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -1305,6 +1464,7 @@ all_tabs_in_front = true
 use_hidden_tabs_for_min_size = true
 
 [node name="Control" type="BoxContainer" parent="Settings/TabContainer"]
+visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_tlnk4")
@@ -1341,46 +1501,6 @@ text = "Invert X:"
 layout_mode = 2
 text = "Invert Y:"
 
-[node name="Audio" type="BoxContainer" parent="Settings/TabContainer"]
-visible = false
-layout_mode = 2
-vertical = true
-script = SubResource("GDScript_j6o1j")
-
-[node name="master" type="Label" parent="Settings/TabContainer/Audio"]
-layout_mode = 2
-text = "Master:"
-
-[node name="Master" type="HSlider" parent="Settings/TabContainer/Audio"]
-layout_mode = 2
-size_flags_vertical = 1
-max_value = 10.0
-value = 5.0
-tick_count = 11
-ticks_on_borders = true
-
-[node name="music" type="Label" parent="Settings/TabContainer/Audio"]
-layout_mode = 2
-text = "Music:"
-
-[node name="Music" type="HSlider" parent="Settings/TabContainer/Audio"]
-layout_mode = 2
-max_value = 10.0
-value = 8.0
-tick_count = 11
-ticks_on_borders = true
-
-[node name="sfx" type="Label" parent="Settings/TabContainer/Audio"]
-layout_mode = 2
-text = "Sound effects"
-
-[node name="SFX" type="HSlider" parent="Settings/TabContainer/Audio"]
-layout_mode = 2
-max_value = 10.0
-value = 8.0
-tick_count = 11
-ticks_on_borders = true
-
 [node name="keybind" type="ScrollContainer" parent="Settings/TabContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 300)
@@ -1414,6 +1534,93 @@ grow_vertical = 2
 text = "Reset"
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Audio" type="BoxContainer" parent="Settings/TabContainer"]
+layout_mode = 2
+vertical = true
+script = SubResource("GDScript_j6o1j")
+
+[node name="master" type="Label" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+text = "Master:"
+
+[node name="Master" type="HSlider" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 50.0
+value = 40.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="music_toggle" type="CheckButton" parent="Settings/TabContainer/Audio"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+button_pressed = true
+text = "Music"
+
+[node name="Music" type="HSlider" parent="Settings/TabContainer/Audio"]
+visible = false
+layout_mode = 2
+max_value = 50.0
+value = 40.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="sfx_toggle" type="CheckButton" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+button_pressed = true
+text = "Sound effects"
+
+[node name="SFX" type="HSlider" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+max_value = 50.0
+value = 40.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="sfx_toggle_2" type="CheckButton" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+button_pressed = true
+text = "2d sound effects"
+
+[node name="SFX2d" type="HSlider" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+max_value = 50.0
+value = 40.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="sfx_toggle_3" type="CheckButton" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+button_pressed = true
+text = "3d sound effects"
+
+[node name="SFX3d" type="HSlider" parent="Settings/TabContainer/Audio"]
+layout_mode = 2
+max_value = 50.0
+value = 40.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="Visual" type="BoxContainer" parent="Settings/TabContainer"]
+visible = false
+layout_mode = 2
+vertical = true
+script = SubResource("GDScript_yc5g0")
+
+[node name="vsync" type="CheckButton" parent="Settings/TabContainer/Visual"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Vsync"
 
 [node name="Game over" type="NinePatchRect" parent="."]
 visible = false

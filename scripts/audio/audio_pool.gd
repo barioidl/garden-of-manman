@@ -2,6 +2,10 @@ extends Node3D
 
 var pool_size:=10
 
+var disable_sfx:=true
+var disable_sfx_2d:=true
+var disable_sfx_3d:=true
+
 var audio_player:=preload("res://scripts/audio/sfx/speaker.tscn")
 var audio_player_2d:=preload("res://scripts/audio/sfx/speaker2d.tscn")
 var audio_player_3d:=preload("res://scripts/audio/sfx/speaker3d.tscn")
@@ -56,6 +60,7 @@ func get_audio_3d()->AudioStreamPlayer3D:
 
 
 func create_sound(list:AudioList,id:=-1)->AudioStreamPlayer:
+	if disable_sfx: return null
 	id = convert_id(list,id)
 	if id <0: return null
 	var player :=get_audio()
@@ -64,6 +69,7 @@ func create_sound(list:AudioList,id:=-1)->AudioStreamPlayer:
 	return player
 
 func create_sound_2d(pos:Vector2,list:AudioList,id:=-1)->AudioStreamPlayer2D:
+	if disable_sfx_2d: return null
 	id = convert_id(list,id)
 	if id <0: return null
 	var player := get_audio_2d()
@@ -73,6 +79,7 @@ func create_sound_2d(pos:Vector2,list:AudioList,id:=-1)->AudioStreamPlayer2D:
 	return player
 
 func create_sound_3d(pos:Vector3,list:AudioList,id:=-1)->AudioStreamPlayer3D:
+	if disable_sfx_3d: return null
 	id = convert_id(list,id)
 	if id <0: return null
 	var player := get_audio_3d()

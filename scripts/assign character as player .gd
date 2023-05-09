@@ -9,5 +9,5 @@ func attach_to_player():
 	PlayerInputs.attach_to(character)
 	
 	var stats = character.get_node('stats')
-	var connect_stats :Callable= Hud.get_meta(NameList.connect_stats_display)
+	var connect_stats :Callable= Hud.get_meta(NameList. connect_stats_display)
 	connect_stats.call(stats)
