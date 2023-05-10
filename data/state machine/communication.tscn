@@ -3,7 +3,7 @@
 [sub_resource type="GDScript" id="GDScript_a3k3s"]
 script/source = "extends Node
 class_name Communication
-@onready var root:RigidCharacter=$'..'.root
+@onready var root = get_parent().root
 
 @export var speech_range:=10.0
 @export var listen_range:=10.0

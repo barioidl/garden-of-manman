@@ -3,7 +3,7 @@ class_name Inventory
 
 @export var slots:=Array()
 
-@onready var root=$'..'.root
+@onready var root = get_parent().root
 
 signal inventory_changed(id)
 signal inventory_swapped(old_id,new_id)

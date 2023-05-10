@@ -277,6 +277,7 @@ func _ready() -> void:
 	platformer.connect(NameList.on_state_changed, on_state_changed.bind())
 
 func on_state_changed(state):
+	return
 	var tween = get_tree().create_tween()
 	var is_sneaking = state == platformer.states.sneak
 	var end = crouch_height if is_sneaking else normal_height
@@ -342,8 +343,7 @@ script = SubResource("GDScript_17foq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_plrhc")
 script = ExtResource("6_uojeq")
-normal_height = 3.0
-crouch_height = 2.0
+average_size = Vector3(0.5, 3, 0.5)
 
 [node name="body" type="Node3D" parent="."]
 script = ExtResource("10_hc070")
@@ -351,8 +351,6 @@ script = ExtResource("10_hc070")
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("10_b2yls")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 hotbar = NodePath("")
-normal_height = 2.5
-crouch_height = 1.5
 
 [node name="body" type="Node3D" parent="body"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.6, 0)

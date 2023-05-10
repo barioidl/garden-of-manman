@@ -1,7 +1,7 @@
 extends Node
 class_name Stats
 
-@onready var root:RigidCharacter=$'..'.root
+@onready var root = get_parent().root
 
 func _init() -> void:
 	name = 'stats'

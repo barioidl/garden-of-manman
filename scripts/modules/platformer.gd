@@ -1,6 +1,10 @@
 extends Node
 class_name Platformer
 
+@onready var root = get_parent().root
+@onready var input = $'../inputs'
+
+
 @export var horizontal_speed:=5.0
 
 @export var fall_speed = 0.3
@@ -21,9 +25,7 @@ var sneak_bungee :=0.0
 @export var jump_bungee := 0.1
 @export var extra_jumps :=1
 var jump_counter :=0
-#---------------------------------
-@onready var root=$'..'.root
-@onready var input = $'../inputs'
+
 
 enum states{off=0,walk,sneak,sprint,jump,fall}
 var state := states.off
@@ -53,7 +55,22 @@ func _process(delta):
 
 	if state != old_state:
 		old_state = state
-		emit_signal(NameList.on_state_changed,state)
+		start_signal(state)
+
+func start_signal(state):
+	var state_name
+	match state:
+		states.walk:
+			state_name = NameList.walk
+		states.sneak:
+			state_name = NameList.sneak
+		states.sprint:
+			state_name = NameList.sprint
+		states.jump:
+			state_name = NameList.jump
+		states.fall:
+			state_name = NameList.fall
+	emit_signal(NameList.on_state_changed,state_name)
 
 var jump_pressed := false
 func trigger_jump():

@@ -57,7 +57,7 @@ script = SubResource("GDScript_pc2qk")
 [node name="test map" parent="." instance=ExtResource("1_014iv")]
 
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6225, -6.68638)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.414)
 collision_layer = 129
 physics_material_override = SubResource("PhysicsMaterial_7j3lg")
 max_contacts_reported = 3
@@ -67,7 +67,6 @@ script = ExtResource("3_65qyn")
 
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
 process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90254, 0)
 visible = false
 
 [node name="prop food" type="Sprite3D" parent="."]

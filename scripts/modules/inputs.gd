@@ -1,7 +1,7 @@
 extends Node
 class_name Inputs
 
-@onready var root=$'..'.root
+@onready var root = get_parent().root
 
 func _init() -> void:
 	name = 'inputs'
