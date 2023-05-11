@@ -11,13 +11,19 @@
 [sub_resource type="GDScript" id="GDScript_n0v3k"]
 script/source = "extends Node3D
 
-@onready var root = get_parent().root
+@export var root :CollisionObject3D
 @onready var raycast = $RayCast3D
+@onready var target = $\"ik target\"
+
 @export var is_right:=true
+@export var step_duration:=0.2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	raycast.add_exception(root)
 
+func play_state(_state:StringName, _duration:float)->bool:
+	return target.step(_duration)
+	return true
 "
 
 [sub_resource type="Animation" id="Animation_p6tsu"]
@@ -152,14 +158,14 @@ _data = {
 script = SubResource("GDScript_n0v3k")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-visible = false
-enabled = false
 exclude_parent = false
 target_position = Vector3(0, -0.5, 0)
 script = ExtResource("1_x1d4x")
-offset = 5.0
+offset = 20.0
 
 [node name="leg animation" type="AnimationPlayer" parent="RayCast3D"]
+process_mode = 4
+playback_process_mode = 2
 playback_default_blend_time = 0.25
 libraries = {
 "": SubResource("AnimationLibrary_spb0y")
@@ -193,7 +199,7 @@ gizmo_extents = 0.02
 
 [node name="ik_constraint" type="Node" parent="leg/knee"]
 script = ExtResource("1_bd7cy")
-min_angles = Vector3(0, -30, 0)
+min_angles = Vector3(10, -30, 0)
 max_angles = Vector3(150, 30, 0)
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee"]

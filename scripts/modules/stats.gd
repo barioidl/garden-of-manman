@@ -10,8 +10,11 @@ func _ready() -> void:
 	owner = root
 	root.add_to_group('stats')
 	root.connect('body_entered',body_entered)
-	root.set_meta('change_health',Callable(change_health))
+	set_interface()
 	connect_goap_agent()
+
+func set_interface():
+	root.set_meta('change_health', Callable(change_health))
 
 func body_entered(body):
 	fall_damage(body)

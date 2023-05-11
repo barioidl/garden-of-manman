@@ -19,6 +19,7 @@ func _init() -> void:
 	name = 'shape'
 func _ready() -> void:
 	owner = root
+	
 	platformer.connect(NameList.on_state_changed, on_state_changed)
 
 func on_state_changed(state:StringName):
@@ -41,8 +42,9 @@ func get_shape_scale(state)->Vector3:
 	
 	return Vector3.ONE
 
-signal position_changed(pos)
+signal on_size_changed(size:Vector3)
 func change_shape_size(_size:Vector3):
+	emit_signal('on_size_changed',_size)
 	if shape is CapsuleShape3D:
 		change_capsule_size(_size)
 		return

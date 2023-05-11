@@ -4,9 +4,8 @@ extends RayCast3D
 @onready var container :Node3D= get_parent()
 
 func _ready() -> void:
-	enabled = true
+#	enabled = true
 	previous_position = global_position
-
 
 func _process(delta: float) -> void:
 	velocity_offset(delta)

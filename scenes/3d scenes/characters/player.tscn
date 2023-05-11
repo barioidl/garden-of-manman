@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
 [ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="12_2wr74"]
 [ext_resource type="PackedScene" uid="uid://btly3xw4dm86n" path="res://scenes/3d scenes/body parts/arm.tscn" id="12_73uuf"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/hip.gd" id="12_ace11"]
 [ext_resource type="PackedScene" uid="uid://cokr73x1eh2bc" path="res://scenes/3d scenes/body parts/leg.tscn" id="13_703j5"]
 [ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="13_qcjrc"]
 [ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="14_3frmk"]
@@ -25,12 +26,13 @@ height = 1.0
 script/source = "extends Node3D
 class_name Hotbar
 
-var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
-var hands:=[]
-
-@onready var root:=$'../..'
+@onready var root=$\"../..\"
 @onready var head :HotbarUser=$\"../head\"
 @onready var inventory:Inventory=$'../../inventory'
+@onready var shape :=$\"../../shape\"
+
+var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
+var hands:=[]
 
 @export var max_items:=2
 var hotbar_items:=[]
@@ -43,20 +45,30 @@ var hotbar_items:=[]
 	Vector3(0.1,0,0.6),
 	Vector3(-0.1,0,0.6),
 	]
+
 signal hotbar_updated
 func _ready():
 	owner = root
 	hotbar_items.resize(max_items)
 	spawn_fists()
-	root.set_meta('append_item',Callable(append_item))
-	root.set_meta('append_item_node',Callable(append_item_node))
-	root.set_meta('get_hotbar_items',Callable(get_hotbar_items))
+	set_interface()
+	use_shape_size()
+
+func set_interface():
+	root.set_meta(NameList.append_item, Callable(append_item))
+	root.set_meta(NameList.append_item_node, Callable(append_item_node))
+	root.set_meta(NameList.get_hotbar_items, Callable(get_hotbar_items))
 	
-#	inventory.connect('inventory_changed', on_inventory_changed.bind())
-#	inventory.connect('inventory_swapped', inventory_swapped.bind())
+@export var connect_to_shape:=true
+func use_shape_size():
+	if !connect_to_shape: return
+	shape.connect('on_size_changed',on_size_changed)
+
+func on_size_changed(_size:Vector3):
+	position = Vector3(0,_size.y * 0.5,0)
 
 func append_item(item:ItemData)->bool:
-	var id = hotbar_items.find(null)#hotbar_items.size()-1
+	var id = hotbar_items.find(null) 
 	if id < 0: return false
 	var child = item.prefab.instantiate()
 	add_child(child)
@@ -65,7 +77,7 @@ func append_item(item:ItemData)->bool:
 	return true
 
 func append_item_node(child:Node3D)->bool:
-	var id = hotbar_items.find(null)#hotbar_items.size()-1
+	var id = hotbar_items.find(null)
 	if id < 0: return false
 	child.reparent(self)
 	setup_item(id,child)
@@ -110,16 +122,26 @@ func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
 [sub_resource type="GDScript" id="GDScript_3vf7w"]
 script/source = "extends Node3D
 
-@onready var root = get_parent().root
-"
+@onready var root = $\"../..\"
+@onready var shape :=$\"../../shape\"
+@export var head:Node3D
 
-[sub_resource type="GDScript" id="GDScript_ity66"]
-script/source = "extends Marker3D
+func _init() -> void:
+	name = 'rig'
 
-@onready var root = get_parent().root
-# Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-#
+func _ready() -> void:
+	use_shape_size()
+
+@export var connect_to_shape:=true
+func use_shape_size():
+	if !connect_to_shape: return
+	shape.connect('on_size_changed',on_size_changed)
+
+func on_size_changed(_size:Vector3):
+	position = Vector3(0,_size.y * 0.5,0)
+
+func get_head_bone()->Node3D:
+	return head
 "
 
 [sub_resource type="BoxMesh" id="BoxMesh_et74j"]
@@ -136,8 +158,9 @@ script = ExtResource("1_bstlq")
 [node name="inputs" parent="." instance=ExtResource("1_s0o3g")]
 
 [node name="platformer" parent="." instance=ExtResource("2_7jd1i")]
-horizontal_speed = 3.0
+horizontal_speed = 4.0
 sneak_speed = 0.4
+jump_height = 4.0
 extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("3_iebvc")]
@@ -161,15 +184,19 @@ average_size = Vector3(0.2, 1, 0.2)
 script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
-target_position = Vector3(0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, 10)
 hotbar = NodePath("../hotbar")
+head_margin = 0.15
+connect_to_bone = true
 
 [node name="hotbar" type="Node3D" parent="body"]
 script = SubResource("GDScript_l165g")
 
-[node name="rig" type="Node3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+[node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("head")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.5, 0)
 script = SubResource("GDScript_3vf7w")
+head = NodePath("hip/spine/spine/chest/neck/head")
 
 [node name="RayCast3D" type="RayCast3D" parent="body/rig"]
 target_position = Vector3(0, 0.5, 0)
@@ -182,7 +209,8 @@ gizmo_extents = 0.1
 
 [node name="hip" type="Marker3D" parent="body/rig"]
 gizmo_extents = 0.02
-script = SubResource("GDScript_ity66")
+script = ExtResource("12_ace11")
+leg_paths = Array[NodePath]([NodePath("leg"), NodePath("leg2")])
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="body/rig/hip"]
 transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
@@ -191,7 +219,6 @@ mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../../..")
 
 [node name="spine" type="Marker3D" parent="body/rig/hip"]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 gizmo_extents = 0.01
 
@@ -242,14 +269,18 @@ mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../../../..")
 
 [node name="arm" parent="body/rig/hip/spine/spine/chest" instance=ExtResource("12_73uuf")]
+process_mode = 4
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.15, 0.05, 0)
 
 [node name="arm2" parent="body/rig/hip/spine/spine/chest" instance=ExtResource("12_73uuf")]
+process_mode = 4
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.15, 0.05, 0)
 
-[node name="leg" parent="body/rig/hip" instance=ExtResource("13_703j5")]
+[node name="leg" parent="body/rig/hip" node_paths=PackedStringArray("root") instance=ExtResource("13_703j5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
+root = NodePath("../../../..")
 
-[node name="leg2" parent="body/rig/hip" instance=ExtResource("13_703j5")]
+[node name="leg2" parent="body/rig/hip" node_paths=PackedStringArray("root") instance=ExtResource("13_703j5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
+root = NodePath("../../../..")
 is_right = false

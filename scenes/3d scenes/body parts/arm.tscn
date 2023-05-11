@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://btly3xw4dm86n"]
+[gd_scene load_steps=9 format=3 uid="uid://btly3xw4dm86n"]
 
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="1_cqla2"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_j5t3a"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_sn8ug"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/leg raycast.gd" id="1_wvwgj"]
 [ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_fiqg5"]
 [ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_o88tj"]
 [ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="5_vp57n"]
@@ -12,13 +13,13 @@
 [node name="arm" type="Node3D"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="arm raycast" type="RayCast3D" parent="."]
-visible = false
+[node name="RayCast3D" type="RayCast3D" parent="."]
 enabled = false
 exclude_parent = false
 target_position = Vector3(0, -0.5, 0)
+script = ExtResource("1_wvwgj")
 
-[node name="ik target" type="Marker3D" parent="arm raycast"]
+[node name="ik target" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 top_level = true
 gizmo_extents = 0.1
@@ -70,7 +71,7 @@ skeleton = NodePath("../../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 gizmo_extents = 0.02
 script = ExtResource("1_cqla2")
-target = NodePath("../../../../arm raycast/ik target")
+target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
 

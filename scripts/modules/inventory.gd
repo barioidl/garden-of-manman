@@ -13,11 +13,13 @@ func _ready() -> void:
 	owner = root
 	root.add_to_group('inventory')
 #	add_to_group('save and load')
-	
-	root.set_meta('get_inventory',Callable(get_inventory))
-	root.set_meta('add_item',Callable(add_item))
-	root.set_meta('remove_item',Callable(remove_item))
-	root.set_meta('swap_item',Callable(swap_item))
+	set_interface()
+
+func set_interface():
+	root.set_meta('get_inventory', Callable(get_inventory))
+	root.set_meta('add_item', Callable(add_item))
+	root.set_meta('remove_item', Callable(remove_item))
+	root.set_meta('swap_item', Callable(swap_item))
 
 func get_inventory()->Array:
 	return slots

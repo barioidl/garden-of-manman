@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var root = get_parent().root
+@onready var root=$".."
 
 func _init() -> void:
 	name = 'body'

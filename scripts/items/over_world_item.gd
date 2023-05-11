@@ -39,7 +39,7 @@ func use_item(head:HotbarUser)->bool:
 	var dist = global_position.distance_squared_to(point)
 	if dist > interact_range*interact_range: 
 		return false
-	if !body.has_method("interact"): 
+	if !body.has_method(NameList.interact): 
 		return false
 	body.interact(self)
 	return true
@@ -47,7 +47,7 @@ func use_item(head:HotbarUser)->bool:
 func interact(user):
 	user = user.root
 	if user == null:return
-	var append_item_node = user.get_meta('append_item_node')
+	var append_item_node = user.get_meta(NameList.append_item_node)
 	if append_item_node == null:return
 	var added = append_item_node.call(self)
 

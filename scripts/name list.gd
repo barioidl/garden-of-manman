@@ -60,6 +60,14 @@ var receive_message:= &'receive_message'
 
 var respawn := &'respawn'
 
+var append_item:=&'append_item'
+var append_item_node:=&'append_item_node'
+var get_hotbar_items:=&'get_hotbar_items'
+
+
+func list_of_methods():pass
+var interact:=&'interact'
+
 func list_of_signals():pass
 var health_updated:= &'health_updated'
 var mana_updated:= &'mana_updated'

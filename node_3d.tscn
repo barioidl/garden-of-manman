@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=10 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
-[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="5_d5ux6"]
 
 [sub_resource type="GDScript" id="GDScript_pc2qk"]
 script/source = "extends Node3D
@@ -17,26 +16,6 @@ func _ready() -> void:
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7j3lg"]
 friction = 0.2
-
-[sub_resource type="GDScript" id="GDScript_f4uey"]
-script/source = "extends Sprite3D
-
-func _ready() -> void:
-	add_to_group(NameList.food) # Replace with function body.
-
-func consoom():
-	queue_free()
-"
-
-[sub_resource type="GDScript" id="GDScript_3372j"]
-script/source = "extends Sprite3D
-
-func _ready() -> void:
-	add_to_group(NameList.healing_item) 
-
-func consoom():
-	queue_free()
-"
 
 [sub_resource type="GDScript" id="GDScript_jff7r"]
 script/source = "extends Camera3D
@@ -68,18 +47,6 @@ script = ExtResource("3_65qyn")
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
 process_mode = 4
 visible = false
-
-[node name="prop food" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.63078, 1.32936, 4.76837e-07)
-billboard = 1
-texture = ExtResource("5_d5ux6")
-script = SubResource("GDScript_f4uey")
-
-[node name="prop healing item" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36922, 1.32936, 8)
-billboard = 1
-texture = ExtResource("5_d5ux6")
-script = SubResource("GDScript_3372j")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.87106, -0.425372, 0.245589, 0, 0.5, 0.866025, -0.491177, 0.75436, -0.43553, 0, 0, 0)

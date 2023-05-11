@@ -38,6 +38,7 @@ NameList="*res://scripts/name list.gd"
 
 [debug]
 
+gdscript/warnings/enable=false
 gdscript/warnings/unsafe_property_access=1
 
 [display]
