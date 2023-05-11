@@ -126,6 +126,8 @@ script/source = "extends Node3D
 @onready var shape :=$\"../../shape\"
 @export var head:Node3D
 
+@export var item_holders:Array[NodePath]=[]
+
 func _init() -> void:
 	name = 'rig'
 
@@ -142,6 +144,23 @@ func on_size_changed(_size:Vector3):
 
 func get_head_bone()->Node3D:
 	return head
+
+func get_item_holders()->Array:
+	var holders:=[]
+	for path in item_holders:
+		var limb = get_node_or_null(path)
+		if limb == null: 
+			continue
+		if !limb.has_method('get_item_holder'):
+			continue
+		var holder = limb.get_item_holder()
+		if holder == null:
+			continue
+		holders.append(holder)
+	return holders
+
+#func get_item_mounts()->Array:
+#	return[]
 "
 
 [sub_resource type="BoxMesh" id="BoxMesh_et74j"]
@@ -197,6 +216,7 @@ script = SubResource("GDScript_l165g")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.5, 0)
 script = SubResource("GDScript_3vf7w")
 head = NodePath("hip/spine/spine/chest/neck/head")
+item_holders = Array[NodePath]([NodePath("hip/spine/spine/chest/arm"), NodePath("hip/spine/spine/chest/arm2")])
 
 [node name="RayCast3D" type="RayCast3D" parent="body/rig"]
 target_position = Vector3(0, 0.5, 0)
@@ -219,6 +239,7 @@ mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../../..")
 
 [node name="spine" type="Marker3D" parent="body/rig/hip"]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 gizmo_extents = 0.01
 

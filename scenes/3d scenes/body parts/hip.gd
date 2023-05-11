@@ -29,42 +29,37 @@ func setup_legs():
 
 func on_state_changed(state:StringName):
 	match state:
+		NameList.idle:
+			return idle()
 		NameList.walk:
-			walk()
+			return walk()
 		NameList.sneak:
-			sneak()
+			return sneak()
 		NameList.sprint:
-			sprint()
+			return sprint()
 		NameList.jump:
-			jump()
+			return jump()
 		NameList.fall:
-			fall()
+			return fall()
+	idle()
+
+func idle():
+	var duration = step_duration * 2
+	tween_loop(idle,duration)
 
 func walk():
 	var duration = step_duration
-	if loop_tween.is_valid():
-		loop_tween.kill()
-	loop_tween = create_tween()
-	loop_tween.tween_interval(duration)
-	loop_tween.tween_callback(walk)
+	tween_loop(walk,duration)
 	foot_step(NameList.walk, duration)
 
 func sneak():
 	var duration = step_duration*1.25
-	if loop_tween.is_valid():
-		loop_tween.kill()
-	loop_tween = create_tween()
-	loop_tween.tween_interval(duration)
-	loop_tween.tween_callback(sneak)
+	tween_loop(sneak,duration)
 	foot_step(NameList.sneak, duration)
 	
 func sprint():
 	var duration = step_duration*0.75
-	if loop_tween.is_valid():
-		loop_tween.kill()
-	loop_tween = create_tween()
-	loop_tween.tween_interval(duration)
-	loop_tween.tween_callback(sprint)
+	tween_loop(sprint,duration)
 	foot_step(NameList.sprint, duration)
 
 func jump():
@@ -78,21 +73,36 @@ func fall():
 	loop_tween = create_tween()
 
 @export var step_duration :=0.2
-@onready var loop_tween :=create_tween()
+var loop_tween :Tween
+func tween_loop(_function:Callable, _duration:float):
+	if loop_tween != null:
+		loop_tween.kill()
+#			return
+	loop_tween = create_tween()
+	loop_tween.tween_interval(_duration)
+	loop_tween.tween_callback(_function)
+	loop_tween.tween_callback(reset_tween)
+	
+	print('beep')
+func reset_tween():
+	loop_tween = null
+
+
 
 func foot_step(_state:StringName, duration:float):
-	var leg_moved:=0
-	for i in legs_per_steps:
-		current_leg = wrapi(current_leg+1,0,total_legs)
-		var leg = leg_nodes[current_leg]
-		if leg.play_state(_state, duration):
-			leg_moved += 1
-	
-	if leg_moved >0:
+#	var leg_moved:=0
+#	for i in legs_per_steps:
+#		current_leg = wrapi(current_leg+1,0,total_legs)
+#		var leg = leg_nodes[current_leg]
+#		if leg.play_state(_state, duration):
+#			leg_moved += 1
+#
+#	if leg_moved >0:
+		print(_state)
 		move_hip(step_duration)
 
 func move_hip(duration:float):
-	duration *= 0.5
+	duration *= 0.25
 	var mid :=Vector3(0,0,0)
 	var end :=Vector3(0,-0.05,0)
 	var tween = create_tween()

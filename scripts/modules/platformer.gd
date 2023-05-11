@@ -14,7 +14,6 @@ class_name Platformer
 
 @export var can_sneak:=true
 @export var sneak_speed:=0.8
-var sneak_bungee :=0.0
 
 @export var can_sprint:=true
 @export var sprint_speed:=1.25
@@ -27,8 +26,8 @@ var sneak_bungee :=0.0
 var jump_counter :=0
 
 
-enum states{off=0,walk,sneak,sprint,jump,fall}
-var state := states.off
+enum states{idle=0,walk,sneak,sprint,jump,fall}
+var state := states.idle
 var old_state := state
 signal on_state_changed(state:states)
 func _init() -> void:
@@ -52,7 +51,6 @@ func _process(delta):
 		cool_down -=time
 		return
 	choose_state()
-
 	if state != old_state:
 		old_state = state
 		start_signal(state)
@@ -60,6 +58,8 @@ func _process(delta):
 func start_signal(state):
 	var state_name
 	match state:
+		states.idle:
+			state_name = NameList.idle
 		states.walk:
 			state_name = NameList.walk
 		states.sneak:
@@ -70,7 +70,8 @@ func start_signal(state):
 			state_name = NameList.jump
 		states.fall:
 			state_name = NameList.fall
-	emit_signal(NameList.on_state_changed,state_name)
+#	print(state_name)
+	emit_signal(NameList.on_state_changed, state_name)
 
 var jump_pressed := false
 func trigger_jump():
@@ -83,22 +84,9 @@ func choose_state():
 	var is_on_floor:bool = root.on_floor
 	var is_falling:bool= root.inverted_velocity.y < 0 
 	
-	if can_sneak or sneak_bungee > 0:
-		sneak_bungee -=time
-		var sneak_hold = input.shift == true
-		if sneak_hold:
-			if is_moving:
-				var velocity := walk(direction,horizontal_speed* sneak_speed)
-				root.local_velocity = velocity
-				play_step_sound(1/sneak_speed)
-			state = states.sneak
-			sneak_bungee = 0.5
-			return
-	
 	if can_jump:
 		var jump_on = input.jump == true
 		var is_jumping = state == states.jump
-		
 		var jump_strength :=0.0
 		#conditions
 		if is_on_floor and jump_pressed:
@@ -134,8 +122,8 @@ func choose_state():
 		if is_moving:
 			var velocity := walk(direction,horizontal_speed* fall_speed)
 			root.local_velocity = velocity
-		state = states.fall
-		return
+			state = states.fall
+			return
 	
 	if can_sprint:
 		var sprint_hold = input.ctrl == true
@@ -147,15 +135,25 @@ func choose_state():
 			state = states.sprint
 			return
 	
+	if can_sneak:
+		var sneak_hold = input.shift == true
+		if sneak_hold:
+			if is_moving:
+				var velocity := walk(direction,horizontal_speed* sneak_speed)
+				root.local_velocity = velocity
+				play_step_sound(1/sneak_speed)
+			state = states.sneak
+			return
+			
 	if can_walk:
 		if is_moving:
-			var velocity := walk(direction,horizontal_speed* walk_speed)
+			var velocity := walk(direction, horizontal_speed * walk_speed)
 			root.local_velocity = velocity
 			play_step_sound(1/walk_speed)
-		state = states.walk
-		return
+			state = states.walk
+			return
 	
-	state = states.off
+	state = states.idle
 
 func walk(dir:Vector2, speed:float)->Vector3:
 	var output = Vector3.ZERO
@@ -165,7 +163,6 @@ func walk(dir:Vector2, speed:float)->Vector3:
 
 @export_category('audio')
 @export var step_speed=0.25
-
 @export var jump_sfx:AudioList
 @export var step_sfx:AudioList
 

@@ -3,6 +3,7 @@ extends Node
 
 func list_of_states():pass
 var die := &'die'
+var idle:= &'idle'
 var walk:= &'walk'
 var sneak := &'sneak'
 var sprint := &'sprint'
