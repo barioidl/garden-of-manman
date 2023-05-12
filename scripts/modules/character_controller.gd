@@ -2,6 +2,7 @@ extends RigidBody3D
 class_name RigidCharacter
 
 var root = self
+var rid = rid_allocate_id()
 
 var rotation_y := 0.0
 var offset_rotation:Quaternion
@@ -31,25 +32,40 @@ var time := 0.0
 func _physics_process(delta):
 	time = delta
 	move_body()
+	bungee_time()
+	print("on_floor: "+ str(on_floor)+", on_wall: "+ str(on_wall)+", on_ceiling: "+ str(on_ceiling))
+
+var bungee_duration := 0.2
+var on_floor_bungee := 0.0
+var on_wall_bungee := 0.0
+var on_ceiling_bungee := 0.0
+func bungee_time():
+	on_floor = on_floor_bungee > 0
+	on_wall = on_wall_bungee > 0
+	on_ceiling = on_ceiling_bungee > 0
+	
+	if on_floor:
+		on_floor_bungee -= time
+	if on_wall:
+		on_wall_bungee -= time
+	if on_ceiling:
+		on_ceiling_bungee -= time
 
 var on_floor:=false
 var on_wall:=false
 var on_ceiling:=false
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	on_floor=false
-	on_wall=false
-	on_ceiling=false
 	var up_direction:=basis.y
 	for i in state.get_contact_count():
 		var normal = state.get_contact_local_normal(i)
-		var dist = (normal - up_direction). length_squared()
-		if dist <0.5:
-			on_floor = true
+		var dist = normal.distance_squared_to(up_direction)
+		
+		if dist < 0.5:
+			on_floor_bungee = bungee_duration
 		if dist > 3.5:
-			on_ceiling = true
+			on_ceiling_bungee = bungee_duration
 		else:
-			on_wall = true
-#	print("on_floor: "+ str(on_floor)+", on_floor: "+ str(on_wall)+", on_ceiling: "+ str(on_ceiling))
+			on_wall_bungee = bungee_duration
 
 var inverted_velocity := Vector3.ZERO
 var local_velocity := Vector3.ZERO
@@ -63,10 +79,9 @@ func move_body():
 	var abs_y = abs(local_velocity.y)
 	var abs_z = abs(local_velocity.z)
 	if !on_floor:
-		var friction = 1-time
-		abs_x = max(abs_x,abs(velo.x)*friction)
+		abs_x = max(abs_x,abs(velo.x))
 		abs_y = max(abs_y,abs(velo.y))
-		abs_z = max(abs_z,abs(velo.z)*friction)
+		abs_z = max(abs_z,abs(velo.z))
 	
 	velo.x = clampf(velo.x+local_velocity.x,-abs_x,abs_x)
 	velo.y = clampf(velo.y+local_velocity.y,-abs_y,abs_y)

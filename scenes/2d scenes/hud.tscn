@@ -1235,7 +1235,9 @@ Voiceover Pack: Fighter	by  Kenney Vleugels (Kenney.nl)
 
 Impact Sounds (1.0) by Kenney (www.kenney.nl)
 
-Interface Sounds (1.0) by Kenney (www.kenney.nl)"
+Interface Sounds (1.0) by Kenney (www.kenney.nl)
+
+“Additional sound effects from https://www.zapsplat.com“"
 
 [node name="Gameplay" type="Control" parent="."]
 visible = false

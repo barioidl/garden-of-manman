@@ -118,12 +118,13 @@ func choose_state():
 			state = states.jump
 			return
 	
-	if is_falling and !is_on_floor:
+	if !is_on_floor:
+#		if is_falling:
 		if is_moving:
 			var velocity := walk(direction,horizontal_speed* fall_speed)
 			root.local_velocity = velocity
-			state = states.fall
-			return
+		state = states.fall
+		return
 	
 	if can_sprint:
 		var sprint_hold = input.ctrl == true
@@ -132,9 +133,9 @@ func choose_state():
 				var velocity := walk(direction,horizontal_speed* sprint_speed)
 				root.local_velocity = velocity
 				play_step_sound(1/sprint_speed)
-			state = states.sprint
-			return
-	
+				state = states.sprint
+				return
+		
 	if can_sneak:
 		var sneak_hold = input.shift == true
 		if sneak_hold:
@@ -144,7 +145,7 @@ func choose_state():
 				play_step_sound(1/sneak_speed)
 			state = states.sneak
 			return
-			
+		
 	if can_walk:
 		if is_moving:
 			var velocity := walk(direction, horizontal_speed * walk_speed)

@@ -3,7 +3,7 @@ extends CollisionShape3D
 @onready var root = get_parent().root
 @onready var platformer=$'../platformer'
 
-@export var duration :=0.1
+@export var duration :=0.2
 @export var transition := Tween.TRANS_SINE
 @export var average_size:=Vector3(0.8, 2.0, 0.8)
 

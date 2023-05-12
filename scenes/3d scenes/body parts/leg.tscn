@@ -1,36 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://cokr73x1eh2bc"]
+[gd_scene load_steps=21 format=3 uid="uid://cokr73x1eh2bc"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1cf1t"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_bd7cy"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_uap0l"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/leg raycast.gd" id="1_x1d4x"]
 [ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_6311e"]
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="2_o0xlv"]
 [ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_nc5ff"]
 [ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="5_vnnro"]
 
-[sub_resource type="GDScript" id="GDScript_n0v3k"]
-script/source = "extends Node3D
-
-@export var root :CollisionObject3D
-@onready var raycast = $RayCast3D
-@onready var target = $\"ik target\"
-
-@export var is_right:=true
-@export var step_duration:=0.2
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	raycast.add_exception(root)
-
-func play_state(_state:StringName, _duration:float)->bool:
-#	return target.step(_duration)
-	return true
-"
-
 [sub_resource type="Animation" id="Animation_p6tsu"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -65,12 +48,174 @@ tracks/2/keys = {
 "values": [Vector3(1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_hn4p0"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.75, 0.75, 0.75)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.349066, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6dc05"]
+resource_name = "fall_flip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.349066, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hmd5e"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.174533, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lsxmx"]
+resource_name = "idle_flip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.174533, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mi4qg"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.785398, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.6, 0.6, 0.6)]
+}
+
+[sub_resource type="Animation" id="Animation_3utyw"]
+resource_name = "jump_flip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.523599, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.85, 0.85, 0.85)]
+}
+
 [sub_resource type="Animation" id="Animation_fm63v"]
 resource_name = "walk"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -110,7 +255,7 @@ resource_name = "walk_flip"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -148,40 +293,90 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_spb0y"]
 _data = {
 "RESET": SubResource("Animation_p6tsu"),
+"fall": SubResource("Animation_hn4p0"),
+"fall_flip": SubResource("Animation_6dc05"),
+"idle": SubResource("Animation_hmd5e"),
+"idle_flip": SubResource("Animation_lsxmx"),
+"jump": SubResource("Animation_mi4qg"),
+"jump_flip": SubResource("Animation_3utyw"),
 "walk": SubResource("Animation_fm63v"),
 "walk_flip": SubResource("Animation_syfdr")
 }
 
+[sub_resource type="GDScript" id="GDScript_udn2s"]
+script/source = "extends AnimationPlayer
+
+@export var container:Node3D
+# Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+#	pass # Replace with function body.
+#var is_moving:=false
+#var prev_pos:=Vector3.ZERO
+#func _process(delta: float) -> void:
+#	var pos = container.global_position
+#	is_moving = pos != prev_pos
+#	prev_pos = pos
+
+func play_state(_state:StringName, _duration:float)->bool:
+	_state = combine_animations(_state)
+#	if !is_moving:
+#		if _state == NameList.walk:
+#			_state = NameList.idle
+	if container.mirrored:
+		_state+='_flip'
+	speed_scale = 1 / _duration
+	play(_state)
+	return true
+
+func combine_animations(_state:StringName)->StringName:
+	match _state:
+		NameList.walk:
+			return NameList.walk
+		NameList.sneak:
+			return NameList.walk
+		NameList.sprint:
+			return NameList.walk
+	return _state
+"
+
 [sub_resource type="BoxMesh" id="BoxMesh_et74j"]
 
-[node name="leg" type="Node3D"]
-script = SubResource("GDScript_n0v3k")
+[node name="leg" type="Node3D" node_paths=PackedStringArray("animation_player", "raycast", "target")]
+script = ExtResource("1_uap0l")
+animation_player = NodePath("RayCast3D/leg animation")
+raycast = NodePath("RayCast3D")
+target = NodePath("ik target")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+enabled = false
 exclude_parent = false
 target_position = Vector3(0, -0.5, 0)
 script = ExtResource("1_x1d4x")
-offset = 0.5
 
-[node name="leg animation" type="AnimationPlayer" parent="RayCast3D"]
-autoplay = "walk"
-playback_default_blend_time = 0.25
+[node name="leg animation" type="AnimationPlayer" parent="RayCast3D" node_paths=PackedStringArray("container")]
+playback_process_mode = 0
+speed_scale = 5.0
 libraries = {
 "": SubResource("AnimationLibrary_spb0y")
 }
+script = SubResource("GDScript_udn2s")
+container = NodePath("../..")
 
 [node name="ik target" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 gizmo_extents = 0.1
 script = ExtResource("1_1cf1t")
 
+[node name="ik pole" type="Marker3D" parent="ik target"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
 [node name="leg" type="Marker3D" parent="."]
 gizmo_extents = 0.02
 
 [node name="ik_constraint" type="Node" parent="leg"]
 script = ExtResource("1_bd7cy")
-min_angles = Vector3(-150, -30, -30)
-max_angles = Vector3(30, 30, 30)
+min_angles = Vector3(-150, -60, -60)
+max_angles = Vector3(60, 60, 60)
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="leg"]
 transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.02, 0, -0.1, 0)
@@ -195,35 +390,40 @@ gizmo_extents = 0.02
 
 [node name="ik_constraint" type="Node" parent="leg/knee"]
 script = ExtResource("1_bd7cy")
-min_angles = Vector3(10, -30, 0)
+min_angles = Vector3(0, -30, 0)
 max_angles = Vector3(150, 30, 0)
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee"]
-transform = Transform3D(0.04, 0, 0, 0, 0.25, 0, 0, 0, 0.04, 0, -0.125, 0)
+transform = Transform3D(0.032, 0, 0, 0, 0.2, 0, 0, 0, 0.032, 0, -0.1, 0)
 material_override = ExtResource("3_nc5ff")
 mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../..")
 
 [node name="ankle" type="Marker3D" parent="leg/knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 gizmo_extents = 0.02
 
 [node name="ik_constraint" type="Node" parent="leg/knee/ankle"]
 script = ExtResource("1_bd7cy")
+min_angles = Vector3(-90, -30, -90)
+max_angles = Vector3(90, 30, 90)
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee/ankle"]
-transform = Transform3D(0.02, 0, 0, 0, 0.04, 0, 0, 0, 0.02, 0, -0.02, 0)
+transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, -0.05, 0)
 material_override = ExtResource("2_6311e")
 mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../..")
 
 [node name="foot" type="Marker3D" parent="leg/knee/ankle" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 gizmo_extents = 0.02
 script = ExtResource("2_o0xlv")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
+joints_per_frame = 20
+solve_backward = true
+accuracy = 0.002
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee/ankle/foot"]
 transform = Transform3D(0.05, 0, 0, 0, -4.37114e-09, 0.02, 0, -0.1, -8.74228e-10, 0, 0.01, 0.03)

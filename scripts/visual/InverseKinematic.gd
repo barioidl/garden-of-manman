@@ -9,8 +9,6 @@ class_name CCDIK
 @export var solve_backward:=false
 @export var average_weight:=0.75
 @export var accuracy:=0.01
-#@export var max_distance := 100.0
-@export var solve_max_distance := false
 
 var chain_nodes:=Array()
 var constraints:=Array()
@@ -18,9 +16,6 @@ var constraints:=Array()
 func _ready() -> void:
 	average_weight = clampf(average_weight,0,1)
 	set_up()
-#	if solve_max_distance:
-#		max_distance = get_total_length()
-#		print('IK chain length: ' + str(max_distance))
 
 func _process(delta: float) -> void:
 	solve()

@@ -1,0 +1,189 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpax3kfnqfp65"]
+
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1yqpl"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb hub.gd" id="1_kprc6"]
+[ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_xb40v"]
+[ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_rne0q"]
+[ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="4_3f5ew"]
+[ext_resource type="PackedScene" uid="uid://btly3xw4dm86n" path="res://scenes/3d scenes/body parts/arm.tscn" id="5_6vgu5"]
+[ext_resource type="PackedScene" uid="uid://cokr73x1eh2bc" path="res://scenes/3d scenes/body parts/leg.tscn" id="6_2y1ec"]
+
+[sub_resource type="GDScript" id="GDScript_3vf7w"]
+script/source = "extends Node3D
+
+@export var root :Node3D
+@onready var shape :=$\"../../shape\"
+@export var head:Node3D
+@onready var platformer = $\"../../platformer\"
+
+@export var item_holders:Array[NodePath]=[]
+
+func _init() -> void:
+	name = 'rig'
+
+func _ready() -> void:
+	use_shape_size()
+	platformer.connect(NameList.on_state_changed, state_changed)
+
+@export var connect_to_shape:=true
+func use_shape_size():
+	if !connect_to_shape: return
+	shape.connect('on_size_changed',on_size_changed)
+
+signal on_state_changed(state)
+func state_changed(_state:StringName):
+	emit_signal('on_state_changed',_state)
+
+func on_size_changed(_size:Vector3):
+	position = Vector3(0,_size.y * 0.5,0)
+
+func get_head_bone()->Node3D:
+	return head
+
+func get_item_holders()->Array:
+	var holders:=[]
+	for path in item_holders:
+		var limb = get_node_or_null(path)
+		if limb == null: 
+			continue
+		if !limb.has_method('get_item_holder'):
+			continue
+		var holder = limb.get_item_holder()
+		if holder == null:
+			continue
+		holders.append(holder)
+	return holders
+
+#func get_item_mounts()->Array:
+#	return[]
+"
+
+[sub_resource type="GDScript" id="GDScript_urq2h"]
+script/source = "extends RayCast3D
+
+@export var rig:Node3D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func move_hip(duration:float):
+	duration *= 0.25
+#	var mid :=rig.position - Vector3(0,bob_height,0)
+#	var end :=rig.position
+#	var tween = create_tween()
+#	tween.tween_property(rig,'position',mid,duration)
+#	tween.tween_property(rig,'position',end,duration)
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_et74j"]
+
+[node name="rig" type="Node3D" node_paths=PackedStringArray("head")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = SubResource("GDScript_3vf7w")
+head = NodePath("hip/spine/spine/chest/neck/head")
+item_holders = Array[NodePath]([NodePath("hip/spine/spine/chest/arm"), NodePath("hip/spine/spine/chest/arm2")])
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0.5, 0)
+debug_shape_custom_color = Color(1, 0, 0, 0.0196078)
+script = SubResource("GDScript_urq2h")
+
+[node name="ik target" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+gizmo_extents = 0.1
+script = ExtResource("1_1yqpl")
+
+[node name="ik pole" type="Marker3D" parent="ik target"]
+
+[node name="hip" type="Marker3D" parent="." node_paths=PackedStringArray("rig")]
+gizmo_extents = 0.02
+script = ExtResource("1_kprc6")
+bob_height = 0.025
+leg_paths = Array[NodePath]([NodePath("leg"), NodePath("leg2")])
+step_duration = 0.5
+rig = NodePath("..")
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="hip"]
+transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
+material_override = ExtResource("2_xb40v")
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../../..")
+
+[node name="leg" parent="hip" node_paths=PackedStringArray("rig") instance=ExtResource("6_2y1ec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
+rig = NodePath("../..")
+
+[node name="leg2" parent="hip" node_paths=PackedStringArray("rig") instance=ExtResource("6_2y1ec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
+rig = NodePath("../..")
+mirrored = false
+
+[node name="spine" type="Marker3D" parent="hip"]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+gizmo_extents = 0.01
+
+[node name="placeholder mesh2" type="MeshInstance3D" parent="hip/spine"]
+transform = Transform3D(0.04, 0, 0, 0, 0.1, 0, 0, 0, 0.04, 0, 0.05, 0)
+material_override = ExtResource("3_rne0q")
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../../..")
+
+[node name="spine" type="Marker3D" parent="hip/spine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="hip/spine/spine"]
+transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
+material_override = ExtResource("2_xb40v")
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../../..")
+
+[node name="chest" type="Marker3D" parent="hip/spine/spine" node_paths=PackedStringArray("rig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+gizmo_extents = 0.02
+script = ExtResource("1_kprc6")
+leg_paths = Array[NodePath]([NodePath("arm"), NodePath("arm2")])
+step_duration = 0.5
+rig = NodePath("../../../..")
+
+[node name="placeholder mesh2" type="MeshInstance3D" parent="hip/spine/spine/chest"]
+transform = Transform3D(0.04, 0, 0, 0, 0.1, 0, 0, 0, 0.04, 0, 0.05, 0)
+material_override = ExtResource("3_rne0q")
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../../..")
+
+[node name="arm" parent="hip/spine/spine/chest" node_paths=PackedStringArray("rig") instance=ExtResource("5_6vgu5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.05, 0)
+rig = NodePath("../../../../..")
+mirrored = false
+
+[node name="arm2" parent="hip/spine/spine/chest" node_paths=PackedStringArray("rig") instance=ExtResource("5_6vgu5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.05, 0)
+rig = NodePath("../../../../..")
+
+[node name="neck" type="Marker3D" parent="hip/spine/spine/chest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="hip/spine/spine/chest/neck"]
+transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
+material_override = ExtResource("2_xb40v")
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../../..")
+
+[node name="head" type="Marker3D" parent="hip/spine/spine/chest/neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+gizmo_extents = 0.02
+
+[node name="placeholder mesh" type="MeshInstance3D" parent="hip/spine/spine/chest/neck/head"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = ExtResource("4_3f5ew")
+mesh = SubResource("BoxMesh_et74j")
+skeleton = NodePath("../../../../../..")
