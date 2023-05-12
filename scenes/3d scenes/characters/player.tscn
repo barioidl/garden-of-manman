@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
-[ext_resource type="PackedScene" uid="uid://bpax3kfnqfp65" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
+[ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
 radius = 0.2
@@ -28,10 +28,6 @@ class_name Hotbar
 
 var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
 var hands:=[]
-
-@export var max_items:=2
-var hotbar_items:=[]
-
 @export var hand_positions :=[
 	Vector3(0.3,0,0.4),
 	Vector3(-0.3,0,0.4),
@@ -39,13 +35,19 @@ var hotbar_items:=[]
 	Vector3(-0.2,0,0.5),
 	Vector3(0.1,0,0.6),
 	Vector3(-0.1,0,0.6),
-	]
+]
+
+@export var max_items:=2
+var hotbar_items:=[]
+
+var item_holders:=[]
 
 signal hotbar_updated
 func _ready():
 	owner = root
+	get_item_holders()
 	hotbar_items.resize(max_items)
-	spawn_fists()
+#	spawn_fists()
 	set_interface()
 	use_shape_size()
 
@@ -53,7 +55,7 @@ func set_interface():
 	root.set_meta(NameList.append_item, Callable(append_item))
 	root.set_meta(NameList.append_item_node, Callable(append_item_node))
 	root.set_meta(NameList.get_hotbar_items, Callable(get_hotbar_items))
-	
+
 @export var connect_to_shape:=true
 func use_shape_size():
 	if !connect_to_shape: return
@@ -61,6 +63,10 @@ func use_shape_size():
 
 func on_size_changed(_size:Vector3):
 	position = Vector3(0,_size.y * 0.5,0)
+
+func get_item_holders():
+	item_holders = $\"../rig\".get_item_holders()
+	max_items = item_holders.size()
 
 func append_item(item:ItemData)->bool:
 	var id = hotbar_items.find(null) 
@@ -80,17 +86,16 @@ func append_item_node(child:Node3D)->bool:
 
 func setup_item(id,child):
 	hotbar_items[id]=child
-	child.equip_item(root,id)
-	child.position = hand_positions[id]
+	child.equip_item(self,id)
 #	item.rotation = Vector3.ZERO
-	hands[id].visible = false
+#	hands[id].visible = false
 	emit_signal('hotbar_updated')
 
 func spawn_fists():
 	hands.resize(max_items)
 	for i in max_items:
 		var _fist :ItemOverworld= fist.instantiate()
-		_fist.equip_item(root,i)
+		_fist.equip_item(self,i)
 		_fist.position = hand_positions[i]
 		_fist.rotation = Vector3.ZERO
 		_fist.visible = true
@@ -104,7 +109,7 @@ func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
 	var drop_item:ItemOverworld=hotbar_items[id]
 	if drop_item == null: return
 	hotbar_items[id] = null
-	hands[id].visible = true
+#	hands[id].visible = true
 	
 	drop_item.reparent(root.get_parent())
 	drop_item.unequip_item()
@@ -153,7 +158,8 @@ script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-target_position = Vector3(0, 0, 10)
+enabled = true
+target_position = Vector3(0, 0, 5)
 hotbar = NodePath("../hotbar")
 connect_to_shape = false
 head_margin = 0.15

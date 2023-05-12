@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=12 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
+[ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_ebjnm"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
+[ext_resource type="Resource" uid="uid://ddlssuha00ffl" path="res://data/items/flash light.tres" id="5_hlr8r"]
 
 [sub_resource type="GDScript" id="GDScript_pc2qk"]
 script/source = "extends Node3D
@@ -44,9 +46,11 @@ max_contacts_reported = 3
 [node name="attach player control" type="Node" parent="timmy"]
 script = ExtResource("3_65qyn")
 
+[node name="ItemStartup" type="Node" parent="timmy"]
+script = ExtResource("4_ebjnm")
+items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("5_hlr8r")])
+
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
-process_mode = 4
-visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.87106, -0.425372, 0.245589, 0, 0.5, 0.866025, -0.491177, 0.75436, -0.43553, 0, 0, 0)
@@ -61,3 +65,10 @@ script = SubResource("GDScript_jff7r")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26931, 3.99302)
 mesh = SubResource("CapsuleMesh_gtxdg")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05152, 2.06218, 0)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Node3D"]
+estimate_radius = false
+radius = 10.0

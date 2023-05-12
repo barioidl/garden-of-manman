@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpax3kfnqfp65"]
+[gd_scene load_steps=11 format=3 uid="uid://pq7662ttv81f"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1yqpl"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb hub.gd" id="1_kprc6"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/hip bone.gd" id="2_56iui"]
 [ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_xb40v"]
 [ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_rne0q"]
 [ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="4_3f5ew"]
@@ -10,6 +10,7 @@
 
 [sub_resource type="GDScript" id="GDScript_3vf7w"]
 script/source = "extends Node3D
+class_name Rig
 
 @export var root :Node3D
 @onready var shape :=$\"../../shape\"
@@ -63,22 +64,11 @@ script/source = "extends RayCast3D
 
 @export var rig:Node3D
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func move_hip(duration:float):
-	duration *= 0.25
-#	var mid :=rig.position - Vector3(0,bob_height,0)
-#	var end :=rig.position
-#	var tween = create_tween()
-#	tween.tween_property(rig,'position',mid,duration)
-#	tween.tween_property(rig,'position',end,duration)
 "
 
 [sub_resource type="BoxMesh" id="BoxMesh_et74j"]
@@ -90,6 +80,8 @@ head = NodePath("hip/spine/spine/chest/neck/head")
 item_holders = Array[NodePath]([NodePath("hip/spine/spine/chest/arm"), NodePath("hip/spine/spine/chest/arm2")])
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+enabled = false
+exclude_parent = false
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(1, 0, 0, 0.0196078)
 script = SubResource("GDScript_urq2h")
@@ -101,13 +93,12 @@ script = ExtResource("1_1yqpl")
 
 [node name="ik pole" type="Marker3D" parent="ik target"]
 
-[node name="hip" type="Marker3D" parent="." node_paths=PackedStringArray("rig")]
+[node name="hip" type="Marker3D" parent="." node_paths=PackedStringArray("container")]
 gizmo_extents = 0.02
-script = ExtResource("1_kprc6")
+script = ExtResource("2_56iui")
 bob_height = 0.025
-leg_paths = Array[NodePath]([NodePath("leg"), NodePath("leg2")])
-step_duration = 0.5
-rig = NodePath("..")
+spine_paths = Array[NodePath]([NodePath("spine"), NodePath("spine/spine"), NodePath("spine/spine/chest")])
+container = NodePath("..")
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="hip"]
 transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
@@ -115,17 +106,16 @@ material_override = ExtResource("2_xb40v")
 mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../../..")
 
-[node name="leg" parent="hip" node_paths=PackedStringArray("rig") instance=ExtResource("6_2y1ec")]
+[node name="leg" parent="hip" node_paths=PackedStringArray("container") instance=ExtResource("6_2y1ec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
-rig = NodePath("../..")
+container = NodePath("../..")
 
-[node name="leg2" parent="hip" node_paths=PackedStringArray("rig") instance=ExtResource("6_2y1ec")]
+[node name="leg2" parent="hip" node_paths=PackedStringArray("container") instance=ExtResource("6_2y1ec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
-rig = NodePath("../..")
 mirrored = false
+container = NodePath("../..")
 
 [node name="spine" type="Marker3D" parent="hip"]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 gizmo_extents = 0.01
 
@@ -145,13 +135,9 @@ material_override = ExtResource("2_xb40v")
 mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../../..")
 
-[node name="chest" type="Marker3D" parent="hip/spine/spine" node_paths=PackedStringArray("rig")]
+[node name="chest" type="Marker3D" parent="hip/spine/spine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 gizmo_extents = 0.02
-script = ExtResource("1_kprc6")
-leg_paths = Array[NodePath]([NodePath("arm"), NodePath("arm2")])
-step_duration = 0.5
-rig = NodePath("../../../..")
 
 [node name="placeholder mesh2" type="MeshInstance3D" parent="hip/spine/spine/chest"]
 transform = Transform3D(0.04, 0, 0, 0, 0.1, 0, 0, 0, 0.04, 0, 0.05, 0)
@@ -159,14 +145,14 @@ material_override = ExtResource("3_rne0q")
 mesh = SubResource("BoxMesh_et74j")
 skeleton = NodePath("../../../../..")
 
-[node name="arm" parent="hip/spine/spine/chest" node_paths=PackedStringArray("rig") instance=ExtResource("5_6vgu5")]
+[node name="arm" parent="hip/spine/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.05, 0)
-rig = NodePath("../../../../..")
 mirrored = false
+container = NodePath("../../../../..")
 
-[node name="arm2" parent="hip/spine/spine/chest" node_paths=PackedStringArray("rig") instance=ExtResource("5_6vgu5")]
+[node name="arm2" parent="hip/spine/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.05, 0)
-rig = NodePath("../../../../..")
+container = NodePath("../../../../..")
 
 [node name="neck" type="Marker3D" parent="hip/spine/spine/chest"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

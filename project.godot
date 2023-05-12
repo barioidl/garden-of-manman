@@ -19,6 +19,7 @@ boot_splash/image="res://made with punity.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=1
 
 [audio]
 
@@ -45,9 +46,8 @@ gdscript/warnings/unsafe_property_access=1
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/mode=2
 window/size/initial_position_type=2
-window/size/window_width_override=1280
-window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_width"
 window/vsync/vsync_mode=2

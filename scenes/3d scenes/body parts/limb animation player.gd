@@ -1,12 +1,10 @@
 extends AnimationPlayer
 
-var container:Node3D
-
-func play_state(_state:StringName, _duration:float)->bool:
+func play_state(_state:StringName, timescale:float, flip:=false)->bool:
 	_state = combine_animations(_state)
-	if container.mirrored:
+	if flip:
 		_state+='_flip'
-	speed_scale = 1 / _duration
+	speed_scale = timescale
 	play(_state)
 	return true
 

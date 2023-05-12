@@ -96,6 +96,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
+texture = ExtResource("23_xey2d")
 script = ExtResource("2_totrv")
 sprites = SubResource("Resource_els6q")
 

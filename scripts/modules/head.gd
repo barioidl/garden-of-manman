@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 
 func get_dependencies():
 	var enable = hotbar != null
-	enabled = enable
+#	enabled = enable
 	if enable:
 		input.connect('drop_pressed',drop_start)
 		input.connect('drop_released',drop_stop)
@@ -85,10 +85,16 @@ func use_item(id:int):
 	if hotbar.hotbar_items.size() < id: return
 	var item = hotbar.hotbar_items[id]
 	if item == null: 
-		hotbar.hands[id].use_item(self)
+		default_interact()
 		return
 	item.use_item(self)
 	drop_id = id
+
+func default_interact():
+	var body = get_collider()
+	if body == null: return
+	if !body.has_method(NameList.interact): return
+	body.interact(self)
 
 var drop_id:=-1
 var drop_strength:=0.0:

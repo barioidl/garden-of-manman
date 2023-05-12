@@ -1,19 +1,20 @@
-extends Node3D
+extends LimbAnimator
 class_name Limb
 
-@export var rig :Node3D
 @export var animation_player:AnimationPlayer
 @export var raycast :RayCast3D
 @export var target :Node3D
+@export var hand :Node3D
 
 @export var mirrored:=true
-@export var step_duration:=0.2
 
 func _ready() -> void:
-	animation_player.container = self
-	raycast.add_exception(rig.root)
+	super._ready()
+	raycast.add_exception(container.root)
 	raycast.target = target
 
-func play_state(_state:StringName, _duration:float)->bool:
-	animation_player.play_state(_state,_duration)
-	return true
+func get_item_holder()->Node3D:
+	return self
+
+func state_changed(_state:StringName):
+	animation_player.play_state(_state,time_scale,mirrored)

@@ -6,16 +6,18 @@ var item:Resource
 var root:RigidCharacter
 var id :=-1
 var is_in_overworld:=true
+var holder:Node3D
 
 @export var interact_range:=2.0
 signal item_equipped
 signal item_unequipped
 signal item_used
 
-func equip_item(_root,_id:=-1):
+func equip_item(hotbar,_id:=-1):
 	emit_signal('item_equipped')
-	root = _root
+	root = hotbar.root
 	id=_id
+	holder = hotbar.item_holders[id]
 	is_in_overworld = false
 	add_collision_exception_with(root)
 
@@ -29,6 +31,7 @@ func unequip_item():
 	is_in_overworld = true
 
 func reset_exception(_root):
+	if _root == null: return
 	remove_collision_exception_with(_root)
 
 func use_item(head:HotbarUser)->bool:
@@ -55,7 +58,10 @@ var gravity: Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var time :=0.0
 func _physics_process(delta: float) -> void:
-	if !is_in_overworld: return
+	if !is_in_overworld: 
+		if holder != null:
+			global_position = holder.hand.global_position
+		return
 	
 	var on_floor = is_on_floor()
 	if !on_floor:

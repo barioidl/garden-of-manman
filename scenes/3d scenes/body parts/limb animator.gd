@@ -1,13 +1,16 @@
-extends Node
+extends Node3D
 class_name LimbAnimator
 
-@export var rig:Node3D
+@export var container:Node3D
+@export var time_scale := 1.0
 
 func _ready() -> void:
-	rig.connect(NameList.on_state_changed, on_state_changed)
+	container.connect(NameList.on_state_changed, state_changed)
 
-func on_state_changed(state:StringName):
-	match state:
+signal on_state_changed(state)
+func state_changed(_state:StringName):
+	emit_signal(NameList.on_state_changed,_state)
+	match _state:
 		NameList.idle:
 			return idle()
 		NameList.walk:

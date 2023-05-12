@@ -2,7 +2,6 @@ extends RigidBody3D
 class_name RigidCharacter
 
 var root = self
-var rid = rid_allocate_id()
 
 var rotation_y := 0.0
 var offset_rotation:Quaternion
@@ -33,23 +32,21 @@ func _physics_process(delta):
 	time = delta
 	move_body()
 	bungee_time()
-	print("on_floor: "+ str(on_floor)+", on_wall: "+ str(on_wall)+", on_ceiling: "+ str(on_ceiling))
+	
+#	print("on_floor: "+ str(on_floor)+", on_wall: "+ str(on_wall)+", on_ceiling: "+ str(on_ceiling))
 
 var bungee_duration := 0.2
 var on_floor_bungee := 0.0
 var on_wall_bungee := 0.0
 var on_ceiling_bungee := 0.0
 func bungee_time():
+	on_floor_bungee -= time
+	on_wall_bungee -= time
+	on_ceiling_bungee -= time
+	
 	on_floor = on_floor_bungee > 0
 	on_wall = on_wall_bungee > 0
 	on_ceiling = on_ceiling_bungee > 0
-	
-	if on_floor:
-		on_floor_bungee -= time
-	if on_wall:
-		on_wall_bungee -= time
-	if on_ceiling:
-		on_ceiling_bungee -= time
 
 var on_floor:=false
 var on_wall:=false
