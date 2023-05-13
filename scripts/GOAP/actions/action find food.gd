@@ -16,7 +16,7 @@ func get_outputs(self_state:Dictionary)->Dictionary:
 		NameList.has_food:1,
 	}
 
-func perform(agent: GOAPAgent, local_state:Dictionary,time:float)->bool:
+func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= agent.root
 	var food = get_food(root,local_state)
 #	check again

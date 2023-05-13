@@ -14,6 +14,8 @@ func get_outputs(self_state:Dictionary)->Dictionary:
 	}
 
 func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
-#	var walk_to = agent.root.get_meta(NameList.jump_to_target)
-#	walk_to.call(Vector3(10,0,10))
+	
+	var walk_to = agent.root.get_meta(NameList.get_inputs)
+	var input = walk_to.call()
+	input.reset()
 	return false

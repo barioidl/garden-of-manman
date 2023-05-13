@@ -6,7 +6,7 @@ class_name Hotbar
 
 @onready var root=$\"../..\"
 @onready var head :HotbarUser=$\"../head\"
-@onready var inventory:Inventory=$'../../inventory'
+@onready var inventory:Inventory=get_node_or_null('../../inventory')
 @onready var shape :=$\"../../shape\"
 
 var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
@@ -48,7 +48,10 @@ func on_size_changed(_size:Vector3):
 	position = Vector3(0,_size.y * 0.5,0)
 
 func get_item_holders():
-	item_holders = $\"../rig\".get_item_holders()
+	var rig = get_node_or_null(\"../rig\")
+	if rig == null:
+		return
+	item_holders = rig.get_item_holders()
 	max_items = item_holders.size()
 
 func append_item(item:ItemData)->bool:
