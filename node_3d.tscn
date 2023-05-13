@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=13 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_ebjnm"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 [ext_resource type="Resource" uid="uid://ddlssuha00ffl" path="res://data/items/flash light.tres" id="5_hlr8r"]
+[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="7_ekvcr"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_pmy02"]
 [ext_resource type="Resource" uid="uid://blyxj3d3wn6vs" path="res://data/items/food generic.tres" id="8_tyqn8"]
 
@@ -34,7 +35,7 @@ script = SubResource("GDScript_pc2qk")
 [node name="test map" parent="." instance=ExtResource("1_014iv")]
 
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 0, 8)
 collision_layer = 129
 max_contacts_reported = 3
 linear_damp = 10.0
@@ -67,6 +68,17 @@ reverb_bus_enabled = true
 shape = SubResource("BoxShape3D_7wgxy")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.39406, 0, 9.57343)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.39406, 0.545468, -0.42657)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("7_ekvcr")
+script = ExtResource("7_pmy02")
+item = ExtResource("8_tyqn8")
+
+[node name="ItemSpawner2" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.39406, 0.545468, 7.57343)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("7_ekvcr")
 script = ExtResource("7_pmy02")
 item = ExtResource("8_tyqn8")

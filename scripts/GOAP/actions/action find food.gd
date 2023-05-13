@@ -18,22 +18,31 @@ func get_outputs(self_state:Dictionary)->Dictionary:
 
 func perform(agent: GOAPAgent, local_state:Dictionary,time:float)->bool:
 	var root :Node3D= agent.root
-	var root_pos :Vector3= root.global_position
-	var food
-	if local_state.has(NameList.food):
-		food = local_state[NameList.food]
-	if food == null:
-		food = WorldState.get_closest_node_3d(NameList.food, root_pos)
-		local_state[NameList.food] = food
+	var food = get_food(root,local_state)
 #	check again
 	if food == null:
 		return false
 	var food_pos = food.global_position
-	var dist_sq = root_pos.distance_squared_to(food_pos)
-	if dist_sq < 2 * 2:
-		return true
+	
 	var walk_to = root.get_meta( NameList.walk_to_target)
 	walk_to.call(food_pos)
 	var face_to = root.get_meta(NameList.turn_head_toward)
 	face_to.call(food_pos)
+	
+	var get_target = root.get_meta(NameList.get_target)
+	var target = get_target.call()
+	if target == null:
+		return false
+	if target.is_in_group(NameList.food):
+		return true
 	return false
+
+func get_food(root:Node3D,local_state:Dictionary):
+	if local_state.has(NameList.food):
+		var food = local_state[NameList.food]
+		if food != null:
+			return local_state[NameList.food]
+		else:
+			local_state.erase(NameList.food)
+	var root_pos =root.global_position
+	return WorldState.get_closest_node_3d(NameList.food, root_pos)

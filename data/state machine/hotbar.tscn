@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3 uid="uid://glmnjpmbgsco"]
+
+[sub_resource type="GDScript" id="GDScript_l165g"]
+script/source = "extends Node3D
+class_name Hotbar
+
+@onready var root=$\"../..\"
+@onready var head :HotbarUser=$\"../head\"
+@onready var inventory:Inventory=$'../../inventory'
+@onready var shape :=$\"../../shape\"
+
+var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
+var hands:=[]
+@export var hand_positions :=[
+	Vector3(0.3,0,0.4),
+	Vector3(-0.3,0,0.4),
+	Vector3(0.2,0,0.5),
+	Vector3(-0.2,0,0.5),
+	Vector3(0.1,0,0.6),
+	Vector3(-0.1,0,0.6),
+]
+
+@export var max_items:=2
+var hotbar_items:=[]
+
+var item_holders:=[]
+
+signal hotbar_updated
+func _ready():
+	owner = root
+	get_item_holders()
+	hotbar_items.resize(max_items)
+#	spawn_fists()
+	set_interface()
+	use_shape_size()
+
+func set_interface():
+	root.set_meta(NameList.append_item, Callable(append_item))
+	root.set_meta(NameList.append_item_node, Callable(append_item_node))
+	root.set_meta(NameList.get_hotbar_items, Callable(get_hotbar_items))
+
+@export var connect_to_shape:=true
+func use_shape_size():
+	if !connect_to_shape: return
+	shape.connect('on_size_changed',on_size_changed)
+
+func on_size_changed(_size:Vector3):
+	position = Vector3(0,_size.y * 0.5,0)
+
+func get_item_holders():
+	item_holders = $\"../rig\".get_item_holders()
+	max_items = item_holders.size()
+
+func append_item(item:ItemData)->bool:
+	var id = hotbar_items.find(null) 
+	if id < 0: return false
+	var child = item.prefab.instantiate()
+	add_child(child)
+	child.item = item
+	setup_item(id,child)
+	return true
+
+func append_item_node(child:Node3D)->bool:
+	var id = hotbar_items.find(null)
+	if id < 0: return false
+	child.reparent(self)
+	setup_item(id,child)
+	return true
+
+func setup_item(id,child):
+	hotbar_items[id]=child
+	child.equip_item(self,id)
+#	hands[id].visible = false
+	emit_signal('hotbar_updated')
+
+func spawn_fists():
+	hands.resize(max_items)
+	for i in max_items:
+		var _fist :ItemOverworld= fist.instantiate()
+		_fist.equip_item(self,i)
+		_fist.position = hand_positions[i]
+		_fist.rotation = Vector3.ZERO
+		_fist.visible = true
+		add_child(_fist)
+		hands[i] = _fist
+
+func get_hotbar_items()->Array:	return hotbar_items
+
+func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
+	if id >= hotbar_items.size():return
+	var drop_item:ItemOverworld=hotbar_items[id]
+	if drop_item == null: return
+	hotbar_items[id] = null
+#	hands[id].visible = true
+	
+	drop_item.reparent(root.get_parent())
+	drop_item.unequip_item()
+	
+	var speed = strength*10
+	var direction = drop_item.global_position.direction_to(target)
+	drop_item.velocity = direction*speed
+"
+
+[node name="hotbar" type="Node3D"]
+script = SubResource("GDScript_l165g")

@@ -1,5 +1,6 @@
 extends RayCast3D
 class_name HotbarUser
+
 @export var hotbar:Node3D
 @onready var root:=$'../..'
 @onready var input:Inputs=$'../../inputs'
@@ -14,7 +15,7 @@ func _ready() -> void:
 	owner = root
 	add_exception(root)
 	
-	get_dependencies()
+	connect_hotbar()
 	set_interface()
 	get_head_bone()
 	use_shape_size()
@@ -22,17 +23,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	copy_bone_position()
 
-func get_dependencies():
-	var enable = hotbar != null
-#	enabled = enable
-	if enable:
-		input.connect('drop_pressed',drop_start)
-		input.connect('drop_released',drop_stop)
-		
-		input.connect("act_pressed",act)
-		input.connect("attack_pressed",attack)
-		input.connect("skill_pressed",skill)
-		input.connect("misc_pressed",misc)
+func connect_hotbar():
+	if hotbar == null: return
+	input.connect('drop_pressed',drop_start)
+	input.connect('drop_released',drop_stop)
+	
+	input.connect("act_pressed",act)
+	input.connect("attack_pressed",attack)
+	input.connect("skill_pressed",skill)
+	input.connect("misc_pressed",misc)
 
 func set_interface():
 	root.set_meta(NameList.get_target, Callable(get_target))

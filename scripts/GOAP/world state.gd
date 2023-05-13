@@ -41,7 +41,10 @@ func get_closest_node_3d(group:StringName, position:Vector3, max_distance:=100.0
 	var closest_node:Node3D=null
 	var min_distance_sq := max_distance*max_distance
 	for node in nodes:
-		var dist_sq = position.distance_squared_to(node.position)
+		if node == null:
+			continue
+		var pos = node.position
+		var dist_sq = position.distance_squared_to(pos)
 		if dist_sq < min_distance_sq:
 			min_distance_sq = dist_sq
 			closest_node = node

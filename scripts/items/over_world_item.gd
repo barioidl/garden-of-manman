@@ -17,9 +17,9 @@ func equip_item(hotbar,_id:=-1):
 	emit_signal('item_equipped')
 	root = hotbar.root
 	id=_id
-	holder = hotbar.item_holders[id]
 	is_in_overworld = false
 	add_collision_exception_with(root)
+	holder = hotbar.item_holders[id]
 
 func unequip_item():
 	emit_signal('item_unequipped')
