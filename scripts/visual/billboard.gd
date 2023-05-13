@@ -40,6 +40,9 @@ func _ready() -> void:
 	add_to_group('billboard_sprites')
 	set_up_sprite()
 	set_face_axis()
+
+func _enter_tree() -> void:
+	camera = get_viewport().get_camera_3d()
 	if reference_frame == null:
 		reference_frame = get_parent()
 
@@ -69,11 +72,15 @@ func _process(delta: float) -> void:
 	forward = dir.normalized()
 	
 	select_cd -= delta
-	if select_cd <0 and PerformanceCap.allow_billboard_select():
+	if select_cd < 0 and PerformanceCap.allow_billboard_select():
 		select_cd = lerpf(select_cd_range.x, select_cd_range.y, dist_ratio)
-		rotate_cd = select_cd*0.5
-		camera = get_viewport().get_camera_3d()
+		rotate_cd = 0
+#		camera = get_viewport().get_camera_3d()
 		choose_side()
+		
+	rotate_cd -=delta
+	if rotate_cd < 0 and PerformanceCap.allow_billboard_rotate():
+		rotate_cd = lerpf(rotate_cd_range.x, rotate_cd_range.y, dist_ratio)
 		match face_camera:
 			bill_board_modes.bill_board:
 				billboard_forward()
@@ -81,19 +88,6 @@ func _process(delta: float) -> void:
 				billboard_up()
 			bill_board_modes.six_sides:
 				axis_rotate()
-		return
-	
-	rotate_cd -=delta
-	if rotate_cd <0 and PerformanceCap.allow_billboard_rotate():
-		rotate_cd = lerpf(rotate_cd_range.x,rotate_cd_range.y,dist_ratio)
-		match face_camera:
-			bill_board_modes.bill_board:
-				billboard_forward()
-#			bill_board_modes.lock_y_axis:
-#				billboard_up()
-#			bill_board_modes.six_sides:
-#				axis_rotate()
-		return
 
 func choose_side():
 	var ref = reference_frame.global_transform.basis

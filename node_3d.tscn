@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=11 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
@@ -15,9 +15,6 @@ script/source = "extends Node3D
 func _ready() -> void:
 	pass
 "
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7j3lg"]
-friction = 0.2
 
 [sub_resource type="GDScript" id="GDScript_jff7r"]
 script/source = "extends Camera3D
@@ -40,15 +37,15 @@ script = SubResource("GDScript_pc2qk")
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.794, 0, -3.414)
 collision_layer = 129
-physics_material_override = SubResource("PhysicsMaterial_7j3lg")
 max_contacts_reported = 3
+linear_damp = 10.0
 
 [node name="attach player control" type="Node" parent="timmy"]
 script = ExtResource("3_65qyn")
 
 [node name="ItemStartup" type="Node" parent="timmy"]
 script = ExtResource("4_ebjnm")
-items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("5_hlr8r")])
+items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("5_hlr8r"), ExtResource("5_hlr8r")])
 
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
 

@@ -180,7 +180,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.785398, 0, -0.349066), Vector3(-1.0472, 0, -0.0872665)]
+"values": [Vector3(-0.698132, 0, -0.349066), Vector3(-0.872665, 0, -0.0872665)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -210,7 +210,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-1.0472, 0, 0.0872665), Vector3(-0.785398, 0, 0.349066)]
+"values": [Vector3(-0.872665, 0, 0.0872665), Vector3(-0.698132, 0, 0.349066)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false

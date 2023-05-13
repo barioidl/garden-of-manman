@@ -36,7 +36,7 @@ func _ready():
 	owner = root
 	input.connect( "jump_pressed", trigger_jump.bind())
 	root.set_meta( NameList.delay_platformer, Callable(delay_platformer))
-	
+
 func delay_platformer(duration):
 	cool_down = duration
 

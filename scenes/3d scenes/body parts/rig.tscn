@@ -77,7 +77,7 @@ func _process(delta: float) -> void:
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = SubResource("GDScript_3vf7w")
 head = NodePath("hip/spine/spine/chest/neck/head")
-item_holders = Array[NodePath]([NodePath("hip/spine/spine/chest/arm"), NodePath("hip/spine/spine/chest/arm2")])
+item_holders = Array[NodePath]([NodePath("hip/spine/spine/chest/arm2"), NodePath("hip/spine/spine/chest/arm")])
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 enabled = false

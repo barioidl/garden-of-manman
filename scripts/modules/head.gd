@@ -1,12 +1,12 @@
 extends RayCast3D
 class_name HotbarUser
 @export var hotbar:Node3D
-
 @onready var root:=$'../..'
 @onready var input:Inputs=$'../../inputs'
 @onready var shape :=$"../../shape"
 #@onready var platformer=$'../../platformer'
 #var body
+@export var interact_range:=2.0
 
 func _init() -> void:
 	name = 'head'
@@ -93,6 +93,8 @@ func use_item(id:int):
 func default_interact():
 	var body = get_collider()
 	if body == null: return
+	var dist_sq = global_position.distance_squared_to(body.global_position)
+	if dist_sq > interact_range * interact_range: return
 	if !body.has_method(NameList.interact): return
 	body.interact(self)
 

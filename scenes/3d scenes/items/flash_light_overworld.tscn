@@ -42,7 +42,7 @@ func aim_at_target(head):
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d7bm4"]
 margin = 0.001
-size = Vector3(0.2, 0.5, 0.2)
+size = Vector3(0.1, 0.3, 0.1)
 
 [node name="flash light" type="CharacterBody3D"]
 script = SubResource("GDScript_bxoe2")
@@ -52,6 +52,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("BoxShape3D_d7bm4")
 
 [node name="Sprite3D" type="Sprite3D" parent="." node_paths=PackedStringArray("reference_frame")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 axis = 1
 shaded = true
 double_sided = false
@@ -65,7 +66,7 @@ reference_frame = NodePath("../CollisionShape3D")
 select_cd_range = Vector2(0.1, 3)
 
 [node name="red_vision" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -8.74228e-09, 0.2)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0.125)
 shadow_enabled = true
 spot_range = 10.0
 spot_angle = 80.0

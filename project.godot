@@ -200,6 +200,7 @@ common/enable_object_picking=false
 [rendering]
 
 lights_and_shadows/directional_shadow/size=2048
+anti_aliasing/screen_space_roughness_limiter/enabled=false
 limits/opengl/max_renderable_elements=5000
 limits/opengl/max_renderable_lights=16
 lights_and_shadows/positional_shadow/atlas_size=2048

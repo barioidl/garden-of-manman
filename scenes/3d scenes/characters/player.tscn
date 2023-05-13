@@ -159,7 +159,7 @@ script = ExtResource("9_xmcsr")
 [node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 enabled = true
-target_position = Vector3(0, 0, 5)
+target_position = Vector3(0, 0, 10)
 hotbar = NodePath("../hotbar")
 connect_to_shape = false
 head_margin = 0.15
