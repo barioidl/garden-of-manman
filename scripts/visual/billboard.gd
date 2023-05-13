@@ -37,7 +37,8 @@ var axis_up:=axises.y
 var forward := Vector3.ONE 
 
 func _ready() -> void:
-	add_to_group('billboard_sprites')
+	if NameList.is_inside_tree():
+		add_to_group(NameList.billboard_sprites)
 	set_up_sprite()
 	set_face_axis()
 
@@ -91,30 +92,18 @@ func _process(delta: float) -> void:
 
 func choose_side():
 	var ref = reference_frame.global_transform.basis
-
-	var x = forward.distance_squared_to(ref.x)-2
-	var y = forward.distance_squared_to(ref.y)-2
-	var z = forward.distance_squared_to(ref.z)-2
-	if axis_ratio != Vector3.ONE:
-		x *= axis_ratio.x
-		y *= axis_ratio.y
-		z *= axis_ratio.z
 	
-	var maximum = abs(x)
-	var cardinal := 0 
-	var abs_y = abs(y)
-	if maximum < abs_y:
-		maximum = abs_y
-		cardinal = 1
-	var abs_z= abs(z)
-	if maximum < abs_z:
-		maximum = abs_z
-		cardinal = 2
-	var deadzone := 1.5
-#	print(Vector3(x,y,z))
-	match cardinal:
-		0:
-			if x <0:
+	var dist_axis:=Vector3.ZERO
+	dist_axis.x = forward.distance_squared_to(ref.x)-2
+	dist_axis.y = forward.distance_squared_to(ref.y)-2
+	dist_axis.z = forward.distance_squared_to(ref.z)-2
+	if axis_ratio != Vector3.ONE:
+		dist_axis *= axis_ratio
+	
+	var max_axis = dist_axis.abs().max_axis_index()
+	match max_axis:
+		Vector3.AXIS_X:
+			if dist_axis.x <0:
 				select(3)
 				axis_forward = axises._x
 				axis_up = axises.y
@@ -124,8 +113,8 @@ func choose_side():
 				axis_forward = axises.x
 				axis_up=axises.y
 				return
-		1:
-			if y <0:
+		Vector3.AXIS_Y:
+			if dist_axis.y <0:
 				select(4)
 				axis_forward = axises._y
 				axis_up=axises._z
@@ -135,8 +124,8 @@ func choose_side():
 				axis_forward = axises.y
 				axis_up=axises.z
 				return
-		2:
-			if z <0:
+		Vector3.AXIS_Z:
+			if dist_axis.z <0:
 				select(0)
 				axis_forward = axises._z
 				axis_up=axises.y

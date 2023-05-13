@@ -17,6 +17,8 @@ enum item_id{
 	blue_key,
 	yellow_key,
 	purple_key,
+	
+	food_generic,
 }
 
 @export var id:=item_id.default:

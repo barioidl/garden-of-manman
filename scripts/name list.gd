@@ -52,7 +52,13 @@ var show_image:= &'show_image'
 var connect_stats_display := &'connect_stats_display'
 
 var get_inputs := &'get_inputs'
+
 var delay_platformer := &'delay_platformer'
+var walk_to_target := &'walk_to_target'
+var sneak_to_target := &'sneak_to_target'
+var sprint_to_target := &'sprint_to_target'
+var jump_to_target := &'jump_to_target'
+
 var get_target := &'get_target'
 var turn_head_toward:= &'turn_head_toward' 
 

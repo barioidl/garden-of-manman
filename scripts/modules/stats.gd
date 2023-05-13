@@ -25,7 +25,7 @@ func connect_goap_agent():
 	if agent == null: return
 	update_agent_hp(health,max_health)
 	connect(NameList.health_updated,update_agent_hp)
-	
+
 func update_agent_hp(_health,_max_health):
 	agent.set_local_state(NameList.health,_health)
 	agent.set_local_state(NameList.max_health,_max_health)
@@ -53,7 +53,7 @@ func change_health(delta):
 		die()
 
 func die():
-	pass
+	$"../inputs".reset()
 
 @export_category('mana')
 @export var mana:=0.0

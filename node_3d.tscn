@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=12 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_ebjnm"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 [ext_resource type="Resource" uid="uid://ddlssuha00ffl" path="res://data/items/flash light.tres" id="5_hlr8r"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_pmy02"]
+[ext_resource type="Resource" uid="uid://blyxj3d3wn6vs" path="res://data/items/food generic.tres" id="8_tyqn8"]
 
 [sub_resource type="GDScript" id="GDScript_pc2qk"]
 script/source = "extends Node3D
@@ -23,11 +25,8 @@ script/source = "extends Camera3D
 #	queue_free() # Replace with function body.
 "
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0nqi"]
-roughness = 0.1
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_gtxdg"]
-material = SubResource("StandardMaterial3D_x0nqi")
+[sub_resource type="BoxShape3D" id="BoxShape3D_7wgxy"]
+size = Vector3(10, 10, 10)
 
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_pc2qk")
@@ -35,7 +34,7 @@ script = SubResource("GDScript_pc2qk")
 [node name="test map" parent="." instance=ExtResource("1_014iv")]
 
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.794, 0, -3.414)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 collision_layer = 129
 max_contacts_reported = 3
 linear_damp = 10.0
@@ -51,6 +50,7 @@ items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("5_hlr8
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.87106, -0.425372, 0.245589, 0, 0.5, 0.866025, -0.491177, 0.75436, -0.43553, 0, 0, 0)
+visible = false
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 50.0
@@ -59,13 +59,14 @@ directional_shadow_max_distance = 50.0
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 2, 10)
 script = SubResource("GDScript_jff7r")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26931, 3.99302)
-mesh = SubResource("CapsuleMesh_gtxdg")
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77433, 0, 6.55007)
+reverb_bus_enabled = true
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05152, 2.06218, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_7wgxy")
 
-[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Node3D"]
-estimate_radius = false
-radius = 10.0
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.39406, 0, 9.57343)
+script = ExtResource("7_pmy02")
+item = ExtResource("8_tyqn8")

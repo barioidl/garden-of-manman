@@ -1,7 +1,7 @@
 extends Node
 class_name GOAPAgent
 
-var root:Node3D
+@onready var root=get_parent().root
 var local_state:={}
 var planner :GOAPPlanner
 
@@ -36,9 +36,9 @@ func _ready() -> void:
 	set_local_state(NameList.plan_width,planner_limits.x)
 	set_local_state(NameList.plan_depth,planner_limits.y)
 
-var time:=0.0
+var dt:=0.0
 func _process(delta: float) -> void:
-	time = delta
+	dt = delta
 	generate_plan()
 	follow_plan()
 
@@ -53,13 +53,13 @@ func follow_plan():
 	if current_step >= plan_size:
 #		current_step=0
 		return
-	var completed = current_plan[current_step].perform(local_state,time)
+	var completed = current_plan[current_step].perform(self, local_state, dt)
 	if completed:
 		current_step += 1
 
 var generate_cd :=0.0
 func generate_plan():
-	generate_cd -= time
+	generate_cd -= dt
 	if generate_cd >0:return
 	if !PerformanceCap.allow_goap_planner(): return
 	generate_cd = 10

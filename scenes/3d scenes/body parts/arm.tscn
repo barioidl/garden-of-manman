@@ -248,9 +248,12 @@ target = NodePath("ik target")
 hand = NodePath("arm/elbow/wrist/hand")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+enabled = false
 exclude_parent = false
 target_position = Vector3(0, -0.5, 0)
 script = ExtResource("1_wvwgj")
+offset = 0.5
+ignore_distance = 0.1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RayCast3D"]
 autoplay = "walk"
@@ -266,7 +269,7 @@ gizmo_extents = 0.1
 script = ExtResource("1_j5t3a")
 
 [node name="ik pole" type="Marker3D" parent="ik target"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="arm" type="Marker3D" parent="."]
 gizmo_extents = 0.02
@@ -289,8 +292,8 @@ script = ExtResource("1_cqla2")
 target = NodePath("../../ik target/ik pole")
 chain_length = 1
 joints_per_frame = 1
-average_weight = 0.1
-accuracy = 0.1
+average_weight = 0.05
+accuracy = 0.05
 
 [node name="ik_constraint" type="Node" parent="arm/elbow"]
 script = ExtResource("1_sn8ug")
@@ -326,7 +329,6 @@ script = ExtResource("1_cqla2")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
-joints_per_frame = 6
 accuracy = 0.005
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="arm/elbow/wrist/hand"]

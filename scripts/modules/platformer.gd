@@ -35,20 +35,18 @@ func _init() -> void:
 func _ready():
 	owner = root
 	input.connect( "jump_pressed", trigger_jump.bind())
-	root.set_meta( NameList.delay_platformer, Callable(delay_platformer))
+	set_interface()
 
-func delay_platformer(duration):
-	cool_down = duration
 
 var cool_down :=0.0
-var time:=0.0
+var dt:=0.0
 func _process(delta):
-	time = delta
+	dt = delta
 	if root == null: return
 	if input == null: return
 	
 	if cool_down >0:
-		cool_down -=time
+		cool_down -=dt
 		return
 	choose_state()
 	if state != old_state:
@@ -103,7 +101,7 @@ func choose_state():
 				jump_counter += 1
 				play_jump_sound()
 		if jump_bungee >0:
-			jump_bungee -= time
+			jump_bungee -= dt
 			if is_jumping:
 				if jump_on or jump_pressed:
 					jump_strength = 0.8
@@ -162,6 +160,50 @@ func walk(dir:Vector2, speed:float)->Vector3:
 	output.z = dir.y * speed
 	return output
 
+
+func set_interface():
+	root.set_meta(NameList.delay_platformer, Callable(delay_platformer))
+	
+	root.set_meta(NameList.walk_to_target, Callable(walk_to_target))
+	root.set_meta(NameList.sneak_to_target, Callable(sneak_to_target))
+	root.set_meta(NameList.sprint_to_target, Callable(sprint_to_target))
+	root.set_meta(NameList.jump_to_target, Callable(jump_to_target))
+
+func delay_platformer(duration):
+	cool_down = duration
+
+func walk_to_target(target:Vector3):
+	dpad_from_position(target)
+	input.shift = false
+	input.ctrl = false
+	input.jump = false
+func sneak_to_target(target:Vector3):
+	dpad_from_position(target)
+	input.shift = true
+	input.ctrl = false
+	input.jump = false
+func sprint_to_target(target:Vector3):
+	dpad_from_position(target)
+	input.shift = false
+	input.ctrl = true
+	input.jump = false
+func jump_to_target(target:Vector3):
+	dpad_from_position(target)
+	input.shift = false
+	input.ctrl = false
+	input.jump = true
+	input.emit_signal('jump_pressed')
+
+func dpad_from_position(target:Vector3):
+	var trans = root.custom_transform.inverse()
+	var target_local = trans * target
+#	body.to_local(target)
+	var dpad1 := Vector2(target_local.x,target_local.z)
+	if dpad1 != Vector2.ZERO:
+		input.dpad1 = dpad1.limit_length(1)
+
+
+
 @export_category('audio')
 @export var step_speed=0.25
 @export var jump_sfx:AudioList
@@ -174,7 +216,7 @@ func play_jump_sound():
 var step_cd:=0.0
 func play_step_sound(speed):
 	if step_cd >0:
-		step_cd -=time
+		step_cd -=dt
 		return
 	step_cd = speed*step_speed
 	var pos = root.global_position

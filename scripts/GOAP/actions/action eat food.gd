@@ -10,8 +10,10 @@ func get_inputs(self_state:Dictionary)->Dictionary:
 func get_outputs(self_state:Dictionary)->Dictionary:
 	return {
 		NameList.has_food:-1,
-		NameList.hunger: -0.5
+		NameList.hunger: -1
 	}
 
-func perform(local_state:Dictionary,time:float)->bool:
+func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
+#	var walk_to = agent.root.get_meta(NameList.jump_to_target)
+#	walk_to.call(Vector3(10,0,10))
 	return false

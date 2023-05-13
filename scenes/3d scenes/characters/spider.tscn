@@ -229,6 +229,7 @@ func _ready() -> void:
 		GoalFlee.new(),
 		GoalEatFood.new()
 	]
+
 "
 
 [sub_resource type="GDScript" id="GDScript_17foq"]
@@ -327,14 +328,11 @@ turn_speed = 100
 script = SubResource("GDScript_g145v")
 
 [node name="debug_display" type="Label3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 billboard = 1
 double_sided = false
-fixed_size = true
 texture_filter = 0
 text = "debug"
-font_size = 20
-outline_size = 5
 autowrap_mode = 2
 width = 1000.0
 script = SubResource("GDScript_17foq")
@@ -413,49 +411,49 @@ legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik 
 body_mid_pos = Vector3(0, 0.1, 0)
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, 0.707107, -1, 2, -1)
+transform = Transform3D(0.664462, 0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664462, 0.241845, 0.707107, -1, 2, -1)
 exclude_parent = false
-target_position = Vector3(-1.5, -3, 0)
+target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
 [node name="leg ik tl" type="Marker3D" parent="body/feet casters/top left feet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, -0.707107, 1, 2, -1)
+transform = Transform3D(-0.664462, -0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664462, 0.241845, -0.707107, 1, 2, -1)
 exclude_parent = false
-target_position = Vector3(-1.5, -3, 0)
+target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
 [node name="leg ik bl" type="Marker3D" parent="body/feet casters/top right feet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, 0.707107, -1, 2, 1)
+transform = Transform3D(0.664462, 0.241845, 0.707107, -0.34202, 0.939693, 0, -0.664462, -0.241845, 0.707107, -1, 2, 1)
 exclude_parent = false
-target_position = Vector3(-1.5, -3, 0)
+target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
 [node name="leg ik tr" type="Marker3D" parent="body/feet casters/bottom left feet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, -0.707107, 1, 2, 1)
+transform = Transform3D(-0.664462, -0.241845, 0.707107, -0.34202, 0.939693, 0, -0.664462, -0.241845, -0.707107, 1, 2, 1)
 exclude_parent = false
-target_position = Vector3(-1.5, -3, 0)
+target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
 [node name="leg ik br" type="Marker3D" parent="body/feet casters/bottom right feet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 top_level = true
 script = ExtResource("23_oikep")

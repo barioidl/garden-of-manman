@@ -58,3 +58,23 @@ var reload := false
 signal flip_pressed
 signal flip_released
 var flip := false
+
+func reset():
+	dpad1 = Vector2.ZERO
+	dpad2 = Vector2.ZERO
+	jump = false
+	
+	act = false
+	attack = false
+	skill = false
+	misc = false
+	
+	ctrl = false
+	shift = false
+	alt = false
+	tab = false
+	
+	inventory = false
+	drop = false
+	reload = false
+	flip = false

@@ -3,11 +3,11 @@ class_name RigidCharacter
 
 var root = self
 
-var rotation_y := 0.0
-var offset_rotation:Quaternion
-func rotate_body(angle:float):
-	rotation_y += angle
-	quaternion = offset_rotation * Quaternion(Vector3(0,1,0), rotation_y)
+#var rotation_y := 0.0
+#var offset_rotation:Quaternion
+#func rotate_body(angle:float):
+#	rotation_y += angle
+#	quaternion = offset_rotation * Quaternion(Vector3(0,1,0), rotation_y)
 
 func _ready():
 	add_to_group("character")
@@ -27,11 +27,14 @@ func setup_body():
 #	material.absorbent = false
 #	physics_material_override = material
 
-var time := 0.0
+var dt := 0.0
 func _physics_process(delta):
-	time = delta
+	dt = delta
 	move_body()
 	bungee_time()
+	set_damp()
+
+func set_damp():
 	if on_floor:
 		linear_damp = 10
 	elif on_wall:
@@ -45,9 +48,9 @@ var on_floor_bungee := 0.0
 var on_wall_bungee := 0.0
 var on_ceiling_bungee := 0.0
 func bungee_time():
-	on_floor_bungee -= time
-	on_wall_bungee -= time
-	on_ceiling_bungee -= time
+	on_floor_bungee -= dt
+	on_wall_bungee -= dt
+	on_ceiling_bungee -= dt
 	
 	on_floor = on_floor_bungee > 0
 	on_wall = on_wall_bungee > 0
@@ -83,9 +86,10 @@ func move_body():
 	abs_y = max(abs_y,abs(velo.y))
 	abs_z = max(abs_z,abs(velo.z))
 	
-	velo.x = clampf(velo.x+local_velocity.x,-abs_x,abs_x)
-	velo.y = clampf(velo.y+local_velocity.y,-abs_y,abs_y)
-	velo.z = clampf(velo.z+local_velocity.z,-abs_z,abs_z)
+	var accel:= dt * 60
+	velo.x = clampf(velo.x + local_velocity.x * accel, -abs_x,abs_x)
+	velo.y = clampf(velo.y + local_velocity.y * accel, -abs_y,abs_y)
+	velo.z = clampf(velo.z + local_velocity.z * accel, -abs_z,abs_z)
 	
 	local_velocity = Vector3.ZERO
 	linear_velocity = custom_transform.basis * velo

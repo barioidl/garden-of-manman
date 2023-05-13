@@ -335,7 +335,7 @@ gizmo_extents = 0.1
 script = ExtResource("1_1cf1t")
 
 [node name="ik pole" type="Marker3D" parent="ik target"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="leg" type="Marker3D" parent="."]
 gizmo_extents = 0.02
@@ -396,7 +396,7 @@ script = ExtResource("2_o0xlv")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
-joints_per_frame = 6
+joints_per_frame = 3
 solve_backward = true
 accuracy = 0.005
 
