@@ -16,33 +16,42 @@ func get_outputs(self_state:Dictionary)->Dictionary:
 		NameList.has_food:1,
 	}
 
+
 func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= agent.root
 	var food = get_food(root,local_state)
-#	check again
 	if food == null:
 		return false
-	var food_pos = food.global_position
 	
-	var walk_to = root.get_meta( NameList.walk_to_target)
-	walk_to.call(food_pos)
+	var walk_to = root.get_meta(NameList.walk_to_target)
 	var face_to = root.get_meta(NameList.turn_head_toward)
+	var food_pos = food.global_position
+	walk_to.call(food_pos)
 	face_to.call(food_pos)
 	
-	var get_target = root.get_meta(NameList.get_target)
-	var target = get_target.call()
+	var target = root.get_meta(NameList.get_target).call()
 	if target == null:
 		return false
-	if target.is_in_group(NameList.food):
-		return true
-	return false
+	if !target.is_in_group(NameList.food):
+		return false
+	
+	var input = root.get_meta(NameList.get_inputs).call()
+	
+	var hotbar_full = root.get_meta(NameList.is_hotbar_full).call()
+	if hotbar_full:
+		input.emit_signal(NameList.drop_pressed)
+		return false
+	
+	input.emit_signal(NameList.act_pressed)
+	return true
+
 
 func get_food(root:Node3D,local_state:Dictionary):
 	if local_state.has(NameList.food):
 		var food = local_state[NameList.food]
-		if food != null:
-			return local_state[NameList.food]
-		else:
+		if food == null:
 			local_state.erase(NameList.food)
+		else:
+			return local_state[NameList.food]
 	var root_pos =root.global_position
 	return WorldState.get_closest_node_3d(NameList.food, root_pos)

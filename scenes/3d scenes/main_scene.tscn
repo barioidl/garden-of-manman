@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_dn1r6"]
 [ext_resource type="Resource" uid="uid://b3elydd8a3xp5" path="res://data/items/key generic.tres" id="5_6kfeo"]
+[ext_resource type="Script" path="res://scripts/assign character as player .gd" id="5_bmfmr"]
 [ext_resource type="Script" path="res://scripts/bound.gd" id="5_yctgw"]
 [ext_resource type="Resource" uid="uid://ddlssuha00ffl" path="res://data/items/flash light.tres" id="6_f6ljs"]
 [ext_resource type="PackedScene" uid="uid://bk0gpt7acyutf" path="res://scenes/3d scenes/characters/hopper.tscn" id="7_2ewu1"]
@@ -74,14 +75,6 @@ dof_blur_near_transition = 2.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pk2np"]
 friction = 0.2
-
-[sub_resource type="GDScript" id="GDScript_052wj"]
-script/source = "extends RemoteTransform3D
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	queue_free() # Replace with function body.
-"
 
 [sub_resource type="GDScript" id="GDScript_vmftm"]
 script/source = "extends Node3D
@@ -255,20 +248,17 @@ camera_attributes = SubResource("CameraAttributesPractical_3ytga")
 [node name="map" type="Node3D" parent="."]
 
 [node name="timmy" parent="map" instance=ExtResource("1_ssxib")]
-transform = Transform3D(-0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, -0.819152, 7.57562, 2.54995, -48.8665)
+transform = Transform3D(-0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, -0.819152, 7.49141, 1.66802, 1.41286)
 collision_layer = 129
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="map/timmy"]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-update_scale = false
-script = SubResource("GDScript_052wj")
-
 [node name="Node" type="Node" parent="map/timmy"]
 script = ExtResource("4_dn1r6")
 items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("5_6kfeo"), ExtResource("6_f6ljs")])
+
+[node name="attach player control" type="Node" parent="map/timmy"]
+script = ExtResource("5_bmfmr")
 
 [node name="characters" type="Node3D" parent="map" node_paths=PackedStringArray("player")]
 script = SubResource("GDScript_vmftm")
@@ -276,23 +266,24 @@ player = NodePath("../timmy")
 disable_range = 30
 cd_duration = 3.0
 
-[node name="birdup" parent="map/characters" instance=ExtResource("7_jdoo3")]
+[node name="pumped up bird" parent="map/characters" instance=ExtResource("7_jdoo3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.4814, 2, -37.7585)
 
-[node name="hopper" parent="map/characters" instance=ExtResource("7_2ewu1")]
+[node name="jumbo zo" parent="map/characters" instance=ExtResource("7_2ewu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6581, 1.5, -44.3557)
 
 [node name="namnam" parent="map/characters" instance=ExtResource("7_8jvxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3075, 4.38931, -0.481705)
 
-[node name="swing" type="Node3D" parent="map/characters" node_paths=PackedStringArray("target")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 8, 17.5, -80)
-script = SubResource("GDScript_6wonm")
-target = NodePath("../gloria")
-
-[node name="gloria" parent="map/characters" instance=ExtResource("10_nwwic")]
+[node name="mommy long" parent="map/characters" instance=ExtResource("10_nwwic")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 8, 4, -80)
 linear_damp = 1.0
+
+[node name="swing" type="Node3D" parent="map/characters/mommy long" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, -13.5, 0)
+top_level = true
+script = SubResource("GDScript_6wonm")
+target = NodePath("..")
 
 [node name="garden of manman" type="Node3D" parent="map"]
 

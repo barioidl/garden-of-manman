@@ -38,10 +38,13 @@ var max_mana := &'max_mana'
 
 
 func list_of_group_names():pass
+var player := &'player'
+
 var food := &'food'
 var drink := &'drink'
 var healing_item := &'healing_item'
 var key := &'key'
+
 var character := &'character'
 var ui_save_load := &'ui_save_load'
 var billboard_sprites:= &'billboard_sprites'
@@ -67,16 +70,48 @@ var receive_message:= &'receive_message'
 
 var respawn := &'respawn'
 
-var append_item:=&'append_item'
-var append_item_node:=&'append_item_node'
-var get_hotbar_items:=&'get_hotbar_items'
-
+var append_item := &'append_item'
+var append_item_node := &'append_item_node'
+var get_hotbar_items := &'get_hotbar_items'
+var is_hotbar_full := &'is_hotbar_full'
 
 func list_of_methods():pass
 var interact:=&'interact'
 
 func list_of_signals():pass
+var jump_pressed := &'jump_pressed'
+var jump_released := &'jump_released'
+
+var act_pressed := &'act_pressed'
+var act_released := &'act_released'
+var attack_pressed := &'attack_pressed'
+var attack_released := &'attack_released'
+var skill_pressed := &'skill_pressed'
+var skill_released := &'skill_released'
+var misc_pressed := &'misc_pressed'
+var misc_released := &'misc_released'
+
+var ctrl_pressed := &'ctrl_pressed'
+var ctrl_released := &'ctrl_released'
+var shift_pressed := &'shift_pressed'
+var shift_released := &'shift_released'
+var alt_pressed := &'alt_pressed'
+var alt_released := &'alt_released'
+var tab_pressed := &'tab_pressed'
+var tab_released := &'tab_released'
+
+var inventory_pressed := &'inventory_pressed'
+var inventory_released := &'inventory_released'
+var drop_pressed := &'drop_pressed'
+var drop_released := &'drop_released'
+var reload_pressed := &'reload_pressed'
+var reload_released := &'reload_released'
+var flip_pressed := &'flip_pressed'
+var flip_released := &'flip_released'
+
+
 var health_updated:= &'health_updated'
 var mana_updated:= &'mana_updated'
 var hunger_updated:= &'hunger_updated'
+
 var on_state_changed := &'on_state_changed'

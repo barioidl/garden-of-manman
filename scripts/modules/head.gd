@@ -1,7 +1,7 @@
 extends RayCast3D
 class_name HotbarUser
 
-@export var hotbar:Node3D
+@onready var hotbar:=$"../hotbar"
 @onready var root:=$'../..'
 @onready var input:Inputs=$'../../inputs'
 @onready var shape :=$"../../shape"
@@ -57,19 +57,25 @@ func copy_bone_position():
 	var pos = head_bone.global_position
 	global_position = pos
 
-func get_target()->PhysicsBody3D:
-	return get_collider()
+func get_target(_range:=interact_range)->PhysicsBody3D:
+	if _range > target_position.z:
+		target_position.z = _range
+	var target = get_collider()
+	if target == null:
+		return null
+	var dist_sq = global_position. distance_squared_to(target.global_position)
+	if dist_sq > _range * _range:
+		return null
+	return target
 
 func get_contact()->Vector3:
 	if is_colliding():
 		return get_collision_point()
 	return to_global(target_position)
 
+
 func act():
-	var body = get_target()
-	if body == null: 	return
-	if !body.has_method("interact"): 	return
-	body.interact(self)
+	default_interact()
 
 func attack():
 	use_item(0)
@@ -81,7 +87,7 @@ func misc():
 	use_item(2)
 
 func use_item(id:int):
-	if hotbar.hotbar_items.size() < id: return
+	if hotbar.hotbar_items.size() <= id: return
 	var item = hotbar.hotbar_items[id]
 	if item == null: 
 		default_interact()
@@ -90,14 +96,15 @@ func use_item(id:int):
 	drop_id = id
 
 func default_interact():
-	var body = get_collider()
+	var body = get_target()
 	if body == null: return
 	var dist_sq = global_position.distance_squared_to(body.global_position)
 	if dist_sq > interact_range * interact_range: return
 	if !body.has_method(NameList.interact): return
 	body.interact(self)
 
-var drop_id:=-1
+
+var drop_id:=0
 var drop_strength:=0.0:
 	get:
 		return drop_strength

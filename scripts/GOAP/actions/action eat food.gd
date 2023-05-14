@@ -13,9 +13,6 @@ func get_outputs(self_state:Dictionary)->Dictionary:
 		NameList.hunger: -1
 	}
 
-func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
+func perform(agent: GOAPAgent, local_state:Dictionary,time:float) -> bool:
 	
-	var walk_to = agent.root.get_meta(NameList.get_inputs)
-	var input = walk_to.call()
-	input.reset()
-	return false
+	return true

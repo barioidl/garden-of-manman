@@ -145,18 +145,19 @@ func billboard_forward():
 	var up := convert_to_axis(axis_up)
 	if up == Vector3.ZERO: return
 	if forward == Vector3.ZERO: return
-	look_at(global_position - forward*10,up)
+	if up.angle_to(forward) < 0.1: return
+	look_at(global_position-forward,up)
 	emit_signal("rotation_changed")
 
 func billboard_up():
 	var up := convert_to_axis(axis_up)
-	look_at(global_position + up*10,forward)
+	look_at(global_position + up,forward)
 	emit_signal("rotation_changed")
 
 func axis_rotate():
 	var forward := convert_to_axis(axis_forward)
 	var up := convert_to_axis(axis_up)
-	look_at(global_position+forward*10,up)
+	look_at(global_position+forward,up)
 	emit_signal("rotation_changed")
 
 func convert_to_axis(_axis)->Vector3:

@@ -19,28 +19,32 @@ func equip_item(hotbar,_id:=-1):
 	id=_id
 	is_in_overworld = false
 	add_collision_exception_with(root)
-	holder = hotbar.item_holders[id]
+	
+	if hotbar.item_holders.size() > id:
+		holder = hotbar.item_holders[id]
+	else:
+		holder = null
+		id = wrapi(id, 0, hotbar.hand_positions.size())
+		position = hotbar.hand_positions[id]
 
 func unequip_item():
 	emit_signal('item_unequipped')
+	root = null
+	holder = null
+	id = -1
+	is_in_overworld = true
+	
 	var tween = create_tween()
 	tween.tween_interval(0.2)
 	tween.tween_callback(reset_exception.bind(root))
-	root = null
-	id = -1
-	is_in_overworld = true
-
 func reset_exception(_root):
 	if _root == null: return
 	remove_collision_exception_with(_root)
 
 func use_item(head:HotbarUser)->bool:
 	emit_signal('item_used')
-	var body = head.get_target()
-	if body == null: return false
-	var point = head.get_contact()
-	var dist = global_position.distance_squared_to(point)
-	if dist > interact_range*interact_range: 
+	var body = head.get_target(interact_range)
+	if body == null: 
 		return false
 	if !body.has_method(NameList.interact): 
 		return false

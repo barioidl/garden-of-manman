@@ -2,7 +2,7 @@ extends Node3D
 class_name Player
 
 @onready var camera3d = $Camera3D
-
+var character:Node3D
 var input:Node
 var head:Node3D
 
@@ -14,8 +14,9 @@ var invert_y :=1
 func _ready():
 	camera3d.current = true
 
-func attach_to(character):
-	character.add_to_group('player')
+func attach_to(_character):
+	character = _character
+	character.add_to_group(NameList.player)
 	input = character.get_node('inputs')
 	head = character.get_node('body/head')
 
@@ -117,10 +118,10 @@ func get_movement():
 var reset_dpad_2:=0
 func reset_dpad2():
 	if input == null: return
-	if reset_dpad_2 <=-2: return
+	if reset_dpad_2 < -2: return
 	reset_dpad_2-=1
-	if reset_dpad_2<=0:
-		input.dpad2 = Vector2.ZERO
+	if reset_dpad_2 > 0: return
+	input.dpad2 = Vector2.ZERO
 
 func crosshair_move():
 	reset_dpad_2 = 2

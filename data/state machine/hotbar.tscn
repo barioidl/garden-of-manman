@@ -26,6 +26,10 @@ var hotbar_items:=[]
 var item_holders:=[]
 
 signal hotbar_updated
+
+func _init() -> void:
+	name = 'hotbar'
+
 func _ready():
 	owner = root
 	get_item_holders()
@@ -38,6 +42,8 @@ func set_interface():
 	root.set_meta(NameList.append_item, Callable(append_item))
 	root.set_meta(NameList.append_item_node, Callable(append_item_node))
 	root.set_meta(NameList.get_hotbar_items, Callable(get_hotbar_items))
+	
+	root.set_meta(NameList.is_hotbar_full, Callable(is_hotbar_full))
 
 @export var connect_to_shape:=true
 func use_shape_size():
@@ -53,6 +59,7 @@ func get_item_holders():
 		return
 	item_holders = rig.get_item_holders()
 	max_items = item_holders.size()
+
 
 func append_item(item:ItemData)->bool:
 	var id = hotbar_items.find(null) 
@@ -70,6 +77,13 @@ func append_item_node(child:Node3D)->bool:
 	setup_item(id,child)
 	return true
 
+func get_hotbar_items()->Array:	return hotbar_items
+
+func is_hotbar_full()->bool:
+	
+	return false
+
+
 func setup_item(id,child):
 	hotbar_items[id]=child
 	child.equip_item(self,id)
@@ -86,8 +100,6 @@ func spawn_fists():
 		_fist.visible = true
 		add_child(_fist)
 		hands[i] = _fist
-
-func get_hotbar_items()->Array:	return hotbar_items
 
 func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
 	if id >= hotbar_items.size():return

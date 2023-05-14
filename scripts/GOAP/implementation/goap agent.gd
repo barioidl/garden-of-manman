@@ -25,7 +25,7 @@ var plan_size:=0
 var current_step:=0
 
 @export var planner_limits:=Vector2(3,6)
-
+@export var loop_plan:=true
 @onready var debug_display = get_node_or_null('../debug_display')
 
 func _init() -> void:
@@ -51,9 +51,11 @@ func set_local_state(key,value):
 
 func follow_plan():
 	if current_step >= plan_size:
-#		current_step=0
+		if loop_plan:
+			current_step=0
 		return
-	var completed = current_plan[current_step].perform(self, local_state, dt)
+	var action = current_plan[current_step]
+	var completed = action.perform(self, local_state, dt)
 	if completed:
 		current_step += 1
 
@@ -61,12 +63,12 @@ var generate_cd :=0.0
 func generate_plan():
 	generate_cd -= dt
 	if generate_cd >0:return
-	if !PerformanceCap.allow_goap_planner(): return
-	generate_cd = 10
+	generate_cd = 1
 	
+	if !PerformanceCap.allow_goap_planner(): return
 	var best_goal = select_goal()
 	if best_goal == null: return
-#	if best_goal == current_goal: return
+	if best_goal == current_goal: return
 	current_goal = best_goal
 	
 	current_plan = planner.get_plan(current_goal, local_state)
