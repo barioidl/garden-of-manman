@@ -2,7 +2,7 @@
 extends SpriteBase3D
 class_name Billboard3d
 
-@export_category('spite settings')
+@export_category('material settings')
 @export var use_shade:=true
 @export var alphacut:=SpriteBase3D.ALPHA_CUT_DISCARD
 @export var disable_dist:=30.0
@@ -10,7 +10,7 @@ class_name Billboard3d
 signal rotation_changed()
 signal sprite_changed()
 
-@export_category('settings')
+@export_category('billboard settings')
 enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 @export var face_camera:=bill_board_modes.bill_board:
 	get:
@@ -143,22 +143,31 @@ func select(side):
 
 func billboard_forward():
 	var up := convert_to_axis(axis_up)
-	if up == Vector3.ZERO: return
-	if forward == Vector3.ZERO: return
-	if up.angle_to(forward) < 0.1: return
-	look_at(global_position-forward,up)
+	if !is_axis_valid(forward,up): return
+	
+	look_at(global_position - forward , up)
 	emit_signal("rotation_changed")
 
 func billboard_up():
 	var up := convert_to_axis(axis_up)
-	look_at(global_position + up,forward)
+	if !is_axis_valid(forward,up): return
+	
+	look_at(global_position + up, forward)
 	emit_signal("rotation_changed")
 
 func axis_rotate():
 	var forward := convert_to_axis(axis_forward)
 	var up := convert_to_axis(axis_up)
-	look_at(global_position+forward,up)
+	if !is_axis_valid(forward,up): return
+	
+	look_at(global_position + forward, up)
 	emit_signal("rotation_changed")
+
+func is_axis_valid(forward,up) -> bool:
+	if up == Vector3.ZERO: return false
+	if forward == Vector3.ZERO: return false
+	if up.angle_to(forward) < 0.1: return false
+	return true
 
 func convert_to_axis(_axis)->Vector3:
 	var ref_basis = reference_frame.global_transform.basis

@@ -25,16 +25,24 @@ func _process(delta: float) -> void:
 
 func connect_hotbar():
 	if hotbar == null: return
-	input.connect('drop_pressed',drop_start)
-	input.connect('drop_released',drop_stop)
+	input.connect(NameList.drop_pressed,drop_start)
+	input.connect(NameList.drop_released,drop_stop)
 	
-	input.connect("act_pressed",act)
-	input.connect("attack_pressed",attack)
-	input.connect("skill_pressed",skill)
-	input.connect("misc_pressed",misc)
+	input.connect(NameList.act_pressed,act)
+	input.connect(NameList.attack_pressed,attack)
+	input.connect(NameList.skill_pressed,skill)
+	input.connect(NameList.misc_pressed,misc)
 
 func set_interface():
 	root.set_meta(NameList.get_target, Callable(get_target))
+	root.set_meta(NameList.input_use_item, Callable(input_use_item))
+
+func input_use_item(id:int):
+	match id:
+		0:input.emit_signal(NameList.attack_pressed)
+		1:input.emit_signal(NameList.skill_pressed)
+		2:input.emit_signal(NameList.misc_pressed)
+		_:input.emit_signal(NameList.act_pressed)
 
 @export var connect_to_shape:=true
 @export var head_margin:=0.2

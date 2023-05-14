@@ -6,9 +6,6 @@ func _ready() -> void:
 	sprites.change_frame(0)
 	super._ready()
 
-#func _process(delta: float) -> void:
-#	super._process(delta)
-
 @export var sprites:BillboardSides:
 	get:
 		return sprites

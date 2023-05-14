@@ -50,5 +50,5 @@ func turn_head_toward(target:Vector3, turn_speed:=1.0):
 	local = local.normalized()
 	var x = clampf(local.x * 10,-1,1)
 	var y = clampf(local.y * 10,-1,1)
-	input.dpad2.x = x * turn_speed * 100
-	input.dpad2.y = -y * turn_speed * 100
+	input.dpad2.x = x * turn_speed * 50
+	input.dpad2.y = -y * turn_speed * 50

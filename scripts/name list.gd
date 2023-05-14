@@ -63,6 +63,13 @@ var sprint_to_target := &'sprint_to_target'
 var jump_to_target := &'jump_to_target'
 
 var get_target := &'get_target'
+var input_use_item := &'input_use_item'
+
+var append_item := &'append_item'
+var append_item_node := &'append_item_node'
+var get_hotbar_items := &'get_hotbar_items'
+var is_hotbar_full := &'is_hotbar_full'
+
 var turn_head_toward:= &'turn_head_toward' 
 
 var send_message:= &'send_message'
@@ -70,10 +77,7 @@ var receive_message:= &'receive_message'
 
 var respawn := &'respawn'
 
-var append_item := &'append_item'
-var append_item_node := &'append_item_node'
-var get_hotbar_items := &'get_hotbar_items'
-var is_hotbar_full := &'is_hotbar_full'
+
 
 func list_of_methods():pass
 var interact:=&'interact'
@@ -115,3 +119,7 @@ var mana_updated:= &'mana_updated'
 var hunger_updated:= &'hunger_updated'
 
 var on_state_changed := &'on_state_changed'
+
+var item_equipped := &'item_equipped'
+var item_unequipped := &'item_unequipped'
+var item_used := &'item_used'

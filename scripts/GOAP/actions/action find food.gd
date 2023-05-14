@@ -41,7 +41,6 @@ func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
 	if hotbar_full:
 		input.emit_signal(NameList.drop_pressed)
 		return false
-	
 	input.emit_signal(NameList.act_pressed)
 	return true
 
