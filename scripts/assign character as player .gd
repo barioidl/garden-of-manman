@@ -11,3 +11,6 @@ func attach_to_player():
 	var stats = character.get_node('stats')
 	var connect_stats :Callable= Hud.get_meta(NameList. connect_stats_display)
 	connect_stats.call(stats)
+	
+	var toggle_goap = character.get_meta(NameList.toggle_goap_agent)
+	toggle_goap.call(false)

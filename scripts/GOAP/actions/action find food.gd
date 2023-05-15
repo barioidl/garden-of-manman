@@ -42,6 +42,8 @@ func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
 		input.emit_signal(NameList.drop_pressed)
 		return false
 	input.emit_signal(NameList.act_pressed)
+	input.dpad1 = Vector2.ZERO
+	input.dpad2 = Vector2.ZERO
 	return true
 
 

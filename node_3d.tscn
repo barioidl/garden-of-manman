@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=13 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="PackedScene" uid="uid://cwkqkp2ulstjn" path="res://scenes/3d scenes/test_map.tscn" id="1_014iv"]
 [ext_resource type="PackedScene" uid="uid://djulvkmrx1g60" path="res://scenes/3d scenes/characters/spider.tscn" id="2_s84ga"]
@@ -39,9 +39,6 @@ script/source = "extends Camera3D
 #	queue_free() # Replace with function body.
 "
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7wgxy"]
-size = Vector3(10, 10, 10)
-
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_pc2qk")
 
@@ -50,9 +47,10 @@ environment = SubResource("Environment_pjwlt")
 script = SubResource("GDScript_uhmod")
 
 [node name="test map" parent="." instance=ExtResource("1_014iv")]
+transform = Transform3D(0.3, 0, 0, 0, 0.5, 0, 0, 0, 0.3, 0, 3, 0)
 
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 0, 8)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 1.08355, 8)
 collision_layer = 129
 max_contacts_reported = 3
 linear_damp = 10.0
@@ -67,24 +65,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907128, 0)
 script = ExtResource("3_65qyn")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.87106, -0.425372, 0.245589, 0, 0.5, 0.866025, -0.491177, 0.75436, -0.43553, 0, 0, 0)
+transform = Transform3D(-0.994872, 0.071519, -0.071519, 1.45322e-08, 0.707107, 0.707107, 0.101143, 0.70348, -0.703481, 0, 0, 0)
+visible = false
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 50.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 2, 10)
+transform = Transform3D(0.996917, 0.0235931, -0.0748278, 0, 0.953717, 0.300706, 0.0784591, -0.299779, 0.950777, -0.956, 6.245, 15.023)
+fov = 21.5
+far = 100.0
 script = SubResource("GDScript_jff7r")
 
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77433, 0, 6.55007)
-reverb_bus_enabled = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_7wgxy")
-
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3612, 0.545468, -0.42657)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7908, 1.70783, -0.42657)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("7_ekvcr")
@@ -92,7 +86,7 @@ script = ExtResource("7_pmy02")
 item = ExtResource("8_tyqn8")
 
 [node name="ItemSpawner2" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.0128, 0.545468, 13.6202)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0756, 1.57788, 8.92871)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("7_ekvcr")

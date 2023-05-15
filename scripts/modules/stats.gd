@@ -8,7 +8,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	owner = root
-	root.add_to_group('stats')
+#	root.add_to_group('stats')
 	root.connect('body_entered',body_entered)
 	set_interface()
 	connect_goap_agent()
@@ -19,12 +19,54 @@ func set_interface():
 func body_entered(body):
 	fall_damage(body)
 
+
+@export_category('health')
+@export var use_health:=true
+@export var health := 10.0
+@export var max_health := 10.0
+signal health_updated(hp,maxhp)
+
+@export_category('mana')
+@export var mana:=0.0
+@export var max_mana:=10.0
+signal mana_updated(hp,maxhp)
+
+@export_category('hunger')
+@export var hunger:=0.0
+@export var max_hunger:=10.0
+signal hunger_updated(hp,maxhp)
+
+func change_health(delta):
+	if delta == 0:return
+	health = clampf(health+delta, 0, max_health)
+	emit_signal(NameList.health_updated,health,max_health)
+	
+	hurt_sfx(delta)
+	if health <= 0:
+		die()
+
+func change_mana(delta):
+	if delta == 0:return
+	mana = clampf(mana+delta, 0, max_mana)
+	emit_signal(NameList.mana_updated,mana,max_mana)
+
+func change_hunger(delta):
+	if delta == 0:return
+	hunger = clampf(hunger+delta, 0, max_hunger)
+	emit_signal(NameList.hunger_updated,hunger,max_hunger)
+
+func die():
+	$"../inputs".reset()
+
+
 var agent
 func connect_goap_agent():
 	agent = get_node_or_null("../goap_agent")
 	if agent == null: return
 	update_agent_hp(health,max_health)
 	connect(NameList.health_updated,update_agent_hp)
+#	connect(NameList.health_updated,update_agent_hp)
+#	connect(NameList.health_updated,update_agent_hp)
 
 func update_agent_hp(_health,_max_health):
 	agent.set_local_state(NameList.health,_health)
@@ -39,39 +81,6 @@ func update_agent_hunger(_hunger,_max_hunger):
 	agent.set_local_state(NameList.max_hunger,_max_hunger)
 
 
-@export_category('health')
-@export var health := 10.0
-@export var max_health := 10.0
-signal health_updated(hp,maxhp)
-func change_health(delta):
-	if delta == 0:return
-	health = clampf(health+delta, 0, max_health)
-	emit_signal(NameList.health_updated,health,max_health)
-	
-	hurt_sfx(delta)
-	if health <= 0:
-		die()
-
-func die():
-	$"../inputs".reset()
-
-@export_category('mana')
-@export var mana:=0.0
-@export var max_mana:=10.0
-signal mana_updated(hp,maxhp)
-func change_mana(delta):
-	if delta == 0:return
-	mana = clampf(mana+delta, 0, max_mana)
-	emit_signal(NameList.mana_updated,mana,max_mana)
-
-@export_category('hunger')
-@export var hunger:=0.0
-@export var max_hunger:=10.0
-signal hunger_updated(hp,maxhp)
-func change_hunger(delta):
-	if delta == 0:return
-	hunger = clampf(hunger+delta, 0, max_hunger)
-	emit_signal(NameList.hunger_updated,hunger,max_hunger)
 
 @export_category('fall damage')
 @export var has_fall_damage:=false

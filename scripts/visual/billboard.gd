@@ -4,11 +4,9 @@ class_name Billboard3d
 
 @export_category('material settings')
 @export var use_shade:=true
+@export var has_shadow:= true
 @export var alphacut:=SpriteBase3D.ALPHA_CUT_DISCARD
 @export var disable_dist:=30.0
-
-signal rotation_changed()
-signal sprite_changed()
 
 @export_category('billboard settings')
 enum bill_board_modes{bill_board,lock_y_axis,six_sides}
@@ -28,6 +26,9 @@ var select_cd:=0.0
 var rotate_cd:=0.1
 
 @export var axis_ratio:=Vector3.ONE
+
+signal rotation_changed()
+signal sprite_changed()
 
 var current_side:=-1
 enum axises{x,_x,y,_y,z,_z,local}
@@ -52,6 +53,12 @@ func set_up_sprite():
 	texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	shaded = use_shade
 	alpha_cut = alphacut
+	transparent = true
+	
+	if has_shadow:
+		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED
+	else:
+		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func set_face_axis():
 	match face_camera:

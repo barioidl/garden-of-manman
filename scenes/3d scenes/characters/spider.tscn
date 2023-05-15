@@ -369,6 +369,7 @@ target = NodePath("../../head")
 
 [node name="face" type="Sprite3D" parent="body/body/head"]
 transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 0, 0)
+cast_shadow = 0
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -376,6 +377,7 @@ texture_filter = 0
 texture = ExtResource("12_d46mv")
 script = ExtResource("13_decgv")
 sprites = ExtResource("14_ga2t5")
+has_shadow = false
 select_cd_range = Vector2(0.2, 1)
 rotate_cd_range = Vector2(0.1, 5)
 

@@ -20,12 +20,12 @@ func setup_body():
 	max_contacts_reported = 2
 	contact_monitor = true
 	
-#	var material := PhysicsMaterial.new()
-#	material.friction = 0.1
-#	material.rough = false
-#	material.bounce = 0.1
-#	material.absorbent = false
-#	physics_material_override = material
+	var material := PhysicsMaterial.new()
+	material.friction = 0.1
+	material.rough = false
+	material.bounce = 0.1
+	material.absorbent = false
+	physics_material_override = material
 
 var dt := 0.0
 func _physics_process(delta):
