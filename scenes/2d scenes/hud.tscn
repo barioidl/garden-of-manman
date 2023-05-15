@@ -286,25 +286,101 @@ script/source = "extends Control
 @onready var root = $'../..'
 var stats
 
+@export var transition := 0.2
+@export var duration :=1.0
+
 func _ready() -> void:
 	root.set_meta(NameList.connect_stats_display, Callable(connect_to))
 
 func connect_to(_stats):
 	if _stats == stats: return
 	if stats != null:
-		stats.disconnect(NameList.health_updated,update_health)
+		stats.disconnect(NameList.health_updated, update_health)
+		stats.disconnect(NameList.strength_updated, update_strength)
+		stats.disconnect(NameList.mana_updated, update_mana)
+		stats.disconnect(NameList.stamina_updated, update_stamina)
+		stats.disconnect(NameList.thirst_updated, update_thirst)
+		stats.disconnect(NameList.hunger_updated, update_hunger)
 		stats = null
 	if _stats != null:
 		stats=_stats
-		stats.connect(NameList.health_updated,update_health)
-		update_health(stats.health,stats.max_health)
+		stats.connect(NameList.health_updated, update_health)
+		stats.connect(NameList.strength_updated, update_strength)
+		stats.connect(NameList.mana_updated, update_mana)
+		stats.connect(NameList.stamina_updated, update_stamina)
+		stats.connect(NameList.thirst_updated, update_thirst)
+		stats.connect(NameList.hunger_updated, update_hunger)
+	update_all_stats(stats)
 
-@onready var hp :=$hp
-func update_health(_value,_max):
+func update_all_stats(_stats):
+	if _stats == null: return
+	update_health(_stats.health,_stats.max_health)
+	update_strength(_stats.strength,_stats.max_strength)
+	update_mana(_stats.mana,_stats.max_mana)
+	update_stamina(_stats.stamina,_stats.max_stamina)
+	update_thirst(_stats.thirst,_stats.max_thirst)
+	update_hunger(_stats.hunger,_stats.max_hunger)
+
+
+@onready var hp := $health
+func update_health(_value:float, _max:float):
 	change_slider_value(hp, _value, _max)
-	show_slider(hp,0.2,1)
+	show_slider(hp,transition,duration)
+	set_text(hp, _value, _max)
+	
 	if _value <=0:
 		character_died()
+
+@onready var strength := $strength
+func update_strength(_value:float, _max:float):
+	change_slider_value(strength, _value, _max)
+	show_slider(strength,transition,duration)
+	set_text(strength, _value, _max)
+
+@onready var mp := $mana
+func update_mana(_value:float, _max:float):
+	change_slider_value(mp, _value, _max)
+	show_slider(mp,transition,duration)
+	set_text(mp, _value, _max)
+
+@onready var stamina := $stamina
+func update_stamina(_value:float, _max:float):
+	change_slider_value(stamina, _value, _max)
+	show_slider(stamina,transition,duration)
+	set_text(stamina, _value, _max)
+
+@onready var thirst := $thirst
+func update_thirst(_value:float, _max:float):
+	change_slider_value(thirst, _value, _max)
+	show_slider(thirst,transition,duration)
+	set_text(thirst, _value, _max)
+
+@onready var hunger := $hunger
+func update_hunger(_value:float, _max:float):
+	change_slider_value(hunger, _value, _max)
+	show_slider(hunger,transition,duration)
+	set_text(hunger, _value, _max)
+
+
+func set_text(_slider:Control, _value:float, _max:float):
+	var label = _slider.get_node('Label')
+	var content :String= _slider.name + ' '
+	content += str(_value) + '/' + str(_max)
+
+func change_slider_value(_slider, _value:float, _max:float):
+	var tween = get_tree().create_tween()
+	tween.tween_property(_slider, \"value\", _value, 0.1).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(_slider, \"max_value\", _max, 0.1).set_trans(Tween.TRANS_BACK)
+
+func show_slider(slider, transition:float, duration:float):
+	slider.visible = true
+	slider.modulate.a = 0
+	var tween = create_tween()
+	tween.tween_property(slider, \"modulate:a\", 1, transition)
+	tween.tween_interval(duration)
+	tween.tween_property(slider, \"modulate:a\", 0, transition)
+	tween.tween_property(slider, \"visible\", false, 0)
+
 
 func character_died():
 	root.change_state(root.states.gameover)
@@ -315,22 +391,6 @@ func refill_health():
 	var sp = stats.root.get_meta(NameList.respawn)
 	if sp != null:
 		sp.call_deferred()
-
-
-
-func change_slider_value(_slider, _value, _max):
-	var tween = get_tree().create_tween()
-	tween.tween_property(_slider, \"value\", _value, 0.1).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(_slider, \"max_value\", _max, 0.1).set_trans(Tween.TRANS_BACK)
-
-func show_slider(slider,transition,duration):
-	slider.visible = true
-	slider.modulate.a = 0
-	var tween = create_tween()
-	tween.tween_property(slider, \"modulate:a\", 1, transition)
-	tween.tween_interval(duration)
-	tween.tween_property(slider, \"modulate:a\", 0, transition)
-	tween.tween_property(slider, \"visible\", false, 0)
 "
 
 [sub_resource type="GDScript" id="GDScript_s874g"]
@@ -1249,12 +1309,11 @@ scale = Vector2(0.75, 0.75)
 vertical = true
 script = SubResource("GDScript_moe80")
 
-[node name="hp" type="TextureProgressBar" parent="Gameplay/Display stats"]
+[node name="health" type="TextureProgressBar" parent="Gameplay/Display stats"]
 visible = false
 layout_mode = 2
 max_value = 10.0
 step = 0.1
-value = 5.0
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_top = 10
@@ -1262,10 +1321,21 @@ stretch_margin_right = 10
 stretch_margin_bottom = 10
 texture_under = ExtResource("2_3ahfj")
 texture_progress = ExtResource("2_3ahfj")
-tint_under = Color(0.0980392, 0.0980392, 0.0980392, 0.501961)
-tint_progress = Color(0.729412, 0, 0.345098, 1)
+tint_under = Color(0.133333, 0.184314, 0.243137, 0.588235)
+tint_progress = Color(0.933333, 0.321569, 0.32549, 1)
 
-[node name="mp" type="TextureProgressBar" parent="Gameplay/Display stats"]
+[node name="Label" type="Label" parent="Gameplay/Display stats/health"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "stat 0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="strength" type="TextureProgressBar" parent="Gameplay/Display stats"]
 visible = false
 layout_mode = 2
 step = 0.1
@@ -1278,8 +1348,126 @@ stretch_margin_right = 10
 stretch_margin_bottom = 10
 texture_under = ExtResource("2_3ahfj")
 texture_progress = ExtResource("2_3ahfj")
-tint_under = Color(0.0980392, 0.0980392, 0.0980392, 0.501961)
-tint_progress = Color(0.415686, 0.690196, 1, 1)
+tint_under = Color(0.133333, 0.184314, 0.243137, 0.588235)
+tint_progress = Color(0.996078, 0.792157, 0.341176, 1)
+
+[node name="Label" type="Label" parent="Gameplay/Display stats/strength"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "stat 0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="mana" type="TextureProgressBar" parent="Gameplay/Display stats"]
+visible = false
+layout_mode = 2
+step = 0.1
+value = 50.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_top = 10
+stretch_margin_right = 10
+stretch_margin_bottom = 10
+texture_under = ExtResource("2_3ahfj")
+texture_progress = ExtResource("2_3ahfj")
+tint_under = Color(0.133333, 0.184314, 0.243137, 0.588235)
+tint_progress = Color(0.0392157, 0.741176, 0.890196, 1)
+
+[node name="Label" type="Label" parent="Gameplay/Display stats/mana"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "stat 0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stamina" type="TextureProgressBar" parent="Gameplay/Display stats"]
+visible = false
+layout_mode = 2
+step = 0.1
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_top = 10
+stretch_margin_right = 10
+stretch_margin_bottom = 10
+texture_under = ExtResource("2_3ahfj")
+texture_progress = ExtResource("2_3ahfj")
+tint_under = Color(0.133333, 0.184314, 0.243137, 0.588235)
+tint_progress = Color(0.113725, 0.819608, 0.631373, 1)
+
+[node name="Label" type="Label" parent="Gameplay/Display stats/stamina"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "stat 0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="thirst" type="TextureProgressBar" parent="Gameplay/Display stats"]
+visible = false
+layout_mode = 2
+step = 0.1
+value = 50.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_top = 10
+stretch_margin_right = 10
+stretch_margin_bottom = 10
+texture_under = ExtResource("2_3ahfj")
+texture_progress = ExtResource("2_3ahfj")
+tint_under = Color(0.133333, 0.184314, 0.243137, 0.588235)
+tint_progress = Color(0.180392, 0.52549, 0.870588, 1)
+
+[node name="Label" type="Label" parent="Gameplay/Display stats/thirst"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "stat 0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hunger" type="TextureProgressBar" parent="Gameplay/Display stats"]
+visible = false
+layout_mode = 2
+step = 0.1
+value = 50.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_top = 10
+stretch_margin_right = 10
+stretch_margin_bottom = 10
+texture_under = ExtResource("2_3ahfj")
+texture_progress = ExtResource("2_3ahfj")
+tint_under = Color(0.133333, 0.184314, 0.243137, 0.588235)
+tint_progress = Color(1, 0.623529, 0.262745, 1)
+
+[node name="Label" type="Label" parent="Gameplay/Display stats/hunger"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "stat 0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="cursor" type="TextureRect" parent="Gameplay"]
 layout_mode = 1

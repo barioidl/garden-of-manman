@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://djulvkmrx1g60"]
+[gd_scene load_steps=34 format=3 uid="uid://djulvkmrx1g60"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
 [ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
@@ -25,6 +25,37 @@
 [ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="21_cbu30"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="22_crgkt"]
 [ext_resource type="Script" path="res://scripts/procedural animation/leg step animation.gd" id="23_oikep"]
+
+[sub_resource type="GDScript" id="GDScript_xyoju"]
+script/source = "extends Node
+
+@onready var root = get_parent().root
+
+func _ready() -> void:
+	return
+	root.connect(NameList.body_entered,body_entered)
+
+func body_entered(body):
+	fall_damage(body)
+
+@export_category('fall damage')
+@export var has_fall_damage:=false
+@export var fall_speed_offset:=10.0
+@export var fall_speed_range:=10.0
+@export var fall_max_damage:=10.0
+func fall_damage(body):
+	if !has_fall_damage:return
+	var velocity:=Vector3.ZERO
+	if body is RigidBody3D:
+		velocity = body.linear_velocity
+	elif body is CharacterBody3D:
+		velocity = body.velocity
+	elif  body is StaticBody3D:
+		velocity = body.constant_linear_velocity
+	var velo_dist = root.linear_velocity. distance_squared_to( velocity)
+	
+	print(velo_dist)
+"
 
 [sub_resource type="GDScript" id="GDScript_l4ycn"]
 script/source = "extends Node
@@ -314,6 +345,11 @@ step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_nxtod")]
 
+[node name="fall_damage" type="Node" parent="stats"]
+script = SubResource("GDScript_xyoju")
+
+[node name="stamina" type="Node" parent="stats"]
+
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
 [node name="BOT AI" type="Node" parent="." node_paths=PackedStringArray("face_swapper")]
@@ -419,7 +455,7 @@ legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik 
 body_mid_pos = Vector3(0, 0.1, 0)
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.541675, 0.45452, -0.707107, -0.642787, 0.766045, 0, 0.541675, 0.45452, 0.707107, -1.04532, 2.10759, -1.02473)
+transform = Transform3D(0.541675, 0.45452, -0.707107, -0.642787, 0.766045, 0, 0.541675, 0.45452, 0.707107, -1, 2, -1)
 exclude_parent = false
 target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")
@@ -431,7 +467,7 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.541675, -0.45452, -0.707107, -0.642787, 0.766045, 0, 0.541675, 0.45452, -0.707107, 0.954683, 2.10759, -1.02473)
+transform = Transform3D(-0.541675, -0.45452, -0.707107, -0.642787, 0.766045, 0, 0.541675, 0.45452, -0.707107, 1, 2, -1)
 exclude_parent = false
 target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")
@@ -443,7 +479,7 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.541675, 0.45452, 0.707107, -0.642787, 0.766045, 0, -0.541675, -0.45452, 0.707107, -1.04532, 2.10759, 0.975274)
+transform = Transform3D(0.541675, 0.45452, 0.707107, -0.642787, 0.766045, 0, -0.541675, -0.45452, 0.707107, -1, 2, 1)
 exclude_parent = false
 target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")
@@ -455,7 +491,7 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.541675, -0.45452, 0.707107, -0.642787, 0.766045, 0, -0.541675, -0.45452, -0.707107, 0.954683, 2.10759, 0.975274)
+transform = Transform3D(-0.541675, -0.45452, 0.707107, -0.642787, 0.766045, 0, -0.541675, -0.45452, -0.707107, 1, 2, 1)
 exclude_parent = false
 target_position = Vector3(0, -3, 0)
 script = ExtResource("22_crgkt")

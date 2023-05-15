@@ -37,7 +37,6 @@ func _ready():
 	input.connect( "jump_pressed", trigger_jump.bind())
 	set_interface()
 
-
 var cool_down :=0.0
 var dt:=0.0
 func _process(delta):
@@ -53,27 +52,8 @@ func _process(delta):
 		old_state = state
 		start_signal(state)
 
-func start_signal(state):
-	var state_name
-	match state:
-		states.idle:
-			state_name = NameList.idle
-		states.walk:
-			state_name = NameList.walk
-		states.sneak:
-			state_name = NameList.sneak
-		states.sprint:
-			state_name = NameList.sprint
-		states.jump:
-			state_name = NameList.jump
-		states.fall:
-			state_name = NameList.fall
-#	print(state_name)
-	emit_signal(NameList.on_state_changed, state_name)
-
 var jump_pressed := false
 func trigger_jump():
-#	print("trigger jump")
 	jump_pressed = true
 
 func choose_state():
@@ -159,6 +139,24 @@ func walk(dir:Vector2, speed:float)->Vector3:
 	output.x = dir.x * speed
 	output.z = dir.y * speed
 	return output
+
+func start_signal(state):
+	var state_name
+	match state:
+		states.idle:
+			state_name = NameList.idle
+		states.walk:
+			state_name = NameList.walk
+		states.sneak:
+			state_name = NameList.sneak
+		states.sprint:
+			state_name = NameList.sprint
+		states.jump:
+			state_name = NameList.jump
+		states.fall:
+			state_name = NameList.fall
+#	print(state_name)
+	emit_signal(NameList.on_state_changed, state_name)
 
 
 func set_interface():

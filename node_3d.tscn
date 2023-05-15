@@ -58,11 +58,11 @@ linear_damp = 10.0
 [node name="ItemStartup" type="Node" parent="timmy"]
 script = ExtResource("4_ebjnm")
 
+[node name="attach player control" type="Node" parent="timmy"]
+script = ExtResource("3_65qyn")
+
 [node name="spider" parent="." instance=ExtResource("2_s84ga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907128, 0)
-
-[node name="attach player control" type="Node" parent="spider"]
-script = ExtResource("3_65qyn")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.994872, 0.071519, -0.071519, 1.45322e-08, 0.707107, 0.707107, 0.101143, 0.70348, -0.703481, 0, 0, 0)

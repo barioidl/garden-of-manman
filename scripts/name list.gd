@@ -27,15 +27,20 @@ var has_food := &'has_food'
 var has_drink := &'has_drink'
 var has_key := &'has_key'
 
-var hunger := &'hunger'
-var max_hunger := &'max_hunger'
 
 var health := &'health'
 var max_health := &'max_health'
-
+var strength := &'strength'
+var max_strength := &'max_strength'
 var mana := &'mana'
 var max_mana := &'max_mana'
 
+var stamina := &'stamina'
+var max_stamina := &'max_stamina'
+var thirst := &'thirst'
+var max_thirst := &'max_thirst'
+var hunger := &'hunger'
+var max_hunger := &'max_hunger'
 
 func list_of_group_names():pass
 var player := &'player'
@@ -114,9 +119,15 @@ var flip_pressed := &'flip_pressed'
 var flip_released := &'flip_released'
 
 
-var health_updated:= &'health_updated'
-var mana_updated:= &'mana_updated'
-var hunger_updated:= &'hunger_updated'
+var body_entered := &'body_entered'
+var body_exited := &'body_exited'
+
+var health_updated := &'health_updated'
+var strength_updated := &'strength_updated'
+var mana_updated := &'mana_updated'
+var stamina_updated := &'stamina_updated'
+var thirst_updated := &'thirst_updated'
+var hunger_updated := &'hunger_updated'
 
 var on_state_changed := &'on_state_changed'
 
