@@ -12,11 +12,16 @@ func _ready() -> void:
 	set(value):
 		if sprites == value: return
 		sprites = value
+		if sprites == null:	return
 		sprites.init()
 		select(current_side)
 
 func select(side):
 	current_side = side
-	if sprites == null:	return
-	self.texture = sprites.get_sprite(side)
+	if sprites == null:
+		return
+	var sprite = sprites.get_sprite(side)
+	if sprite == null: 
+		return
+	self.texture = sprite
 	emit_signal("sprite_changed")

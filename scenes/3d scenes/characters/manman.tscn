@@ -1,0 +1,583 @@
+[gd_scene load_steps=70 format=3 uid="uid://bhngj5ppbc2dw"]
+
+[ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
+[ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
+[ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="3_5spun"]
+[ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_t33xl"]
+[ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_l8osy"]
+[ext_resource type="Resource" uid="uid://drkla4kyw4qdl" path="res://data/audio/puzzle sfx.tres" id="6_r3q25"]
+[ext_resource type="Resource" uid="uid://duy4eq8ii5263" path="res://data/audio/hunt sfx.tres" id="7_pwdy1"]
+[ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_h85l8"]
+[ext_resource type="Script" path="res://scripts/modules/shape.gd" id="9_kdcl8"]
+[ext_resource type="Script" path="res://scripts/modules/body.gd" id="10_md03h"]
+[ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="11_qhlc8"]
+[ext_resource type="PackedScene" uid="uid://glmnjpmbgsco" path="res://data/state machine/hotbar.tscn" id="12_m7c2m"]
+[ext_resource type="Texture2D" uid="uid://coj1148xm0ts" path="res://assets/Textures/manman face0000.png" id="13_62xdx"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="14_7ugkw"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="14_o6648"]
+[ext_resource type="Texture2D" uid="uid://liruub56ame2" path="res://assets/Textures/manman face0001.png" id="15_l1jl5"]
+[ext_resource type="Texture2D" uid="uid://c0jdnyte7aqxr" path="res://assets/Textures/manman face0002.png" id="16_kopr6"]
+[ext_resource type="Texture2D" uid="uid://dhswlhhs6ln0k" path="res://assets/Textures/manman face0003.png" id="17_ip7pj"]
+[ext_resource type="Texture2D" uid="uid://ckss1y6pp30ik" path="res://assets/Textures/manman face0004.png" id="18_k6co4"]
+[ext_resource type="Texture2D" uid="uid://cuahhn8b61yup" path="res://assets/Textures/manman face0005.png" id="19_ywwcc"]
+[ext_resource type="Texture2D" uid="uid://cpuxfa3m1ccrn" path="res://assets/Textures/manman shoulder0005.png" id="21_nmdgy"]
+[ext_resource type="Texture2D" uid="uid://djnjv1uwtgrpc" path="res://assets/Textures/manman shoulder0000.png" id="22_agyai"]
+[ext_resource type="Texture2D" uid="uid://dv02bckk07kww" path="res://assets/Textures/manman shoulder0001.png" id="23_ro31p"]
+[ext_resource type="Texture2D" uid="uid://dgogj78r84qme" path="res://assets/Textures/manman shoulder0002.png" id="24_xix63"]
+[ext_resource type="Texture2D" uid="uid://cdfprtkadesnq" path="res://assets/Textures/manman shoulder0003.png" id="25_hp4oh"]
+[ext_resource type="Texture2D" uid="uid://kuyib7beqagv" path="res://assets/Textures/manman shoulder0004.png" id="26_44cv6"]
+[ext_resource type="Texture2D" uid="uid://25ypuob5ktd2" path="res://assets/Textures/manman shoulder0006.png" id="27_out5y"]
+[ext_resource type="Texture2D" uid="uid://3xa5ohhqf3j" path="res://assets/Textures/manman shoulder0007.png" id="28_hiym6"]
+[ext_resource type="Texture2D" uid="uid://dhg5jr2bc6v6o" path="res://assets/Textures/manman shoulder0008.png" id="29_5wnfq"]
+[ext_resource type="Texture2D" uid="uid://ds47xkull358i" path="res://assets/Textures/manman shoulder0009.png" id="30_73v0h"]
+[ext_resource type="Texture2D" uid="uid://1gpkfca6aal0" path="res://assets/Textures/manman shoulder0010.png" id="31_bdbib"]
+[ext_resource type="Texture2D" uid="uid://co2eyy8i25ho1" path="res://assets/Textures/manman shoulder0011.png" id="32_nc0hs"]
+[ext_resource type="Texture2D" uid="uid://cdi54up2qkkb6" path="res://assets/Textures/manman shoulder0012.png" id="33_m8uis"]
+[ext_resource type="Texture2D" uid="uid://chvlqok4f341s" path="res://assets/Textures/manman shoulder0013.png" id="34_u4yxc"]
+[ext_resource type="Texture2D" uid="uid://cjl1gyfribghs" path="res://assets/Textures/manman shoulder0014.png" id="35_gd8re"]
+[ext_resource type="Texture2D" uid="uid://celo6stqeb3f2" path="res://assets/Textures/manman shoulder0015.png" id="36_6213q"]
+[ext_resource type="Texture2D" uid="uid://b6nof5048h270" path="res://assets/Textures/manman shoulder0016.png" id="37_y3lym"]
+[ext_resource type="Texture2D" uid="uid://2wm71h5cuf6i" path="res://assets/Textures/manman shoulder0017.png" id="38_fi5sv"]
+[ext_resource type="Texture2D" uid="uid://mndttt4nndum" path="res://assets/Textures/manman top arm0000.png" id="39_15tm5"]
+[ext_resource type="Texture2D" uid="uid://dsmtj6ifphabr" path="res://assets/Textures/manman top arm0001.png" id="40_jkiuc"]
+[ext_resource type="Texture2D" uid="uid://dmvc6455rowns" path="res://assets/Textures/manman top arm0002.png" id="41_5llwn"]
+[ext_resource type="Texture2D" uid="uid://cc5oiwjlwl5gm" path="res://assets/Textures/manman top arm0003.png" id="42_30wd3"]
+[ext_resource type="Texture2D" uid="uid://cg2xietm2sqb6" path="res://assets/Textures/manman top arm0004.png" id="43_rsa4o"]
+[ext_resource type="Texture2D" uid="uid://onp2w2fk6c8g" path="res://assets/Textures/manman top arm0005.png" id="44_00le4"]
+[ext_resource type="Texture2D" uid="uid://cu0nyleasluu0" path="res://assets/Textures/manman bottom arm0000.png" id="45_njdcr"]
+[ext_resource type="Texture2D" uid="uid://nqpn4uicinre" path="res://assets/Textures/manman bottom arm0001.png" id="46_iemah"]
+[ext_resource type="Texture2D" uid="uid://bfoynqsmtumai" path="res://assets/Textures/manman bottom arm0002.png" id="47_ilvpy"]
+[ext_resource type="Texture2D" uid="uid://db55i21ro4wgt" path="res://assets/Textures/manman bottom arm0003.png" id="48_137k1"]
+[ext_resource type="Texture2D" uid="uid://cxxt7m3t03mop" path="res://assets/Textures/manman bottom arm0004.png" id="49_suhtg"]
+[ext_resource type="Texture2D" uid="uid://cabp2dfpvmbs3" path="res://assets/Textures/manman bottom arm0005.png" id="50_e3umc"]
+[ext_resource type="Texture2D" uid="uid://o2gn4drchkqh" path="res://assets/Textures/manman hand0000.png" id="51_vho3u"]
+[ext_resource type="Texture2D" uid="uid://5g7m6mf1ubvf" path="res://assets/Textures/manman hand0001.png" id="52_wjvt6"]
+[ext_resource type="Texture2D" uid="uid://cwnavmcueclul" path="res://assets/Textures/manman hand0002.png" id="53_yvu6u"]
+[ext_resource type="Texture2D" uid="uid://c1h02yviaj7yh" path="res://assets/Textures/manman hand0003.png" id="54_smrio"]
+[ext_resource type="Texture2D" uid="uid://bor00wfoawrpt" path="res://assets/Textures/manman hand0004.png" id="55_2mgtd"]
+[ext_resource type="Texture2D" uid="uid://ddyuarfd1t8p0" path="res://assets/Textures/manman hand0005.png" id="56_6a5l4"]
+
+[sub_resource type="GDScript" id="GDScript_xyoju"]
+script/source = "extends Node
+
+@onready var root = get_parent().root
+
+func _ready() -> void:
+	return
+	root.connect(NameList.body_entered,body_entered)
+
+func body_entered(body):
+	fall_damage(body)
+
+@export_category('fall damage')
+@export var has_fall_damage:=false
+@export var fall_speed_offset:=10.0
+@export var fall_speed_range:=10.0
+@export var fall_max_damage:=10.0
+func fall_damage(body):
+	if !has_fall_damage:return
+	var velocity:=Vector3.ZERO
+	if body is RigidBody3D:
+		velocity = body.linear_velocity
+	elif body is CharacterBody3D:
+		velocity = body.velocity
+	elif  body is StaticBody3D:
+		velocity = body.constant_linear_velocity
+	var velo_dist = root.linear_velocity. distance_squared_to( velocity)
+	
+	print(velo_dist)
+"
+
+[sub_resource type="GDScript" id="GDScript_l4ycn"]
+script/source = "extends Node
+
+var player
+var player_head
+
+@onready var root = $\"..\"
+@onready var input :Inputs= $\"../inputs\"
+@onready var body = $\"../body\"
+@onready var head = $\"../body/head\"
+@export var face_swapper :Node
+
+var is_sun:=true
+enum states{idle,puzzle,hunt,kill}
+var state = states.idle
+
+func _ready() -> void:
+	return
+	root.connect(\"body_entered\",body_entered.bind())
+	root.connect(\"body_exited\",body_exited.bind())
+	player = get_tree().get_first_node_in_group('player')
+	player_head = player.get_node(\"body/head\")
+
+var time :=0.0
+func _process(delta: float) -> void:
+	time = delta
+	return
+	choose()
+
+func body_entered(body):
+	if body == player:
+		state = states.kill
+
+func body_exited(body):
+	if body == player:
+		state = states.hunt
+
+var cd:=0.0
+func choose():
+	if cd >0:
+		cd-=time
+		return
+	if get_tree().is_paused():return
+	global_states()
+	match state:
+		states.idle:
+			idle()
+		states.puzzle:
+			puzzle()
+		states.hunt:
+			hunt()
+		states.kill:
+			kill()
+
+@export var active_range:=20.0
+@export var hunt_range:=5.0
+func global_states():
+	if state == states.kill:
+		return
+	
+	var distsq :float=root.global_position. distance_squared_to(player.global_position)
+	
+	var is_hunting = distsq < hunt_range*hunt_range
+	if is_hunting:
+		state = states.hunt
+		return
+	var is_active = distsq < active_range*active_range
+	if is_active:
+		state = states.puzzle
+	else:
+		state = states.idle
+
+#var hear_cd :=0.0
+#func get_closest_character():
+#	if hear_cd >0:
+#		hear_cd -= time
+#		return
+#	hear_cd = 0.5
+#	var sounds = get_tree().get_nodes_in_group('character')
+#	var max_dist :float=active_range*active_range
+#
+##	target = Vector3.ZERO
+#	for i in sounds:
+#		if !i.playing:continue
+#		var pos :Vector3= i.global_position
+#		pos.y = root.global_position.y
+#		var dist_sq = root.global_position.distance_squared_to(pos)
+#		if dist_sq <1:continue
+#		if dist_sq < max_dist:
+#			max_dist = dist_sq
+#			target = pos
+
+func gravity_up():
+	if root.gravity_scale <= 0: return
+	root.rotation_degrees = Vector3(0,0,180)
+	root.gravity_scale = -1
+
+var idle_cd:=0.0
+func idle():
+	idle_cd -= time
+	if idle_cd >0: return
+	idle_cd =randf_range(0,5)
+	if idle_cd <1:
+		input.dpad1 = Vector2.ZERO
+		return
+	input.dpad1.x = randf_range(-1,1)*0.5
+	input.dpad1.y = randf_range(-1,1)*0.5
+	input.dpad2 = Vector2.ZERO
+	gravity_up()
+
+var switch_cooldown:=0.0
+@export var puzzle_sfx:AudioList
+func puzzle():
+	var player_moved :bool= player.linear_velocity.length_squared() >1
+#	player_has_flashlight()
+#	var can_see = is_sun or has_flashlight
+	if is_sun and player_moved:
+		chase_player(player.global_position)
+		play_sfx(puzzle_sfx)
+	else:
+		input.dpad1 = Vector2.ZERO
+	face_player(player_head.global_position)
+	switch_cooldown -=time
+	if switch_cooldown >0:return
+	switch_cooldown = 2
+	is_sun = !is_sun
+	face_swapper.switch(is_sun)
+	gravity_up()
+
+var get_inv_cd:=0.0
+var has_flashlight:=false
+func player_has_flashlight():
+	get_inv_cd-=time
+	if get_inv_cd >0:return
+	get_inv_cd = 0.5
+	var get_inv :Callable= player.get_meta(\"get_inventory\")
+	if get_inv == null:
+		has_flashlight = false
+		return
+	var player_inv = get_inv.call()
+	for item in player_inv:
+		if item == null:continue
+		if item.id == ItemData.item_id.flash_light:
+			has_flashlight = true
+			return
+	has_flashlight = false
+
+@export var hunt_sfx:AudioList
+func hunt():
+	chase_player(player.global_position)
+	face_player(player_head.global_position)
+	play_sfx(hunt_sfx)
+	if root.gravity_scale >= 0: return
+	root.rotation_degrees = Vector3(0,0,0)
+	root.gravity_scale = 1
+	face_swapper.switch(true)
+
+var kill_cd:=0.0
+@export var kill_sfx:AudioList
+func kill():
+	play_sfx(kill_sfx)
+	kill_cd-=time
+	if kill_cd >0:return
+	kill_cd = 1
+#	print('kill')
+	Interface.change_health(player,-3)
+
+func chase_player(target:Vector3):
+	var target_local = body.to_local(target)
+	var dpad1 := Vector2(target_local.x,target_local.z)
+	if dpad1 != Vector2.ZERO:
+		input.dpad1 = dpad1.limit_length(1)
+
+@export var turn_speed:=50
+func face_player(target:Vector3):
+	var local:Vector3=head.to_local(target)
+	local = local.normalized()
+	var x = clampf(local.x *10,-1,1)*turn_speed
+	var y = clampf(local.y *10,-1,1)*turn_speed
+	input.dpad2.x = x
+	input.dpad2.y = -y
+
+var sfx_cd:=0.1
+func play_sfx(sfx, volume:=10, pitch:=1):
+	sfx_cd -= time
+	if sfx_cd > 0:return
+	
+	var pos = root.global_position
+	var player := AudioPool.create_sound_3d(pos,sfx)
+	sfx_cd = player.stream.get_length()
+	sfx_cd *= randf_range(0.5,1.5)
+#	AudioLibrary.gm_time
+"
+
+[sub_resource type="GDScript" id="GDScript_g145v"]
+script/source = "extends GOAPAgent
+
+func _ready() -> void:
+	super._ready()
+	goals = [
+#		GoalJumpscare.new(),
+#		GoalFlee.new(),
+		GoalEatFood.new()
+	]
+
+"
+
+[sub_resource type="GDScript" id="GDScript_17foq"]
+script/source = "extends Label3D
+var content:={}
+
+func _init() -> void:
+	name = 'debug_display'
+
+func _ready() -> void:
+	if !OS.is_debug_build():
+		queue_free()
+		return
+
+func set_content(key,value):
+	if content.has(key):
+		if content[key] == value: return
+	content[key] = value
+	refresh_text()
+
+func refresh_text():
+	var keys = content.keys()
+	var values = content.values()
+	var iterations = content.size()
+	var output:=''
+	for i in iterations:
+		output += keys[i]
+		output += ': '
+		output += str(values[i])
+		output += '\\n'
+	text = output
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
+height = 2.4
+
+[sub_resource type="GDScript" id="GDScript_8ht6u"]
+script/source = "extends Node3D
+
+@onready var platformer=$\"../../platformer\"
+
+@export var normal_height:= 2.0
+@export var crouch_height:= 1.4
+signal position_changed(pos)
+func _ready() -> void:
+	platformer.connect(NameList.on_state_changed, on_state_changed.bind())
+
+func on_state_changed(state):
+	return
+	var tween = get_tree().create_tween()
+	var is_sneaking = state == platformer.states.sneak
+	var end = crouch_height if is_sneaking else normal_height
+	tween.tween_property(self,\"position:y\", end, 0.1).set_trans(Tween.TRANS_SINE)
+"
+
+[sub_resource type="Resource" id="Resource_hd1to"]
+script = ExtResource("14_7ugkw")
+frames = Array[Texture]([ExtResource("13_62xdx"), ExtResource("15_l1jl5"), ExtResource("16_kopr6"), ExtResource("17_ip7pj"), ExtResource("18_k6co4"), ExtResource("19_ywwcc")])
+
+[sub_resource type="Resource" id="Resource_bsjuk"]
+script = ExtResource("14_7ugkw")
+frames = Array[Texture]([ExtResource("22_agyai"), ExtResource("23_ro31p"), ExtResource("24_xix63"), ExtResource("25_hp4oh"), ExtResource("26_44cv6"), ExtResource("21_nmdgy")])
+
+[sub_resource type="Resource" id="Resource_iybxd"]
+script = ExtResource("14_7ugkw")
+frames = Array[Texture]([ExtResource("27_out5y"), ExtResource("28_hiym6"), ExtResource("29_5wnfq"), ExtResource("30_73v0h"), ExtResource("31_bdbib"), ExtResource("32_nc0hs")])
+
+[sub_resource type="Resource" id="Resource_hm21w"]
+script = ExtResource("14_7ugkw")
+frames = Array[Texture]([ExtResource("33_m8uis"), ExtResource("34_u4yxc"), ExtResource("35_gd8re"), ExtResource("36_6213q"), ExtResource("37_y3lym"), ExtResource("38_fi5sv")])
+
+[sub_resource type="Resource" id="Resource_j48bk"]
+script = ExtResource("14_7ugkw")
+frames = Array[Texture]([ExtResource("39_15tm5"), ExtResource("40_jkiuc"), ExtResource("41_5llwn"), ExtResource("42_30wd3"), ExtResource("43_rsa4o"), ExtResource("44_00le4")])
+
+[sub_resource type="Resource" id="Resource_g0skq"]
+script = ExtResource("14_7ugkw")
+frames = Array[Texture]([ExtResource("45_njdcr"), ExtResource("46_iemah"), ExtResource("47_ilvpy"), ExtResource("48_137k1"), ExtResource("49_suhtg"), ExtResource("50_e3umc")])
+
+[sub_resource type="Resource" id="Resource_go6np"]
+script = ExtResource("14_7ugkw")
+frames = Array[Texture]([ExtResource("51_vho3u"), ExtResource("52_wjvt6"), ExtResource("53_yvu6u"), ExtResource("54_smrio"), ExtResource("55_2mgtd"), ExtResource("56_6a5l4")])
+
+[node name="manman" type="RigidBody3D"]
+script = ExtResource("1_ef07a")
+
+[node name="inputs" parent="." instance=ExtResource("2_b5wiq")]
+
+[node name="platformer" parent="." instance=ExtResource("3_5spun")]
+sneak_speed = 0.4
+jump_height = 4.0
+extra_jumps = 0
+step_speed = 0.2
+
+[node name="stats" parent="." instance=ExtResource("4_t33xl")]
+
+[node name="fall_damage" type="Node" parent="stats"]
+script = SubResource("GDScript_xyoju")
+
+[node name="stamina" type="Node" parent="stats"]
+
+[node name="fps aim" parent="." instance=ExtResource("5_l8osy")]
+
+[node name="BOT AI" type="Node" parent="." node_paths=PackedStringArray("face_swapper")]
+process_mode = 4
+script = SubResource("GDScript_l4ycn")
+face_swapper = NodePath("")
+puzzle_sfx = ExtResource("6_r3q25")
+hunt_sfx = ExtResource("7_pwdy1")
+kill_sfx = ExtResource("8_h85l8")
+turn_speed = 100
+
+[node name="goap_agent" type="Node" parent="."]
+process_mode = 4
+script = SubResource("GDScript_g145v")
+
+[node name="debug_display" type="Label3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
+billboard = 1
+double_sided = false
+fixed_size = true
+texture_filter = 0
+text = "debug"
+autowrap_mode = 2
+width = 1000.0
+script = SubResource("GDScript_17foq")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_plrhc")
+script = ExtResource("9_kdcl8")
+average_size = Vector3(0.5, 2.4, 0.5)
+sneak_size = Vector3(1.2, 0.75, 1.2)
+
+[node name="body" type="Node3D" parent="."]
+script = ExtResource("10_md03h")
+
+[node name="head" parent="body" instance=ExtResource("11_qhlc8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+interact_range = 2.5
+head_margin = 1.0
+
+[node name="hotbar" parent="body" instance=ExtResource("12_m7c2m")]
+
+[node name="body" type="Node3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
+script = SubResource("GDScript_8ht6u")
+normal_height = 1.85
+crouch_height = 1.0
+
+[node name="face" type="Sprite3D" parent="body/body"]
+transform = Transform3D(0.413803, -0.302065, -0.858792, 0, 0.943348, -0.331806, 0.910367, 0.137302, 0.39036, 0, 0, 0)
+cast_shadow = 0
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("15_l1jl5")
+script = ExtResource("14_o6648")
+sprites = SubResource("Resource_hd1to")
+has_shadow = false
+select_cd_range = Vector2(0.2, 1)
+rotate_cd_range = Vector2(0.1, 5)
+
+[node name="hip" type="Node3D" parent="body/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+
+[node name="arm2" type="Marker3D" parent="body/body/hip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0)
+gizmo_extents = 0.1
+
+[node name="elbow" type="Marker3D" parent="body/body/hip/arm2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+gizmo_extents = 0.1
+
+[node name="wrist" type="Marker3D" parent="body/body/hip/arm2/elbow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+gizmo_extents = 0.1
+
+[node name="hand" type="Marker3D" parent="body/body/hip/arm2/elbow/wrist"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+gizmo_extents = 0.1
+
+[node name="right shoulder" type="Node3D" parent="body/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.22, -0.072)
+
+[node name="Marker3D" type="Marker3D" parent="body/body/right shoulder"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.36, 0, 0)
+gizmo_extents = 0.1
+
+[node name="Sprite3D" type="Sprite3D" parent="body/body/right shoulder/Marker3D"]
+transform = Transform3D(0.707767, 0.510743, -0.488065, 0, 0.690874, 0.722975, 0.706447, -0.511698, 0.488977, 7.15256e-07, 0.125, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("22_agyai")
+script = ExtResource("14_o6648")
+sprites = SubResource("Resource_bsjuk")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="Node3D" type="Marker3D" parent="body/body/right shoulder"]
+transform = Transform3D(0.579228, -0.579228, -0.573577, 0.707107, 0.707107, 0, 0.40558, -0.40558, 0.819152, 0.304, -0.225, 0.193)
+gizmo_extents = 1.0
+
+[node name="Sprite3D" type="Sprite3D" parent="body/body/right shoulder/Node3D"]
+transform = Transform3D(0.812098, -0.0553984, -0.580886, -1.49012e-07, 0.995483, -0.0949383, 0.583522, 0.0770992, 0.808429, 4.76837e-07, 0.200001, 8.9407e-08)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("27_out5y")
+script = ExtResource("14_o6648")
+sprites = SubResource("Resource_iybxd")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="Node3D2" type="Marker3D" parent="body/body/right shoulder"]
+transform = Transform3D(0.612372, -0.612372, 0.5, 0.707107, 0.707107, 0, -0.353553, 0.353553, 0.866025, 0.375, -0.275, -0.214)
+gizmo_extents = 1.0
+
+[node name="Sprite3D" type="Sprite3D" parent="body/body/right shoulder/Node3D2"]
+transform = Transform3D(0.120292, 0.335097, -0.934473, 1.19209e-07, 0.941308, 0.337548, 0.992738, -0.0406043, 0.113231, -1.19209e-06, 0.199999, 2.08616e-07)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("34_u4yxc")
+script = ExtResource("14_o6648")
+sprites = SubResource("Resource_hm21w")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="arm" type="Marker3D" parent="body/body/right shoulder"]
+gizmo_extents = 0.1
+
+[node name="Sprite3D" type="Sprite3D" parent="body/body/right shoulder/arm"]
+transform = Transform3D(0.621861, -0.352841, -0.699137, 0, 0.892749, -0.450555, 0.783127, 0.280182, 0.555166, 0, -0.2, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("40_jkiuc")
+script = ExtResource("14_o6648")
+sprites = SubResource("Resource_j48bk")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="elbow" type="Marker3D" parent="body/body/right shoulder/arm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+gizmo_extents = 0.1
+
+[node name="Sprite3D" type="Sprite3D" parent="body/body/right shoulder/arm/elbow"]
+transform = Transform3D(0.62186, -0.0768444, -0.779349, 0, 0.995175, -0.0981248, 0.783129, 0.06102, 0.618859, 4.41074e-06, -0.300026, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("46_iemah")
+script = ExtResource("14_o6648")
+sprites = SubResource("Resource_g0skq")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="wrist" type="Marker3D" parent="body/body/right shoulder/arm/elbow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+gizmo_extents = 0.1
+
+[node name="Sprite3D" type="Sprite3D" parent="body/body/right shoulder/arm/elbow/wrist"]
+transform = Transform3D(0.603584, 0.15252, -0.782575, 0, 0.981532, 0.191296, 0.797298, -0.115463, 0.592438, 0, -0.2, 0.05)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("52_wjvt6")
+script = ExtResource("14_o6648")
+sprites = SubResource("Resource_go6np")
+axis_ratio = Vector3(1, 0.8, 1)
+
+[node name="hand" type="Marker3D" parent="body/body/right shoulder/arm/elbow/wrist"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+gizmo_extents = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.493942, -0.150986, -0.856285, 0, 0.984808, -0.173648, 0.869495, 0.0857721, 0.486438, -2.2, 1, 1)
+fov = 57.2
