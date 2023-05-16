@@ -362,10 +362,12 @@ kill_sfx = ExtResource("8_dey3p")
 turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_g145v")
 
 [node name="debug_display" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
+visible = false
 billboard = 1
 double_sided = false
 fixed_size = true
@@ -455,9 +457,9 @@ legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik 
 body_mid_pos = Vector3(0, 0.1, 0)
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.541675, 0.45452, -0.707107, -0.642787, 0.766045, 0, 0.541675, 0.45452, 0.707107, -1, 2, -1)
+transform = Transform3D(0.683012, -0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, 0.707107, 0, 1, 0)
 exclude_parent = false
-target_position = Vector3(0, -3, 0)
+target_position = Vector3(-3, -0.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -467,9 +469,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.541675, -0.45452, -0.707107, -0.642787, 0.766045, 0, 0.541675, 0.45452, -0.707107, 1, 2, -1)
+transform = Transform3D(-0.683012, 0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, -0.707107, 0, 1, 0)
 exclude_parent = false
-target_position = Vector3(0, -3, 0)
+target_position = Vector3(-3, -0.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -479,9 +481,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.541675, 0.45452, 0.707107, -0.642787, 0.766045, 0, -0.541675, -0.45452, 0.707107, -1, 2, 1)
+transform = Transform3D(0.683012, -0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, 0.707107, 0, 1, 0)
 exclude_parent = false
-target_position = Vector3(0, -3, 0)
+target_position = Vector3(-3, -0.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -491,9 +493,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.541675, -0.45452, 0.707107, -0.642787, 0.766045, 0, -0.541675, -0.45452, -0.707107, 1, 2, 1)
+transform = Transform3D(-0.683012, 0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, -0.707107, 0, 1, 0)
 exclude_parent = false
-target_position = Vector3(0, -3, 0)
+target_position = Vector3(-3, -0.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 

@@ -6,4 +6,5 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 exclude_parent = false
 target_position = Vector3(0, 0, 1)
+debug_shape_thickness = 1
 script = ExtResource("1_ft1ix")

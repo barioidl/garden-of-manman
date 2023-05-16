@@ -173,7 +173,7 @@ func axis_rotate():
 func is_axis_valid(forward,up) -> bool:
 	if up == Vector3.ZERO: return false
 	if forward == Vector3.ZERO: return false
-	if up.angle_to(forward) < 0.1: return false
+#	if up.angle_to(forward) < 0.1: return false
 	return true
 
 func convert_to_axis(_axis)->Vector3:

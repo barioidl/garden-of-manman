@@ -17,8 +17,11 @@ func _ready() -> void:
 	average_weight = clampf(average_weight,0,1)
 	set_up()
 
+var dt :=0.0
 func _process(delta: float) -> void:
+	dt = delta
 	solve()
+	reset_scales()
 
 var scale_cd :=0.0
 func reset_scales():
@@ -47,6 +50,15 @@ func get_total_length()->float:
 		var joint = chain_nodes[i]
 		total_length += joint.position.length()
 	return total_length
+
+var reset_scale_cd:=0.0
+func reset_joint_scales():
+	if reset_scale_cd >0:
+		reset_scale_cd -= dt
+		return
+	reset_scale_cd = 1
+	for joint in chain_nodes:
+		joint.scale = Vector3.ONE
 
 var current_joint_id:=0
 func solve():

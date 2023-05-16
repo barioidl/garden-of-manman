@@ -310,7 +310,7 @@ func connect_to(_stats):
 		stats.connect(NameList.stamina_updated, update_stamina)
 		stats.connect(NameList.thirst_updated, update_thirst)
 		stats.connect(NameList.hunger_updated, update_hunger)
-	update_all_stats(stats)
+#	update_all_stats(stats)
 
 func update_all_stats(_stats):
 	if _stats == null: return
