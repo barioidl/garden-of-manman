@@ -14,7 +14,7 @@ func _init() -> void:
 func _ready() -> void:
 	owner = root
 	var callable = Callable(receive_message)
-	root.set_meta(NameList.receive_message, callable)
+	root.set_meta(NL.receive_message, callable)
 
 func send_message(content:='')->Dictionary:
 	var result:={}

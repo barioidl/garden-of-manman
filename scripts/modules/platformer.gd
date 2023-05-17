@@ -144,28 +144,28 @@ func start_signal(state):
 	var state_name
 	match state:
 		states.idle:
-			state_name = NameList.idle
+			state_name = NL.idle
 		states.walk:
-			state_name = NameList.walk
+			state_name = NL.walk
 		states.sneak:
-			state_name = NameList.sneak
+			state_name = NL.sneak
 		states.sprint:
-			state_name = NameList.sprint
+			state_name = NL.sprint
 		states.jump:
-			state_name = NameList.jump
+			state_name = NL.jump
 		states.fall:
-			state_name = NameList.fall
+			state_name = NL.fall
 #	print(state_name)
-	emit_signal(NameList.on_state_changed, state_name)
+	emit_signal(NL.on_state_changed, state_name)
 
 
 func set_interface():
-	root.set_meta(NameList.delay_platformer, Callable(delay_platformer))
+	root.set_meta(NL.delay_platformer, Callable(delay_platformer))
 	
-	root.set_meta(NameList.walk_to_target, Callable(walk_to_target))
-	root.set_meta(NameList.sneak_to_target, Callable(sneak_to_target))
-	root.set_meta(NameList.sprint_to_target, Callable(sprint_to_target))
-	root.set_meta(NameList.jump_to_target, Callable(jump_to_target))
+	root.set_meta(NL.walk_to_target, Callable(walk_to_target))
+	root.set_meta(NL.sneak_to_target, Callable(sneak_to_target))
+	root.set_meta(NL.sprint_to_target, Callable(sprint_to_target))
+	root.set_meta(NL.jump_to_target, Callable(jump_to_target))
 
 func delay_platformer(duration):
 	cool_down = duration

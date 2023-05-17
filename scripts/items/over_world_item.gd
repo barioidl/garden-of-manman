@@ -15,7 +15,7 @@ signal item_unequipped
 signal item_used
 
 func equip_item(_hotbar,_id:=-1):
-	emit_signal(NameList.item_equipped)
+	emit_signal(NL.item_equipped)
 	hotbar = _hotbar
 	root = _hotbar.root
 	id=_id
@@ -29,7 +29,7 @@ func equip_item(_hotbar,_id:=-1):
 		position = Vector3.ZERO
 
 func unequip_item():
-	emit_signal(NameList.item_unequipped)
+	emit_signal(NL.item_unequipped)
 	root = null
 	holder = null
 	id = -1
@@ -44,11 +44,11 @@ func reset_exception(_root):
 	remove_collision_exception_with(_root)
 
 func use_item(head:HotbarUser)->bool:
-	emit_signal(NameList.item_used)
+	emit_signal(NL.item_used)
 	var body = head.get_target(interact_range)
 	if body == null: 
 		return false
-	if !body.has_method(NameList.interact): 
+	if !body.has_method(NL.interact): 
 		return false
 	body.interact(self)
 	return true
@@ -59,7 +59,7 @@ func interact(user):
 	
 	user = user.root
 	if user == null:return
-	var append_item_node = user.get_meta(NameList.append_item_node)
+	var append_item_node = user.get_meta(NL.append_item_node)
 	if append_item_node == null:return
 	var added = append_item_node.call(self)
 

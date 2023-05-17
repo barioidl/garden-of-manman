@@ -9,7 +9,7 @@ func _init() -> void:
 func _ready() -> void:
 	owner = root
 	root.add_to_group('spawn_point')
-	root.set_meta(NameList.respawn,Callable(respawn))
+	root.set_meta(NL.respawn,Callable(respawn))
 	position = root.global_position
 
 var position:=Vector3.ZERO

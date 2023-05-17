@@ -290,26 +290,26 @@ var stats
 @export var duration :=1.0
 
 func _ready() -> void:
-	root.set_meta(NameList.connect_stats_display, Callable(connect_to))
+	root.set_meta(NL.connect_stats_display, Callable(connect_to))
 
 func connect_to(_stats):
 	if _stats == stats: return
 	if stats != null:
-		stats.disconnect(NameList.health_updated, update_health)
-		stats.disconnect(NameList.strength_updated, update_strength)
-		stats.disconnect(NameList.mana_updated, update_mana)
-		stats.disconnect(NameList.stamina_updated, update_stamina)
-		stats.disconnect(NameList.thirst_updated, update_thirst)
-		stats.disconnect(NameList.hunger_updated, update_hunger)
+		stats.disconnect(NL.health_updated, update_health)
+		stats.disconnect(NL.strength_updated, update_strength)
+		stats.disconnect(NL.mana_updated, update_mana)
+		stats.disconnect(NL.stamina_updated, update_stamina)
+		stats.disconnect(NL.thirst_updated, update_thirst)
+		stats.disconnect(NL.hunger_updated, update_hunger)
 		stats = null
 	if _stats != null:
 		stats=_stats
-		stats.connect(NameList.health_updated, update_health)
-		stats.connect(NameList.strength_updated, update_strength)
-		stats.connect(NameList.mana_updated, update_mana)
-		stats.connect(NameList.stamina_updated, update_stamina)
-		stats.connect(NameList.thirst_updated, update_thirst)
-		stats.connect(NameList.hunger_updated, update_hunger)
+		stats.connect(NL.health_updated, update_health)
+		stats.connect(NL.strength_updated, update_strength)
+		stats.connect(NL.mana_updated, update_mana)
+		stats.connect(NL.stamina_updated, update_stamina)
+		stats.connect(NL.thirst_updated, update_thirst)
+		stats.connect(NL.hunger_updated, update_hunger)
 #	update_all_stats(stats)
 
 func update_all_stats(_stats):
@@ -388,7 +388,7 @@ func character_died():
 func refill_health():
 	if stats == null: return
 	stats.change_health(stats.max_health)
-	var sp = stats.root.get_meta(NameList.respawn)
+	var sp = stats.root.get_meta(NL.respawn)
 	if sp != null:
 		sp.call_deferred()
 "
@@ -402,7 +402,7 @@ var text_box = preload('res://scenes/2d scenes/dialouge_box_line.tscn')
 
 func _ready() -> void:
 	var show_dialogue= Callable(new_line)
-	root.set_meta(NameList.show_dialogue,show_dialogue)
+	root.set_meta(NL.show_dialogue,show_dialogue)
 
 func new_line(text:String):
 	var box = text_box.instantiate()
@@ -421,7 +421,7 @@ script/source = "extends TextureRect
 func _ready() -> void:
 	visible = false
 	var callable= Callable(show_image)
-	root.set_meta(NameList.show_image,callable)
+	root.set_meta(NL.show_image,callable)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if !visible: return
@@ -513,7 +513,7 @@ script/source = "extends BoxContainer
 @onready var invert_y = $\"invert y\"
 
 func _ready() -> void:
-	add_to_group(NameList.ui_save_load)
+	add_to_group(NL.ui_save_load)
 	mouse_slider.connect('drag_ended',mouse_changed.bind())
 	gamepad_slider.connect('drag_ended',gamepad_changed.bind())
 	invert_x.connect('pressed',invert_x_toggled)
@@ -751,7 +751,7 @@ var sfx_2d_id:int=AudioServer.get_bus_index('Sfx_2d')
 var sfx_3d_id:int=AudioServer.get_bus_index('Sfx_3d')
 
 func _ready() -> void:
-	add_to_group(NameList.ui_save_load)
+	add_to_group(NL.ui_save_load)
 	setup_sliders()
 	setup_buttons()
 	
@@ -852,7 +852,7 @@ script/source = "extends BoxContainer
 @onready var vsync_button = $vsync
 
 func _ready() -> void:
-	add_to_group(NameList.ui_save_load)
+	add_to_group(NL.ui_save_load)
 	vsync_button.connect('toggled',set_vsync)
 	
 	var tween = create_tween()
@@ -949,7 +949,7 @@ func dud():pass
 var file_path := \"user://ui_save.save\"
 func save_game():
 	var save_game = FileAccess.open(file_path, FileAccess.WRITE)
-	var save_nodes = get_tree().get_nodes_in_group( NameList.ui_save_load)
+	var save_nodes = get_tree().get_nodes_in_group(NL.ui_save_load)
 	for node in save_nodes:
 		if !node.has_method(\"_save\"):
 			print(str(node.name) + \"is missing a _save() function\")

@@ -25,24 +25,24 @@ func _process(delta: float) -> void:
 
 func connect_hotbar():
 	if hotbar == null: return
-	input.connect(NameList.drop_pressed,drop_start)
-	input.connect(NameList.drop_released,drop_stop)
+	input.connect(NL.drop_pressed,drop_start)
+	input.connect(NL.drop_released,drop_stop)
 	
-	input.connect(NameList.act_pressed,act)
-	input.connect(NameList.attack_pressed,attack)
-	input.connect(NameList.skill_pressed,skill)
-	input.connect(NameList.misc_pressed,misc)
+	input.connect(NL.act_pressed,act)
+	input.connect(NL.attack_pressed,attack)
+	input.connect(NL.skill_pressed,skill)
+	input.connect(NL.misc_pressed,misc)
 
 func set_interface():
-	root.set_meta(NameList.get_target, Callable(get_target))
-	root.set_meta(NameList.input_use_item, Callable(input_use_item))
+	root.set_meta(NL.get_target, Callable(get_target))
+	root.set_meta(NL.input_use_item, Callable(input_use_item))
 
 func input_use_item(id:int):
 	match id:
-		0:input.emit_signal(NameList.attack_pressed)
-		1:input.emit_signal(NameList.skill_pressed)
-		2:input.emit_signal(NameList.misc_pressed)
-		_:input.emit_signal(NameList.act_pressed)
+		0:input.emit_signal(NL.attack_pressed)
+		1:input.emit_signal(NL.skill_pressed)
+		2:input.emit_signal(NL.misc_pressed)
+		_:input.emit_signal(NL.act_pressed)
 
 @export var connect_to_shape:=true
 @export var head_margin:=0.2
@@ -108,7 +108,7 @@ func default_interact():
 	if body == null: return
 	var dist_sq = global_position.distance_squared_to(body.global_position)
 	if dist_sq > interact_range * interact_range: return
-	if !body.has_method(NameList.interact): return
+	if !body.has_method(NL.interact): return
 	body.interact(self)
 
 

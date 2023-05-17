@@ -5,23 +5,23 @@ class_name LimbAnimator
 @export var time_scale := 1.0
 
 func _ready() -> void:
-	container.connect(NameList.on_state_changed, state_changed)
+	container.connect(NL.on_state_changed, state_changed)
 
 signal on_state_changed(state)
 func state_changed(_state:StringName):
-	emit_signal(NameList.on_state_changed,_state)
+	emit_signal(NL.on_state_changed,_state)
 	match _state:
-		NameList.idle:
+		NL.idle:
 			return idle()
-		NameList.walk:
+		NL.walk:
 			return walk()
-		NameList.sneak:
+		NL.sneak:
 			return sneak()
-		NameList.sprint:
+		NL.sprint:
 			return sprint()
-		NameList.jump:
+		NL.jump:
 			return jump()
-		NameList.fall:
+		NL.fall:
 			return fall()
 
 func idle():

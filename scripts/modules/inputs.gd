@@ -8,7 +8,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	owner = root
-	root.set_meta(NameList.get_inputs, Callable(get_inputs))
+	root.set_meta(NL.get_inputs, Callable(get_inputs))
 
 func get_inputs()->Inputs:
 	return self

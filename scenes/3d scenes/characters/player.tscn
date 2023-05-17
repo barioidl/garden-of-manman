@@ -52,9 +52,9 @@ func _ready():
 	use_shape_size()
 
 func set_interface():
-	root.set_meta(NameList.append_item, Callable(append_item))
-	root.set_meta(NameList.append_item_node, Callable(append_item_node))
-	root.set_meta(NameList.get_hotbar_items, Callable(get_hotbar_items))
+	root.set_meta(NL.append_item, Callable(append_item))
+	root.set_meta(NL.append_item_node, Callable(append_item_node))
+	root.set_meta(NL.get_hotbar_items, Callable(get_hotbar_items))
 
 @export var connect_to_shape:=true
 func use_shape_size():
@@ -156,11 +156,9 @@ average_size = Vector3(0.2, 1, 0.2)
 [node name="body" type="Node3D" parent="."]
 script = ExtResource("9_xmcsr")
 
-[node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("9_8vf4s")]
+[node name="head" parent="body" instance=ExtResource("9_8vf4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-enabled = true
 target_position = Vector3(0, 0, 10)
-hotbar = NodePath("../hotbar")
 connect_to_shape = false
 head_margin = 0.15
 connect_to_bone = true

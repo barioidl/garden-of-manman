@@ -6,16 +6,15 @@ func _process(delta: float) -> void:
 	dt = delta
 	cleanup_groups()
 
+
 var states:={}
-func get_state(key,default = 0):
+func get_(key,default = 0):
 	return states.get(key,default)
-func set_state(key,value):
+func set_(key,value):
 	states[key] = value
-func reset_states():
+func reset_():
 	states = {}
 
-func get_player_character()->Node3D:
-	return PlayerInputs.character
 
 var group_lifetime := {}
 func cleanup_groups():
@@ -25,10 +24,10 @@ func cleanup_groups():
 		var lifetime = group_lifetime[key]
 		lifetime -= dt
 		group_lifetime[key] = lifetime
-		if lifetime > 0:
-			continue
+		if lifetime > 0: continue
 		group_lifetime.erase(key)
 		saved_groups.erase(key)
+
 
 var saved_groups := {}
 func get_nodes(group:StringName)->Array:

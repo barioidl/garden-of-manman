@@ -35,7 +35,7 @@ Goap="*res://scripts/GOAP/implementation/goap.gd"
 PerformanceCap="*res://scripts/performance cap.gd"
 PlayerInputs="*res://scenes/3d scenes/player inputs.tscn"
 Hud="*res://scenes/2d scenes/hud.tscn"
-NameList="*res://scripts/name list.gd"
+NL="*res://scripts/name list.gd"
 
 [debug]
 

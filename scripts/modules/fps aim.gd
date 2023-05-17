@@ -42,7 +42,7 @@ func rotate_fps(delta):
 
 func set_interface():
 	var turn_head = Callable(turn_head_toward)
-	root.set_meta(NameList.turn_head_toward, turn_head)
+	root.set_meta(NL.turn_head_toward, turn_head)
 
 func turn_head_toward(target:Vector3, turn_speed:=1.0):
 	var local:Vector3=head.to_local(target)

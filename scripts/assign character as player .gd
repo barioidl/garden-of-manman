@@ -10,10 +10,10 @@ func attach_to_player():
 	
 	var stats = character.get_node('stats')
 	if stats != null:
-		var connect_stats :Callable= Hud.get_meta(NameList. connect_stats_display)
+		var connect_stats :Callable= Hud.get_meta(NL.connect_stats_display)
 		
 		connect_stats.call(stats)
 	
-	if character.has_meta(NameList.toggle_goap_agent):
-		var toggle_goap = character.get_meta(NameList.toggle_goap_agent)
+	if character.has_meta(NL.toggle_goap_agent):
+		var toggle_goap = character.get_meta(NL.toggle_goap_agent)
 		toggle_goap.call(false)

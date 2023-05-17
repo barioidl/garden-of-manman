@@ -20,7 +20,7 @@ func _init() -> void:
 func _ready() -> void:
 	owner = root
 	
-	platformer.connect(NameList.on_state_changed, on_state_changed)
+	platformer.connect(NL.on_state_changed, on_state_changed)
 
 func on_state_changed(state:StringName):
 	var size = get_shape_scale(state)
@@ -29,15 +29,15 @@ func on_state_changed(state:StringName):
 
 func get_shape_scale(state)->Vector3:
 	match state:
-		NameList.walk:
+		NL.walk:
 			return walk_size
-		NameList.sneak:
+		NL.sneak:
 			return sneak_size
-		NameList.sprint:
+		NL.sprint:
 			return sprint_size
-		NameList.jump:
+		NL.jump:
 			return jump_size
-		NameList.fall:
+		NL.fall:
 			return fall_size
 	
 	return Vector3.ONE

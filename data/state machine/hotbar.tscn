@@ -27,11 +27,11 @@ func _ready():
 	use_shape_size()
 
 func set_interface():
-	root.set_meta(NameList.append_item,Callable(append_item))
-	root.set_meta(NameList.append_item_node,Callable(append_item_node))
-	root.set_meta(NameList.get_hotbar_items,Callable(get_hotbar_items))
+	root.set_meta(NL.append_item,Callable(append_item))
+	root.set_meta(NL.append_item_node,Callable(append_item_node))
+	root.set_meta(NL.get_hotbar_items,Callable(get_hotbar_items))
 	
-	root.set_meta(NameList.is_hotbar_full,Callable(is_hotbar_full))
+	root.set_meta(NL.is_hotbar_full,Callable(is_hotbar_full))
 
 @export var connect_to_shape:=true
 func use_shape_size():

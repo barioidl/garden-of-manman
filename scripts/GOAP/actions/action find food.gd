@@ -13,7 +13,7 @@ func get_inputs(self_state:Dictionary)->Dictionary:
 
 func get_outputs(self_state:Dictionary)->Dictionary:
 	return{
-		NameList.has_food:1,
+		NL.has_food:1,
 	}
 
 
@@ -22,37 +22,40 @@ func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
 	var food = get_food(root,local_state)
 	if food == null:
 		return false
-	
-	var walk_to = root.get_meta(NameList.walk_to_target)
-	var face_to = root.get_meta(NameList.turn_head_toward)
 	var food_pos = food.global_position
-	walk_to.call(food_pos)
-	face_to.call(food_pos)
 	
-	var target = root.get_meta(NameList.get_target).call()
-	if target == null:
-		return false
-	if !target.is_in_group(NameList.food):
+	if !reached_food(root):
+		Interface.walk_to(root,food_pos)
+		Interface.turn_head(root,food_pos)
 		return false
 	
-	var input = root.get_meta(NameList.get_inputs).call()
-	
-	var hotbar_full = root.get_meta(NameList.is_hotbar_full).call()
-	if hotbar_full:
-		input.emit_signal(NameList.drop_pressed)
-		return false
-	input.emit_signal(NameList.act_pressed)
+	var input = Interface.get_input(root)
+	if Interface.is_hotbar_full(root):
+		input.emit_signal(NL.drop_pressed)
+	input.emit_signal(NL.act_pressed)
 	input.dpad1 = Vector2.ZERO
 	input.dpad2 = Vector2.ZERO
+	
+	if local_state.has(NL.food):
+		local_state.erase(NL.food)
 	return true
 
+func reached_food(root)->bool:
+	var target = Interface.get_target(root)
+	if target == null:
+		return false
+	if !target.is_in_group(NL.food):
+		return false
+	return true
 
 func get_food(root:Node3D,local_state:Dictionary):
-	if local_state.has(NameList.food):
-		var food = local_state[NameList.food]
+	if local_state.has(NL.food):
+		var food = local_state[NL.food]
 		if food == null:
-			local_state.erase(NameList.food)
+			local_state.erase(NL.food)
 		else:
-			return local_state[NameList.food]
+			return local_state[NL.food]
 	var root_pos =root.global_position
-	return WorldState.get_closest_node_3d(NameList.food, root_pos)
+	var food = WorldState.get_closest_node_3d(NL.food, root_pos)
+	local_state[NL.food] = food
+	return food

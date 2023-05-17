@@ -8,11 +8,11 @@
 script/source = "extends ItemOverworld
 
 func _ready() -> void:
-	add_to_group(NameList.food)
-	connect(NameList.item_used,used)
+	add_to_group(NL.food)
+	connect(NL.item_used,used)
 	
 func used():
-	print('boop')
+	print('food used')
 	queue_free()
 "
 

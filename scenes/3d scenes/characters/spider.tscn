@@ -33,7 +33,7 @@ script/source = "extends Node
 
 func _ready() -> void:
 	return
-	root.connect(NameList.body_entered,body_entered)
+	root.connect(NL.body_entered,body_entered)
 
 func body_entered(body):
 	fall_damage(body)
@@ -307,7 +307,7 @@ script/source = "extends Node3D
 @export var crouch_height:= 1.4
 signal position_changed(pos)
 func _ready() -> void:
-	platformer.connect(NameList.on_state_changed, on_state_changed.bind())
+	platformer.connect(NL.on_state_changed, on_state_changed.bind())
 
 func on_state_changed(state):
 	return
@@ -338,6 +338,7 @@ script = ExtResource("1_bhlmi")
 [node name="inputs" parent="." instance=ExtResource("2_nkc5e")]
 
 [node name="platformer" parent="." instance=ExtResource("3_lrbm0")]
+horizontal_speed = 3.0
 sneak_speed = 0.4
 jump_height = 4.0
 extra_jumps = 0
@@ -346,9 +347,11 @@ step_speed = 0.2
 [node name="stats" parent="." instance=ExtResource("4_nxtod")]
 
 [node name="fall_damage" type="Node" parent="stats"]
+process_mode = 4
 script = SubResource("GDScript_xyoju")
 
 [node name="stamina" type="Node" parent="stats"]
+process_mode = 4
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
@@ -362,8 +365,8 @@ kill_sfx = ExtResource("8_dey3p")
 turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
-process_mode = 4
 script = SubResource("GDScript_g145v")
+loop_plan = true
 
 [node name="debug_display" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
@@ -414,10 +417,6 @@ alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("12_d46mv")
 script = ExtResource("13_decgv")
-sprites = ExtResource("14_ga2t5")
-has_shadow = false
-select_cd_range = Vector2(0.2, 1)
-rotate_cd_range = Vector2(0.1, 5)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="body/body/head/face"]
 transform = Transform3D(1, 0, -2.08798e-21, 0, 1, 0, 2.08798e-21, 0, 1, 0, 0, 0.25)
@@ -457,9 +456,9 @@ legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik 
 body_mid_pos = Vector3(0, 0.1, 0)
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.683012, -0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, 0.707107, 0, 1, 0)
+transform = Transform3D(0.683012, -0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, 0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -0.5, 0)
+target_position = Vector3(-3, -1.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -469,9 +468,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.683012, 0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, -0.707107, 0, 1, 0)
+transform = Transform3D(-0.683012, 0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, -0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -0.5, 0)
+target_position = Vector3(-3, -1.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -481,9 +480,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.683012, -0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, 0.707107, 0, 1, 0)
+transform = Transform3D(0.683012, -0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, 0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -0.5, 0)
+target_position = Vector3(-3, -1.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -493,9 +492,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.683012, 0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, -0.707107, 0, 1, 0)
+transform = Transform3D(-0.683012, 0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, -0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -0.5, 0)
+target_position = Vector3(-3, -1.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 

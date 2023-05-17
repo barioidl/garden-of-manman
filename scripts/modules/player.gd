@@ -16,7 +16,7 @@ func _ready():
 
 func attach_to(_character):
 	character = _character
-	character.add_to_group(NameList.player)
+	character.add_to_group(NL.player)
 	input = character.get_node('inputs')
 	head = character.get_node('body/head')
 

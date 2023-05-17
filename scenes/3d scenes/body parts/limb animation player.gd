@@ -10,10 +10,10 @@ func play_state(_state:StringName, timescale:float, flip:=false)->bool:
 
 func combine_animations(_state:StringName)->StringName:
 	match _state:
-		NameList.walk:
-			return NameList.walk
-		NameList.sneak:
-			return NameList.walk
-		NameList.sprint:
-			return NameList.walk
+		NL.walk:
+			return NL.walk
+		NL.sneak:
+			return NL.walk
+		NL.sprint:
+			return NL.walk
 	return _state

@@ -84,6 +84,8 @@ var respawn := &'respawn'
 
 var toggle_goap_agent := &'toggle_goap_agent'
 
+var get_nav_agent := &'get_nav_agent'
+
 func list_of_methods():pass
 var interact:=&'interact'
 

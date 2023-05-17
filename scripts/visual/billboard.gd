@@ -38,8 +38,8 @@ var axis_up:=axises.y
 var forward := Vector3.ONE 
 
 func _ready() -> void:
-	if NameList.is_inside_tree():
-		add_to_group(NameList.billboard_sprites)
+	if NL.is_inside_tree():
+		add_to_group(NL.billboard_sprites)
 	set_up_sprite()
 	set_face_axis()
 

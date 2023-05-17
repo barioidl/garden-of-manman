@@ -33,12 +33,12 @@ func _init() -> void:
 
 func _ready() -> void:
 	planner = Goap.get_action_planner()
-	set_local_state(NameList.plan_width,planner_limits.x)
-	set_local_state(NameList.plan_depth,planner_limits.y)
+	set_local_state(NL.plan_width,planner_limits.x)
+	set_local_state(NL.plan_depth,planner_limits.y)
 	set_interface()
 
 func set_interface():
-	root.set_meta(NameList.toggle_goap_agent,toggle_goap_agent)
+	root.set_meta(NL.toggle_goap_agent,toggle_goap_agent)
 
 func toggle_goap_agent(on:bool):
 	var mode = Node.PROCESS_MODE_INHERIT 

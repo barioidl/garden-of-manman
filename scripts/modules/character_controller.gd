@@ -3,12 +3,6 @@ class_name RigidCharacter
 
 var root = self
 
-#var rotation_y := 0.0
-#var offset_rotation:Quaternion
-#func rotate_body(angle:float):
-#	rotation_y += angle
-#	quaternion = offset_rotation * Quaternion(Vector3(0,1,0), rotation_y)
-
 func _ready():
 	add_to_group("character")
 	setup_body()

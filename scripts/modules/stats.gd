@@ -57,7 +57,7 @@ func _ready() -> void:
 func change_health(delta):
 	if delta == 0:return
 	health = clampf(health + delta, 0, max_health)
-	emit_signal(NameList.health_updated, health, max_health)
+	emit_signal(NL.health_updated, health, max_health)
 	hurt_sfx(delta)
 	if health <= 0:
 		emit_signal('die')
@@ -65,27 +65,27 @@ func change_health(delta):
 func change_strength(delta):
 	if delta == 0:return
 	strength = clampf(strength + delta, 0, max_strength)
-	emit_signal(NameList.strength_updated, strength, max_strength)
+	emit_signal(NL.strength_updated, strength, max_strength)
 
 func change_mana(delta):
 	if delta == 0:return
 	mana = clampf(mana + delta, 0, max_mana)
-	emit_signal(NameList.mana_updated, mana, max_mana)
+	emit_signal(NL.mana_updated, mana, max_mana)
 
 func change_stamina(delta):
 	if delta == 0:return
 	stamina = clampf(stamina + delta, 0, max_stamina)
-	emit_signal(NameList.stamina_updated, stamina, max_stamina)
+	emit_signal(NL.stamina_updated, stamina, max_stamina)
 
 func change_thirst(delta):
 	if delta == 0:return
 	thirst = clampf(thirst + delta, 0, max_thirst)
-	emit_signal(NameList.thirst_updated, thirst, max_thirst)
+	emit_signal(NL.thirst_updated, thirst, max_thirst)
 
 func change_hunger(delta):
 	if delta == 0:return
 	hunger = clampf(hunger + delta, 0, max_hunger)
-	emit_signal(NameList.hunger_updated, hunger, max_hunger)
+	emit_signal(NL.hunger_updated, hunger, max_hunger)
 
 
 func set_interface():
@@ -108,40 +108,40 @@ func connect_goap_agent():
 	if agent == null: return
 	if has_health:
 		update_agent_health(health,max_health)
-		connect(NameList.health_updated,update_agent_health)
+		connect(NL.health_updated,update_agent_health)
 	if has_mana:
 		update_agent_mana(mana,max_mana)
-		connect(NameList.mana_updated,update_agent_mana)
+		connect(NL.mana_updated,update_agent_mana)
 	if has_stamina:
 		update_agent_stamina(stamina,max_stamina)
-		connect(NameList.stamina_updated,update_agent_stamina)	
+		connect(NL.stamina_updated,update_agent_stamina)	
 	if has_hunger:
 		update_agent_hunger(hunger,max_hunger)
-		connect(NameList.hunger_updated,update_agent_hunger)
+		connect(NL.hunger_updated,update_agent_hunger)
 
 func update_agent_health(_value,_max):
-	agent.set_local_state(NameList.health,_value)
-	agent.set_local_state(NameList.max_health,_max)
+	agent.set_local_state(NL.health,_value)
+	agent.set_local_state(NL.max_health,_max)
 
 func update_agent_strength(_value,_max):
-	agent.set_local_state(NameList.strength,_value)
-	agent.set_local_state(NameList.max_strength,_max)
+	agent.set_local_state(NL.strength,_value)
+	agent.set_local_state(NL.max_strength,_max)
 
 func update_agent_mana(_value,_max):
-	agent.set_local_state(NameList.mana,_value)
-	agent.set_local_state(NameList.max_mana,_max)
+	agent.set_local_state(NL.mana,_value)
+	agent.set_local_state(NL.max_mana,_max)
 
 func update_agent_stamina(_value,_max):
-	agent.set_local_state(NameList.stamina,_value)
-	agent.set_local_state(NameList.max_stamina,_max)
+	agent.set_local_state(NL.stamina,_value)
+	agent.set_local_state(NL.max_stamina,_max)
 
 func update_agent_thirst(_value,_max):
-	agent.set_local_state(NameList.thirst,_value)
-	agent.set_local_state(NameList.max_thirst,_max)
+	agent.set_local_state(NL.thirst,_value)
+	agent.set_local_state(NL.max_thirst,_max)
 
 func update_agent_hunger(_value,_max):
-	agent.set_local_state(NameList.hunger,_value)
-	agent.set_local_state(NameList.max_hunger,_max)
+	agent.set_local_state(NL.hunger,_value)
+	agent.set_local_state(NL.max_hunger,_max)
 
 
 

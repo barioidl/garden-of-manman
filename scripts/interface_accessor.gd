@@ -16,17 +16,39 @@ func stunt(body,duration:=0.5):
 func walk_to(body:Node3D,target:Vector3):
 	if body == null:
 		return false
-	if !body.has_meta(NameList.walk_to_target):
+	if !body.has_meta(NL.walk_to_target):
 		return false
-	var walk_to = body.get_meta(NameList.walk_to_target)
+	var walk_to = body.get_meta(NL.walk_to_target)
 	walk_to.call(target)
 	return true
 
 func turn_head(body:Node3D, target:Vector3) -> bool:
 	if body == null:
 		return false
-	if !body.has_meta(NameList.turn_head_toward):
+	if !body.has_meta(NL.turn_head_toward):
 		return false
-	var turn_head = body.get_meta(NameList.turn_head_toward)
+	var turn_head = body.get_meta(NL.turn_head_toward)
 	turn_head.call(target)
 	return true
+
+
+func get_input(body:Node3D)->Node:
+	if body == null:
+		return null
+	if !body.has_meta(NL.get_inputs):
+		return null
+	return body.get_meta(NL.get_inputs).call()
+
+func is_hotbar_full(body:Node3D)->bool:
+	if body == null:
+		return true
+	if !body.has_meta(NL.is_hotbar_full):
+		return true
+	return body.get_meta(NL.is_hotbar_full).call()
+
+func get_target(body:Node3D)->Node3D:
+	if body == null:
+		return null
+	if !body.has_meta(NL.get_target):
+		return null
+	return body.get_meta(NL.get_target).call()
