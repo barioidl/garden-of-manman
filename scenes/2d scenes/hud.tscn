@@ -325,15 +325,15 @@ func connect_to(_stats):
 
 func update_all_stats(_stats):
 	if _stats == null: return
-	update_health(_stats.health,_stats.max_health)
-	update_strength(_stats.strength,_stats.max_strength)
-	update_mana(_stats.mana,_stats.max_mana)
-	update_stamina(_stats.stamina,_stats.max_stamina)
-	update_thirst(_stats.thirst,_stats.max_thirst)
-	update_hunger(_stats.hunger,_stats.max_hunger)
+	update_health(0,_stats.health,_stats.max_health)
+	update_strength(0,_stats.strength,_stats.max_strength)
+	update_mana(0,_stats.mana,_stats.max_mana)
+	update_stamina(0,_stats.stamina,_stats.max_stamina)
+	update_thirst(0,_stats.thirst,_stats.max_thirst)
+	update_hunger(0,_stats.hunger,_stats.max_hunger)
 
 
-func update_health(_value:float, _max:float):
+func update_health(_delta:float, _value:float, _max:float):
 	change_slider_value(hp, _value, _max)
 	show_slider(0,hp,transition,duration)
 	set_text(hp, _value, _max)
@@ -341,27 +341,27 @@ func update_health(_value:float, _max:float):
 	if _value <=0:
 		character_died()
 
-func update_strength(_value:float, _max:float):
+func update_strength(_delta:float, _value:float, _max:float):
 	change_slider_value(strength, _value, _max)
 	show_slider(1,strength,transition,duration)
 	set_text(strength, _value, _max)
 
-func update_mana(_value:float, _max:float):
+func update_mana(_delta:float, _value:float, _max:float):
 	change_slider_value(mp, _value, _max)
 	show_slider(2,mp,transition,duration)
 	set_text(mp, _value, _max)
 
-func update_stamina(_value:float, _max:float):
+func update_stamina(_delta:float, _value:float, _max:float):
 	change_slider_value(stamina, _value, _max)
 	show_slider(3,stamina,transition,duration)
 	set_text(stamina, _value, _max)
 
-func update_thirst(_value:float, _max:float):
+func update_thirst(_delta:float, _value:float, _max:float):
 	change_slider_value(thirst, _value, _max)
 	show_slider(4,thirst,transition,duration)
 	set_text(thirst, _value, _max)
 
-func update_hunger(_value:float, _max:float):
+func update_hunger(_delta:float, _value:float, _max:float):
 	change_slider_value(hunger, _value, _max)
 	show_slider(5,hunger,transition,duration)
 	set_text(hunger, _value, _max)
