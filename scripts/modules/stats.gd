@@ -4,32 +4,37 @@ class_name Stats
 @onready var root = get_parent().root
 var agent
 
-@export_category('stats toggle')
+
+
 @export var has_health:= true
-@export var has_strength:= true
-@export var has_mana:= true
-@export var has_stamina:= true#basically oxygen
-@export var has_thirst:= true
-@export var has_hunger:= true
-
-
-@export var health := Vector2(10,10)
+@export var health := 10.0
+@export var max_health := 10.0
 signal health_updated(value,max)
 signal die()
 
-@export var strength:=Vector2(0,10)
+@export var has_strength:= true
+@export var strength:=0.0
+@export var max_strength:=10.0
 signal strength_updated(value,max)
 
-@export var mana:=Vector2(0,10)
+@export var has_mana:= true
+@export var mana:=0.0
+@export var max_mana:=10.0
 signal mana_updated(value,max)
 
-@export var stamina:=Vector2(0,10)
+@export var has_stamina:= true#basically oxygen
+@export var stamina:=0.0
+@export var max_stamina:=10.0
 signal stamina_updated(value,max)
 
-@export var thirst:=Vector2(0,10)
+@export var has_thirst:= true
+@export var thirst:=0.0
+@export var max_thirst:=10.0
 signal thirst_updated(value,max)
 
-@export var hunger:=Vector2(0,10)
+@export var has_hunger:= true
+@export var hunger:=0.0
+@export var max_hunger:=10.0
 signal hunger_updated(value,max)
 
 
@@ -38,42 +43,42 @@ func _init() -> void:
 func _ready() -> void:
 	owner = root
 #	root.add_to_group('stats')
-#	set_interface()
-#	connect_goap_agent()
+	set_interface()
+	connect_goap_agent()
 
 
 func change_health(delta):
 	if delta == 0:return
-	health.x = clampf(health.x + delta, 0, health.y)
-	emit_signal(NL.health_updated, health.x, health.y)
+	health = clampf(health + delta, 0, max_health)
+	emit_signal(NL.health_updated, health, max_health)
 	hurt_sfx(delta)
-	if health.x <= 0:
+	if health <= 0:
 		emit_signal('die')
 
 func change_strength(delta):
 	if delta == 0:return
-	strength.x = clampf(strength.x + delta, 0, strength.y)
-	emit_signal(NL.strength_updated, strength.x, strength.y)
+	strength = clampf(strength + delta, 0, max_strength)
+	emit_signal(NL.strength_updated, strength, max_strength)
 
 func change_mana(delta):
 	if delta == 0:return
-	mana.x = clampf(mana.x + delta, 0, mana.y)
-	emit_signal(NL.mana_updated, mana.x, mana.y)
+	mana = clampf(mana + delta, 0, max_mana)
+	emit_signal(NL.mana_updated, mana, max_mana)
 
 func change_stamina(delta):
 	if delta == 0:return
-	stamina.x = clampf(stamina.x + delta, 0, stamina.y)
-	emit_signal(NL.stamina_updated, stamina.x, stamina.y)
+	stamina = clampf(stamina + delta, 0, max_stamina)
+	emit_signal(NL.stamina_updated, stamina, max_stamina)
 
 func change_thirst(delta):
 	if delta == 0:return
-	thirst.x = clampf(thirst.x + delta, 0, thirst.y)
-	emit_signal(NL.thirst_updated, thirst.x, thirst.y)
+	thirst = clampf(thirst + delta, 0, max_thirst)
+	emit_signal(NL.thirst_updated, thirst, max_thirst)
 
 func change_hunger(delta):
 	if delta == 0:return
-	hunger.x = clampf(hunger.x + delta, 0, hunger.y)
-	emit_signal(NL.hunger_updated, hunger.x, hunger.y)
+	hunger = clampf(hunger + delta, 0, max_hunger)
+	emit_signal(NL.hunger_updated, hunger, max_hunger)
 
 
 func set_interface():
@@ -95,16 +100,16 @@ func connect_goap_agent():
 	agent = get_node_or_null("../goap_agent")
 	if agent == null: return
 	if has_health:
-		update_agent_health(health.x,health.y)
+		update_agent_health(health,max_health)
 		connect(NL.health_updated,update_agent_health)
 	if has_mana:
-		update_agent_mana(mana.x,mana.y)
+		update_agent_mana(mana,max_mana)
 		connect(NL.mana_updated,update_agent_mana)
 	if has_stamina:
-		update_agent_stamina(stamina.x,stamina.y)
+		update_agent_stamina(stamina,max_stamina)
 		connect(NL.stamina_updated,update_agent_stamina)	
 	if has_hunger:
-		update_agent_hunger(hunger.x,hunger.y)
+		update_agent_hunger(hunger,max_hunger)
 		connect(NL.hunger_updated,update_agent_hunger)
 
 func update_agent_health(_value,_max):

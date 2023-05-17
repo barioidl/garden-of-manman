@@ -292,6 +292,8 @@ script/source = "extends Control
 @onready var thirst := $thirst
 @onready var hunger := $hunger
 
+var slider_tweens:Array[Tween]=[]
+
 var stats
 
 @export var transition := 0.2
@@ -299,6 +301,7 @@ var stats
 
 func _ready() -> void:
 	root.set_meta(NL.connect_stats_display, Callable(connect_to))
+	slider_tweens.resize(6)
 
 func connect_to(_stats):
 	if _stats == stats: return
@@ -332,7 +335,7 @@ func update_all_stats(_stats):
 
 func update_health(_value:float, _max:float):
 	change_slider_value(hp, _value, _max)
-	show_slider(hp,transition,duration)
+	show_slider(0,hp,transition,duration)
 	set_text(hp, _value, _max)
 	
 	if _value <=0:
@@ -340,27 +343,27 @@ func update_health(_value:float, _max:float):
 
 func update_strength(_value:float, _max:float):
 	change_slider_value(strength, _value, _max)
-	show_slider(strength,transition,duration)
+	show_slider(1,strength,transition,duration)
 	set_text(strength, _value, _max)
 
 func update_mana(_value:float, _max:float):
 	change_slider_value(mp, _value, _max)
-	show_slider(mp,transition,duration)
+	show_slider(2,mp,transition,duration)
 	set_text(mp, _value, _max)
 
 func update_stamina(_value:float, _max:float):
 	change_slider_value(stamina, _value, _max)
-	show_slider(stamina,transition,duration)
+	show_slider(3,stamina,transition,duration)
 	set_text(stamina, _value, _max)
 
 func update_thirst(_value:float, _max:float):
 	change_slider_value(thirst, _value, _max)
-	show_slider(thirst,transition,duration)
+	show_slider(4,thirst,transition,duration)
 	set_text(thirst, _value, _max)
 
 func update_hunger(_value:float, _max:float):
 	change_slider_value(hunger, _value, _max)
-	show_slider(hunger,transition,duration)
+	show_slider(5,hunger,transition,duration)
 	set_text(hunger, _value, _max)
 
 
@@ -372,18 +375,29 @@ func set_text(_slider:Control, _value:float, _max:float):
 	label.text = content
 
 func change_slider_value(_slider, _value:float, _max:float):
-	var tween = get_tree().create_tween()
-	tween.tween_property(_slider, \"value\", _value, 0.1).set_trans(Tween.TRANS_BACK)
+	_slider.min_value = 0
 	_slider.max_value = _max
-
-func show_slider(slider, transition:float, duration:float):
-	slider.visible = true
-	slider.modulate.a = 0
 	var tween = create_tween()
-	tween.tween_property(slider, \"modulate:a\", 1, transition)
+	tween.tween_property(_slider, \"value\", _value, .1).set_trans(Tween.TRANS_BACK)
+
+func show_slider(tween_id,slider, transition:float, duration:float):
+	var tween = slider_tweens[tween_id]
+	var tween_killed:=false
+	if tween != null:
+		if tween.is_running():
+			tween_killed = true
+			tween.kill()
+	tween = create_tween()
+	
+	if !tween_killed:
+		slider.visible = true
+		slider.modulate.a = 0
+		tween.tween_property(slider, \"modulate:a\", 1, transition)
+	
 	tween.tween_interval(duration)
 	tween.tween_property(slider, \"modulate:a\", 0, transition)
 	tween.tween_property(slider, \"visible\", false, 0)
+	slider_tweens[tween_id] = tween
 
 
 func character_died():
@@ -1309,9 +1323,10 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 205.0
 offset_bottom = 25.0
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.5, 0.5)
 vertical = true
 script = SubResource("GDScript_moe80")
+duration = 5.0
 
 [node name="health" type="TextureProgressBar" parent="Gameplay/Display stats"]
 visible = false
@@ -1344,7 +1359,6 @@ visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
-rounded = true
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_top = 10
@@ -1371,7 +1385,6 @@ visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
-rounded = true
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_top = 10
@@ -1397,7 +1410,6 @@ vertical_alignment = 1
 visible = false
 layout_mode = 2
 step = 0.1
-rounded = true
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_top = 10
@@ -1424,7 +1436,6 @@ visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
-rounded = true
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_top = 10
@@ -1451,7 +1462,6 @@ visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
-rounded = true
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_top = 10
