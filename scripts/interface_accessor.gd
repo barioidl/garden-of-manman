@@ -2,8 +2,7 @@ extends Node
 
 func change_health(body,delta:=-1.0):
 	if body == null:return
-	if !body.is_in_group("stats"):return
-	var change_health = body.get_meta("change_health")
+	var change_health = body.get_meta(NL.change_health)
 	if change_health == null: return
 	change_health.call(delta)
 

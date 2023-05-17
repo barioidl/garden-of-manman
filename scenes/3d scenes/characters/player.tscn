@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=16 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -12,6 +12,28 @@
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
 [ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
+
+[sub_resource type="GDScript" id="GDScript_o54dq"]
+script/source = "extends Node
+
+@onready var stats = get_parent()
+@onready var root =  $\"../..\"
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+var dt:=0.0
+func _process(delta: float) -> void:
+	dt = delta
+	increase_hunger()
+
+var hunger_cd:=0.0
+func increase_hunger():
+	hunger_cd -=dt
+	if hunger_cd >0: return
+	hunger_cd = 1
+#	Interface.change_health(root,-1)
+	stats.change_hunger(1)
+"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
 radius = 0.2
@@ -137,6 +159,9 @@ jump_height = 4.0
 extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("3_iebvc")]
+
+[node name="passive_changes" type="Node" parent="stats"]
+script = SubResource("GDScript_o54dq")
 
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
 

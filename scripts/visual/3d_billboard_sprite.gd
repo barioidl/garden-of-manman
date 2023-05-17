@@ -3,6 +3,8 @@ extends Billboard3d
 class_name BillboardSprite
 
 func _ready() -> void:
+	if sprites == null:
+		push_error('billboard sprite with null sides')
 	sprites.change_frame(0)
 	super._ready()
 

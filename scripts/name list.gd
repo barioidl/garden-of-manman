@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends Node
 
 func list_of_states():pass
@@ -123,6 +123,21 @@ var flip_released := &'flip_released'
 
 var body_entered := &'body_entered'
 var body_exited := &'body_exited'
+var body_shape_entered := &'body_shape_entered'
+var body_shape_exited := &'body_shape_exited'
+
+var area_entered := &'area_entered'
+var area_exited := &'area_exited'
+var area_shape_entered := &'area_shape_entered'
+var area_shape_exited := &'area_shape_exited'
+
+
+var change_health := &'change_health'
+var change_strength := &'change_strength'
+var change_mana := &'change_mana'
+var change_stamina := &'stamina_updated'
+var change_thirst := &'thirst_updated'
+var change_hunger := &'hunger_updated'
 
 var health_updated := &'health_updated'
 var strength_updated := &'strength_updated'
@@ -130,6 +145,8 @@ var mana_updated := &'mana_updated'
 var stamina_updated := &'stamina_updated'
 var thirst_updated := &'thirst_updated'
 var hunger_updated := &'hunger_updated'
+
+
 
 var on_state_changed := &'on_state_changed'
 
