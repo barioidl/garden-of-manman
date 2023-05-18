@@ -3,11 +3,15 @@ class_name ActionEatFood
 func name()->StringName:
 	return 'A eat food'
 
-func get_inputs(self_state:Dictionary)->Dictionary:
-	return{
-		NL.has_food:1,
-		}
-func get_outputs(self_state:Dictionary)->Dictionary:
+func get_inputs(local_state:Dictionary)->Dictionary:
+	if local_state.has('root'):
+		var root = local_state.root
+		var id =get_hotbar_food(root)
+		if id > 0:
+			return {}
+	return{NL.has_food:1}
+
+func get_outputs(local_state:Dictionary)->Dictionary:
 	return {
 		NL.has_food:-1,
 		NL.hunger: -1
@@ -22,7 +26,6 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	
 	var use_item = root.get_meta(NL.input_use_item)
 	use_item.call(id)
-	
 	return true
 
 
@@ -31,6 +34,8 @@ func get_hotbar_food(root) -> int:
 	var hotbar_items :Array= get_items.call()
 	for id in hotbar_items.size():
 		var food = hotbar_items[id]
+		if food == null:
+			continue
 		if !food.is_in_group(NL.food):
 			continue
 		return id

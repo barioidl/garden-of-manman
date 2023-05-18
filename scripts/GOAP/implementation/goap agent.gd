@@ -125,6 +125,8 @@ func debug_plan():
 	debug_display.set_content('current_goal', current_goal.name())
 
 func get_string(_value)->String:
+	if _value == null:
+		return 'null'
 	if _value is int:
 		return str(_value)
 	if _value is float:

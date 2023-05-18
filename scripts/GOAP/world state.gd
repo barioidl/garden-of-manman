@@ -48,7 +48,26 @@ func get_closest_node_3d(group:StringName, position:Vector3, max_distance:=100.0
 			continue
 		var pos = node.global_position
 		var dist_sq = position.distance_squared_to(pos)
-		if dist_sq < min_distance_sq:
-			min_distance_sq = dist_sq
-			closest_node = node
+		if dist_sq >= min_distance_sq:
+			continue
+		min_distance_sq = dist_sq
+		closest_node = node
 	return closest_node
+
+func get_farest_node_3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
+	var nodes := get_nodes(group)
+	var farest_node :Node3D= null
+	max_distance *= max_distance
+	var max_dist := 0.0
+	for node in nodes:
+		if node == null:
+			continue
+		var pos = node.global_position
+		var dist_sq = position.distance_squared_to(pos)
+		if dist_sq >= max_distance:
+			continue
+		if dist_sq <= max_dist:
+			continue
+		max_dist = dist_sq
+		farest_node = node
+	return farest_node

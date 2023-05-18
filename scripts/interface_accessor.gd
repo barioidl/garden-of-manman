@@ -1,10 +1,21 @@
 extends Node
 
-func change_health(body,delta:=-1.0):
-	if body == null:return
-	var change_health = body.get_meta(NL.change_health)
-	if change_health == null: return
-	change_health.call(delta)
+func change_health(body,delta:=-1.0)->bool:
+	if body == null:return false
+	if !body.has_meta(NL.change_health):
+		return false
+	var meta = body.get_meta(NL.change_health)
+	meta.call(delta)
+	return true
+
+func change_hunger(body,delta:=-1.0)->bool:
+	if body == null: return false
+	if !body.has_meta(NL.change_hunger):
+		return false
+	var meta = body.get_meta(NL.change_hunger)
+	meta.call(delta)
+	print('changed hunger through interface')
+	return true
 
 func stunt(body,duration:=0.5):
 	if body == null:return
@@ -12,7 +23,7 @@ func stunt(body,duration:=0.5):
 		body.get_meta('delay_platformer').call(duration)
 
 
-func walk_to(body:Node3D,target:Vector3):
+func walk_to(body:Node3D,target:Vector3)->bool:
 	if body == null:
 		return false
 	if !body.has_meta(NL.walk_to_target):

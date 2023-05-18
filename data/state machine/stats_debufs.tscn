@@ -45,7 +45,8 @@ func increase_hunger():
 	
 	if stats.hunger < stats.max_hunger:
 		stats.change_hunger(1)
-	else:
+		return
+	if stats.health >0:
 		stats.change_health(-1)
 		hunger_cd = time_scale * 2
 

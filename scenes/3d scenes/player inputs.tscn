@@ -2,10 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/modules/player.gd" id="1_7xksl"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_57txa"]
-size = Vector2(1.6, 1)
-orientation = 2
-
 [sub_resource type="Shader" id="Shader_w3bbv"]
 code = "shader_type spatial;
 render_mode unshaded;
@@ -125,6 +121,11 @@ shader_parameter/shadow_strength = 0.4
 shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_57txa"]
+material = SubResource("ShaderMaterial_hpojt")
+size = Vector2(1.6, 1)
+orientation = 2
 
 [sub_resource type="Shader" id="Shader_k1g7w"]
 code = "shader_type spatial;
@@ -296,13 +297,11 @@ near = 0.1
 far = 50.0
 
 [node name="outline toon shader" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.1)
-visible = false
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.2)
 mesh = SubResource("PlaneMesh_57txa")
-surface_material_override/0 = SubResource("ShaderMaterial_hpojt")
 
 [node name="toon white shader" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.1)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.2)
 visible = false
 mesh = SubResource("PlaneMesh_57txa")
 surface_material_override/0 = SubResource("ShaderMaterial_baqlc")

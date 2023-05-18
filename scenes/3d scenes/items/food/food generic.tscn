@@ -12,7 +12,9 @@ func _ready() -> void:
 	connect(NL.item_used,used)
 	
 func used():
-	print('food used')
+#	print('food used')
+	Interface.change_hunger(root,-5)
+	
 	hotbar.drop_item(id)
 	queue_free()
 "

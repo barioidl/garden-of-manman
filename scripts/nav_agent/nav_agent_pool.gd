@@ -19,5 +19,4 @@ func pop_agent_3d()-> Node3D:
 	return new_agent
 
 func get_agent_3d()->Node3D:
-	
 	return pop_agent_3d()

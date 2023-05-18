@@ -47,6 +47,7 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	var input = Interface.get_input(root)
 	if Interface.is_hotbar_full(root):
 		input.emit_signal(NL.drop_pressed)
+		return false
 	input.emit_signal(NL.act_pressed)
 	
 	if local_state.has(NL.food):

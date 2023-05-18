@@ -316,12 +316,11 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_nxtod")]
-hunger = 5.0
+hunger = 8.0
 
 [node name="fall_damage" parent="stats" instance=ExtResource("5_tp48m")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_g0jqh")]
-time_scale = 0.1
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
@@ -380,7 +379,7 @@ target = NodePath("../../head")
 
 [node name="face" type="Sprite3D" parent="body/body/head"]
 transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 0, 0)
-cast_shadow = 2
+cast_shadow = 0
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -388,6 +387,7 @@ texture_filter = 0
 texture = ExtResource("15_c1hbp")
 script = ExtResource("13_decgv")
 sprites = ExtResource("16_450uj")
+has_shadow = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="body/body/head/face"]
 transform = Transform3D(1, 0, -2.08798e-21, 0, 1, 0, 2.08798e-21, 0, 1, 0, 0, 0.25)
