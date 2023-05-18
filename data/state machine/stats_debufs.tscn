@@ -1,0 +1,97 @@
+[gd_scene load_steps=2 format=3 uid="uid://6ga8ja8d5ot1"]
+
+[sub_resource type="GDScript" id="GDScript_o54dq"]
+script/source = "extends Node
+
+@onready var root =  $\"../..\"
+@onready var stats :Stats= get_parent()
+@onready var platformer :Platformer = $\"../../platformer\"
+
+@export var time_scale:=1.0
+func _ready() -> void:
+	platformer.connect(NL.on_state_changed,on_state_changed)
+
+var dt:=0.0
+func _process(delta: float) -> void:
+	dt = delta
+	heal()
+	increase_hunger()
+#	increase_thirst()
+
+func on_state_changed(_state:StringName):
+	match _state:
+		NL.idle:
+			hunger_speed = 0.5
+		NL.walk:
+			hunger_speed = 1
+		NL.sneak:
+			hunger_speed = 0.75
+		NL.sprint:
+			hunger_speed = 1.5
+		NL.jump:
+			hunger_speed = 2
+		NL.fall:
+			hunger_speed = 0.8
+
+var hunger_cd:=0.0
+var hunger_speed:=1.0
+func increase_hunger():
+	if hunger_speed == 0:
+		return
+	if hunger_cd >0: 
+		hunger_cd -= dt * hunger_speed
+		return
+	hunger_cd = time_scale * 20
+	
+	if stats.hunger < stats.max_hunger:
+		stats.change_hunger(1)
+	else:
+		stats.change_health(-1)
+		hunger_cd = time_scale * 2
+
+
+var thirst_cd:=0.1
+func increase_thirst():
+	if thirst_cd >0:
+		thirst_cd -= dt
+		return
+	thirst_cd = time_scale * 10
+	
+	if stats.thirst < stats.max_thirst:
+		stats.change_thirst(1)
+	else:
+		stats.change_health(-1)
+		thirst_cd = time_scale * 1
+
+var heal_cd :=0.5
+func heal():
+	if heal_cd >0:
+		heal_cd -= dt
+		return
+	heal_cd = time_scale * 5
+	if stats.health >= stats.max_health:
+		return
+	if stats.hunger >= stats.max_hunger:
+		return
+	stats.change_health(1)
+	stats.change_hunger(1)
+
+#	return
+#	var random = randi_range(0,6)
+#	match random:
+#		0:
+#			stats.change_health(-1)
+#		1:
+#			stats.change_mana(1)
+#		2:
+#			stats.change_strength(1)
+#		3:
+#			stats.change_thirst(1)
+#		4:
+#			stats.change_hunger(1)
+#		5:
+#			stats.change_stamina(1)
+"
+
+[node name="stats_debufs" type="Node"]
+script = SubResource("GDScript_o54dq")

@@ -16,7 +16,7 @@
 [sub_resource type="Resource" id="Resource_6bk1g"]
 script = ExtResource("2_5hp2g")
 pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
+volume_range = Vector2(-15, -5)
 streams = Array[AudioStream]([ExtResource("3_5shay"), ExtResource("4_14tp1"), ExtResource("5_pvu8i"), ExtResource("6_cvgfi"), ExtResource("7_rf1rf")])
 
 [sub_resource type="Resource" id="Resource_78alh"]

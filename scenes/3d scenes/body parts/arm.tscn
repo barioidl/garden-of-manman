@@ -329,6 +329,7 @@ script = ExtResource("1_cqla2")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
+joints_per_frame = 6
 accuracy = 0.005
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="arm/elbow/wrist/hand"]

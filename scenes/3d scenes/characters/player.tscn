@@ -1,53 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=17 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
 [ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="2_7jd1i"]
 [ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="3_iebvc"]
+[ext_resource type="PackedScene" uid="uid://dgc4o234da4e8" path="res://data/state machine/fall_damage.tscn" id="5_bvf82"]
 [ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_pj86h"]
 [ext_resource type="PackedScene" path="res://data/state machine/spawn_point.tscn" id="6_04aw7"]
+[ext_resource type="PackedScene" uid="uid://6ga8ja8d5ot1" path="res://data/state machine/stats_debufs.tscn" id="6_6yv8t"]
 [ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]
 [ext_resource type="PackedScene" uid="uid://dn2adgtnmjtxs" path="res://data/state machine/communication.tscn" id="7_ojp8w"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
 [ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
-
-[sub_resource type="GDScript" id="GDScript_o54dq"]
-script/source = "extends Node
-
-@onready var stats :Stats= get_parent()
-@onready var root =  $\"../..\"
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-var dt:=0.0
-func _process(delta: float) -> void:
-	dt = delta
-	increase_hunger()
-
-var hunger_cd:=0.0
-func increase_hunger():
-	hunger_cd -=dt
-	if hunger_cd >0: return
-	hunger_cd = 1
-#	stats.change_hunger(1)
-#	return
-	var random = randi_range(0,6)
-	match random:
-		0:
-			stats.change_health(-1)
-		1:
-			stats.change_mana(1)
-		2:
-			stats.change_strength(1)
-		3:
-			stats.change_thirst(1)
-		4:
-			stats.change_hunger(1)
-		5:
-			stats.change_stamina(1)
-"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
 radius = 0.2
@@ -174,8 +140,9 @@ extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("3_iebvc")]
 
-[node name="passive_changes" type="Node" parent="stats"]
-script = SubResource("GDScript_o54dq")
+[node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
+
+[node name="stats_debufs" parent="stats" instance=ExtResource("6_6yv8t")]
 
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
 

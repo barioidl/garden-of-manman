@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://djulvkmrx1g60"]
+[gd_scene load_steps=35 format=3 uid="uid://djulvkmrx1g60"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
 [ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="3_lrbm0"]
 [ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_nxtod"]
 [ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_e85df"]
+[ext_resource type="PackedScene" uid="uid://dgc4o234da4e8" path="res://data/state machine/fall_damage.tscn" id="5_tp48m"]
+[ext_resource type="PackedScene" uid="uid://6ga8ja8d5ot1" path="res://data/state machine/stats_debufs.tscn" id="6_g0jqh"]
 [ext_resource type="Resource" uid="uid://drkla4kyw4qdl" path="res://data/audio/puzzle sfx.tres" id="6_nwf6q"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="6_plbnf"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="6_uojeq"]
@@ -14,10 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="10_b2yls"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="10_hc070"]
 [ext_resource type="PackedScene" uid="uid://glmnjpmbgsco" path="res://data/state machine/hotbar.tscn" id="12_5cwt8"]
-[ext_resource type="Texture2D" uid="uid://2alss76jbdw6" path="res://assets/Textures/moon face0005.png" id="12_d46mv"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="13_decgv"]
 [ext_resource type="Resource" uid="uid://md7vpkr5xcdi" path="res://assets/bill_board_sides/moon face.tres" id="14_ga2t5"]
 [ext_resource type="Script" path="res://scripts/3d_billboard_animated.gd" id="14_iahpp"]
+[ext_resource type="Texture2D" uid="uid://csq3o2if2rgk3" path="res://assets/Textures/sun face0005.png" id="15_c1hbp"]
 [ext_resource type="Resource" uid="uid://btsyxe3lav3p0" path="res://assets/bill_board_sides/sun face.tres" id="16_450uj"]
 [ext_resource type="AudioStream" uid="uid://c2u51bnc0pxtb" path="res://assets/audio/kenney_ui-audio/Audio/switch2.ogg" id="17_r80fm"]
 [ext_resource type="AudioStream" uid="uid://cbqcmde5jwqpe" path="res://assets/audio/kenney_ui-audio/Audio/switch4.ogg" id="18_xur3e"]
@@ -25,37 +27,6 @@
 [ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="21_cbu30"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="22_crgkt"]
 [ext_resource type="Script" path="res://scripts/procedural animation/leg step animation.gd" id="23_oikep"]
-
-[sub_resource type="GDScript" id="GDScript_xyoju"]
-script/source = "extends Node
-
-@onready var root = get_parent().root
-
-func _ready() -> void:
-	return
-	root.connect(NL.body_entered,body_entered)
-
-func body_entered(body):
-	fall_damage(body)
-
-@export_category('fall damage')
-@export var has_fall_damage:=false
-@export var fall_speed_offset:=10.0
-@export var fall_speed_range:=10.0
-@export var fall_max_damage:=10.0
-func fall_damage(body):
-	if !has_fall_damage:return
-	var velocity:=Vector3.ZERO
-	if body is RigidBody3D:
-		velocity = body.linear_velocity
-	elif body is CharacterBody3D:
-		velocity = body.velocity
-	elif  body is StaticBody3D:
-		velocity = body.constant_linear_velocity
-	var velo_dist = root.linear_velocity. distance_squared_to( velocity)
-	
-	print(velo_dist)
-"
 
 [sub_resource type="GDScript" id="GDScript_l4ycn"]
 script/source = "extends Node
@@ -338,7 +309,7 @@ script = ExtResource("1_bhlmi")
 [node name="inputs" parent="." instance=ExtResource("2_nkc5e")]
 
 [node name="platformer" parent="." instance=ExtResource("3_lrbm0")]
-horizontal_speed = 3.0
+horizontal_speed = 2.0
 sneak_speed = 0.4
 jump_height = 4.0
 extra_jumps = 0
@@ -346,12 +317,9 @@ step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_nxtod")]
 
-[node name="fall_damage" type="Node" parent="stats"]
-process_mode = 4
-script = SubResource("GDScript_xyoju")
+[node name="fall_damage" parent="stats" instance=ExtResource("5_tp48m")]
 
-[node name="stamina" type="Node" parent="stats"]
-process_mode = 4
+[node name="stats_debufs" parent="stats" instance=ExtResource("6_g0jqh")]
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
@@ -365,16 +333,17 @@ kill_sfx = ExtResource("8_dey3p")
 turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_g145v")
 loop_plan = true
 
 [node name="debug_display" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
-visible = false
 billboard = 1
 double_sided = false
 fixed_size = true
 texture_filter = 0
+render_priority = 5
 text = "debug"
 autowrap_mode = 2
 width = 1000.0
@@ -415,8 +384,9 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("12_d46mv")
+texture = ExtResource("15_c1hbp")
 script = ExtResource("13_decgv")
+sprites = ExtResource("16_450uj")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="body/body/head/face"]
 transform = Transform3D(1, 0, -2.08798e-21, 0, 1, 0, 2.08798e-21, 0, 1, 0, 0, 0.25)

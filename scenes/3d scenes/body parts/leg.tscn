@@ -396,7 +396,7 @@ script = ExtResource("2_o0xlv")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
-joints_per_frame = 3
+joints_per_frame = 6
 solve_backward = true
 accuracy = 0.005
 

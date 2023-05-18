@@ -33,6 +33,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	planner = Goap.get_action_planner()
+	set_local_state('root',root)
+	set_local_state('agent',self)
 	set_local_state(NL.plan_width,planner_limits.x)
 	set_local_state(NL.plan_depth,planner_limits.y)
 	set_interface()
@@ -56,7 +58,6 @@ func set_local_state(key,value):
 	if local_state.has(key):
 		if local_state[key] == value:	return
 	local_state[key] = value
-	var a :=[] 
 	debug_local_state()
 
 func follow_plan():
@@ -65,7 +66,7 @@ func follow_plan():
 			current_step=0
 		return
 	var action = current_plan[current_step]
-	var completed = action.perform(self, local_state, dt)
+	var completed = action.perform(local_state, dt)
 	if completed:
 		current_step += 1
 
@@ -103,6 +104,7 @@ func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
 		return false
 	return a.priority(local_state) > b.priority(local_state)
 
+
 func debug_local_state():
 	if debug_display == null: return
 	var keys = local_state.keys()
@@ -112,7 +114,7 @@ func debug_local_state():
 	for i in iterations:
 		output += keys[i]
 		output += ': '
-		output += str(values[i])
+		output += get_string(values[i])
 		output += ', '
 	debug_display.set_content('local_state',output)
 
@@ -121,3 +123,14 @@ func debug_plan():
 	var content = planner.print_plan(current_plan)
 	debug_display.set_content('goap_plan',content)
 	debug_display.set_content('current_goal', current_goal.name())
+
+func get_string(_value)->String:
+	if _value is int:
+		return str(_value)
+	if _value is float:
+		return str(_value)
+	if _value is String:
+		return _value
+	if _value is Node:
+		return _value.name
+	return ''

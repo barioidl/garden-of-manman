@@ -16,4 +16,8 @@ streams = Array[AudioStream]([ExtResource("3_j6bk3"), ExtResource("4_t26k2"), Ex
 
 [node name="stats" type="Node"]
 script = ExtResource("1_3asjt")
+has_strength = false
+has_mana = false
+has_stamina = false
+has_thirst = false
 hurt_sounds = SubResource("Resource_i85r6")

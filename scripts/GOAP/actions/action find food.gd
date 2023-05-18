@@ -17,8 +17,8 @@ func get_outputs(self_state:Dictionary)->Dictionary:
 	}
 
 
-func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
-	var root :Node3D= agent.root
+func perform(local_state:Dictionary,time:float)-> bool:
+	var root :Node3D= local_state.root
 	var food = get_food(root,local_state)
 	if food == null:
 		return false

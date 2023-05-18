@@ -13,8 +13,8 @@ func get_outputs(self_state:Dictionary)->Dictionary:
 		NL.hunger: -1
 	}
 
-func perform(agent: GOAPAgent, local_state:Dictionary,time:float)-> bool:
-	var root = agent.root
+func perform(local_state:Dictionary,time:float)-> bool:
+	var root = local_state.root
 	
 	var id =get_hotbar_food(root)
 	if id <0:

@@ -4,37 +4,35 @@ class_name Stats
 @onready var root = get_parent().root
 var agent
 
-
-
-@export var has_health:= true
+@export var has_health := true
 @export var health := 10.0
 @export var max_health := 10.0
 signal health_updated(delta,value,max)
 signal die()
 
-@export var has_strength:= true
-@export var strength:=0.0
-@export var max_strength:=10.0
+@export var has_strength := true
+@export var strength := 0.0
+@export var max_strength := 10.0
 signal strength_updated(delta,value,max)
 
-@export var has_mana:= true
-@export var mana:=0.0
-@export var max_mana:=10.0
+@export var has_mana := true
+@export var mana := 0.0
+@export var max_mana := 10.0
 signal mana_updated(delta,value,max)
 
-@export var has_stamina:= true#basically oxygen
-@export var stamina:=0.0
-@export var max_stamina:=10.0
+@export var has_stamina := true#basically oxygen
+@export var stamina := 10.0
+@export var max_stamina := 10.0
 signal stamina_updated(delta,value,max)
 
-@export var has_thirst:= true
-@export var thirst:=0.0
-@export var max_thirst:=10.0
+@export var has_thirst := true
+@export var thirst := 0.0
+@export var max_thirst := 10.0
 signal thirst_updated(delta,value,max)
 
-@export var has_hunger:= true
-@export var hunger:=0.0
-@export var max_hunger:=10.0
+@export var has_hunger := true
+@export var hunger := 0.0
+@export var max_hunger := 10.0
 signal hunger_updated(delta,value,max)
 
 
@@ -80,6 +78,14 @@ func change_hunger(delta):
 	hunger = clampf(hunger + delta, 0, max_hunger)
 	emit_signal(NL.hunger_updated, delta, hunger, max_hunger)
 
+func reset():
+	health = max_health
+	strength = 0
+	mana = 0
+	stamina = max_stamina
+	thirst = 0
+	hunger = 0
+
 
 func set_interface():
 	if has_health:
@@ -101,45 +107,45 @@ func connect_goap_agent():
 	agent = get_node_or_null("../goap_agent")
 	if agent == null: return
 	if has_health:
-		update_agent_health(health,max_health)
+		update_agent_health(0,health,max_health)
 		connect(NL.health_updated,update_agent_health)
 	if has_strength:
-		update_agent_mana(strength,max_strength)
+		update_agent_mana(0,strength,max_strength)
 		connect(NL.mana_updated,update_agent_strength)
 	if has_mana:
-		update_agent_mana(mana,max_mana)
+		update_agent_mana(0,mana,max_mana)
 		connect(NL.mana_updated,update_agent_mana)
 	if has_stamina:
-		update_agent_stamina(stamina,max_stamina)
+		update_agent_stamina(0,stamina,max_stamina)
 		connect(NL.stamina_updated,update_agent_stamina)	
 	if has_thirst:
-		update_agent_hunger(thirst,max_thirst)
+		update_agent_hunger(0,thirst,max_thirst)
 		connect(NL.hunger_updated,update_agent_thirst)
 	if has_hunger:
-		update_agent_hunger(hunger,max_hunger)
+		update_agent_hunger(0,hunger,max_hunger)
 		connect(NL.hunger_updated,update_agent_hunger)
 
-func update_agent_health(_value,_max):
+func update_agent_health(delta,_value,_max):
 	agent.set_local_state(NL.health,_value)
 	agent.set_local_state(NL.max_health,_max)
 
-func update_agent_strength(_value,_max):
+func update_agent_strength(delta,_value,_max):
 	agent.set_local_state(NL.strength,_value)
 	agent.set_local_state(NL.max_strength,_max)
 
-func update_agent_mana(_value,_max):
+func update_agent_mana(delta,_value,_max):
 	agent.set_local_state(NL.mana,_value)
 	agent.set_local_state(NL.max_mana,_max)
 
-func update_agent_stamina(_value,_max):
+func update_agent_stamina(delta,_value,_max):
 	agent.set_local_state(NL.stamina,_value)
 	agent.set_local_state(NL.max_stamina,_max)
 
-func update_agent_thirst(_value,_max):
+func update_agent_thirst(delta,_value,_max):
 	agent.set_local_state(NL.thirst,_value)
 	agent.set_local_state(NL.max_thirst,_max)
 
-func update_agent_hunger(_value,_max):
+func update_agent_hunger(delta,_value,_max):
 	agent.set_local_state(NL.hunger,_value)
 	agent.set_local_state(NL.max_hunger,_max)
 

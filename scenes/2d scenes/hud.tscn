@@ -77,6 +77,7 @@ base_font = ExtResource("1_cnwah")
 
 [sub_resource type="Theme" id="Theme_7t2kr"]
 default_font = SubResource("FontVariation_6xpj3")
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="GDScript" id="GDScript_5kh0j"]
 script/source = "extends Control
@@ -405,7 +406,7 @@ func character_died():
 
 func refill_health():
 	if stats == null: return
-	stats.change_health(stats.max_health)
+	stats.reset()
 	var sp = stats.root.get_meta(NL.respawn)
 	if sp != null:
 		sp.call_deferred()
@@ -868,17 +869,36 @@ func _load(data:Dictionary):
 script/source = "extends BoxContainer
 
 @onready var vsync_button = $vsync
+@onready var slider_brightness =$brightness
+@onready var slider_contrast =$contrast
+@onready var slider_saturation =$saturation
+
+var environment:Environment
 
 func _ready() -> void:
 	add_to_group(NL.ui_save_load)
-	vsync_button.connect('toggled',set_vsync)
+	get_environment()
+	connect_sliders()
 	
 	var tween = create_tween()
-	tween.tween_interval(0.2)
+	tween.tween_interval(0.1)
 	tween.tween_callback(update_all_settings)
+
+func get_environment():
+	var world_env = get_node('/root/Node3D/WorldEnvironment')
+	environment = world_env.environment
+
+func connect_sliders():
+	vsync_button.connect('toggled',set_vsync)
+	slider_brightness.connect(\"drag_ended\",set_brightness)
+	slider_contrast.connect(\"drag_ended\",set_contrast)
+	slider_saturation.connect(\"drag_ended\",set_saturation)
 
 func update_all_settings():
 	set_vsync(vsync_button.button_pressed)
+	set_brightness(false)
+	set_contrast(false)
+	set_saturation(false)
 
 func set_vsync(value):
 	var mode = DisplayServer.VSYNC_DISABLED 
@@ -886,22 +906,39 @@ func set_vsync(value):
 		mode = DisplayServer.VSYNC_ENABLED
 	DisplayServer.window_set_vsync_mode(mode)
 
-func set_brightness():
-	pass
-	var a = WorldEnvironment.new()
-	
-	
-	get_viewport()
+func set_contrast(changed:bool):
+	if changed: return
+	var value = slider_contrast.value
+	environment.adjustment_contrast = value
+	print(environment.adjustment_contrast)
+
+func set_brightness(changed:bool):
+	if changed: return
+	var value = slider_brightness.value
+	environment.adjustment_brightness = value
+	print(environment.adjustment_brightness)
+
+func set_saturation(changed:bool):
+	if changed: return
+	var value = slider_saturation.value
+	environment.adjustment_saturation = value
+	print(environment.adjustment_saturation)
 
 func _save():
 	var save_dict = {
 		\"node_path\" : get_path(),
 		\"vsync\" : vsync_button.button_pressed,
+		\"brightness\": slider_brightness.value,
+		\"contrast\": slider_contrast.value,
+		\"saturation\": slider_saturation.value,
 	}
 	return save_dict
 
 func _load(data:Dictionary):
 	vsync_button.button_pressed = data.vsync
+	slider_brightness.value = data.brightness
+	slider_contrast.value = data.contrast
+	slider_saturation.value = data.saturation
 "
 
 [sub_resource type="GDScript" id="GDScript_a2aip"]
@@ -1638,14 +1675,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 20.0
+offset_left = 10.0
 offset_top = -20.0
-offset_right = 20.0
+offset_right = 10.0
 offset_bottom = -20.0
 grow_vertical = 2
 
@@ -1658,14 +1694,12 @@ offset_top = -184.0
 offset_right = 313.0
 offset_bottom = 186.0
 grow_vertical = 2
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(0, 185)
 theme = SubResource("Theme_njgrs")
-clip_tabs = false
-all_tabs_in_front = true
-use_hidden_tabs_for_min_size = true
 
 [node name="Control" type="BoxContainer" parent="Settings/TabContainer"]
+visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_tlnk4")
@@ -1813,10 +1847,48 @@ tick_count = 11
 ticks_on_borders = true
 
 [node name="Visual" type="BoxContainer" parent="Settings/TabContainer"]
-visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_yc5g0")
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Visual"]
+layout_mode = 2
+text = "Brightness:"
+
+[node name="brightness" type="HSlider" parent="Settings/TabContainer/Visual"]
+layout_mode = 2
+min_value = 0.5
+max_value = 1.5
+step = 0.1
+value = 1.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="Label2" type="Label" parent="Settings/TabContainer/Visual"]
+layout_mode = 2
+text = "Contrast:"
+
+[node name="contrast" type="HSlider" parent="Settings/TabContainer/Visual"]
+layout_mode = 2
+min_value = 0.5
+max_value = 1.5
+step = 0.1
+value = 1.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="Label3" type="Label" parent="Settings/TabContainer/Visual"]
+layout_mode = 2
+text = "Saturation:"
+
+[node name="saturation" type="HSlider" parent="Settings/TabContainer/Visual"]
+layout_mode = 2
+min_value = 0.5
+max_value = 1.5
+step = 0.1
+value = 1.0
+tick_count = 11
+ticks_on_borders = true
 
 [node name="vsync" type="CheckButton" parent="Settings/TabContainer/Visual"]
 layout_mode = 2
@@ -1825,7 +1897,6 @@ size_flags_vertical = 0
 text = "Vsync"
 
 [node name="Game over" type="NinePatchRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

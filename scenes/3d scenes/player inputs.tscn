@@ -292,6 +292,7 @@ keep_aspect = 0
 current = true
 fov = 90.0
 size = 0.1
+near = 0.1
 far = 50.0
 
 [node name="outline toon shader" type="MeshInstance3D" parent="Camera3D"]
