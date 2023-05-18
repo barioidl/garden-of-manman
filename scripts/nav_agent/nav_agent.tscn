@@ -1,0 +1,124 @@
+[gd_scene load_steps=2 format=3 uid="uid://oqedy8lhq6el"]
+
+[sub_resource type="GDScript" id="GDScript_chuq6"]
+script/source = "extends Node3D
+
+@onready var nav_agent = $NavigationAgent3D
+
+@onready var cast_floor = $\"cast floor\"
+
+var character:Node3D
+var target:Node3D
+var target_pos:=Vector3.ZERO
+
+var agent_radius:=1.0
+var agent_height:=1.0
+
+func _ready() -> void:
+	pass
+
+var dt := 0.0
+func _physics_process(delta: float) -> void:
+	dt = delta
+	if character == null: return
+	update_target()
+	offset_height()
+	
+	var pos = get_next_pos()
+	
+	Interface.walk_to(character,pos)
+	Interface.turn_head(character,target_pos)
+	
+	var mid_pos = Vector3(0,agent_height * 0.5,0)
+	global_position = character.to_global(mid_pos)
+
+
+func get_next_pos()->Vector3:
+	return nav_agent.get_next_path_position()
+
+var update_target_cd := 0.0
+func update_target():
+	if target == null: return
+	update_target_cd -=dt
+	if update_target_cd >0:return
+	update_target_cd = 0.5
+	
+	var dist = target_pos.distance_squared_to(target.global_position)
+	if dist < 0.2:
+		return
+	target_pos = target.global_position
+	nav_agent.target_position = target_pos
+
+var height_offset_cd:=1.0
+func offset_height():
+	height_offset_cd -= dt
+	if height_offset_cd >0:return
+	height_offset_cd = 0.5
+	
+	cast_floor.force_raycast_update()
+	if !cast_floor.is_colliding():
+		nav_agent.agent_height_offset = 0
+		return
+	var floor_point = cast_floor.get_collision_point()
+	var floor_dist = global_position.distance_to(floor_point)
+	nav_agent.agent_height_offset = -floor_dist
+
+
+func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
+	if _character == null: return
+	character = _character
+	cast_floor.add_exception(character)
+	global_position = character.global_position
+	
+	var callable = Callable(get_nav_agent)
+	character.set_meta(NL.get_nav_agent, callable)
+	
+	set_agent_size(size)
+	if _target == target: return
+	if _target is Vector3:
+		target_pos = _target
+		nav_agent.target_position = target_pos
+	elif  _target is Node3D:
+		target = _target
+		target_pos = target.global_position
+		nav_agent.target_position = target_pos
+
+func detach():
+	if character == null: return
+	character.remove_meta(NL.get_nav_agent)
+	cast_floor.remove_exception(character)
+	
+	NavAgentPool.push_agent_3d(self)
+	
+	var input = Interface.get_input(character)
+	if input != null:
+		input.dpad1 = Vector2.ZERO
+		input.dpad2 = Vector2.ZERO
+	
+	character = null
+	target = null
+	target_pos = Vector3.ZERO
+
+func get_nav_agent()->Node3D:
+	return self
+
+func set_agent_size(_size:Vector2):
+	agent_radius = _size.x
+	agent_height = _size.y
+	
+"
+
+[node name="nav agent" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.02105, 31.9479)
+script = SubResource("GDScript_chuq6")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 0.11
+debug_enabled = true
+
+[node name="cast floor" type="RayCast3D" parent="."]
+enabled = false
+exclude_parent = false
+target_position = Vector3(0, -10, 0)

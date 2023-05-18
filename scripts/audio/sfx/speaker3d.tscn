@@ -14,7 +14,7 @@ func play_sfx(audio):
 func finished():
 	remove_from_group('audio_player_3d')
 	var pool :AudioPool= get_parent()
-	pool.add_player_3d(self)
+	pool.push_player_3d(self)
 "
 
 [node name="speaker3d" type="AudioStreamPlayer3D"]

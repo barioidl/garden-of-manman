@@ -36,6 +36,7 @@ PerformanceCap="*res://scripts/performance cap.gd"
 PlayerInputs="*res://scenes/3d scenes/player inputs.tscn"
 Hud="*res://scenes/2d scenes/hud.tscn"
 NL="*res://scripts/name list.gd"
+NavAgentPool="*res://scripts/nav_agent/nav_agent_pool.gd"
 
 [debug]
 

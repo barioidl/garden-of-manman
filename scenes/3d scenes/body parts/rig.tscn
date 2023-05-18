@@ -23,6 +23,7 @@ func _init() -> void:
 	name = 'rig'
 
 func _ready() -> void:
+	if !visible: return
 	use_shape_size()
 	platformer.connect(NL.on_state_changed, state_changed)
 

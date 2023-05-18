@@ -228,8 +228,8 @@ script/source = "extends GOAPAgent
 func _ready() -> void:
 	super._ready()
 	goals = [
-#		GoalJumpscare.new(),
-#		GoalFlee.new(),
+		GoalJumpscare.new(),
+		GoalFlee.new(),
 		GoalEatFood.new()
 	]
 
@@ -309,17 +309,19 @@ script = ExtResource("1_bhlmi")
 [node name="inputs" parent="." instance=ExtResource("2_nkc5e")]
 
 [node name="platformer" parent="." instance=ExtResource("3_lrbm0")]
-horizontal_speed = 2.0
+horizontal_speed = 4.0
 sneak_speed = 0.4
 jump_height = 4.0
 extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_nxtod")]
+hunger = 5.0
 
 [node name="fall_damage" parent="stats" instance=ExtResource("5_tp48m")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_g0jqh")]
+time_scale = 0.1
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
@@ -333,7 +335,6 @@ kill_sfx = ExtResource("8_dey3p")
 turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
-process_mode = 4
 script = SubResource("GDScript_g145v")
 loop_plan = true
 
@@ -379,7 +380,7 @@ target = NodePath("../../head")
 
 [node name="face" type="Sprite3D" parent="body/body/head"]
 transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 0, 0)
-cast_shadow = 0
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -426,9 +427,9 @@ legs = [NodePath("top left feet/leg ik tl"), NodePath("bottom right feet/leg ik 
 body_mid_pos = Vector3(0, 0.1, 0)
 
 [node name="top left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.683012, -0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, 0.707107, 0, 2, 0)
+transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, 0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -1.5, 0)
+target_position = Vector3(-3, -2.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -438,9 +439,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="top right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.683012, 0.183013, -0.707107, 0.258819, 0.965927, 0, 0.683012, -0.183013, -0.707107, 0, 2, 0)
+transform = Transform3D(-0.707106, 0, -0.707107, 0, 1, 0, 0.707106, 0, -0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -1.5, 0)
+target_position = Vector3(-3, -2.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -450,9 +451,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.683012, -0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, 0.707107, 0, 2, 0)
+transform = Transform3D(0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, 0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -1.5, 0)
+target_position = Vector3(-3, -2.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 
@@ -462,9 +463,9 @@ top_level = true
 script = ExtResource("23_oikep")
 
 [node name="bottom right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(-0.683012, 0.183013, 0.707107, 0.258819, 0.965927, 0, -0.683012, 0.183013, -0.707107, 0, 2, 0)
+transform = Transform3D(-0.707106, 0, 0.707107, 0, 1, 0, -0.707106, 0, -0.707107, 0, 2, 0)
 exclude_parent = false
-target_position = Vector3(-3, -1.5, 0)
+target_position = Vector3(-3, -2.5, 0)
 script = ExtResource("22_crgkt")
 exception = NodePath("../../..")
 

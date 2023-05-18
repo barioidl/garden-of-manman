@@ -46,6 +46,7 @@ func _ready() -> void:
 
 
 func change_health(delta):
+	if !has_health: return
 	if delta == 0:return
 	health = clampf(health + delta, 0, max_health)
 	emit_signal(NL.health_updated, delta, health, max_health)
@@ -54,26 +55,31 @@ func change_health(delta):
 		emit_signal('die')
 
 func change_strength(delta):
+	if !has_strength: return
 	if delta == 0:return
 	strength = clampf(strength + delta, 0, max_strength)
 	emit_signal(NL.strength_updated, delta, strength, max_strength)
 
 func change_mana(delta):
+	if !has_mana: return
 	if delta == 0:return
 	mana = clampf(mana + delta, 0, max_mana)
 	emit_signal(NL.mana_updated, delta, mana, max_mana)
 
 func change_stamina(delta):
+	if !has_stamina: return
 	if delta == 0:return
 	stamina = clampf(stamina + delta, 0, max_stamina)
 	emit_signal(NL.stamina_updated, delta, stamina, max_stamina)
 
 func change_thirst(delta):
+	if !has_thirst: return
 	if delta == 0:return
 	thirst = clampf(thirst + delta, 0, max_thirst)
 	emit_signal(NL.thirst_updated, delta, thirst, max_thirst)
 
 func change_hunger(delta):
+	if !has_hunger: return
 	if delta == 0:return
 	hunger = clampf(hunger + delta, 0, max_hunger)
 	emit_signal(NL.hunger_updated, delta, hunger, max_hunger)

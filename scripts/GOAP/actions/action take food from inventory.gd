@@ -4,8 +4,8 @@ class_name ActionTakeFoodFromItem
 func name()->StringName:
 	return 'A take food from item'
 
-func get_cost(self_state:Dictionary)->int:
-	return 5
+func get_cost(self_state:Dictionary)-> float:
+	return 1
 
 func is_valid(self_state:Dictionary)->bool:
 	return false

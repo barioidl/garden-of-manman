@@ -910,19 +910,16 @@ func set_contrast(changed:bool):
 	if changed: return
 	var value = slider_contrast.value
 	environment.adjustment_contrast = value
-	print(environment.adjustment_contrast)
 
 func set_brightness(changed:bool):
 	if changed: return
 	var value = slider_brightness.value
 	environment.adjustment_brightness = value
-	print(environment.adjustment_brightness)
 
 func set_saturation(changed:bool):
 	if changed: return
 	var value = slider_saturation.value
 	environment.adjustment_saturation = value
-	print(environment.adjustment_saturation)
 
 func _save():
 	var save_dict = {
@@ -1699,7 +1696,6 @@ pivot_offset = Vector2(0, 185)
 theme = SubResource("Theme_njgrs")
 
 [node name="Control" type="BoxContainer" parent="Settings/TabContainer"]
-visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_tlnk4")
@@ -1847,6 +1843,7 @@ tick_count = 11
 ticks_on_borders = true
 
 [node name="Visual" type="BoxContainer" parent="Settings/TabContainer"]
+visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_yc5g0")

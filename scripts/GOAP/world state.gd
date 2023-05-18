@@ -41,8 +41,8 @@ func get_nodes(group:StringName)->Array:
 
 func get_closest_node_3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
 	var nodes := get_nodes(group)
-	var closest_node:Node3D=null
-	var min_distance_sq := max_distance*max_distance
+	var closest_node :Node3D= null
+	var min_distance_sq := max_distance * max_distance
 	for node in nodes:
 		if node == null:
 			continue

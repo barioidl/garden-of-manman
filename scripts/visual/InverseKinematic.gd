@@ -6,7 +6,7 @@ class_name CCDIK
 @export var chain_length:=2
 @export var copy_rotation:=false
 @export var joints_per_frame:= 5
-@export var solve_backward:=false
+@export var solve_backward:= true
 @export var average_weight:=0.75
 @export var accuracy:=0.01
 
