@@ -1,0 +1,357 @@
+[gd_scene load_steps=55 format=3 uid="uid://cckwbuxdsiqbp"]
+
+[sub_resource type="GDScript" id="GDScript_v6bp2"]
+script/source = "#@tool
+extends Node
+
+@export var curve_0_0 := Curve.new()
+@export var curve_0_1 := Curve.new()
+@export var curve_0_2 := Curve.new()
+@export var curve_0_3 := Curve.new()
+
+@export var curve_1_0 := Curve.new()
+@export var curve_1_1 := Curve.new()
+@export var curve_1_2 := Curve.new()
+@export var curve_1_3 := Curve.new()
+@export var curve_1_4 := Curve.new()
+@export var curve_1_5 := Curve.new()
+
+@export var curve_2_0 := Curve.new()
+@export var curve_2_1 := Curve.new()
+@export var curve_2_2 := Curve.new()
+@export var curve_2_3 := Curve.new()
+@export var curve_2_4 := Curve.new()
+@export var curve_2_5 := Curve.new()
+
+@export var curve_3_0 := Curve.new()
+@export var curve_3_1 := Curve.new()
+@export var curve_3_2 := Curve.new()
+@export var curve_3_3 := Curve.new()
+@export var curve_3_4 := Curve.new()
+@export var curve_3_5 := Curve.new()
+@export var curve_3_6 := Curve.new()
+
+@export var curve_4_1 := Curve.new()
+@export var curve_4_2 := Curve.new()
+@export var curve_4_3 := Curve.new()
+@export var curve_4_4 := Curve.new()
+@export var curve_4_5 := Curve.new()
+@export var curve_4_6 := Curve.new()
+@export var curve_4_7 := Curve.new()
+
+@export var curve_5_1 := Curve.new()
+@export var curve_5_2 := Curve.new()
+@export var curve_5_3 := Curve.new()
+@export var curve_5_4 := Curve.new()
+@export var curve_5_5 := Curve.new()
+@export var curve_5_6 := Curve.new()
+@export var curve_5_7 := Curve.new()
+
+@export var curve_6_2 := Curve.new()
+@export var curve_6_3 := Curve.new()
+@export var curve_6_4 := Curve.new()
+@export var curve_6_5 := Curve.new()
+@export var curve_6_6 := Curve.new()
+@export var curve_6_7 := Curve.new()
+@export var curve_6_8 := Curve.new()
+
+@export var curve_7_4 := Curve.new()
+@export var curve_7_5 := Curve.new()
+@export var curve_7_6 := Curve.new()
+@export var curve_7_7 := Curve.new()
+@export var curve_7_8 := Curve.new()
+
+@export var curve_8_6 := Curve.new()
+@export var curve_8_7 := Curve.new()
+@export var curve_8_8 := Curve.new()
+
+@export var curve_9_9 := Curve.new()
+
+func sample(x,y,offset) -> float:
+	var _name = \"curve_\"+str(x)+\"_\"+str(y)
+	var curve = get(_name)
+	if curve == null:
+		curve = curve_0_0
+	return curve.sample(offset)
+
+#func _ready() -> void:
+#	for x in range(0,9):
+#		for y in range(0,9):
+#			bake_curve(x,y)
+#
+#func bake_curve(x:float, y:float):
+#	var _name = \"curve_\"+str(x)+\"_\"+str(y)
+#
+#	var curve = Curve.new()
+#	curve.add_point(Vector2.ZERO,x,x)
+#	curve.add_point(Vector2.ONE,y,y)
+#	set(_name,curve)
+"
+
+[sub_resource type="Curve" id="Curve_c8f5n"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_3awrv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.0, 1.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_3b6ey"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.0, 2.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jtvth"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 3.0, 3.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2274v"]
+_data = [Vector2(0, 0), 1.0, 1.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_qltmn"]
+_data = [Vector2(0, 0), 1.0, 1.0, 0, 0, Vector2(1, 1), 1.0, 1.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_o0kfd"]
+_data = [Vector2(0, 0), 1.0, 1.0, 0, 0, Vector2(1, 1), 2.0, 2.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_o2dvh"]
+_data = [Vector2(0, 0), 1.0, 1.0, 0, 0, Vector2(1, 1), 3.0, 3.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_g5b0t"]
+_data = [Vector2(0, 0), 1.0, 1.0, 0, 0, Vector2(1, 1), 4.0, 4.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_fgfxr"]
+_data = [Vector2(0, 0), 1.0, 1.0, 0, 0, Vector2(1, 1), 5.0, 5.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_pwoys"]
+_data = [Vector2(0, 0), 2.0, 2.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_a1rjy"]
+_data = [Vector2(0, 0), 2.0, 2.0, 0, 0, Vector2(1, 1), 1.0, 1.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_cs4u7"]
+_data = [Vector2(0, 0), 2.0, 2.0, 0, 0, Vector2(1, 1), 2.0, 2.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_lbxwj"]
+_data = [Vector2(0, 0), 2.0, 2.0, 0, 0, Vector2(1, 1), 3.0, 3.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_dh5fc"]
+_data = [Vector2(0, 0), 2.0, 2.0, 0, 0, Vector2(1, 1), 4.0, 4.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ywt06"]
+_data = [Vector2(0, 0), 2.0, 2.0, 0, 0, Vector2(1, 1), 5.0, 5.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_gvs0g"]
+_data = [Vector2(0, 0), 3.0, 3.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_r1sfl"]
+_data = [Vector2(0, 0), 3.0, 3.0, 0, 0, Vector2(1, 1), 1.0, 1.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_mp560"]
+_data = [Vector2(0, 0), 3.0, 3.0, 0, 0, Vector2(1, 1), 2.0, 2.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_njwaj"]
+_data = [Vector2(0, 0), 3.0, 3.0, 0, 0, Vector2(1, 1), 3.0, 3.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_vfvt5"]
+_data = [Vector2(0, 0), 3.0, 3.0, 0, 0, Vector2(1, 1), 4.0, 4.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_c1q75"]
+_data = [Vector2(0, 0), 3.0, 3.0, 0, 0, Vector2(1, 1), 5.0, 5.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ixnoq"]
+_data = [Vector2(0, 0), 3.0, 3.0, 0, 0, Vector2(1, 1), 6.0, 6.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_0dv5v"]
+_data = [Vector2(0, 0), 4.0, 4.0, 0, 0, Vector2(1, 1), 1.0, 1.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wxqb6"]
+_data = [Vector2(0, 0), 4.0, 4.0, 0, 0, Vector2(1, 1), 2.0, 2.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_6un21"]
+_data = [Vector2(0, 0), 4.0, 4.0, 0, 0, Vector2(1, 1), 3.0, 3.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xbdbe"]
+_data = [Vector2(0, 0), 4.0, 4.0, 0, 0, Vector2(1, 1), 4.0, 4.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jp2uf"]
+_data = [Vector2(0, 0), 4.0, 4.0, 0, 0, Vector2(1, 1), 5.0, 5.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_bxasu"]
+_data = [Vector2(0, 0), 4.0, 4.0, 0, 0, Vector2(1, 1), 6.0, 6.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_3k2j5"]
+_data = [Vector2(0, 0), 4.0, 4.0, 0, 0, Vector2(1, 1), 7.0, 7.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_8hpra"]
+_data = [Vector2(0, 0), 5.0, 5.0, 0, 0, Vector2(1, 1), 1.0, 1.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_m0lgs"]
+_data = [Vector2(0, 0), 5.0, 5.0, 0, 0, Vector2(1, 1), 2.0, 2.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_q8anl"]
+_data = [Vector2(0, 0), 5.0, 5.0, 0, 0, Vector2(1, 1), 3.0, 3.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_b0alg"]
+_data = [Vector2(0, 0), 5.0, 5.0, 0, 0, Vector2(1, 1), 4.0, 4.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_yytr0"]
+_data = [Vector2(0, 0), 5.0, 5.0, 0, 0, Vector2(1, 1), 5.0, 5.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_3bqes"]
+_data = [Vector2(0, 0), 5.0, 5.0, 0, 0, Vector2(1, 1), 6.0, 6.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2ukhv"]
+_data = [Vector2(0, 0), 5.0, 5.0, 0, 0, Vector2(1, 1), 7.0, 7.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_npmfc"]
+_data = [Vector2(0, 0), 6.0, 6.0, 0, 0, Vector2(1, 1), 2.0, 2.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ovbce"]
+_data = [Vector2(0, 0), 6.0, 6.0, 0, 0, Vector2(1, 1), 3.0, 3.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ntch1"]
+_data = [Vector2(0, 0), 6.0, 6.0, 0, 0, Vector2(1, 1), 4.0, 4.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_j2tmq"]
+_data = [Vector2(0, 0), 6.0, 6.0, 0, 0, Vector2(1, 1), 5.0, 5.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wjty4"]
+_data = [Vector2(0, 0), 6.0, 6.0, 0, 0, Vector2(1, 1), 6.0, 6.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7u1ys"]
+_data = [Vector2(0, 0), 6.0, 6.0, 0, 0, Vector2(1, 1), 7.0, 7.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_651rg"]
+_data = [Vector2(0, 0), 6.0, 6.0, 0, 0, Vector2(1, 1), 8.0, 8.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_k6qpk"]
+_data = [Vector2(0, 0), 7.0, 7.0, 0, 0, Vector2(1, 1), 4.0, 4.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_iyj1g"]
+_data = [Vector2(0, 0), 7.0, 7.0, 0, 0, Vector2(1, 1), 5.0, 5.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jlape"]
+_data = [Vector2(0, 0), 7.0, 7.0, 0, 0, Vector2(1, 1), 6.0, 6.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_vutdf"]
+_data = [Vector2(0, 0), 7.0, 7.0, 0, 0, Vector2(1, 1), 7.0, 7.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_f36ux"]
+_data = [Vector2(0, 0), 7.0, 7.0, 0, 0, Vector2(1, 1), 8.0, 8.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_bby2g"]
+_data = [Vector2(0, 0), 8.0, 8.0, 0, 0, Vector2(1, 1), 6.0, 6.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_yjscc"]
+_data = [Vector2(0, 0), 8.0, 8.0, 0, 0, Vector2(1, 1), 7.0, 7.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_othwv"]
+_data = [Vector2(0, 0), 8.0, 8.0, 0, 0, Vector2(1, 1), 8.0, 8.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_f2g4o"]
+_data = [Vector2(0, 0), 0.0, 9.0, 0, 0, Vector2(1, 1), 9.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="curves" type="Node"]
+script = SubResource("GDScript_v6bp2")
+curve_0_0 = SubResource("Curve_c8f5n")
+curve_0_1 = SubResource("Curve_3awrv")
+curve_0_2 = SubResource("Curve_3b6ey")
+curve_0_3 = SubResource("Curve_jtvth")
+curve_1_0 = SubResource("Curve_2274v")
+curve_1_1 = SubResource("Curve_qltmn")
+curve_1_2 = SubResource("Curve_o0kfd")
+curve_1_3 = SubResource("Curve_o2dvh")
+curve_1_4 = SubResource("Curve_g5b0t")
+curve_1_5 = SubResource("Curve_fgfxr")
+curve_2_0 = SubResource("Curve_pwoys")
+curve_2_1 = SubResource("Curve_a1rjy")
+curve_2_2 = SubResource("Curve_cs4u7")
+curve_2_3 = SubResource("Curve_lbxwj")
+curve_2_4 = SubResource("Curve_dh5fc")
+curve_2_5 = SubResource("Curve_ywt06")
+curve_3_0 = SubResource("Curve_gvs0g")
+curve_3_1 = SubResource("Curve_r1sfl")
+curve_3_2 = SubResource("Curve_mp560")
+curve_3_3 = SubResource("Curve_njwaj")
+curve_3_4 = SubResource("Curve_vfvt5")
+curve_3_5 = SubResource("Curve_c1q75")
+curve_3_6 = SubResource("Curve_ixnoq")
+curve_4_1 = SubResource("Curve_0dv5v")
+curve_4_2 = SubResource("Curve_wxqb6")
+curve_4_3 = SubResource("Curve_6un21")
+curve_4_4 = SubResource("Curve_xbdbe")
+curve_4_5 = SubResource("Curve_jp2uf")
+curve_4_6 = SubResource("Curve_bxasu")
+curve_4_7 = SubResource("Curve_3k2j5")
+curve_5_1 = SubResource("Curve_8hpra")
+curve_5_2 = SubResource("Curve_m0lgs")
+curve_5_3 = SubResource("Curve_q8anl")
+curve_5_4 = SubResource("Curve_b0alg")
+curve_5_5 = SubResource("Curve_yytr0")
+curve_5_6 = SubResource("Curve_3bqes")
+curve_5_7 = SubResource("Curve_2ukhv")
+curve_6_2 = SubResource("Curve_npmfc")
+curve_6_3 = SubResource("Curve_ovbce")
+curve_6_4 = SubResource("Curve_ntch1")
+curve_6_5 = SubResource("Curve_j2tmq")
+curve_6_6 = SubResource("Curve_wjty4")
+curve_6_7 = SubResource("Curve_7u1ys")
+curve_6_8 = SubResource("Curve_651rg")
+curve_7_4 = SubResource("Curve_k6qpk")
+curve_7_5 = SubResource("Curve_iyj1g")
+curve_7_6 = SubResource("Curve_jlape")
+curve_7_7 = SubResource("Curve_vutdf")
+curve_7_8 = SubResource("Curve_f36ux")
+curve_8_6 = SubResource("Curve_bby2g")
+curve_8_7 = SubResource("Curve_yjscc")
+curve_8_8 = SubResource("Curve_othwv")
+curve_9_9 = SubResource("Curve_f2g4o")

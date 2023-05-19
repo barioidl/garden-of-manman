@@ -14,7 +14,6 @@ func change_hunger(body,delta:=-1.0)->bool:
 		return false
 	var meta = body.get_meta(NL.change_hunger)
 	meta.call(delta)
-	print('changed hunger through interface')
 	return true
 
 func stunt(body,duration:=0.5):

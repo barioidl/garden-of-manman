@@ -91,9 +91,9 @@ character = NodePath("../spider")
 target = NodePath("../timmy")
 
 [node name="food" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5596, 0)
 
 [node name="ItemSpawner" type="Sprite3D" parent="food"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7183, 2.02869, 1.15247)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("7_ekvcr")
@@ -101,7 +101,15 @@ script = ExtResource("7_pmy02")
 item = ExtResource("8_tyqn8")
 
 [node name="ItemSpawner2" type="Sprite3D" parent="food"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.52456, 2.25025, -7.66513)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.59638, 0, 0)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("7_ekvcr")
+script = ExtResource("7_pmy02")
+item = ExtResource("8_tyqn8")
+
+[node name="ItemSpawner3" type="Sprite3D" parent="food"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.84281, 0, 0)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("7_ekvcr")

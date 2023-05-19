@@ -29,14 +29,15 @@ driver/driver=""
 [autoload]
 
 AudioPool="*res://scripts/audio/audio_pool.gd"
-Interface="*res://scripts/interface_accessor.gd"
-WorldState="*res://scripts/GOAP/world state.gd"
+NavAgentPool="*res://scripts/nav_agent/nav_agent_pool.gd"
+Curves="*res://data/curves.tscn"
 Goap="*res://scripts/GOAP/implementation/goap.gd"
+WorldState="*res://scripts/GOAP/world state.gd"
+Interface="*res://scripts/interface_accessor.gd"
 PerformanceCap="*res://scripts/performance cap.gd"
 PlayerInputs="*res://scenes/3d scenes/player inputs.tscn"
 Hud="*res://scenes/2d scenes/hud.tscn"
 NL="*res://scripts/name list.gd"
-NavAgentPool="*res://scripts/nav_agent/nav_agent_pool.gd"
 
 [debug]
 

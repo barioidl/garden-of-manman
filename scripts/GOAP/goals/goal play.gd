@@ -1,14 +1,14 @@
-extends Resource
-class_name GOAPGoal
+extends GOAPGoal
+class_name GoalPlay
 
 func name() -> StringName:
-	return 'G default'
+	return 'G play'
 
 func is_valid(local_state:Dictionary)->bool:
 	return true
 
 func priority(local_state:Dictionary)->float:
-	return 1
+	return 0.6
 
 func get_result(local_state:Dictionary)->Dictionary:
 	return{}

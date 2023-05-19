@@ -228,9 +228,10 @@ script/source = "extends GOAPAgent
 func _ready() -> void:
 	super._ready()
 	goals = [
+		GoalEatFood.new(),
 		GoalJumpscare.new(),
-		GoalFlee.new(),
-		GoalEatFood.new()
+#		GoalFlee.new(),
+#		GoalPlay.new(),
 	]
 
 "
@@ -321,6 +322,7 @@ hunger = 8.0
 [node name="fall_damage" parent="stats" instance=ExtResource("5_tp48m")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_g0jqh")]
+time_scale = 0.5
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 

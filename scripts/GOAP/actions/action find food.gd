@@ -41,8 +41,9 @@ func perform(local_state:Dictionary,time:float)-> bool:
 		agent.attach_to(root,food)
 		return false
 	
-	var agent = root.get_meta(NL.get_nav_agent).call()
-	agent.detach()
+	if root.has_meta(NL.get_nav_agent):
+		var agent = root.get_meta(NL.get_nav_agent).call()
+		agent.detach()
 	
 	var input = Interface.get_input(root)
 	if Interface.is_hotbar_full(root):
