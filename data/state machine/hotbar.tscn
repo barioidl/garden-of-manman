@@ -83,7 +83,9 @@ func setup_item(id,child):
 
 func drop_item(id:int,target:=Vector3.ZERO,strength:=0.2):
 	if id >= hotbar_items.size():return
-	var drop_item:ItemOverworld=hotbar_items[id]
+	if !is_instance_valid(hotbar_items[id]):
+		return
+	var drop_item:ItemOverworld= hotbar_items[id]
 	if drop_item == null: return
 	hotbar_items[id] = null
 #	hands[id].visible = true

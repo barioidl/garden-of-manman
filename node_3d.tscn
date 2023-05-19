@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=15 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
 [ext_resource type="ArrayMesh" uid="uid://bgswj0iu3uu27" path="res://assets/borga map/map path finding.obj" id="2_3igbo"]
@@ -9,6 +9,15 @@
 [ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="7_ekvcr"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_pmy02"]
 [ext_resource type="Resource" uid="uid://blyxj3d3wn6vs" path="res://data/items/food generic.tres" id="8_tyqn8"]
+
+[sub_resource type="GDScript" id="GDScript_gvegq"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	Hud.change_state(Hud.states.gameplay) # Replace with function body.
+"
 
 [sub_resource type="Environment" id="Environment_pjwlt"]
 adjustment_enabled = true
@@ -44,6 +53,7 @@ func end():
 "
 
 [node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_gvegq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pjwlt")

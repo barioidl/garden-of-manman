@@ -42,6 +42,11 @@ var max_thirst := &'max_thirst'
 var hunger := &'hunger'
 var max_hunger := &'max_hunger'
 
+var jumpscare := &'jumpscare'
+var player_fear := &'player_fear'
+
+var head := &'head'
+
 func list_of_group_names():pass
 var player := &'player'
 

@@ -1,5 +1,4 @@
 extends Node3D
-class_name Player
 
 @onready var camera3d = $Camera3D
 var character:Node3D
@@ -14,7 +13,16 @@ var invert_y :=1
 func _ready():
 	camera3d.current = true
 
-func attach_to(_character):
+func attach_to(_character:Node3D):
+	if _character == null:
+		character = null
+		input = null
+		head = null
+		return
+	if _character == character:
+		return
+	if character != null:
+		character.remove_from_group(NL.player)
 	character = _character
 	character.add_to_group(NL.player)
 	input = character.get_node('inputs')

@@ -121,10 +121,11 @@ func debug_local_state():
 func debug_plan():
 	if debug_display == null: return
 	var content = planner.print_plan(current_plan)
-	debug_display.set_content('goap_plan',content)
+	debug_display.set_content('plan',content)
 	var goal_name = current_goal.name()
-	goal_name +=str(current_goal.priority(local_state))
-	debug_display.set_content('current_goal', goal_name)
+	goal_name +=",cost: " 
+	goal_name+= str(current_goal.priority(local_state))
+	debug_display.set_content('goal', goal_name)
 
 func get_string(_value)->String:
 	if _value == null:

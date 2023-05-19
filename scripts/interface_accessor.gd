@@ -31,14 +31,13 @@ func walk_to(body:Node3D,target:Vector3)->bool:
 	walk_to.call(target)
 	return true
 
-func turn_head(body:Node3D, target:Vector3) -> bool:
+func turn_head(body:Node3D, target:Vector3, speed:=1.0) -> bool:
 	if body == null:
 		return false
 	if !body.has_meta(NL.turn_head_toward):
 		return false
 	var turn_head = body.get_meta(NL.turn_head_toward)
-	turn_head.call(target)
-	return true
+	return turn_head.call(target,speed)
 
 
 func get_input(body:Node3D)->Node:

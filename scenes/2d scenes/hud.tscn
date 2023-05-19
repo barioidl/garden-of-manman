@@ -891,7 +891,9 @@ func _ready() -> void:
 	tween.tween_callback(update_all_settings)
 
 func get_environment():
-	var world_env = get_node('/root/Node3D/WorldEnvironment')
+	var world_env = get_node_or_null('/root/Node3D/WorldEnvironment')
+	if world_env == null:
+		return
 	environment = world_env.environment
 
 func connect_sliders():
@@ -915,16 +917,19 @@ func set_vsync(value):
 func set_contrast(changed:bool):
 	if changed: return
 	var value = slider_contrast.value
+	if environment == null: return
 	environment.adjustment_contrast = value
 
 func set_brightness(changed:bool):
 	if changed: return
 	var value = slider_brightness.value
+	if environment == null: return
 	environment.adjustment_brightness = value
 
 func set_saturation(changed:bool):
 	if changed: return
 	var value = slider_saturation.value
+	if environment == null: return
 	environment.adjustment_saturation = value
 
 func _save():
@@ -1060,7 +1065,6 @@ switch_sounds = SubResource("Resource_pi23o")
 roll_sounds = SubResource("Resource_4vadk")
 
 [node name="main page" type="BoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1678,6 +1682,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -1900,6 +1905,7 @@ size_flags_vertical = 0
 text = "Vsync"
 
 [node name="Game over" type="NinePatchRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

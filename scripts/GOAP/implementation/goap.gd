@@ -9,10 +9,9 @@ var planner_action = GOAPPlanner.new()
 
 func _ready() -> void:
 	planner_action.actions = [
-		ActionFight.new(),
-		GOAPAction.new(),
+		ActionScream.new(),
+		ActionTurnTargetHead.new(),
 		ActionFindFood.new(),
-		ActionTakeFoodFromItem.new(),
 		ActionEatFood.new(),
 	]
 

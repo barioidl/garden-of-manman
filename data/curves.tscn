@@ -67,11 +67,12 @@ extends Node
 
 @export var curve_9_9 := Curve.new()
 
-func sample(x,y,offset) -> float:
+func sample(x:int, y:int, offset:float) -> float:
 	var _name = \"curve_\"+str(x)+\"_\"+str(y)
 	var curve = get(_name)
 	if curve == null:
-		curve = curve_0_0
+		push_error('switched null curve')
+		return offset
 	return curve.sample(offset)
 
 #func _ready() -> void:

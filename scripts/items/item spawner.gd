@@ -17,6 +17,7 @@ func spawn_item():
 	var child = item.prefab.instantiate()
 	child.item = item
 	get_parent().add_child(child)
+	child.is_in_overworld = true
 	child.global_transform = global_transform
 	queue_free()
 

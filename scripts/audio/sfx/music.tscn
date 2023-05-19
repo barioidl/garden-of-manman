@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn86b6ccxg726"]
+
+[ext_resource type="PackedScene" uid="uid://c816y8rey5so" path="res://scripts/audio/sfx/speaker.tscn" id="1_h10r1"]
+
+[node name="music" instance=ExtResource("1_h10r1")]
+bus = &"Music"

@@ -44,11 +44,15 @@ func set_interface():
 	var turn_head = Callable(turn_head_toward)
 	root.set_meta(NL.turn_head_toward, turn_head)
 
-func turn_head_toward(target:Vector3, turn_speed:=1.0):
+func turn_head_toward(target:Vector3, turn_speed:=1.0)-> bool:
 	var local:Vector3=head.to_local(target)
 	local.z = 0
+	if local.length_squared() < 0.02:
+		input.dpad2 = Vector2.ZERO
+		return true
 	local = local.normalized()
 	var x = clampf(local.x * 10,-1,1)
 	var y = clampf(local.y * 10,-1,1)
 	input.dpad2.x = x * turn_speed * 50
 	input.dpad2.y = -y * turn_speed * 50
+	return false

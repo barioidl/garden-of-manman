@@ -44,6 +44,8 @@ func print_group(group:Dictionary):
 
 func print_plan(plan:Array)->String:
 	var content :=''
+	if plan.size() <=0:
+		return 'empty.'
 	for step in plan:
 		content += step.name()
 		content += ', '
@@ -139,8 +141,10 @@ func append_action_conditions(conditions:Dictionary, action:GOAPAction, local_st
 
 #prioritize actions with lowest cost
 func get_suitable_actions(id, key, result, local_state: Dictionary)->Array:
-	var min_cost:=10000.0
+	var min_cost:=2.0
 	var actions:=[]
+	if !group_outputs.has(key):
+		return actions
 	for act in group_outputs[key]:
 		if !act.is_valid(local_state):
 			continue#ignore invalid actions
