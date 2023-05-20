@@ -5,7 +5,7 @@ class_name ik_constraint
 @export var min_angles:=Vector3(-90,-90,-90)
 @export var max_angles:=Vector3(90,90,90)
 
-@export var weight := 0.75
+@export var weight := 1.0
 @export var max_speed := 10.0
 
 func _init() -> void:

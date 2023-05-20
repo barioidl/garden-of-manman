@@ -19,7 +19,6 @@ func _ready() -> void:
 	set_interface()
 	get_head_bone()
 	use_shape_size()
-	connect_goap_agent()
 
 func _process(delta: float) -> void:
 	copy_bone_position()
@@ -36,12 +35,8 @@ func connect_hotbar():
 
 func set_interface():
 	root.set_meta(NL.get_target, Callable(get_target))
+	root.set_meta(NL.get_head_position, Callable(get_head_position))
 	root.set_meta(NL.input_use_item, Callable(input_use_item))
-
-func connect_goap_agent():
-	var agent = get_node_or_null("../../goap_agent")
-	if agent == null: return
-	agent.set_local_state(NL.head,self)
 
 func input_use_item(id:int):
 	match id:
@@ -70,6 +65,9 @@ func copy_bone_position():
 	if head_bone == null: return
 	var pos = head_bone.global_position
 	global_position = pos
+
+func get_head_position()->Vector3:
+	return global_position
 
 func get_target(_range:=interact_range)->PhysicsBody3D:
 	if _range > target_position.z:

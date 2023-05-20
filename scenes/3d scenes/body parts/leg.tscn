@@ -1,333 +1,23 @@
-[gd_scene load_steps=21 format=3 uid="uid://cokr73x1eh2bc"]
+[gd_scene load_steps=10 format=3 uid="uid://cokr73x1eh2bc"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1cf1t"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_bd7cy"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_uap0l"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/leg raycast.gd" id="1_x1d4x"]
 [ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_6311e"]
+[ext_resource type="PackedScene" uid="uid://b6876vc1gukeb" path="res://scenes/3d scenes/body parts/leg animation.tscn" id="2_mk4xy"]
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="2_o0xlv"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb animation player.gd" id="3_7v0v1"]
 [ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_nc5ff"]
 [ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="5_vnnro"]
 
-[sub_resource type="Animation" id="Animation_p6tsu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_hn4p0"]
-resource_name = "fall"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.75, 0.75, 0.75)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.349066, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_6dc05"]
-resource_name = "fall_flip"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.349066, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hmd5e"]
-resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.174533, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_lsxmx"]
-resource_name = "idle_flip"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.174533, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_mi4qg"]
-resource_name = "jump"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.785398, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.6, 0.6, 0.6)]
-}
-
-[sub_resource type="Animation" id="Animation_3utyw"]
-resource_name = "jump_flip"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.523599, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.85, 0.85, 0.85)]
-}
-
-[sub_resource type="Animation" id="Animation_fm63v"]
-resource_name = "walk"
-length = 0.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.523599, 0, 0), Vector3(0.523599, 0, 0), Vector3(-0.523599, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.375, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(0.75, 0.75, 0.75), Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_syfdr"]
-resource_name = "walk_flip"
-length = 0.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.523599, 0, 0), Vector3(-0.523599, 0, 0), Vector3(0.523599, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(1, 1, 1), Vector3(0.75, 0.75, 0.75), Vector3(1, 1, 1), Vector3(1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_spb0y"]
-_data = {
-"RESET": SubResource("Animation_p6tsu"),
-"fall": SubResource("Animation_hn4p0"),
-"fall_flip": SubResource("Animation_6dc05"),
-"idle": SubResource("Animation_hmd5e"),
-"idle_flip": SubResource("Animation_lsxmx"),
-"jump": SubResource("Animation_mi4qg"),
-"jump_flip": SubResource("Animation_3utyw"),
-"walk": SubResource("Animation_fm63v"),
-"walk_flip": SubResource("Animation_syfdr")
-}
-
 [sub_resource type="BoxMesh" id="BoxMesh_et74j"]
 
-[node name="leg" type="Node3D" node_paths=PackedStringArray("animation_player", "raycast", "target", "hand")]
+[node name="leg" type="Node3D" node_paths=PackedStringArray("raycast", "target", "hand")]
 script = ExtResource("1_uap0l")
-animation_player = NodePath("RayCast3D/leg animation")
 raycast = NodePath("RayCast3D")
 target = NodePath("ik target")
 hand = NodePath("leg/knee/ankle/foot")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-enabled = false
-exclude_parent = false
-target_position = Vector3(0, -0.5, 0)
-script = ExtResource("1_x1d4x")
-
-[node name="leg animation" type="AnimationPlayer" parent="RayCast3D"]
-playback_process_mode = 0
-speed_scale = 5.0
-libraries = {
-"": SubResource("AnimationLibrary_spb0y")
-}
-script = ExtResource("3_7v0v1")
+[node name="RayCast3D" parent="." instance=ExtResource("2_mk4xy")]
 
 [node name="ik target" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -358,15 +48,13 @@ script = ExtResource("2_o0xlv")
 target = NodePath("../../ik target/ik pole")
 chain_length = 1
 joints_per_frame = 1
-solve_backward = true
 average_weight = 0.1
 accuracy = 0.1
 
 [node name="ik_constraint" type="Node" parent="leg/knee"]
 script = ExtResource("1_bd7cy")
-min_angles = Vector3(0, -30, 0)
-max_angles = Vector3(150, 30, 0)
-weight = 1.0
+min_angles = Vector3(0, 0, 0)
+max_angles = Vector3(150, 0, 0)
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee"]
 transform = Transform3D(0.032, 0, 0, 0, 0.2, 0, 0, 0, 0.032, 0, -0.1, 0)
@@ -396,8 +84,6 @@ script = ExtResource("2_o0xlv")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
-joints_per_frame = 6
-solve_backward = true
 accuracy = 0.005
 
 [node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee/ankle/foot"]

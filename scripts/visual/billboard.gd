@@ -101,9 +101,9 @@ func choose_side():
 	var ref = reference_frame.global_transform.basis
 	
 	var dist_axis:=Vector3.ZERO
-	dist_axis.x = forward.distance_squared_to(ref.x)-2
-	dist_axis.y = forward.distance_squared_to(ref.y)-2
-	dist_axis.z = forward.distance_squared_to(ref.z)-2
+	dist_axis.x = -forward.dot(ref.x)
+	dist_axis.y = -forward.dot(ref.y)
+	dist_axis.z = -forward.dot(ref.z)
 	if axis_ratio != Vector3.ONE:
 		dist_axis *= axis_ratio
 	

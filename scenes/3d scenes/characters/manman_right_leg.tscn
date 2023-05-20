@@ -1,0 +1,132 @@
+[gd_scene load_steps=29 format=3 uid="uid://kdc45ywomfjf"]
+
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_pcyc1"]
+[ext_resource type="Texture2D" uid="uid://c24td08dr45o4" path="res://assets/Textures/manman thigh0005.png" id="1_u3ixe"]
+[ext_resource type="PackedScene" uid="uid://b6876vc1gukeb" path="res://scenes/3d scenes/body parts/leg animation.tscn" id="1_wsnkn"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="2_fx8q2"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_h2wns"]
+[ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="3_df6fj"]
+[ext_resource type="Texture2D" uid="uid://cfmuf3uosfaxg" path="res://assets/Textures/manman thigh0000.png" id="3_gla6l"]
+[ext_resource type="Texture2D" uid="uid://c7ydq3dfj4jjr" path="res://assets/Textures/manman thigh0001.png" id="4_0nb3u"]
+[ext_resource type="Texture2D" uid="uid://b23bs67l8h523" path="res://assets/Textures/manman thigh0002.png" id="5_806r1"]
+[ext_resource type="Texture2D" uid="uid://i1meyejt1ct4" path="res://assets/Textures/manman thigh0003.png" id="6_wpqhj"]
+[ext_resource type="Texture2D" uid="uid://cj83g6ikyykj3" path="res://assets/Textures/manman thigh0004.png" id="7_75t2c"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_ocp20"]
+[ext_resource type="Texture2D" uid="uid://ciklkexkr6j0g" path="res://assets/Textures/manman bottom leg0005.png" id="9_6s1kn"]
+[ext_resource type="Texture2D" uid="uid://cfst6j2qsafog" path="res://assets/Textures/manman bottom leg0000.png" id="10_qo7f1"]
+[ext_resource type="Texture2D" uid="uid://bv74s4cx38umk" path="res://assets/Textures/manman bottom leg0001.png" id="11_ulmm0"]
+[ext_resource type="Texture2D" uid="uid://7imarpy6kjfq" path="res://assets/Textures/manman bottom leg0002.png" id="12_5s8xd"]
+[ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="12_6kmn7"]
+[ext_resource type="Texture2D" uid="uid://cn4lagignpgt" path="res://assets/Textures/manman bottom leg0003.png" id="13_aarlc"]
+[ext_resource type="Texture2D" uid="uid://cjlmhn1372jaa" path="res://assets/Textures/manman bottom leg0004.png" id="14_vmfh1"]
+[ext_resource type="Texture2D" uid="uid://du6td1xpd2qvy" path="res://assets/Textures/manman bottom feet0005.png" id="15_6a8ii"]
+[ext_resource type="Texture2D" uid="uid://cpj5v3k53nusv" path="res://assets/Textures/manman bottom feet0000.png" id="16_r1yy7"]
+[ext_resource type="Texture2D" uid="uid://fmhx45h101pw" path="res://assets/Textures/manman bottom feet0001.png" id="17_80opg"]
+[ext_resource type="Texture2D" uid="uid://cfm1xo26pw13e" path="res://assets/Textures/manman bottom feet0002.png" id="18_77ekv"]
+[ext_resource type="Texture2D" uid="uid://b72g0v5n7dh4g" path="res://assets/Textures/manman bottom feet0003.png" id="19_8n2p4"]
+[ext_resource type="Texture2D" uid="uid://dbxvdjef31nb3" path="res://assets/Textures/manman bottom feet0004.png" id="20_lw6f8"]
+
+[sub_resource type="Resource" id="Resource_oewmv"]
+script = ExtResource("8_ocp20")
+frames = Array[Texture]([ExtResource("3_gla6l"), ExtResource("4_0nb3u"), ExtResource("5_806r1"), ExtResource("6_wpqhj"), ExtResource("7_75t2c"), ExtResource("1_u3ixe")])
+
+[sub_resource type="Resource" id="Resource_mquk2"]
+script = ExtResource("8_ocp20")
+frames = Array[Texture]([ExtResource("10_qo7f1"), ExtResource("11_ulmm0"), ExtResource("12_5s8xd"), ExtResource("13_aarlc"), ExtResource("14_vmfh1"), ExtResource("9_6s1kn")])
+
+[sub_resource type="Resource" id="Resource_ophqb"]
+script = ExtResource("8_ocp20")
+frames = Array[Texture]([ExtResource("16_r1yy7"), ExtResource("17_80opg"), ExtResource("18_77ekv"), ExtResource("19_8n2p4"), ExtResource("20_lw6f8"), ExtResource("15_6a8ii")])
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("raycast", "target", "hand")]
+script = ExtResource("1_pcyc1")
+raycast = NodePath("leg animation")
+target = NodePath("ik target")
+hand = NodePath("right leg/elbow/wrist/hand")
+
+[node name="leg animation" parent="." instance=ExtResource("1_wsnkn")]
+target_position = Vector3(0, -1.25, 0)
+
+[node name="ik target" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.25, 0)
+gizmo_extents = 0.1
+script = ExtResource("2_fx8q2")
+
+[node name="ik pole" type="Marker3D" parent="ik target"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="right leg" type="Marker3D" parent="."]
+gizmo_extents = 0.1
+
+[node name="ik_constraint" type="Node" parent="right leg"]
+script = ExtResource("3_df6fj")
+min_angles = Vector3(-150, -60, -60)
+max_angles = Vector3(60, 60, 60)
+
+[node name="Sprite3D" type="Sprite3D" parent="right leg"]
+transform = Transform3D(0.99546, 0.0218131, 0.0926348, 0, 0.973378, -0.229205, -0.0951683, 0.228165, 0.96896, 0, -0.22, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("1_u3ixe")
+script = ExtResource("2_h2wns")
+sprites = SubResource("Resource_oewmv")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="elbow" type="Marker3D" parent="right leg" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+gizmo_extents = 0.1
+script = ExtResource("12_6kmn7")
+target = NodePath("../../ik target/ik pole")
+chain_length = 1
+joints_per_frame = 1
+average_weight = 0.1
+accuracy = 0.1
+
+[node name="ik_constraint" type="Node" parent="right leg/elbow"]
+script = ExtResource("3_df6fj")
+min_angles = Vector3(0, 0, 0)
+max_angles = Vector3(150, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="right leg/elbow"]
+transform = Transform3D(0.99546, 0.00865867, 0.0947736, 0, 0.995852, -0.0909827, -0.0951683, 0.0905697, 0.991332, 0, -0.25, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("9_6s1kn")
+script = ExtResource("2_h2wns")
+sprites = SubResource("Resource_mquk2")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="wrist" type="Marker3D" parent="right leg/elbow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+gizmo_extents = 0.1
+
+[node name="ik_constraint" type="Node" parent="right leg/elbow/wrist"]
+script = ExtResource("3_df6fj")
+min_angles = Vector3(-90, -30, -90)
+max_angles = Vector3(90, 30, 90)
+
+[node name="Sprite3D" type="Sprite3D" parent="right leg/elbow/wrist"]
+transform = Transform3D(0.995335, -0.000372285, 0.0964732, 0, 0.999993, 0.00385891, -0.0964738, -0.00384092, 0.995328, 0, -0.1, 0.05)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("15_6a8ii")
+script = ExtResource("2_h2wns")
+sprites = SubResource("Resource_ophqb")
+
+[node name="hand" type="Marker3D" parent="right leg/elbow/wrist" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+gizmo_extents = 0.1
+script = ExtResource("12_6kmn7")
+target = NodePath("../../../../ik target")
+chain_length = 3
+copy_rotation = true
+accuracy = 0.005

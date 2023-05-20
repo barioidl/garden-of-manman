@@ -40,12 +40,6 @@ func turn_head(body:Node3D, target:Vector3, speed:=1.0) -> bool:
 	return turn_head.call(target,speed)
 
 
-func get_input(body:Node3D)->Node:
-	if body == null:
-		return null
-	if !body.has_meta(NL.get_inputs):
-		return null
-	return body.get_meta(NL.get_inputs).call()
 
 func is_hotbar_full(body:Node3D)->bool:
 	if body == null:
@@ -54,9 +48,44 @@ func is_hotbar_full(body:Node3D)->bool:
 		return true
 	return body.get_meta(NL.is_hotbar_full).call()
 
+func get_input(body:Node3D)->Node:
+	if body == null:
+		return null
+	if !body.has_meta(NL.get_inputs):
+		return null
+	return body.get_meta(NL.get_inputs).call()
+
 func get_target(body:Node3D)->Node3D:
 	if body == null:
 		return null
 	if !body.has_meta(NL.get_target):
 		return null
 	return body.get_meta(NL.get_target).call()
+
+func get_head_position(body:Node3D)->Vector3:
+	if body == null:
+		return Vector3.ZERO
+	if !body.has_meta(NL.get_head_position):
+		return Vector3.ZERO
+	var meta = body.get_meta(NL.get_head_position)
+	return meta.call()
+
+func attach_nav_agent(body:Node3D,target):
+	if body == null:
+		return null
+	if body.has_meta(NL.get_nav_agent):
+		var agent = body.get_meta(NL.get_nav_agent)
+		agent = agent.call()
+		agent.set_target(target)
+		return
+	var agent = NavAgentPool.get_agent_3d()
+	agent.attach_to(body,target)
+	return
+
+func get_nav_agent(body:Node3D) -> Node3D:
+	if body == null:
+		return null
+	if !body.has_meta(NL.get_nav_agent):
+		return null
+	var meta = body.get_meta(NL.get_nav_agent)
+	return meta.call()

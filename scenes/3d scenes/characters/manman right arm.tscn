@@ -1,0 +1,211 @@
+[gd_scene load_steps=50 format=3 uid="uid://c513h4oo2fkmh"]
+
+[ext_resource type="PackedScene" uid="uid://chk37jh0ixlfc" path="res://scenes/3d scenes/body parts/arm animation.tscn" id="1_0d25e"]
+[ext_resource type="Texture2D" uid="uid://cpuxfa3m1ccrn" path="res://assets/Textures/manman shoulder0005.png" id="1_uqr12"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_wvaqk"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_sc85m"]
+[ext_resource type="Texture2D" uid="uid://djnjv1uwtgrpc" path="res://assets/Textures/manman shoulder0000.png" id="3_p01qj"]
+[ext_resource type="Texture2D" uid="uid://dv02bckk07kww" path="res://assets/Textures/manman shoulder0001.png" id="4_5svq0"]
+[ext_resource type="Texture2D" uid="uid://dgogj78r84qme" path="res://assets/Textures/manman shoulder0002.png" id="5_30hu5"]
+[ext_resource type="Texture2D" uid="uid://cdfprtkadesnq" path="res://assets/Textures/manman shoulder0003.png" id="6_u3jps"]
+[ext_resource type="Texture2D" uid="uid://kuyib7beqagv" path="res://assets/Textures/manman shoulder0004.png" id="7_njtn6"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_lexmb"]
+[ext_resource type="Texture2D" uid="uid://co2eyy8i25ho1" path="res://assets/Textures/manman shoulder0011.png" id="9_jb6qy"]
+[ext_resource type="Texture2D" uid="uid://25ypuob5ktd2" path="res://assets/Textures/manman shoulder0006.png" id="10_ocme5"]
+[ext_resource type="Texture2D" uid="uid://3xa5ohhqf3j" path="res://assets/Textures/manman shoulder0007.png" id="11_hx2bd"]
+[ext_resource type="Texture2D" uid="uid://dhg5jr2bc6v6o" path="res://assets/Textures/manman shoulder0008.png" id="12_0xji8"]
+[ext_resource type="Texture2D" uid="uid://ds47xkull358i" path="res://assets/Textures/manman shoulder0009.png" id="13_05n08"]
+[ext_resource type="Texture2D" uid="uid://1gpkfca6aal0" path="res://assets/Textures/manman shoulder0010.png" id="14_j3jua"]
+[ext_resource type="Texture2D" uid="uid://2wm71h5cuf6i" path="res://assets/Textures/manman shoulder0017.png" id="15_qaai4"]
+[ext_resource type="Texture2D" uid="uid://cdi54up2qkkb6" path="res://assets/Textures/manman shoulder0012.png" id="16_pt6ny"]
+[ext_resource type="Texture2D" uid="uid://chvlqok4f341s" path="res://assets/Textures/manman shoulder0013.png" id="17_8yw87"]
+[ext_resource type="Texture2D" uid="uid://cjl1gyfribghs" path="res://assets/Textures/manman shoulder0014.png" id="18_dyflo"]
+[ext_resource type="Texture2D" uid="uid://celo6stqeb3f2" path="res://assets/Textures/manman shoulder0015.png" id="19_8ehoe"]
+[ext_resource type="Texture2D" uid="uid://b6nof5048h270" path="res://assets/Textures/manman shoulder0016.png" id="20_5jqee"]
+[ext_resource type="Texture2D" uid="uid://onp2w2fk6c8g" path="res://assets/Textures/manman top arm0005.png" id="21_3jamw"]
+[ext_resource type="Texture2D" uid="uid://mndttt4nndum" path="res://assets/Textures/manman top arm0000.png" id="22_0h2n5"]
+[ext_resource type="Texture2D" uid="uid://dsmtj6ifphabr" path="res://assets/Textures/manman top arm0001.png" id="23_5qjkj"]
+[ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="23_mi3rs"]
+[ext_resource type="Texture2D" uid="uid://dmvc6455rowns" path="res://assets/Textures/manman top arm0002.png" id="24_15ad6"]
+[ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="24_og8qn"]
+[ext_resource type="Texture2D" uid="uid://cc5oiwjlwl5gm" path="res://assets/Textures/manman top arm0003.png" id="25_64hfy"]
+[ext_resource type="Texture2D" uid="uid://cg2xietm2sqb6" path="res://assets/Textures/manman top arm0004.png" id="26_n5ey6"]
+[ext_resource type="Texture2D" uid="uid://cabp2dfpvmbs3" path="res://assets/Textures/manman bottom arm0005.png" id="27_yung1"]
+[ext_resource type="Texture2D" uid="uid://cu0nyleasluu0" path="res://assets/Textures/manman bottom arm0000.png" id="28_3i0i4"]
+[ext_resource type="Texture2D" uid="uid://nqpn4uicinre" path="res://assets/Textures/manman bottom arm0001.png" id="29_78jwy"]
+[ext_resource type="Texture2D" uid="uid://bfoynqsmtumai" path="res://assets/Textures/manman bottom arm0002.png" id="30_yn16j"]
+[ext_resource type="Texture2D" uid="uid://db55i21ro4wgt" path="res://assets/Textures/manman bottom arm0003.png" id="31_0chmx"]
+[ext_resource type="Texture2D" uid="uid://cxxt7m3t03mop" path="res://assets/Textures/manman bottom arm0004.png" id="32_csd8d"]
+[ext_resource type="Texture2D" uid="uid://ddyuarfd1t8p0" path="res://assets/Textures/manman hand0005.png" id="33_jbc7e"]
+[ext_resource type="Texture2D" uid="uid://o2gn4drchkqh" path="res://assets/Textures/manman hand0000.png" id="34_umre4"]
+[ext_resource type="Texture2D" uid="uid://5g7m6mf1ubvf" path="res://assets/Textures/manman hand0001.png" id="35_8emi6"]
+[ext_resource type="Texture2D" uid="uid://cwnavmcueclul" path="res://assets/Textures/manman hand0002.png" id="36_8q85p"]
+[ext_resource type="Texture2D" uid="uid://c1h02yviaj7yh" path="res://assets/Textures/manman hand0003.png" id="37_n14wv"]
+[ext_resource type="Texture2D" uid="uid://bor00wfoawrpt" path="res://assets/Textures/manman hand0004.png" id="38_fp02q"]
+[ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="42_ke60h"]
+
+[sub_resource type="Resource" id="Resource_bsjuk"]
+script = ExtResource("8_lexmb")
+frames = Array[Texture]([ExtResource("3_p01qj"), ExtResource("4_5svq0"), ExtResource("5_30hu5"), ExtResource("6_u3jps"), ExtResource("7_njtn6"), ExtResource("1_uqr12")])
+
+[sub_resource type="Resource" id="Resource_iybxd"]
+script = ExtResource("8_lexmb")
+frames = Array[Texture]([ExtResource("10_ocme5"), ExtResource("11_hx2bd"), ExtResource("12_0xji8"), ExtResource("13_05n08"), ExtResource("14_j3jua"), ExtResource("9_jb6qy")])
+
+[sub_resource type="Resource" id="Resource_hm21w"]
+script = ExtResource("8_lexmb")
+frames = Array[Texture]([ExtResource("16_pt6ny"), ExtResource("17_8yw87"), ExtResource("18_dyflo"), ExtResource("19_8ehoe"), ExtResource("20_5jqee"), ExtResource("15_qaai4")])
+
+[sub_resource type="Resource" id="Resource_j48bk"]
+script = ExtResource("8_lexmb")
+frames = Array[Texture]([ExtResource("22_0h2n5"), ExtResource("23_5qjkj"), ExtResource("24_15ad6"), ExtResource("25_64hfy"), ExtResource("26_n5ey6"), ExtResource("21_3jamw")])
+
+[sub_resource type="Resource" id="Resource_g0skq"]
+script = ExtResource("8_lexmb")
+frames = Array[Texture]([ExtResource("28_3i0i4"), ExtResource("29_78jwy"), ExtResource("30_yn16j"), ExtResource("31_0chmx"), ExtResource("32_csd8d"), ExtResource("27_yung1")])
+
+[sub_resource type="Resource" id="Resource_go6np"]
+script = ExtResource("8_lexmb")
+frames = Array[Texture]([ExtResource("34_umre4"), ExtResource("35_8emi6"), ExtResource("36_8q85p"), ExtResource("37_n14wv"), ExtResource("38_fp02q"), ExtResource("33_jbc7e")])
+
+[node name="right shoulder" type="Node3D" node_paths=PackedStringArray("raycast", "target", "hand")]
+script = ExtResource("1_wvaqk")
+raycast = NodePath("arm animation")
+target = NodePath("ik target")
+hand = NodePath("arm/elbow/wrist/hand")
+
+[node name="arm animation" parent="." instance=ExtResource("1_0d25e")]
+target_position = Vector3(0, -1.5, 0)
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.36, 0, 0)
+gizmo_extents = 0.1
+
+[node name="Sprite3D" type="Sprite3D" parent="Marker3D"]
+transform = Transform3D(0.94283, -0.0853907, -0.322151, -3.55272e-15, 0.96662, -0.256216, 0.333277, 0.241568, 0.911357, 7.15256e-07, 0.125, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("1_uqr12")
+script = ExtResource("2_sc85m")
+sprites = SubResource("Resource_bsjuk")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="Node3D" type="Marker3D" parent="."]
+transform = Transform3D(0.579228, -0.579228, -0.573577, 0.707107, 0.707107, 0, 0.40558, -0.40558, 0.819152, 0.304, -0.225, 0.193)
+gizmo_extents = 0.1
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(0.881186, 0.35392, 0.313453, -5.58794e-09, 0.663013, -0.748608, -0.472771, 0.659662, 0.584237, 3.57628e-07, 0.200001, 8.9407e-08)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("9_jb6qy")
+script = ExtResource("2_sc85m")
+sprites = SubResource("Resource_iybxd")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="Node3D2" type="Marker3D" parent="."]
+transform = Transform3D(0.612372, -0.612372, 0.5, 0.707107, 0.707107, 0, -0.353553, 0.353553, 0.866025, 0.375, -0.275, -0.214)
+gizmo_extents = 0.1
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D2"]
+transform = Transform3D(0.927695, -0.00565855, -0.373295, -1.08185e-06, 0.999885, -0.0151593, 0.373338, 0.0140636, 0.927589, -1.3113e-06, 0.199999, 2.08616e-07)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("15_qaai4")
+script = ExtResource("2_sc85m")
+sprites = SubResource("Resource_hm21w")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="ik target" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+top_level = true
+gizmo_extents = 0.1
+script = ExtResource("23_mi3rs")
+
+[node name="ik pole" type="Marker3D" parent="ik target"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="arm" type="Marker3D" parent="."]
+gizmo_extents = 0.1
+
+[node name="ik_constraint" type="Node" parent="arm"]
+script = ExtResource("24_og8qn")
+min_angles = Vector3(-150, -150, -150)
+max_angles = Vector3(150, 150, 150)
+
+[node name="Sprite3D" type="Sprite3D" parent="arm"]
+transform = Transform3D(0.941255, 0.0881864, 0.325978, 0, 0.9653, -0.261142, -0.337695, 0.245801, 0.908595, 0, -0.2, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("21_3jamw")
+script = ExtResource("2_sc85m")
+sprites = SubResource("Resource_j48bk")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="elbow" type="Marker3D" parent="arm" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+gizmo_extents = 0.1
+script = ExtResource("42_ke60h")
+target = NodePath("../../ik target/ik pole")
+chain_length = 1
+joints_per_frame = 1
+average_weight = 0.1
+accuracy = 0.1
+
+[node name="ik_constraint" type="Node" parent="arm/elbow"]
+script = ExtResource("24_og8qn")
+min_angles = Vector3(-150, 0, 0)
+max_angles = Vector3(0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="arm/elbow"]
+transform = Transform3D(0.941256, 0.0178236, 0.337223, 0, 0.998607, -0.0527803, -0.337694, 0.0496798, 0.939944, 4.41074e-06, -0.300026, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("27_yung1")
+script = ExtResource("2_sc85m")
+sprites = SubResource("Resource_g0skq")
+axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="wrist" type="Marker3D" parent="arm/elbow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+gizmo_extents = 0.1
+
+[node name="ik_constraint" type="Node" parent="arm/elbow/wrist"]
+script = ExtResource("24_og8qn")
+min_angles = Vector3(-30, -30, -30)
+max_angles = Vector3(30, 30, 30)
+
+[node name="Sprite3D" type="Sprite3D" parent="arm/elbow/wrist"]
+transform = Transform3D(0.944444, -0.0342218, 0.326882, 0, 0.994564, 0.104123, -0.328668, -0.0983381, 0.939312, 0.05, -0.2, 0.05)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("33_jbc7e")
+script = ExtResource("2_sc85m")
+sprites = SubResource("Resource_go6np")
+axis_ratio = Vector3(1, 0.8, 1)
+
+[node name="hand" type="Marker3D" parent="arm/elbow/wrist" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+gizmo_extents = 0.1
+script = ExtResource("42_ke60h")
+target = NodePath("../../../../ik target")
+chain_length = 3
+copy_rotation = true

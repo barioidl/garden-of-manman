@@ -22,6 +22,7 @@ var bravery := &'bravery'
 
 var plan_width := &'plan_width'
 var plan_depth := &'plan_depth'
+var unique_steps := &'unique_steps'
 
 var has_food := &'has_food'
 var has_drink := &'has_drink'
@@ -34,7 +35,6 @@ var strength := &'strength'
 var max_strength := &'max_strength'
 var mana := &'mana'
 var max_mana := &'max_mana'
-
 var stamina := &'stamina'
 var max_stamina := &'max_stamina'
 var thirst := &'thirst'
@@ -44,8 +44,10 @@ var max_hunger := &'max_hunger'
 
 var jumpscare := &'jumpscare'
 var player_fear := &'player_fear'
+var player_tension := &'player_tension'
 
-var head := &'head'
+var root :=&'root'
+var agent := &'agent'
 
 func list_of_group_names():pass
 var player := &'player'
@@ -73,6 +75,7 @@ var sprint_to_target := &'sprint_to_target'
 var jump_to_target := &'jump_to_target'
 
 var get_target := &'get_target'
+var get_head_position := &'get_head_position'
 var input_use_item := &'input_use_item'
 
 var append_item := &'append_item'

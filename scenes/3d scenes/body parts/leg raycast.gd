@@ -6,6 +6,7 @@ var prev_pos:=Vector3.ZERO
 @export var ignore_distance:= 0.2
 
 @onready var container := $".."
+@onready var animation_player := $AnimationPlayer
 var target:Node3D
 
 func _ready() -> void:
@@ -48,3 +49,6 @@ func tween_target():
 	var rot = global_rotation
 	var rot_tw = create_tween()
 	rot_tw.tween_property(target,'global_rotation', rot, duration)
+
+func play_state(_state:StringName, timescale:float, flip:=false)->bool:
+	return animation_player.play_state(_state,timescale,flip)

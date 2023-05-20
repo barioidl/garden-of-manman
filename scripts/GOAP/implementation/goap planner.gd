@@ -101,8 +101,15 @@ func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionar
 		var key = keys[i]
 		var actions = get_suitable_actions(i, key, conditions[key], local_state)
 		for act in actions:
-			if unique_actions.has(act): continue
+			if unique_actions.has(act): 
+				continue
 			unique_actions.append(act)
+	
+	if local_state.unique_steps:
+		for i in range(unique_actions.size()-1,0,-1):
+			var act = unique_actions[i]
+			if branch[index.plan].has(act):
+				unique_actions.remove_at(i)
 	
 	var new_branches = unique_actions.size()
 	if new_branches <=0: return

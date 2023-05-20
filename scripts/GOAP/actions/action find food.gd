@@ -35,15 +35,12 @@ func perform(local_state:Dictionary,time:float)-> bool:
 		return false
 	
 	if !reached_food(root):
-		if root.has_meta(NL.get_nav_agent):
-			return false
-		var agent = NavAgentPool.get_agent_3d()
-		agent.attach_to(root,food)
+		Interface.attach_nav_agent(root,food)
 		return false
 	
-	if root.has_meta(NL.get_nav_agent):
-		var agent = root.get_meta(NL.get_nav_agent).call()
-		agent.detach()
+	var nav_agent = Interface.get_nav_agent(root)
+	if nav_agent != null:
+		nav_agent.detach()
 	
 	var input = Interface.get_input(root)
 	if Interface.is_hotbar_full(root):

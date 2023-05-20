@@ -33,10 +33,11 @@ func _init() -> void:
 
 func _ready() -> void:
 	planner = Goap.get_action_planner()
-	set_local_state('root',root)
-	set_local_state('agent',self)
+	set_local_state(NL.root,root)
+	set_local_state(NL.agent,self)
 	set_local_state(NL.plan_width,planner_limits.x)
 	set_local_state(NL.plan_depth,planner_limits.y)
+	set_local_state(NL.unique_steps,false)
 	set_interface()
 
 func set_interface():
@@ -72,18 +73,20 @@ func follow_plan():
 
 var generate_cd :=0.0
 func generate_plan():
-	generate_cd -= dt
-	if generate_cd >0:return
+	if generate_cd >0:
+		generate_cd -= dt
+		return
+	if !PerformanceCap.allow_goap_planner(): return
 	generate_cd = 1
 	
-	if !PerformanceCap.allow_goap_planner(): return
 	var best_goal = select_goal()
 	if best_goal == null: return
 	if best_goal == current_goal: return
 	current_goal = best_goal
-	
-	current_plan = planner.get_plan(current_goal, local_state)
 	current_step = 0
+	
+	current_goal.perform(local_state,dt)
+	current_plan = planner.get_plan(current_goal, local_state)
 	
 	debug_plan()
 
@@ -122,9 +125,11 @@ func debug_plan():
 	if debug_display == null: return
 	var content = planner.print_plan(current_plan)
 	debug_display.set_content('plan',content)
+	
+	var cost := str(current_goal.priority(local_state))
 	var goal_name = current_goal.name()
-	goal_name +=",cost: " 
-	goal_name+= str(current_goal.priority(local_state))
+	goal_name +=", score: " 
+	goal_name += cost.left(4)
 	debug_display.set_content('goal', goal_name)
 
 func get_string(_value)->String:

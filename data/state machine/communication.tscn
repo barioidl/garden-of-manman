@@ -13,6 +13,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	owner = root
+	set_interface()
+func set_interface():
 	var callable = Callable(receive_message)
 	root.set_meta(NL.receive_message, callable)
 

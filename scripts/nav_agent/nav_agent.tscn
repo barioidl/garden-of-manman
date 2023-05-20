@@ -74,14 +74,21 @@ func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
 	character.set_meta(NL.get_nav_agent, callable)
 	
 	set_agent_size(size)
-	if _target == target: return
+	set_target(_target)
+
+func set_target(_target):
+	if _target == null: return
 	if _target is Vector3:
+		if target_pos == _target: return
 		target_pos = _target
 		nav_agent.target_position = target_pos
-	elif  _target is Node3D:
+		return
+	if  _target is Node3D:
+		if _target == target: return
 		target = _target
 		target_pos = target.global_position
 		nav_agent.target_position = target_pos
+		return
 
 func detach():
 	if character == null: return
@@ -109,7 +116,6 @@ func set_agent_size(_size:Vector2):
 "
 
 [node name="nav agent" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.02105, 31.9479)
 script = SubResource("GDScript_chuq6")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

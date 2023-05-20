@@ -389,18 +389,14 @@ func change_slider_value(_slider, _value:float, _max:float):
 
 func show_slider(tween_id,slider, transition:float, duration:float):
 	var tween = slider_tweens[tween_id]
-	var tween_killed:=false
-	if tween != null:
-		if tween.is_running():
-			tween_killed = true
-			tween.kill()
-	tween = create_tween()
-	
-	if !tween_killed:
+	if tween != null and tween.is_running():
+		tween.kill()
+	else:
 		slider.visible = true
 		slider.modulate.a = 0
-		tween.tween_property(slider, \"modulate:a\", 1, transition)
 	
+	tween = create_tween()
+	tween.tween_property(slider, \"modulate:a\", 1, transition)
 	tween.tween_interval(duration)
 	tween.tween_property(slider, \"modulate:a\", 0, transition)
 	tween.tween_property(slider, \"visible\", false, 0)
@@ -1065,6 +1061,7 @@ switch_sounds = SubResource("Resource_pi23o")
 roll_sounds = SubResource("Resource_4vadk")
 
 [node name="main page" type="BoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1373,7 +1370,6 @@ script = SubResource("GDScript_moe80")
 duration = 5.0
 
 [node name="health" type="TextureProgressBar" parent="Gameplay/Display stats"]
-visible = false
 layout_mode = 2
 max_value = 10.0
 step = 0.1
@@ -1399,7 +1395,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="strength" type="TextureProgressBar" parent="Gameplay/Display stats"]
-visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
@@ -1425,7 +1420,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="mana" type="TextureProgressBar" parent="Gameplay/Display stats"]
-visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
@@ -1451,7 +1445,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="stamina" type="TextureProgressBar" parent="Gameplay/Display stats"]
-visible = false
 layout_mode = 2
 step = 0.1
 nine_patch_stretch = true
@@ -1476,7 +1469,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="thirst" type="TextureProgressBar" parent="Gameplay/Display stats"]
-visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
@@ -1502,7 +1494,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="hunger" type="TextureProgressBar" parent="Gameplay/Display stats"]
-visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0

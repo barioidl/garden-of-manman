@@ -5,9 +5,9 @@ class_name CCDIK
 @export var target:Node3D
 @export var chain_length:=2
 @export var copy_rotation:=false
-@export var joints_per_frame:= 5
+@export var joints_per_frame:= 3
 @export var solve_backward:= true
-@export var average_weight:=0.75
+@export var average_weight:=0.9
 @export var accuracy:=0.01
 
 var chain_nodes:=Array()
@@ -21,12 +21,8 @@ var dt :=0.0
 func _process(delta: float) -> void:
 	dt = delta
 	solve()
-	reset_scales()
+	reset_joint_scales()
 
-var scale_cd :=0.0
-func reset_scales():
-	for i in chain_nodes:
-		i.scale = Vector3.ONE
 
 func set_up():
 	var node = get_parent()
@@ -78,33 +74,33 @@ func solve():
 		current_joint_id = wrapi(current_joint_id, start, chain_length)
 		solve_joint(current_joint_id)
 
-func copy_target_rotation():
-	var tip = chain_nodes[0]
-	var constraint = constraints[0]
-	tip.global_rotation = target.global_rotation
-	if constraint == null:return
-	var rotation_deg :Vector3= tip.rotation_degrees
-	var min_angles = constraint.min_angles
-	var max_angles = constraint.max_angles
-	tip.rotation_degrees = rotation_deg.clamp(min_angles,max_angles)
-
 func solve_joint(i:int):
 	var joint :Node3D= chain_nodes[i]
 	var constraint :ik_constraint= constraints[i]
 	#rotate to target
 	var e_i:Vector3=global_position-joint.global_position
 	var t_i:Vector3=target.global_position-joint.global_position
-	if e_i == t_i: return
 	var angle = e_i.angle_to(t_i)
+	
 	if constraint != null:
 		var max_speed = constraint.max_speed
-		var weight = constraint.weight*average_weight
-		angle = clampf(angle*weight,-max_speed,max_speed)
+		var weight = constraint.weight * average_weight
+		angle = clampf(angle*weight, 0, max_speed)
 	if angle < (accuracy):return
 	joint.global_rotate(e_i.cross(t_i).normalized(), angle)
 	#clamp axis
 	if constraint == null: return
-	var rotation_deg :Vector3= joint.rotation_degrees
+	var rot_deg :Vector3= joint.rotation_degrees
 	var min_angles = constraint.min_angles
 	var max_angles = constraint.max_angles
-	joint.rotation_degrees = rotation_deg.clamp(min_angles,max_angles)
+	joint.rotation_degrees = rot_deg.clamp(min_angles, max_angles)
+
+func copy_target_rotation():
+	var tip = chain_nodes[0]
+	tip.global_rotation = target.global_rotation
+	var constraint = constraints[0]
+	if constraint == null:return
+	var rotation_deg :Vector3= tip.rotation_degrees
+	var min_angles = constraint.min_angles
+	var max_angles = constraint.max_angles
+	tip.rotation_degrees = rotation_deg.clamp(min_angles,max_angles)

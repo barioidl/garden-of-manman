@@ -298,6 +298,7 @@ far = 50.0
 
 [node name="outline toon shader" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.2)
+visible = false
 mesh = SubResource("PlaneMesh_57txa")
 
 [node name="toon white shader" type="MeshInstance3D" parent="Camera3D"]

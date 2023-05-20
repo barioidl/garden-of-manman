@@ -53,15 +53,13 @@ func bungee_time():
 var on_floor:=false
 var on_wall:=false
 var on_ceiling:=false
-func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	var up_direction:=basis.y
+func _integrate_forces(state: PhysicsDirectBodyState3D):
 	for i in state.get_contact_count():
 		var normal = state.get_contact_local_normal(i)
-		var dist = normal.distance_squared_to(up_direction)
-		
-		if dist < 0.5:
+		var dist = normal.dot(basis.y)
+		if dist > 0.7:#45 degrees
 			on_floor_bungee = bungee_duration
-		if dist > 3.5:
+		elif dist < -0.7:
 			on_ceiling_bungee = bungee_duration
 		else:
 			on_wall_bungee = bungee_duration
