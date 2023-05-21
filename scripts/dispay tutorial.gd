@@ -36,7 +36,7 @@ func get_button_keybinds(action)->String:
 	var keys:=''
 	for i in events.size():
 		if i != 0:
-			keys += ', '
+			keys += ' or '
 		var event = events[i]
 		var input := ''
 		if event is InputEventKey:

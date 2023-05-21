@@ -43,6 +43,9 @@ var hunger := &'hunger'
 var max_hunger := &'max_hunger'
 
 var jumpscare := &'jumpscare'
+var puzzle := &'puzzle'
+var playing := &'playing'
+
 var player_fear := &'player_fear'
 var player_tension := &'player_tension'
 

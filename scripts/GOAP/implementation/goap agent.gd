@@ -24,6 +24,7 @@ var goal_size:=0
 var plan_size:=0
 var current_step:=0
 
+@export var show_local_state := false
 @export var planner_limits:=Vector2(3,6)
 var loop_plan:= false
 @onready var debug_display = get_node_or_null('../debug_display')
@@ -109,6 +110,7 @@ func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
 
 
 func debug_local_state():
+	if !show_local_state: return
 	if debug_display == null: return
 	var keys = local_state.keys()
 	var values = local_state.values()

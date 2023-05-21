@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bhngj5ppbc2dw"]
+[gd_scene load_steps=38 format=3 uid="uid://bhngj5ppbc2dw"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -247,11 +247,8 @@ script/source = "extends Node
 @onready var root = $\"../..\"
 var target:Node3D
 
-@export var jumpscare_range:= 2.5
-@export var puzzle_range:= 25
-
-var jumpscare_score := 0.0
-var puzzle_score := 0.0
+@export var range:= 2.5
+var score := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -262,8 +259,6 @@ var dt :=0.0
 func _process(delta: float) -> void:
 	dt = delta
 	get_scores()
-	scream_counter = 1
-	turn_counter = 2
 
 func set_interface():
 	agent.set_local_state(NL.jumpscare,self)
@@ -280,20 +275,9 @@ func get_scores():
 	var target_pos = target.global_position
 	var root_pos = root.global_position
 	var dist = root_pos.distance_to(target_pos)
-	jumpscare_score = 1 - dist / jumpscare_range
-	jumpscare_score = clampf(jumpscare_score,0,1)
-	
-	puzzle_score = 1 - dist / puzzle_range
-	puzzle_score = clampf(puzzle_score,0,1)
+	score = 1 - dist / range
+	score = clampf(score,0,1)
 
-var scream_counter:=0
-func scream_once()->bool:
-	scream_counter -= 1
-	return scream_counter >= 0
-var turn_counter:=0
-func turn_once()->bool:
-	turn_counter -=1
-	return turn_counter >= 0
 
 @export var scream_sfx:AudioList
 func scream():
@@ -306,6 +290,58 @@ script = ExtResource("11_newbt")
 pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
 streams = Array[AudioStream]([ExtResource("12_hqwsp")])
+
+[sub_resource type="GDScript" id="GDScript_ja3yc"]
+script/source = "extends Node
+
+var score := 0.0
+@export var range:= 25
+
+@onready var agent = get_parent()
+@onready var root = $\"../..\"
+var target:Node3D
+
+func _ready() -> void:
+	set_interface()
+	get_target()
+
+var dt :=0.0
+func _process(delta: float) -> void:
+	dt = delta
+	get_scores()
+
+func set_interface():
+	agent.set_local_state(NL.puzzle,self)
+func get_target():
+	target = get_tree().get_first_node_in_group(NL.player)
+
+var score_cd:=0.0
+func get_scores():
+	if score_cd >0:
+		score_cd -= dt
+		return
+	score_cd = 0.5
+	var target_pos = target.global_position
+	var root_pos = root.global_position
+	var dist = root_pos.distance_to(target_pos)
+	
+	score = 1 - dist / range
+	score = clampf(score,0,1)
+
+func perform(local_state: Dictionary, dt: float)->bool:
+	var pos = root.global_position
+	var point = WorldState.get_farest_node_3d('safepoints',pos)
+	if point == null:
+		return true
+	if point.global_position.distance_squared_to(pos) > 1:
+		Interface.attach_nav_agent(root,point)
+		return false
+	
+	var nav_agent = Interface.get_nav_agent(root)
+	if nav_agent != null:
+		nav_agent.detach()
+	return true
+"
 
 [sub_resource type="GDScript" id="GDScript_17foq"]
 script/source = "extends Label3D
@@ -357,7 +393,6 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_t33xl")]
-hunger = 7.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
 time_scale = 0.2
@@ -381,6 +416,9 @@ script = SubResource("GDScript_g145v")
 [node name="jumpscare" type="Node" parent="goap_agent"]
 script = SubResource("GDScript_7t815")
 scream_sfx = SubResource("Resource_re18v")
+
+[node name="puzzle" type="Node" parent="goap_agent"]
+script = SubResource("GDScript_ja3yc")
 
 [node name="debug_display" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
@@ -407,6 +445,7 @@ script = ExtResource("10_md03h")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79225, 0)
 target_position = Vector3(0, 0, 2)
 debug_shape_thickness = 2
+interact_range = 2.5
 head_margin = 1.0
 connect_to_bone = true
 

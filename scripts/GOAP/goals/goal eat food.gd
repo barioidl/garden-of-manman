@@ -5,8 +5,11 @@ func name() -> StringName:
 	return 'G eat food'
 
 func is_valid(self_state:Dictionary)->bool:
-	var valid = self_state.root.has_meta(NL.change_hunger)
-	return valid
+	if !self_state.root.has_meta(NL.change_hunger):
+		return false
+	if self_state[NL.hunger] <= 0:
+		return false
+	return true
 
 func priority(self_state:Dictionary)-> float:
 	var hunger = self_state[NL.hunger]

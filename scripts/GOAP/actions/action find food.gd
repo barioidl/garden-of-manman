@@ -8,6 +8,9 @@ func name()->StringName:
 
 func is_valid(local_state:Dictionary)->bool:
 	var root = local_state.root
+	var id = get_hotbar_food(root)
+	if id >= 0:
+		return false
 	var food := get_food(root,local_state)
 	return food != null
 
@@ -52,6 +55,17 @@ func perform(local_state:Dictionary,time:float)-> bool:
 		local_state.erase(NL.food)
 	return true
 
+func get_hotbar_food(root) -> int:
+	var get_items = root.get_meta(NL.get_hotbar_items)
+	var hotbar_items :Array= get_items.call()
+	for id in hotbar_items.size():
+		var food = hotbar_items[id]
+		if food == null:
+			continue
+		if !food.is_in_group(NL.food):
+			continue
+		return id
+	return -1
 
 func reached_food(root)->bool:
 	var target = Interface.get_target(root)

@@ -22,9 +22,10 @@ func _physics_process(delta: float) -> void:
 	offset_height()
 	
 	var pos = get_next_pos()
+	pos.y = global_position.y
 	
 	Interface.walk_to(character,pos)
-	Interface.turn_head(character,target_pos)
+	Interface.turn_head(character,pos)
 	
 	if character == null: return
 	var mid_pos = Vector3(0,agent_height * 0.5,0)
@@ -108,9 +109,10 @@ func get_nav_agent()->Node3D:
 func set_agent_size(_size:Vector2):
 	agent_radius = _size.x
 	agent_height = _size.y
-	nav_agent.path_desired_distance = agent_radius
-	nav_agent.target_desired_distance = agent_radius
+#	nav_agent.path_desired_distance = agent_radius
+#	nav_agent.target_desired_distance = agent_radius
 
 func _target_reached() -> void:
+	return
 	print('reached')
 	detach()

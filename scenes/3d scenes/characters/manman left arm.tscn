@@ -35,21 +35,24 @@ frames = Array[Texture]([ExtResource("15_05h1g"), ExtResource("16_edgq1"), ExtRe
 
 [node name="left shoulder" instance=ExtResource("1_er5e1")]
 
-[node name="Marker3D" parent="." index="0"]
+[node name="Marker3D" parent="." index="1"]
 transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.82137e-15, -8.74228e-08, -1, -0.36, 0, 0)
 
-[node name="Node3D" parent="." index="1"]
-transform = Transform3D(-0.579228, 0.579228, 0.573577, 0.707107, 0.707107, 0, -0.40558, 0.40558, -0.819152, -0.304, -0.225, 0.193)
+[node name="Node3D" parent="." index="2"]
+transform = Transform3D(-0.612373, 0.612373, -0.5, 0.707107, 0.707107, 0, 0.353553, -0.353553, -0.866026, -0.304, -0.225, 0.193)
 
-[node name="Node3D2" parent="." index="2"]
-transform = Transform3D(-0.612372, 0.612372, -0.5, 0.707107, 0.707107, 0, 0.353553, -0.353553, -0.866025, -0.375, -0.275, -0.214)
+[node name="Node3D2" parent="." index="3"]
+transform = Transform3D(-0.612372, 0.612372, 0.5, 0.707107, 0.707107, 0, -0.353553, 0.353553, -0.866025, -0.375, -0.275, -0.214)
 
-[node name="Sprite3D" parent="arm" index="0"]
+[node name="Sprite3D" parent="arm" index="1"]
+texture = ExtResource("7_kog8o")
 sprites = SubResource("Resource_7xaav")
 
-[node name="Sprite3D" parent="arm/elbow" index="0"]
+[node name="Sprite3D" parent="arm/elbow" index="1"]
+texture = ExtResource("14_omvpi")
 sprites = SubResource("Resource_vmvi7")
 
-[node name="Sprite3D" parent="arm/elbow/wrist" index="0"]
+[node name="Sprite3D" parent="arm/elbow/wrist" index="1"]
 transform = Transform3D(0.944444, -0.0342218, 0.326882, 0, 0.994564, 0.104123, -0.328668, -0.0983381, 0.939312, -0.05, -0.2, 0.05)
+texture = ExtResource("20_16hox")
 sprites = SubResource("Resource_mdhkq")

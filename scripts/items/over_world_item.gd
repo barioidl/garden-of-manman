@@ -20,6 +20,7 @@ func equip_item(_hotbar,_id:=-1):
 	root = _hotbar.root
 	id=_id
 	is_in_overworld = false
+	toggle_physics()
 	add_collision_exception_with(root)
 	
 	if hotbar.item_holders.size() > id:
@@ -34,7 +35,7 @@ func unequip_item():
 	holder = null
 	id = -1
 	is_in_overworld = true
-	
+	toggle_physics()
 	var tween = create_tween()
 	tween.tween_interval(0.2)
 	tween.tween_callback(reset_exception.bind(root))
@@ -87,7 +88,8 @@ func _physics_process(delta: float) -> void:
 			time = 1
 			move_and_slide()
 
-func toggle_physics(is_overworld):
+func toggle_physics():
 	for shape in get_children():
-		if not shape is CollisionShape3D: continue
-		shape.disabled = !is_overworld
+		if not shape is CollisionShape3D: 
+			continue
+		shape.disabled = !is_in_overworld

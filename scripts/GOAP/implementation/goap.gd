@@ -12,6 +12,7 @@ func _ready() -> void:
 		ActionScream.new(),
 		ActionFaceTarget.new(),
 		ActionAttackTarget.new(),
+		ActionPuzzle.new(),
 		
 		ActionFindFood.new(),
 		ActionEatFood.new(),

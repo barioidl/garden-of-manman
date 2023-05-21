@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=25 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="10_xc4vt"]
 [ext_resource type="Texture2D" uid="uid://1f3gel33ucnd" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button08.png" id="11_jinbs"]
 [ext_resource type="PackedScene" uid="uid://d1v6jou48u5ce" path="res://scenes/3d scenes/garden of manman/plasma_room.tscn" id="13_psdo4"]
+[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="14_575jw"]
 [ext_resource type="Script" path="res://scripts/dispay tutorial.gd" id="14_ftg3b"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
@@ -46,11 +47,11 @@ script/source = "extends Marker3D
 @export var size := Vector3.ONE
 
 func _ready() -> void:
-	return
 	if item == null:
 		print('no item?')
 		return
 	call_deferred('arrange_items')
+
 func arrange_items():
 	var x :float= 0
 	var y :float= 0
@@ -61,7 +62,7 @@ func arrange_items():
 		z = randf_range(-size.z,size.z)
 		var pos = Vector3(x,y,z)
 		spawn(global_position + pos)
-		print(pos)
+#		print(pos)
 
 
 
@@ -76,7 +77,15 @@ func spawn(pos):
 "
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_m1yvh"]
-radius = 1.0
+radius = 2.0
+
+[sub_resource type="GDScript" id="GDScript_vldcx"]
+script/source = "extends Node3D
+
+func _ready() -> void:
+	for i in get_children():
+		i.add_to_group('safepoints')
+"
 
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_gvegq")
@@ -98,7 +107,7 @@ shape = SubResource("ConcavePolygonShape3D_gr585")
 navigation_mesh = SubResource("NavigationMesh_r78ed")
 
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.421, 0, -40.4508)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.421, 0, -40.4508)
 collision_layer = 129
 collision_mask = 129
 max_contacts_reported = 3
@@ -111,8 +120,7 @@ script = ExtResource("4_ebjnm")
 script = ExtResource("3_65qyn")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.07369, 0, -12.3666)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.07525, 0, -39.4441)
 
 [node name="plasma room" parent="." instance=ExtResource("13_psdo4")]
 script = null
@@ -123,35 +131,33 @@ password = 4
 
 [node name="NavigationLink3D" type="NavigationLink3D" parent="plasma room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -29)
-start_position = Vector3(2, 0, 0)
-end_position = Vector3(-2, 0, 0)
+start_position = Vector3(1, 0, 0)
+end_position = Vector3(-1, 0, 0)
 
 [node name="NavigationLink3D2" type="NavigationLink3D" parent="plasma room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -49)
-start_position = Vector3(2, 0, 0)
-end_position = Vector3(-2, 0, 0)
+start_position = Vector3(1, 0, 0)
+end_position = Vector3(-1, 0, 0)
 
-[node name="decors" type="Node3D" parent="plasma room"]
+[node name="invisible wall" type="StaticBody3D" parent="plasma room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -30)
-
-[node name="invisible wall" type="StaticBody3D" parent="plasma room/decors"]
 collision_layer = 128
 collision_mask = 128
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="plasma room/decors/invisible wall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="plasma room/invisible wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1.5, -10)
 shape = SubResource("BoxShape3D_12mfv")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="plasma room/decors/invisible wall"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="plasma room/invisible wall"]
 transform = Transform3D(-3.27835e-08, 0, -1, 0, 1, 0, 0.75, 0, -4.37114e-08, 6, 1.5, -5.15537)
 shape = SubResource("BoxShape3D_12mfv")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="plasma room/decors/invisible wall"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="plasma room/invisible wall"]
 transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -5, 1.5, -16.9285)
 shape = SubResource("BoxShape3D_12mfv")
 
-[node name="Decal" type="Decal" parent="plasma room/decors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49, 0, -7)
+[node name="Decal" type="Decal" parent="plasma room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.51, 0, -37)
 layers = 16
 size = Vector3(25, 0.5, 50)
 texture_albedo = ExtResource("10_kf4k5")
@@ -159,7 +165,7 @@ upper_fade = 0.01
 lower_fade = 0.01
 cull_mask = 1047568
 
-[node name="Decal2" type="Decal" parent="plasma room/decors/Decal"]
+[node name="Decal2" type="Decal" parent="plasma room/Decal"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 layers = 16
 size = Vector3(25, 0.25, 50)
@@ -167,9 +173,6 @@ texture_albedo = ExtResource("11_jinbs")
 upper_fade = 0.01
 lower_fade = 0.01
 cull_mask = 1047568
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="plasma room/decors"]
-transform = Transform3D(1, 0, 0, 0, -0.440362, 0.89782, 0, -0.89782, -0.440362, 10, 0, 30)
 
 [node name="items" type="Marker3D" parent="plasma room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, -40)
@@ -179,24 +182,81 @@ item = ExtResource("8_tyqn8")
 size = Vector3(2, 1, 2)
 
 [node name="ItemSpawner4" type="Sprite3D" parent="plasma room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.035, 0.5, -41.982)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.26674, 0.949961, -39.9581)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("9_028uu")
 script = ExtResource("7_pmy02")
 item = ExtResource("10_xc4vt")
 
+[node name="ItemSpawner5" type="Sprite3D" parent="plasma room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26674, 0.885093, -39.9581)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("14_575jw")
+script = ExtResource("7_pmy02")
+item = ExtResource("8_tyqn8")
+
 [node name="tutorials" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -43)
 
 [node name="pickup tutorial" type="Area3D" parent="tutorials"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.965, 0.5, 1.018)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.965, 0.787213, 3.018)
 collision_layer = 128
 collision_mask = 128
 monitorable = false
 script = ExtResource("14_ftg3b")
-line = "Press [keys] to pickup item"
+line = "Press [keys] to pickup or use item"
 key = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tutorials/pickup tutorial"]
 shape = SubResource("SphereShape3D_m1yvh")
+
+[node name="drop tutorial" type="Area3D" parent="tutorials"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.035, 1.5, 3.018)
+collision_layer = 128
+collision_mask = 128
+monitorable = false
+script = ExtResource("14_ftg3b")
+line = "Hold [keys] to drop item"
+key = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tutorials/drop tutorial"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_m1yvh")
+
+[node name="unlock tutorial" type="Area3D" parent="tutorials"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.965, 1, 7.018)
+collision_layer = 128
+collision_mask = 128
+monitorable = false
+script = ExtResource("14_ftg3b")
+line = "Press [keys] to unlock door"
+key = 11
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tutorials/unlock tutorial"]
+shape = SubResource("SphereShape3D_m1yvh")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="tutorials/unlock tutorial"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -4)
+shape = SubResource("SphereShape3D_m1yvh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="tutorials/unlock tutorial"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
+shape = SubResource("SphereShape3D_m1yvh")
+
+[node name="safe points" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -29)
+script = SubResource("GDScript_vldcx")
+
+[node name="Marker3D" type="Marker3D" parent="safe points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="safe points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -23)
+
+[node name="Marker3D3" type="Marker3D" parent="safe points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -20)
+
+[node name="Marker3D4" type="Marker3D" parent="safe points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 17)
