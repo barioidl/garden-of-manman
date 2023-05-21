@@ -11,8 +11,8 @@ var accept_input:=true
 signal lock_updated(state)
 
 func _ready() -> void:
-#	emit_signal("lock_updated",open)
-	add_to_group('tool_tip')
+	emit_signal("lock_updated",open)
+#	add_to_group('tool_tip')
 	add_to_group('lock')
 	pass
 

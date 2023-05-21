@@ -53,7 +53,6 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	return true
 
 
-
 func reached_food(root)->bool:
 	var target = Interface.get_target(root)
 	if target == null:

@@ -18,7 +18,7 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 		NL.player_fear:0.4
 	}
 
-func perform(local_state: Dictionary, dt: float)->bool:
+func perform(local_state: Dictionary, dt: float)-> bool:
 	var root = local_state.root
 	var target = Interface.get_target(root)
 	var jumpscare = local_state.get(NL.jumpscare)

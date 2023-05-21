@@ -407,6 +407,9 @@ func character_died():
 	root.change_state(root.states.gameover)
 
 func refill_health():
+	get_tree().reload_current_scene()
+	return
+	
 	if stats == null: return
 	stats.reset()
 	var sp = stats.root.get_meta(NL.respawn)

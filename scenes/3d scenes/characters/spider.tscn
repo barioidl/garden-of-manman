@@ -407,7 +407,6 @@ turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")
-unique_plan = true
 loop_plan = true
 
 [node name="jumpscare" type="Node" parent="goap_agent"]

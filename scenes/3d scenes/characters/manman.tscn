@@ -357,9 +357,10 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_t33xl")]
+hunger = 7.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
-time_scale = 0.5
+time_scale = 0.2
 
 [node name="fall_damage" parent="stats" instance=ExtResource("6_01le1")]
 
@@ -403,7 +404,8 @@ sneak_size = Vector3(1.2, 0.75, 1.2)
 script = ExtResource("10_md03h")
 
 [node name="head" parent="body" instance=ExtResource("11_qhlc8")]
-transform = Transform3D(1, 0, 0, 0, 0.210745, -0.977541, 0, 0.977541, 0.210745, 0, 1.79225, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79225, 0)
+target_position = Vector3(0, 0, 2)
 debug_shape_thickness = 2
 head_margin = 1.0
 connect_to_bone = true
@@ -415,18 +417,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 script = ExtResource("15_mi7sy")
 root = NodePath("../..")
 head_bone = NodePath("body")
+item_holders = Array[NodePath]([NodePath("body/right shoulder"), NodePath("body/left shoulder")])
 
 [node name="body" type="Node3D" parent="body/rig"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="face" type="Sprite3D" parent="body/rig/body"]
-transform = Transform3D(1, 0, 0, 0, 0.986448, -0.164079, 0, 0.164079, 0.986446, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -0.999999, 0, 1, -4.37113e-08, 0, 0, 0)
 cast_shadow = 0
 shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("13_62xdx")
+texture = ExtResource("19_ywwcc")
 script = ExtResource("14_o6648")
 sprites = SubResource("Resource_hd1to")
 has_shadow = false
@@ -438,6 +441,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
 [node name="right leg" parent="body/rig/body/hip" node_paths=PackedStringArray("container") instance=ExtResource("21_pyli4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
+mirrored = false
 container = NodePath("../../..")
 
 [node name="left leg" parent="body/rig/body/hip" node_paths=PackedStringArray("container") instance=ExtResource("22_xqcmc")]
@@ -446,13 +450,9 @@ container = NodePath("../../..")
 
 [node name="right shoulder" parent="body/rig/body" node_paths=PackedStringArray("container") instance=ExtResource("21_mknag")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.22, -0.072)
+mirrored = false
 container = NodePath("../..")
 
 [node name="left shoulder" parent="body/rig/body" node_paths=PackedStringArray("container") instance=ExtResource("22_m1avx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.22, -0.072)
 container = NodePath("../..")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.301, 3)
-fov = 57.2

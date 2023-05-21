@@ -46,11 +46,13 @@ func set_interface():
 
 func turn_head_toward(target:Vector3, turn_speed:=1.0)-> bool:
 	var local:Vector3=head.to_local(target)
-	local.z = 0
-	if local.length_squared() < 0.005:
+	var x = atan2(local.x, local.z)
+	var y = atan2(local.y, local.z)
+	
+	if is_equal_approx(x,0) and is_equal_approx(y,0):
 		input.dpad2 = Vector2.ZERO
 		return true
-	local = local.normalized()
-	input.dpad2.x = local.x * turn_speed * 100
-	input.dpad2.y = -local.y * turn_speed * 100
+	
+	input.dpad2.x = rad_to_deg(x) * turn_speed * 5
+	input.dpad2.y = -rad_to_deg(y) * turn_speed * 5
 	return false

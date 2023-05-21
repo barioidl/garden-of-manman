@@ -1,7 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpm6mgatftls"]
+[gd_scene load_steps=12 format=3 uid="uid://cpm6mgatftls"]
 
-[ext_resource type="Texture2D" uid="uid://2alss76jbdw6" path="res://assets/Textures/moon face0005.png" id="1_nw081"]
-[ext_resource type="Resource" uid="uid://md7vpkr5xcdi" path="res://assets/bill_board_sides/moon face.tres" id="3_kpafe"]
+[ext_resource type="Texture2D" uid="uid://cflxdotwanusp" path="res://assets/Textures/human naked0000.png" id="2_js5c2"]
+[ext_resource type="Texture2D" uid="uid://dwwres3d6xg5" path="res://assets/Textures/human naked0001.png" id="3_o2nql"]
+[ext_resource type="Texture2D" uid="uid://cqn7rw5emnhsl" path="res://assets/Textures/human naked0002.png" id="4_xut3h"]
+[ext_resource type="Texture2D" uid="uid://c2ywtf1jyo2ki" path="res://assets/Textures/human naked0003.png" id="5_tfbrt"]
+[ext_resource type="Texture2D" uid="uid://de0qc3u1pbjxx" path="res://assets/Textures/human naked0004.png" id="6_66caq"]
+[ext_resource type="Texture2D" uid="uid://blet5n7op6pd5" path="res://assets/Textures/human naked0005.png" id="7_n2pu1"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_hsllx"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="26_qywtn"]
 
 [sub_resource type="GDScript" id="GDScript_quuds"]
@@ -12,31 +17,33 @@ func _ready() -> void:
 	connect(NL.item_used,used)
 	
 func used():
-#	print('food used')
+	print('food used')
 	Interface.change_hunger(root,-5)
 	hotbar.hotbar_items[id] = null
 	queue_free()
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vw860"]
-size = Vector3(0.5, 0.5, 0.5)
+size = Vector3(0.25, 0.25, 1)
+
+[sub_resource type="Resource" id="Resource_lk5vw"]
+script = ExtResource("8_hsllx")
+frames = Array[Texture]([ExtResource("2_js5c2"), ExtResource("3_o2nql"), ExtResource("4_xut3h"), ExtResource("5_tfbrt"), ExtResource("6_66caq"), ExtResource("7_n2pu1")])
 
 [node name="food generic" type="CharacterBody3D"]
 script = SubResource("GDScript_quuds")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("BoxShape3D_vw860")
 
 [node name="AnimatedSprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 cast_shadow = 2
 axis = 1
 shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("1_nw081")
+texture = ExtResource("6_66caq")
 script = ExtResource("26_qywtn")
-sprites = ExtResource("3_kpafe")
+sprites = SubResource("Resource_lk5vw")
 face_camera = 1

@@ -25,7 +25,7 @@ var plan_size:=0
 var current_step:=0
 
 @export var planner_limits:=Vector2(3,6)
-@export var loop_plan:= false
+var loop_plan:= false
 @onready var debug_display = get_node_or_null('../debug_display')
 
 func _init() -> void:

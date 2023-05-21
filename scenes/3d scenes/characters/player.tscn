@@ -166,10 +166,11 @@ script = ExtResource("9_xmcsr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, 0, 10)
 head_margin = 0.15
-connect_to_bone = true
 
 [node name="hotbar" type="Node3D" parent="body"]
 script = SubResource("GDScript_l165g")
 
 [node name="rig" parent="body" node_paths=PackedStringArray("root") instance=ExtResource("12_tmh3y")]
+process_mode = 4
+visible = false
 root = NodePath("../..")
