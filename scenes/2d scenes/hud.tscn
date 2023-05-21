@@ -668,17 +668,20 @@ func create_button(name:String, action:String):
 func update_button_keybinds(button, action):
 	var events = InputMap.action_get_events(action)
 	var keys:=''
-	for event in events:
-		var input := event.as_text()
+	for i in events.size():
+		if i != 0:
+			keys+= ', '
+		var event = events[i]
+		var input := ''
 		if event is InputEventKey:
 			input = OS.get_keycode_string(event.physical_keycode)
 		elif event is InputEventMouseButton:
-			input = str(event.button_index)
+			input = event.as_text()
 		elif event is InputEventJoypadButton:
 			input = event.as_text().get_slice('(',1)
 			input = input.rstrip(')')
 		else:	continue
-		keys+= input+ ', '
+		keys+= input
 	set_text(button,button.name + ': '+keys)
 
 func button_changed(button,action):
@@ -702,8 +705,8 @@ func assign_key(event):
 	if !is_key and !is_gamepad and !is_mouse: return
 	
 	InputMap.action_erase_events(assigning_action)
-	InputMap.action_add_event(assigning_action,event)
-	update_button_keybinds(assigning_button,assigning_action)
+	InputMap.action_add_event(assigning_action, event)
+	update_button_keybinds(assigning_button, assigning_action)
 	assigning_button = null
 	assigning_action = ''
 
@@ -1059,6 +1062,7 @@ ui_over = NodePath("Game over")
 ui_pause = NodePath("Pause")
 ui_settings = NodePath("Settings")
 ui_exit = NodePath("Exit")
+state = null
 button_sounds = SubResource("Resource_d7d2p")
 switch_sounds = SubResource("Resource_pi23o")
 roll_sounds = SubResource("Resource_4vadk")
@@ -1549,7 +1553,7 @@ offset_top = -260.0
 offset_right = 410.0
 offset_bottom = -10.0
 grow_vertical = 0
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(0, 250)
 alignment = 2
 vertical = true

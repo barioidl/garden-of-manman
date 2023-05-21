@@ -12,8 +12,6 @@ enum axis{x,y,z}
 @export var transition := Tween.TRANS_LINEAR
 
 func slide(state) -> void:
-#	print(state)
-	
 	var tween = get_tree().create_tween()
 	var start = open_position if !state else clode_position
 	var end = open_position if state else clode_position

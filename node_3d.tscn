@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=23 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_ebjnm"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 [ext_resource type="PackedScene" uid="uid://bhngj5ppbc2dw" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
-[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="7_ekvcr"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_pmy02"]
 [ext_resource type="Resource" uid="uid://blyxj3d3wn6vs" path="res://data/items/food generic.tres" id="8_tyqn8"]
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="9_028uu"]
@@ -14,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="10_xc4vt"]
 [ext_resource type="Texture2D" uid="uid://1f3gel33ucnd" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button08.png" id="11_jinbs"]
 [ext_resource type="PackedScene" uid="uid://d1v6jou48u5ce" path="res://scenes/3d scenes/garden of manman/plasma_room.tscn" id="13_psdo4"]
+[ext_resource type="Script" path="res://scripts/dispay tutorial.gd" id="14_ftg3b"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
 script/source = "extends Node3D
@@ -38,6 +38,45 @@ polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Arr
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_12mfv"]
 size = Vector3(0.1, 4, 3)
+
+[sub_resource type="GDScript" id="GDScript_i0l78"]
+script/source = "extends Marker3D
+
+@export var item :ItemData
+@export var size := Vector3.ONE
+
+func _ready() -> void:
+	return
+	if item == null:
+		print('no item?')
+		return
+	call_deferred('arrange_items')
+func arrange_items():
+	var x :float= 0
+	var y :float= 0
+	var z :float= 0
+	for i in 20:
+		x = randf_range(-size.x,size.x)
+		y = randf_range(-size.y,size.y)
+		z = randf_range(-size.z,size.z)
+		var pos = Vector3(x,y,z)
+		spawn(global_position + pos)
+		print(pos)
+
+
+
+func spawn(pos):
+	var child = item.prefab.instantiate()
+	child.item = item
+	get_parent().add_child(child)
+	child.is_in_overworld = true
+	child.global_position = pos
+	child.global_rotation = global_rotation
+	
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m1yvh"]
+radius = 1.0
 
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_gvegq")
@@ -72,82 +111,8 @@ script = ExtResource("4_ebjnm")
 script = ExtResource("3_65qyn")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.07369, 0, -12.3666)
-
-[node name="items" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.61169, 1.5596, -42.8457)
-
-[node name="ItemSpawner" type="Sprite3D" parent="items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.43744)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("7_ekvcr")
-script = ExtResource("7_pmy02")
-item = ExtResource("8_tyqn8")
-
-[node name="ItemSpawner2" type="Sprite3D" parent="items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.59638, 0, 4.43744)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("7_ekvcr")
-script = ExtResource("7_pmy02")
-item = ExtResource("8_tyqn8")
-
-[node name="ItemSpawner3" type="Sprite3D" parent="items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.84281, 0, 4.43744)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("7_ekvcr")
-script = ExtResource("7_pmy02")
-item = ExtResource("8_tyqn8")
-
-[node name="ItemSpawner4" type="Sprite3D" parent="items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31478, -0.927458, 2.59739)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("9_028uu")
-script = ExtResource("7_pmy02")
-item = ExtResource("10_xc4vt")
-
-[node name="decors" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -30)
-
-[node name="invisible wall" type="StaticBody3D" parent="decors"]
-collision_layer = 128
-collision_mask = 128
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="decors/invisible wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1.5, -10)
-shape = SubResource("BoxShape3D_12mfv")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="decors/invisible wall"]
-transform = Transform3D(-3.27835e-08, 0, -1, 0, 1, 0, 0.75, 0, -4.37114e-08, 6, 1.5, -5.15537)
-shape = SubResource("BoxShape3D_12mfv")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="decors/invisible wall"]
-transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -5, 1.5, -16.9285)
-shape = SubResource("BoxShape3D_12mfv")
-
-[node name="Decal" type="Decal" parent="decors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49, 0, -7)
-layers = 16
-size = Vector3(25, 0.5, 50)
-texture_albedo = ExtResource("10_kf4k5")
-upper_fade = 0.01
-lower_fade = 0.01
-cull_mask = 1047568
-
-[node name="Decal2" type="Decal" parent="decors/Decal"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
-layers = 16
-size = Vector3(25, 0.25, 50)
-texture_albedo = ExtResource("11_jinbs")
-upper_fade = 0.01
-lower_fade = 0.01
-cull_mask = 1047568
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="decors"]
-transform = Transform3D(1, 0, 0, 0, -0.440362, 0.89782, 0, -0.89782, -0.440362, 10, 0, 30)
 
 [node name="plasma room" parent="." instance=ExtResource("13_psdo4")]
 script = null
@@ -165,3 +130,73 @@ end_position = Vector3(-2, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -49)
 start_position = Vector3(2, 0, 0)
 end_position = Vector3(-2, 0, 0)
+
+[node name="decors" type="Node3D" parent="plasma room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -30)
+
+[node name="invisible wall" type="StaticBody3D" parent="plasma room/decors"]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="plasma room/decors/invisible wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1.5, -10)
+shape = SubResource("BoxShape3D_12mfv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="plasma room/decors/invisible wall"]
+transform = Transform3D(-3.27835e-08, 0, -1, 0, 1, 0, 0.75, 0, -4.37114e-08, 6, 1.5, -5.15537)
+shape = SubResource("BoxShape3D_12mfv")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="plasma room/decors/invisible wall"]
+transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -5, 1.5, -16.9285)
+shape = SubResource("BoxShape3D_12mfv")
+
+[node name="Decal" type="Decal" parent="plasma room/decors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49, 0, -7)
+layers = 16
+size = Vector3(25, 0.5, 50)
+texture_albedo = ExtResource("10_kf4k5")
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1047568
+
+[node name="Decal2" type="Decal" parent="plasma room/decors/Decal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+layers = 16
+size = Vector3(25, 0.25, 50)
+texture_albedo = ExtResource("11_jinbs")
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1047568
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="plasma room/decors"]
+transform = Transform3D(1, 0, 0, 0, -0.440362, 0.89782, 0, -0.89782, -0.440362, 10, 0, 30)
+
+[node name="items" type="Marker3D" parent="plasma room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, -40)
+gizmo_extents = 1.0
+script = SubResource("GDScript_i0l78")
+item = ExtResource("8_tyqn8")
+size = Vector3(2, 1, 2)
+
+[node name="ItemSpawner4" type="Sprite3D" parent="plasma room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.035, 0.5, -41.982)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("9_028uu")
+script = ExtResource("7_pmy02")
+item = ExtResource("10_xc4vt")
+
+[node name="tutorials" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -43)
+
+[node name="pickup tutorial" type="Area3D" parent="tutorials"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.965, 0.5, 1.018)
+collision_layer = 128
+collision_mask = 128
+monitorable = false
+script = ExtResource("14_ftg3b")
+line = "Press [keys] to pickup item"
+key = 11
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tutorials/pickup tutorial"]
+shape = SubResource("SphereShape3D_m1yvh")

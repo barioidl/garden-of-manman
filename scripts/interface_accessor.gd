@@ -89,3 +89,8 @@ func get_nav_agent(body:Node3D) -> Node3D:
 		return null
 	var meta = body.get_meta(NL.get_nav_agent)
 	return meta.call()
+
+
+func display_sentence(line:String):
+	var meta = Hud.get_meta(NL.show_dialogue)
+	meta.call(line)

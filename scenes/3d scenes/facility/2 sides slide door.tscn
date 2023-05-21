@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://drave67c42qj"]
+[gd_scene load_steps=18 format=3 uid="uid://drave67c42qj"]
 
 [ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_81jg1"]
 [ext_resource type="Script" path="res://scripts/objects/lock.gd" id="1_c0csp"]
@@ -8,7 +8,6 @@
 [ext_resource type="AudioStream" uid="uid://le84adcvsr4y" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_1.ogg" id="3_nn2f1"]
 [ext_resource type="ArrayMesh" uid="uid://cjr6ebej08al3" path="res://assets/factory/slide door lock.obj" id="4_loc1q"]
 [ext_resource type="AudioStream" uid="uid://c7h4n1akhjho7" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_2.ogg" id="4_m6uek"]
-[ext_resource type="AudioStream" uid="uid://n3fgt15re2q1" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_1.ogg" id="5_n7uea"]
 [ext_resource type="AudioStream" uid="uid://cihjtdlsa4udy" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_3.ogg" id="6_18a7t"]
 [ext_resource type="AudioStream" uid="uid://bt57slhjr1v0p" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_4.ogg" id="7_kwvn2"]
 
@@ -22,7 +21,7 @@ streams = Array[AudioStream]([ExtResource("3_nn2f1"), ExtResource("4_m6uek")])
 script = ExtResource("2_7un62")
 pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("5_n7uea"), ExtResource("6_18a7t"), ExtResource("7_kwvn2")])
+streams = Array[AudioStream]([ExtResource("6_18a7t"), ExtResource("7_kwvn2")])
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nyf5f"]
 size = Vector3(0.2, 4, 1)
