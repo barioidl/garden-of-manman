@@ -1,0 +1,42 @@
+[gd_scene load_steps=10 format=3 uid="uid://bca8j52nv1qj7"]
+
+[ext_resource type="Script" path="res://scripts/elevator/floor button.gd" id="1_m45x3"]
+[ext_resource type="Script" path="res://scripts/button press animation.gd" id="2_anxcp"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="3_anw81"]
+[ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="4_pho8k"]
+[ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="5_s3m5y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0he0c"]
+size = Vector3(0.2, 0.4, 0.4)
+
+[sub_resource type="Resource" id="Resource_c5kax"]
+script = ExtResource("3_anw81")
+pitch_range = Vector2(0.5, 0.7)
+volume_range = Vector2(-5, 1)
+streams = Array[AudioStream]([ExtResource("4_pho8k"), ExtResource("5_s3m5y")])
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvwud"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ycwv7"]
+material = SubResource("StandardMaterial3D_yvwud")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.2
+radial_segments = 8
+rings = 1
+
+[node name="button" type="StaticBody3D"]
+script = ExtResource("1_m45x3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+shape = SubResource("BoxShape3D_0he0c")
+script = ExtResource("2_anxcp")
+transition = 4
+sfx_list = SubResource("Resource_c5kax")
+
+[node name="button" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_ycwv7")
+skeleton = NodePath("../..")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://18fxmepjaxdw"]
+[gd_scene load_steps=87 format=3 uid="uid://18fxmepjaxdw"]
 
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_dn1r6"]
@@ -36,7 +36,6 @@
 [ext_resource type="ArrayMesh" uid="uid://k6v13was2uue" path="res://assets/sloyd/Cubicals.obj" id="25_75j0b"]
 [ext_resource type="PackedScene" uid="uid://dyhtga7i6ln0w" path="res://scenes/3d scenes/facility/chests.tscn" id="25_uks1r"]
 [ext_resource type="ArrayMesh" uid="uid://c00dw2xo2g81i" path="res://assets/sloyd/Office Chairs.obj" id="26_jjchl"]
-[ext_resource type="Script" path="res://scripts/objects/3d_button.gd" id="28_7r818"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="34_r8fx0"]
 [ext_resource type="Texture2D" uid="uid://bt6yvogopurs7" path="res://assets/Textures/drone0000.png" id="36_b7sdc"]
 [ext_resource type="Texture2D" uid="uid://tywvx4maqfs6" path="res://assets/Textures/drone0001.png" id="37_ohmvs"]
@@ -59,14 +58,18 @@
 [sub_resource type="Environment" id="Environment_pe2si"]
 background_color = Color(1, 1, 1, 1)
 background_energy_multiplier = 0.1
-glow_enabled = true
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
+tonemap_mode = 2
+ssao_intensity = 22.61
 glow_normalized = true
 glow_intensity = 1.5
 glow_strength = 1.5
 fog_enabled = true
-fog_light_color = Color(0.392157, 0, 0, 1)
+fog_light_color = Color(0.2, 0, 0, 1)
 fog_height = 20.0
-fog_height_density = 0.025
+fog_height_density = 0.01
 adjustment_enabled = true
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_3ytga"]
@@ -190,41 +193,6 @@ size = Vector3(10, 6, 42)
 [sub_resource type="BoxShape3D" id="BoxShape3D_67dcs"]
 size = Vector3(13, 6, 23)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_crg15"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_a6udv"]
-size = Vector3(0.1, 0.5, 0.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvwud"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_l3dfo"]
-material = SubResource("StandardMaterial3D_yvwud")
-top_radius = 0.2
-bottom_radius = 0.2
-height = 0.2
-radial_segments = 8
-rings = 1
-
-[sub_resource type="GDScript" id="GDScript_1k0ro"]
-script/source = "extends MeshInstance3D
-
-var duration = 0.5
-@export var transition:Tween.TransitionType
-
-func _ready():
-	var button = get_parent()
-	button.connect(\"toggled\",_button_toggled.bind())
-	duration = button.duration
-
-func _button_toggled(button_pressed) -> void:
-	var tween = get_tree().create_tween() # Replace with function body.
-	var _in = Vector3(0.1,0,0)
-	var _out = Vector3(0.2,0,0)
-	tween.tween_property(self,'position',_in, duration*0.5).set_trans(transition)
-	tween.tween_property(self,'position',_out, duration*0.5).set_trans(transition)
-"
-
 [sub_resource type="Resource" id="Resource_pbkqu"]
 script = ExtResource("41_ldpjm")
 frames = Array[Texture]([ExtResource("36_b7sdc"), ExtResource("37_ohmvs"), ExtResource("38_3c42m"), ExtResource("38_x86da"), ExtResource("39_6eo4w"), ExtResource("40_1wsil")])
@@ -252,7 +220,7 @@ environment = SubResource("Environment_pe2si")
 camera_attributes = SubResource("CameraAttributesPractical_3ytga")
 
 [node name="timmy" parent="." instance=ExtResource("1_ssxib")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4914, 1.66802, -24.5871)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1434, 1.66802, -18.4912)
 collision_layer = 129
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
@@ -645,7 +613,6 @@ areas = [NodePath("../../-1 areas/kitchen"), NodePath("../../-4 areas/disposal p
 
 [node name="upper corridor" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 22.5, -31.5)
-visible = false
 script = ExtResource("8_plspx")
 areas = [NodePath("../../-1 areas/kitchen"), NodePath("../../-1 areas/upper corridor"), NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/dinning room")]
 
@@ -792,28 +759,8 @@ skeleton = NodePath("../../../../..")
 
 [node name="upper lobby" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -17.5)
-visible = false
 script = ExtResource("8_plspx")
 areas = [NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/dinning room"), NodePath("../../-1 areas/upper corridor")]
-
-[node name="3d button" type="StaticBody3D" parent="map/garden of manman/floor -1/upper lobby"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.5, -3)
-script = ExtResource("28_7r818")
-duration = 0.3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/floor -1/upper lobby/3d button"]
-transform = Transform3D(0.2, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.2, 0, 0)
-shape = SubResource("BoxShape3D_crg15")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="map/garden of manman/floor -1/upper lobby/3d button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
-mesh = SubResource("BoxMesh_a6udv")
-
-[node name="button" type="MeshInstance3D" parent="map/garden of manman/floor -1/upper lobby/3d button"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.200001, 0, 0)
-mesh = SubResource("CylinderMesh_l3dfo")
-script = SubResource("GDScript_1k0ro")
-transition = 2
 
 [node name="StaticBody3D" type="StaticBody3D" parent="map/garden of manman/floor -1/upper lobby"]
 
@@ -846,7 +793,6 @@ skeleton = NodePath("../../../../..")
 
 [node name="upper storage room" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -7.5)
-visible = false
 script = ExtResource("8_plspx")
 areas = [NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/upper lobby")]
 
@@ -979,7 +925,7 @@ shape = SubResource("ConcavePolygonShape3D_5gxq2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 process_mode = 4
-transform = Transform3D(-0.582123, 0.0637952, 0.810594, 0, 0.996917, -0.0784591, -0.813101, -0.0456728, -0.580329, 16.4892, 8.73826, 1.10272)
+transform = Transform3D(-0.582123, 0.0637952, 0.810594, 0, 0.996917, -0.0784591, -0.813101, -0.0456729, -0.580328, -14.915, 21.7086, -22.2865)
 far = 50.0
 script = SubResource("GDScript_ct3wt")
 

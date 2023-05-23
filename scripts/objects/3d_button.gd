@@ -6,18 +6,20 @@ signal button_up
 signal pressed
 signal toggled(button_pressed:bool)
 
-@export var duration = 0.5
 @export var active:=false
 func _ready() -> void:
+	set_interface()
 	fire_signals()
 
 var cooldown:=0.0
 func _process(delta: float) -> void:
-	if cooldown >0:
+	if cooldown > 0:
 		cooldown -= delta
 
+func set_interface():
+	set_meta(NL.interact,Callable(interact))
+
 func interact(user):
-#	print("pressed")
 	toggle()
 
 func toggle():
@@ -33,13 +35,12 @@ func enable():
 	fire_signals()
 
 func disable():
-	if cooldown >0: 
+	if cooldown > 0: 
 		return
 	active = false
 	fire_signals()
 
 func fire_signals():
-	cooldown = duration
 	emit_signal("pressed")
 	emit_signal("toggled",active)
 	if active:
