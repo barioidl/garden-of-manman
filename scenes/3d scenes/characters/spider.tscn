@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://djulvkmrx1g60"]
+[gd_scene load_steps=39 format=3 uid="uid://djpeyjf27alka"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
 [ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
@@ -15,6 +15,8 @@
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_dey3p"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="10_b2yls"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="10_hc070"]
+[ext_resource type="Script" path="res://scripts/modules/jumpscare.gd" id="11_1sjhw"]
+[ext_resource type="Script" path="res://scripts/modules/puzzle.gd" id="11_dctu5"]
 [ext_resource type="PackedScene" uid="uid://glmnjpmbgsco" path="res://data/state machine/hotbar.tscn" id="12_5cwt8"]
 [ext_resource type="AudioStream" uid="uid://bm44g8fpxx2nx" path="res://assets/audio/fl exported/spider hunt.ogg" id="12_fm57o"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="13_decgv"]
@@ -239,68 +241,7 @@ func _ready() -> void:
 
 "
 
-[sub_resource type="GDScript" id="GDScript_f3rhq"]
-script/source = "extends Node
-
-@onready var agent = get_parent()
-@onready var root = $\"../..\"
-var target:Node3D
-
-@export var jumpscare_range:= 2.5
-@export var puzzle_range:= 25
-
-var jumpscare_score := 0.0
-var puzzle_score := 0.0
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	set_interface()
-	get_target()
-
-var dt :=0.0
-func _process(delta: float) -> void:
-	dt = delta
-	get_scores()
-	scream_counter = 1
-	turn_counter = 2
-
-func set_interface():
-	agent.set_local_state(NL.jumpscare,self)
-func get_target():
-	target = get_tree().get_first_node_in_group(NL.player)
-
-
-var score_cd:=0.0
-func get_scores():
-	if score_cd >0:
-		score_cd -= dt
-		return
-	score_cd = 0.5
-	var target_pos = target.global_position
-	var root_pos = root.global_position
-	var dist = root_pos.distance_to(target_pos)
-	jumpscare_score = 1 - dist / jumpscare_range
-	jumpscare_score = clampf(jumpscare_score,0,1)
-	
-	puzzle_score = 1 - dist / puzzle_range
-	puzzle_score = clampf(puzzle_score,0,1)
-
-var scream_counter:=0
-func scream_once()->bool:
-	scream_counter -= 1
-	return scream_counter >= 0
-var turn_counter:=0
-func turn_once()->bool:
-	turn_counter -=1
-	return turn_counter >= 0
-
-@export var scream_sfx:AudioList
-func scream():
-	var pos = root.global_position
-	AudioPool.create_sound_3d(pos,scream_sfx)
-"
-
-[sub_resource type="Resource" id="Resource_qui7j"]
+[sub_resource type="Resource" id="Resource_py1ks"]
 script = ExtResource("6_plbnf")
 pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
@@ -407,11 +348,13 @@ turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")
-loop_plan = true
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
-script = SubResource("GDScript_f3rhq")
-scream_sfx = SubResource("Resource_qui7j")
+script = ExtResource("11_1sjhw")
+scream_sfx = SubResource("Resource_py1ks")
+
+[node name="puzzle" type="Node" parent="goap_agent"]
+script = ExtResource("11_dctu5")
 
 [node name="debug_display" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)

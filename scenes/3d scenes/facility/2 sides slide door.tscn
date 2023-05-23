@@ -93,8 +93,8 @@ shape = SubResource("BoxShape3D_f8f0v")
 mesh = ExtResource("4_loc1q")
 
 [node name="NavigationLink3D" type="NavigationLink3D" parent="."]
-start_position = Vector3(1.5, 0, 0)
-end_position = Vector3(-1.5, 0, 0)
+start_position = Vector3(1, 0, 0)
+end_position = Vector3(-1, 0, 0)
 script = SubResource("GDScript_rdesl")
 
 [connection signal="lock_updated" from="right/lock" to="." method="updated"]

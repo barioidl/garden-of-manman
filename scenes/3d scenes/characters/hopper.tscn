@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://bk0gpt7acyutf"]
+[gd_scene load_steps=64 format=3 uid="uid://bk0gpt7acyutf"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_73ab1"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_yxun5"]
@@ -22,7 +22,9 @@
 [ext_resource type="AudioStream" uid="uid://bsstgbygtt0ti" path="res://assets/audio/kenney_impact-sounds/Audio/impactSoft_heavy_003.ogg" id="13_7skru"]
 [ext_resource type="Texture2D" uid="uid://b0rdfxiigkskr" path="res://assets/Textures/hopper face0004.png" id="13_p3k3x"]
 [ext_resource type="Texture2D" uid="uid://cylwq1m2dx3h2" path="res://assets/Textures/hopper face0005.png" id="14_5ksj0"]
+[ext_resource type="Script" path="res://scripts/modules/body.gd" id="15_3vol6"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="15_sd4uk"]
+[ext_resource type="PackedScene" uid="uid://glmnjpmbgsco" path="res://data/state machine/hotbar.tscn" id="17_jynsd"]
 [ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="17_r2vp7"]
 [ext_resource type="Texture2D" uid="uid://dl3bwowias55q" path="res://assets/Textures/hopper leg0017.png" id="17_syugh"]
 [ext_resource type="Texture2D" uid="uid://dgoengb8v53bd" path="res://assets/Textures/hopper leg0012.png" id="18_uyuim"]
@@ -150,19 +152,6 @@ streams = Array[AudioStream]([ExtResource("7_wfdak"), ExtResource("8_3x3cb"), Ex
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_la7lu"]
 radius = 0.4
 
-[sub_resource type="GDScript" id="GDScript_wgajf"]
-script/source = "extends Node3D
-
-@onready var root:=$'..'
-func _init() -> void:
-	name = 'body'
-func _ready() -> void:
-	owner = root
-	$'../shape'.connect('position_changed',position_changed.bind())
-func position_changed(pos) -> void:
-	position = pos # Replace with function body.
-"
-
 [sub_resource type="Resource" id="Resource_rqyp2"]
 script = ExtResource("17_r2vp7")
 frames = Array[Texture]([ExtResource("8_hw8o4"), ExtResource("10_uep5s"), ExtResource("11_7fenw"), ExtResource("12_8idm8"), ExtResource("13_p3k3x"), ExtResource("14_5ksj0")])
@@ -210,31 +199,30 @@ attack_sfx = SubResource("Resource_bic33")
 [node name="shape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_la7lu")
 script = ExtResource("8_fuun6")
-crouch_height = 1.5
 
 [node name="body" type="Node3D" parent="."]
-script = SubResource("GDScript_wgajf")
+script = ExtResource("15_3vol6")
 
-[node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("15_sd4uk")]
-hotbar = NodePath("")
-normal_height = 1.5
-crouch_height = 1.25
+[node name="head" parent="body" instance=ExtResource("15_sd4uk")]
+
+[node name="hotbar" parent="body" instance=ExtResource("17_jynsd")]
 
 [node name="body" type="Node3D" parent="body"]
 
 [node name="Sprite3D2" type="Sprite3D" parent="body/body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0.1)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("8_hw8o4")
+texture = ExtResource("14_5ksj0")
 region_rect = Rect2(42, 41, 29, 31)
 script = ExtResource("11_0rio8")
 sprites = SubResource("Resource_rqyp2")
 
 [node name="leg" type="Node3D" parent="body/body"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.75, -0.2)
 
 [node name="ik_constraint" type="Node" parent="body/body/leg"]
 script = ExtResource("11_8v364")
@@ -243,6 +231,7 @@ max_angles = Vector3(45, 60, 60)
 
 [node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg"]
 transform = Transform3D(1, 0, 0, 0, -1, -1.50996e-07, 0, 1.50996e-07, -1, 0, -0.5, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -262,6 +251,7 @@ max_angles = Vector3(720, 30, 30)
 
 [node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg/leg"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -281,6 +271,7 @@ max_angles = Vector3(720, 30, 30)
 
 [node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg/leg/leg br"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -300,6 +291,7 @@ max_angles = Vector3(720, 30, 30)
 
 [node name="AnimatedSprite3D" type="Sprite3D" parent="body/body/leg/leg/leg br/foot"]
 transform = Transform3D(1, 0, 0, 0, 0.0871559, 0.996195, 0, -0.996195, 0.0871559, 0, -0.1, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -322,14 +314,14 @@ script = ExtResource("19_sgh8y")
 step_duration = 0.25
 legs = [NodePath("feet/leg ik tl")]
 offset = 10.0
-body_pos = Vector3(0, 0.1, 0)
 body_mid_pos = Vector3(0, -0.1, 0)
 
-[node name="feet" type="RayCast3D" parent="body/feet casters"]
+[node name="feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 exclude_parent = false
 target_position = Vector3(0, -2, 1)
 script = ExtResource("20_hq5f6")
+exception = NodePath("../../..")
 
 [node name="leg ik tl" type="Marker3D" parent="body/feet casters/feet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2716, 0.32721)

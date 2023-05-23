@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7e33tj4wwqs0"]
+
+[ext_resource type="PackedScene" uid="uid://dq00ygi8ep1qk" path="res://scenes/2d scenes/start_page.tscn" id="1_4w3qo"]
+[ext_resource type="PackedScene" uid="uid://18fxmepjaxdw" path="res://scenes/3d scenes/main_scene.tscn" id="2_ucf0n"]
+
+[sub_resource type="GDScript" id="GDScript_7al6n"]
+script/source = "extends Control
+
+@export var start_scene:PackedScene
+@export var main_scene:PackedScene
+
+func _ready() -> void:
+	if OS.is_debug_build():
+		change_scene(main_scene)
+	else:
+		change_scene(start_scene)
+
+func change_scene(scene:PackedScene):
+	get_tree().change_scene_to_packed(scene)
+"
+
+[node name="Launcher" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_7al6n")
+start_scene = ExtResource("1_4w3qo")
+main_scene = ExtResource("2_ucf0n")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Made by Ninelie"

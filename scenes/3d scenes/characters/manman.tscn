@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bhngj5ppbc2dw"]
+[gd_scene load_steps=38 format=3 uid="uid://bi85pq8ys3rxq"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -17,6 +17,8 @@
 [ext_resource type="AudioStream" uid="uid://bm44g8fpxx2nx" path="res://assets/audio/fl exported/spider hunt.ogg" id="12_hqwsp"]
 [ext_resource type="PackedScene" uid="uid://glmnjpmbgsco" path="res://data/state machine/hotbar.tscn" id="12_m7c2m"]
 [ext_resource type="Texture2D" uid="uid://coj1148xm0ts" path="res://assets/Textures/manman face0000.png" id="13_62xdx"]
+[ext_resource type="Script" path="res://scripts/modules/puzzle.gd" id="13_boe7p"]
+[ext_resource type="Script" path="res://scripts/modules/jumpscare.gd" id="13_ipner"]
 [ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="14_7ugkw"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="14_o6648"]
 [ext_resource type="Texture2D" uid="uid://liruub56ame2" path="res://assets/Textures/manman face0001.png" id="15_l1jl5"]
@@ -240,108 +242,11 @@ func _ready() -> void:
 
 "
 
-[sub_resource type="GDScript" id="GDScript_7t815"]
-script/source = "extends Node
-
-@onready var agent = get_parent()
-@onready var root = $\"../..\"
-var target:Node3D
-
-@export var range:= 2.5
-var score := 0.0
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	set_interface()
-	get_target()
-
-var dt :=0.0
-func _process(delta: float) -> void:
-	dt = delta
-	get_scores()
-
-func set_interface():
-	agent.set_local_state(NL.jumpscare,self)
-func get_target():
-	target = get_tree().get_first_node_in_group(NL.player)
-
-
-var score_cd:=0.0
-func get_scores():
-	if score_cd >0:
-		score_cd -= dt
-		return
-	score_cd = 0.5
-	var target_pos = target.global_position
-	var root_pos = root.global_position
-	var dist = root_pos.distance_to(target_pos)
-	score = 1 - dist / range
-	score = clampf(score,0,1)
-
-
-@export var scream_sfx:AudioList
-func scream():
-	var pos = root.global_position
-	AudioPool.create_sound_3d(pos,scream_sfx)
-"
-
 [sub_resource type="Resource" id="Resource_re18v"]
 script = ExtResource("11_newbt")
 pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
 streams = Array[AudioStream]([ExtResource("12_hqwsp")])
-
-[sub_resource type="GDScript" id="GDScript_ja3yc"]
-script/source = "extends Node
-
-var score := 0.0
-@export var range:= 25
-
-@onready var agent = get_parent()
-@onready var root = $\"../..\"
-var target:Node3D
-
-func _ready() -> void:
-	set_interface()
-	get_target()
-
-var dt :=0.0
-func _process(delta: float) -> void:
-	dt = delta
-	get_scores()
-
-func set_interface():
-	agent.set_local_state(NL.puzzle,self)
-func get_target():
-	target = get_tree().get_first_node_in_group(NL.player)
-
-var score_cd:=0.0
-func get_scores():
-	if score_cd >0:
-		score_cd -= dt
-		return
-	score_cd = 0.5
-	var target_pos = target.global_position
-	var root_pos = root.global_position
-	var dist = root_pos.distance_to(target_pos)
-	
-	score = 1 - dist / range
-	score = clampf(score,0,1)
-
-func perform(local_state: Dictionary, dt: float)->bool:
-	var pos = root.global_position
-	var point = WorldState.get_farest_node_3d('safepoints',pos)
-	if point == null:
-		return true
-	if point.global_position.distance_squared_to(pos) > 1:
-		Interface.attach_nav_agent(root,point)
-		return false
-	
-	var nav_agent = Interface.get_nav_agent(root)
-	if nav_agent != null:
-		nav_agent.detach()
-	return true
-"
 
 [sub_resource type="GDScript" id="GDScript_17foq"]
 script/source = "extends Label3D
@@ -414,11 +319,11 @@ turn_speed = 100
 script = SubResource("GDScript_g145v")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
-script = SubResource("GDScript_7t815")
+script = ExtResource("13_ipner")
 scream_sfx = SubResource("Resource_re18v")
 
 [node name="puzzle" type="Node" parent="goap_agent"]
-script = SubResource("GDScript_ja3yc")
+script = ExtResource("13_boe7p")
 
 [node name="debug_display" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
@@ -462,7 +367,7 @@ item_holders = Array[NodePath]([NodePath("body/right shoulder"), NodePath("body/
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="face" type="Sprite3D" parent="body/rig/body"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -0.999999, 0, 1, -4.37113e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
 cast_shadow = 0
 shaded = true
 double_sided = false

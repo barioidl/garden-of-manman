@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bjwc6mkin1w06"]
+[gd_scene load_steps=46 format=3 uid="uid://bjwc6mkin1w06"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_esb8o"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_xq6ho"]
@@ -23,7 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://ct22c7x5o3cot" path="res://assets/Textures/gloria chest0005.png" id="13_1y47m"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="13_cdclh"]
 [ext_resource type="Texture2D" uid="uid://cc1xq2w0w1v2y" path="res://assets/Textures/gloria hip0003.png" id="13_mrlii"]
+[ext_resource type="Script" path="res://scripts/modules/body.gd" id="13_n86ck"]
 [ext_resource type="Texture2D" uid="uid://mhbuq82s1rhe" path="res://assets/Textures/gloria chest0001.png" id="14_fm5ck"]
+[ext_resource type="PackedScene" uid="uid://glmnjpmbgsco" path="res://data/state machine/hotbar.tscn" id="15_t2qn8"]
 [ext_resource type="Texture2D" uid="uid://rwhpwy15ubq4" path="res://assets/Textures/gloria chest0003.png" id="15_u1h23"]
 [ext_resource type="Texture2D" uid="uid://dk3cmnxrkb213" path="res://assets/Textures/gloria hip0004.png" id="15_v72s1"]
 [ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="16_y4ftp"]
@@ -234,19 +236,6 @@ streams = Array[AudioStream]([ExtResource("8_reswx"), ExtResource("9_p441a"), Ex
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_la7lu"]
 height = 3.0
 
-[sub_resource type="GDScript" id="GDScript_wgajf"]
-script/source = "extends Node3D
-
-@onready var root:=$'..'
-func _init() -> void:
-	name = 'body'
-func _ready() -> void:
-	owner = root
-	$'../shape'.connect('position_changed',position_changed.bind())
-func position_changed(pos) -> void:
-	position = pos # Replace with function body.
-"
-
 [sub_resource type="Resource" id="Resource_5ypd8"]
 script = ExtResource("16_y4ftp")
 frames = Array[Texture]([ExtResource("8_xppjg"), ExtResource("12_6i8o5"), ExtResource("10_rd0v5"), ExtResource("13_mrlii"), ExtResource("15_v72s1"), ExtResource("11_017nn")])
@@ -271,6 +260,9 @@ jump_height = 4.0
 extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("4_h77c6")]
+process_mode = 4
+has_health = false
+has_hunger = false
 
 [node name="fps aim" parent="." instance=ExtResource("5_si1no")]
 body_limits = Vector2(-90, 90)
@@ -314,21 +306,19 @@ vertical_alignment = 1
 [node name="shape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_la7lu")
 script = ExtResource("6_3umno")
-normal_height = 4.0
-crouch_height = 3.0
 
 [node name="body" type="Node3D" parent="."]
-script = SubResource("GDScript_wgajf")
+script = ExtResource("13_n86ck")
 
-[node name="head" parent="body" node_paths=PackedStringArray("hotbar") instance=ExtResource("13_cdclh")]
-hotbar = NodePath("")
-normal_height = 1.5
-crouch_height = 1.25
+[node name="head" parent="body" instance=ExtResource("13_cdclh")]
+
+[node name="hotbar" parent="body" instance=ExtResource("15_t2qn8")]
 
 [node name="spine" type="Node3D" parent="body"]
 
 [node name="Sprite3D2" type="Sprite3D" parent="body/spine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -350,6 +340,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Sprite3D2" type="Sprite3D" parent="body/spine/spine2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -391,6 +382,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="body/spine/spine2/spine3/head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1

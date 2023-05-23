@@ -18,6 +18,8 @@ var dt := 0.0
 func _physics_process(delta: float) -> void:
 	dt = delta
 	if character == null: return
+	if !character.can_process(): 
+		return
 	update_target()
 	offset_height()
 	

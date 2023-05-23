@@ -25,3 +25,4 @@ func sprite_changed():
 
 func rotation_changed():
 	global_rotation = billboard_sprite.global_rotation
+	scale = billboard_sprite.scale

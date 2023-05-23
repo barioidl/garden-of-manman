@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_ebjnm"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
-[ext_resource type="PackedScene" uid="uid://bhngj5ppbc2dw" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
+[ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_pmy02"]
 [ext_resource type="Resource" uid="uid://blyxj3d3wn6vs" path="res://data/items/food generic.tres" id="8_tyqn8"]
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="9_028uu"]
