@@ -1,6 +1,5 @@
-[gd_scene load_steps=103 format=3 uid="uid://cwjjqyorvakym"]
+[gd_scene load_steps=102 format=3 uid="uid://cwjjqyorvakym"]
 
-[ext_resource type="FontFile" uid="uid://bdf26hkq2td8r" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future_thin.ttf" id="1_cnwah"]
 [ext_resource type="Texture2D" uid="uid://bl824tvr05ine" path="res://assets/kenney/kenney_ui-pack/PNG/grey_button00.png" id="2_3ahfj"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_bfr04"]
 [ext_resource type="Texture2D" uid="uid://dqu8kim6qvskn" path="res://assets/kenney/kenney_ui-pack/PNG/green_button10.png" id="2_whvft"]
@@ -73,7 +72,6 @@
 [ext_resource type="AudioStream" uid="uid://07k2diroxtl1" path="res://assets/audio/kenney_ui-audio/Audio/rollover6.ogg" id="51_48odo"]
 
 [sub_resource type="FontVariation" id="FontVariation_6xpj3"]
-base_font = ExtResource("1_cnwah")
 
 [sub_resource type="Theme" id="Theme_7t2kr"]
 default_font = SubResource("FontVariation_6xpj3")

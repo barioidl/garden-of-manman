@@ -1,21 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4j41kkqbo3ch"]
+[gd_scene load_steps=6 format=3 uid="uid://d4j41kkqbo3ch"]
 
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_umxrs"]
 [ext_resource type="Resource" uid="uid://bgt5myttrgr3i" path="res://assets/bill_board_sides/arm_segment.tres" id="3_q4wtj"]
+[ext_resource type="Script" path="res://scripts/visual/billboard_clone.gd" id="4_eue7p"]
 [ext_resource type="Texture2D" uid="uid://lb8mhyjg3f0j" path="res://assets/Textures/0005.png" id="4_ievhj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gl4x8"]
-size = Vector3(0.3, 1, 0.3)
+size = Vector3(0.3, 2, 0.3)
 
 [node name="segment" type="Area3D"]
 rotation_edit_mode = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_gl4x8")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.5, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -24,3 +26,13 @@ texture = ExtResource("4_ievhj")
 script = ExtResource("2_umxrs")
 sprites = ExtResource("3_q4wtj")
 axis_ratio = Vector3(1, 0.5, 1)
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1.5, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_ievhj")
+script = ExtResource("4_eue7p")
