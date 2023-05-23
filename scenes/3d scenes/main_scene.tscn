@@ -220,7 +220,7 @@ environment = SubResource("Environment_pe2si")
 camera_attributes = SubResource("CameraAttributesPractical_3ytga")
 
 [node name="timmy" parent="." instance=ExtResource("1_ssxib")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1434, 1.66802, -18.4912)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15.6599, 0.66802, -19.9983)
 collision_layer = 129
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3

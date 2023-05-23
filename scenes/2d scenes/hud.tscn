@@ -75,6 +75,7 @@
 
 [sub_resource type="Theme" id="Theme_7t2kr"]
 default_font = SubResource("FontVariation_6xpj3")
+default_font_size = 20
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="GDScript" id="GDScript_5kh0j"]
@@ -1678,7 +1679,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

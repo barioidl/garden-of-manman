@@ -97,8 +97,12 @@ var toggle_goap_agent := &'toggle_goap_agent'
 
 var get_nav_agent := &'get_nav_agent'
 
-func list_of_methods():pass
 var interact:=&'interact'
+var toggle := &'toggle'
+var on := &'on'
+var off := &'off'
+
+func list_of_methods():pass
 
 func list_of_signals():pass
 var jump_pressed := &'jump_pressed'
@@ -164,3 +168,8 @@ var on_state_changed := &'on_state_changed'
 var item_equipped := &'item_equipped'
 var item_unequipped := &'item_unequipped'
 var item_used := &'item_used'
+
+var button_down := &'button_down'
+var button_up := &'button_up'
+var pressed := &'pressed'
+var toggled := &'toggled'

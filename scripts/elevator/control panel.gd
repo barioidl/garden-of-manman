@@ -1,9 +1,18 @@
 extends Node3D
 
+var button = preload("res://scripts/elevator/panel button.tscn")
+@onready var elevator := $"../.."
+func setup_panel(floors:int):
+	for i in floors:
+		create_button(i)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	setup_buttons()
+func create_button(id:int):
+	var child = button.instantiate()
+	add_child(child)
+	var button_height:float=id*0.5
+	child.position = Vector3(0,button_height,0)
+	
+	child.connect(NL.pressed,button_pressed.bind(id))
 
-func setup_buttons():
-	pass
+func button_pressed(id:int):
+	elevator.travel_to_floor(id)
