@@ -49,7 +49,7 @@ door_meshes = [NodePath("left/SlideDoor"), NodePath("right/SlideDoor")]
 door_open_sfx = SubResource("Resource_84qfp")
 door_close_sfx = SubResource("Resource_v5w7t")
 
-[node name="left" type="CollisionShape3D" parent="."]
+[node name="left" type="CollisionShape3D" parent="." node_paths=PackedStringArray("lock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
 shape = SubResource("BoxShape3D_nyf5f")
 script = ExtResource("1_81jg1")
@@ -57,13 +57,14 @@ duration = 0.4
 open_position = 1.15
 ease = 1
 transition = 1
+lock = NodePath("../right/lock")
 
 [node name="SlideDoor" type="MeshInstance3D" parent="left"]
 material_override = SubResource("StandardMaterial3D_jj0il")
 mesh = ExtResource("2_r5gf6")
 skeleton = NodePath("../..")
 
-[node name="right" type="CollisionShape3D" parent="."]
+[node name="right" type="CollisionShape3D" parent="." node_paths=PackedStringArray("lock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
 shape = SubResource("BoxShape3D_nyf5f")
 script = ExtResource("1_81jg1")
@@ -72,6 +73,7 @@ open_position = 1.15
 mirrored = true
 ease = 1
 transition = 1
+lock = NodePath("lock")
 
 [node name="SlideDoor" type="MeshInstance3D" parent="right"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

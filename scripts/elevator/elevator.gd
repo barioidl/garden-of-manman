@@ -25,6 +25,7 @@ func travel_to_floor(id:int):
 	if cooldown > 0:
 		return
 	id = clampi(id,0,floor_pos.size())
+	print(id)
 	if floor_locked[id]:
 		return
 	var pos = floor_pos[id]

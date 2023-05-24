@@ -8,11 +8,13 @@ signal toggled(button_pressed)
 
 @export var button_pressed := false
 @export var disabled :=false
+@export var fire_signal_at_start:=false
 var cooldown:=0.0
 
 func _ready() -> void:
 	set_interface()
-	fire_signals()
+	if fire_signal_at_start:
+		fire_signals()
 
 func _process(delta: float) -> void:
 	if cooldown > 0:
