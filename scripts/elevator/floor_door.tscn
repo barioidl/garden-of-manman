@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmi132ifn1jtu"]
+
+[ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_jpeal"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_csrv8"]
+size = Vector3(0.1, 3, 3.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_at6vl"]
+albedo_color = Color(0.0103943, 0.12302, 0.238995, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qb0x1"]
+material = SubResource("StandardMaterial3D_at6vl")
+size = Vector3(0.1, 3, 3.6)
+
+[node name="floor door" type="StaticBody3D"]
+
+[node name="door panel" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_csrv8")
+script = ExtResource("1_jpeal")
+duration = 0.4
+open_position = 3.5
+clode_position = 1.5
+direction = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="door panel"]
+mesh = SubResource("BoxMesh_qb0x1")

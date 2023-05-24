@@ -11,24 +11,21 @@ enum axis{x,y,z}
 @export var ease:=Tween.EASE_IN_OUT
 @export var transition := Tween.TRANS_LINEAR
 
-func slide(state) -> void:
-	var tween = get_tree().create_tween()
-	var start = open_position if !state else clode_position
-	var end = open_position if state else clode_position
+@export var lock :Node3D
+
+func slide(open:bool) -> float:
+	if lock != null:
+		lock.cooldown = duration
+	
+	var tween = create_tween()
+	var end = open_position if open else clode_position
 	if mirrored:
-		start *=-1
 		end *= -1
 	match direction:
 		axis.x:
-			tween.tween_method(slide_x,start,end, duration).set_ease(ease).set_trans(transition)
+			tween.tween_property(self,'position:x',end, duration).set_ease(ease).set_trans(transition)
 		axis.y:
-			tween.tween_method(slide_y,start,end, duration).set_ease(ease).set_trans(transition)
+			tween.tween_property(self,'position:y',end, duration).set_ease(ease).set_trans(transition)
 		axis.z:
-			tween.tween_method(slide_z,start,end, duration).set_ease(ease).set_trans(transition)
-
-func slide_x(value):
-	position.x = value
-func slide_y(value):
-	position.y = value
-func slide_z(value):
-	position.z = value
+			tween.tween_property(self,'position:z',end, duration).set_ease(ease).set_trans(transition)
+	return duration

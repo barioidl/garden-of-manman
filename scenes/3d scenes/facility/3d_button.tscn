@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://rwycp4i23vy" path="res://assets/Textures/lever_base0004.png" id="9_kka0y"]
 [ext_resource type="Texture2D" uid="uid://cefel2t2kcq5s" path="res://assets/Textures/lever0004.png" id="9_tr30s"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="10_lfxxi"]
+[ext_resource type="Script" path="res://scripts/button flip animation.gd" id="10_vipr5"]
 [ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="13_mpt74"]
 [ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="14_8jgcq"]
 
@@ -24,28 +25,6 @@
 [sub_resource type="Resource" id="Resource_gjb0p"]
 script = ExtResource("8_8ryb4")
 frames = Array[Texture]([ExtResource("5_82mou"), ExtResource("6_mycha"), ExtResource("3_1ji2m"), ExtResource("7_yk8wn"), ExtResource("9_kka0y"), ExtResource("4_o76vo")])
-
-[sub_resource type="GDScript" id="GDScript_cm3tg"]
-script/source = "extends Node3D
-
-var duration = 0.5
-@export var transition:Tween.TransitionType
-
-func _ready():
-	var button = get_parent()
-	button.connect(\"toggled\",_button_toggled.bind())
-	duration = button.duration
-
-@export var sfx_list:AudioList
-func _button_toggled(button_pressed) -> void:
-	var pos = global_position
-	AudioPool.create_sound_3d(pos,sfx_list)
-	var tween = get_tree().create_tween() # Replace with function body.
-	var angle = Vector3(0,0,55)
-	if button_pressed:
-		angle.z = 125
-	tween.tween_property(self,\"rotation_degrees\",angle, duration).set_trans(transition)
-"
 
 [sub_resource type="Resource" id="Resource_ordtx"]
 script = ExtResource("10_lfxxi")
@@ -60,7 +39,6 @@ frames = Array[Texture]([ExtResource("2_le2kq"), ExtResource("6_ecmqj"), ExtReso
 [node name="3d button" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
 script = ExtResource("1_k0jrn")
-duration = 0.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.1, 0, 0)
@@ -68,6 +46,7 @@ shape = SubResource("BoxShape3D_crg15")
 
 [node name="base" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0, 0)
+cast_shadow = 2
 axis = 1
 shaded = true
 double_sided = false
@@ -80,12 +59,13 @@ face_camera = 1
 
 [node name="lever" type="Node3D" parent="."]
 transform = Transform3D(-0.5, -0.866025, 0, 0.866025, -0.5, 0, 0, 0, 1, 0.1, 0, 0)
-script = SubResource("GDScript_cm3tg")
+script = ExtResource("10_vipr5")
 transition = 2
 sfx_list = SubResource("Resource_ordtx")
 
 [node name="Sprite3D" type="Sprite3D" parent="lever"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1

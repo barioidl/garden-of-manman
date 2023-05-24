@@ -24,5 +24,5 @@ func sprite_changed():
 	texture = billboard_sprite.texture
 
 func rotation_changed():
-	global_rotation = billboard_sprite.global_rotation
+	rotation = billboard_sprite.rotation
 	scale = billboard_sprite.scale
