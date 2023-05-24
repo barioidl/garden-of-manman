@@ -18,7 +18,7 @@ func spawn_item():
 	child.item = item
 	get_parent().add_child(child)
 	child.is_in_overworld = true
-	child.global_transform = global_transform
+	child.global_transform = random_transforms()
 	queue_free()
 
 func setup_sprite():
@@ -26,3 +26,11 @@ func setup_sprite():
 	billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	shaded = false
+
+func random_transforms()->Transform3D:
+	var child_count = get_child_count()
+	if child_count <=0:
+		return global_transform
+	var id = randi() % child_count
+	var child :Node3D= get_child(id)
+	return child.global_transform

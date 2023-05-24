@@ -34,6 +34,9 @@ texture = ExtResource("3_vmam2")
 script = ExtResource("3_mf2v4")
 item = ExtResource("4_e5qnn")
 
+[node name="Marker3D" type="Marker3D" parent="ItemSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
 [node name="door" parent="." instance=ExtResource("5_8bx4v")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -24.2919)
 

@@ -25,7 +25,7 @@ func slide(open:bool) -> float:
 		axis.x:
 			tween.tween_property(self,'position:x',end, duration).set_ease(ease).set_trans(transition)
 		axis.y:
-			tween.tween_property(self,'position:x',end, duration).set_ease(ease).set_trans(transition)
+			tween.tween_property(self,'position:y',end, duration).set_ease(ease).set_trans(transition)
 		axis.z:
 			tween.tween_property(self,'position:z',end, duration).set_ease(ease).set_trans(transition)
 	return duration

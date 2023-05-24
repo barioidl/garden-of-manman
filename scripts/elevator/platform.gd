@@ -6,27 +6,27 @@ extends AnimatableBody3D
 @onready var original_pos:=position
 @export var speed := 1.0
 
-func move_x(pos:float):
-	move_platform(position.x,pos,'position:x')
-func move_y(pos:float):
-	move_platform(position.y,pos,'position:y')
-func move_z(pos:float):
-	move_platform(position.z,pos,'position:z')
+func move_x(pos:float)->float:
+	return move_platform(position.x,pos,'position:x')
+func move_y(pos:float)->float:
+	return move_platform(position.y,pos,'position:y')
+func move_z(pos:float)->float:
+	return move_platform(position.z,pos,'position:z')
 
 var tween:Tween
-func move_platform(from,to,property):
+func move_platform(from,to,property)->float:
 	if is_equal_approx(from,to):
-		return
+		return 0
 	var travel_duration :float= abs(to - from)
 	travel_duration *= speed
 	var door_duration = get_node(doors[0]).duration
-	elevator.cooldown = travel_duration + door_duration * 2
 	
 	tween = create_tween()
 	tween.tween_callback(slide_doors.bind(false))
 	tween.tween_interval(door_duration)
 	tween.tween_property(self,property,to,travel_duration)
 	tween.tween_callback(slide_doors.bind(true))
+	return travel_duration + door_duration
 
 func slide_doors(open:bool):
 	for path in doors:

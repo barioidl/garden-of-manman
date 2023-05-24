@@ -56,9 +56,8 @@
 [ext_resource type="ArrayMesh" uid="uid://dmqg1oc6vxokx" path="res://assets/borga map/upper corridor.obj" id="65_1mice"]
 
 [sub_resource type="Environment" id="Environment_pe2si"]
-background_color = Color(1, 1, 1, 1)
-background_energy_multiplier = 0.1
-ambient_light_source = 2
+background_mode = 1
+background_color = Color(0.196078, 0, 0, 1)
 ambient_light_color = Color(1, 1, 1, 1)
 reflected_light_source = 1
 tonemap_mode = 2
@@ -67,7 +66,7 @@ glow_normalized = true
 glow_intensity = 1.5
 glow_strength = 1.5
 fog_enabled = true
-fog_light_color = Color(0.2, 0, 0, 1)
+fog_light_color = Color(0.196078, 0, 0, 1)
 fog_height = 20.0
 fog_height_density = 0.01
 adjustment_enabled = true
@@ -220,7 +219,7 @@ environment = SubResource("Environment_pe2si")
 camera_attributes = SubResource("CameraAttributesPractical_3ytga")
 
 [node name="timmy" parent="." instance=ExtResource("1_ssxib")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.6998, 0.66802, -19.9983)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15.5586, 0.66802, -19.9983)
 collision_layer = 129
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
