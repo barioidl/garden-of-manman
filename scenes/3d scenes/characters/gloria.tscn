@@ -265,9 +265,10 @@ has_health = false
 has_hunger = false
 
 [node name="fps aim" parent="." instance=ExtResource("5_si1no")]
-body_limits = Vector2(-90, 90)
+body_limits = Vector2(-200, 200)
 
 [node name="brain" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_eytq4")
 active_range = 33.0
 
@@ -304,17 +305,23 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_la7lu")
 script = ExtResource("6_3umno")
+average_size = Vector3(0.5, 3, 0.5)
 
 [node name="body" type="Node3D" parent="."]
 script = ExtResource("13_n86ck")
 
 [node name="head" parent="body" instance=ExtResource("13_cdclh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+head_margin = 0.3
 
 [node name="hotbar" parent="body" instance=ExtResource("15_t2qn8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="spine" type="Node3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 
 [node name="Sprite3D2" type="Sprite3D" parent="body/spine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

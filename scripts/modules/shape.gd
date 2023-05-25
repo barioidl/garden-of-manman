@@ -65,7 +65,6 @@ func change_capsule_size(_size:Vector3):
 	var tween_radius = create_tween()
 	var tween_size = create_tween()
 	tween_pos.tween_property(self,"position:y", _size.y * 0.5, duration).set_trans(transition)
-	
 	var radius:= (_size.x + _size.z) * 0.5
 	tween_radius.tween_property(shape,"radius", radius, duration).set_trans(transition)
 	tween_size.tween_property(shape,"height", _size.y, duration).set_trans(transition)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwmt7cpk5otdo"]
+[gd_scene load_steps=8 format=3 uid="uid://cwmt7cpk5otdo"]
 
 [ext_resource type="Script" path="res://scripts/modules/player.gd" id="1_7xksl"]
 
@@ -283,12 +283,25 @@ shader_parameter/black_shadow_amount = -0.1
 shader_parameter/grain_amount = 0.2
 shader_parameter/line_size = 1.0
 
-[node name="Player" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_1s1xt"]
+radius = 0.1
+
+[node name="Player" type="RigidBody3D"]
 transform = Transform3D(0.999997, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 0, 0)
+collision_layer = 128
+collision_mask = 0
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = -1.0
+custom_integrator = true
 script = ExtResource("1_7xksl")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, -8.7423e-08, 0, 1, 0, 8.7423e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.74233e-08, 0, 1, 0, 8.74233e-08, 0, -1, 0, 0, 0)
 keep_aspect = 0
 current = true
 fov = 90.0
@@ -306,3 +319,7 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.2)
 visible = false
 mesh = SubResource("PlaneMesh_57txa")
 surface_material_override/0 = SubResource("ShaderMaterial_baqlc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("SphereShape3D_1s1xt")

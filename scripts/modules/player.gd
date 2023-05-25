@@ -1,4 +1,4 @@
-extends Node3D
+extends RigidBody3D
 
 @onready var camera3d = $Camera3D
 var character:Node3D
@@ -29,12 +29,10 @@ func attach_to(_character:Node3D):
 	head = character.get_node('body/head')
 
 var time:=0.0
-func _process(delta):
+func _physics_process(delta):
 	time = delta
 	copy_head_transform()
 	reset_dpad2()
-
-#func _physics_process(delta):
 #	cursor_cast()
 #	get_keys()
 
