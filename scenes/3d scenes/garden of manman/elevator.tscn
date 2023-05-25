@@ -126,7 +126,6 @@ clode_position = 0.9
 mirrored = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="elevator/platform/door panel2"]
-visible = false
 mesh = SubResource("BoxMesh_5lyr2")
 
 [node name="floor buttons" type="Node3D" parent="elevator"]

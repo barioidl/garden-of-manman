@@ -19,7 +19,7 @@ func _ready() -> void:
 func body_entered(body:Node3D):
 	if !body.is_in_group(NL.player):
 		return
-	Interface.display_sentence(line)
+	Interface.show_dialogue(line)
 	queue_free()
 
 

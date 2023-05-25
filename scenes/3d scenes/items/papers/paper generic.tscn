@@ -1,0 +1,52 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxwcbapuynpcn"]
+
+[ext_resource type="Texture2D" uid="uid://blet5n7op6pd5" path="res://assets/Textures/human naked0005.png" id="1_a18yg"]
+[ext_resource type="Texture2D" uid="uid://bt6rynmwrhuyf" path="res://assets/kenney/kenney_ui-pack/PNG/blue_tick.png" id="1_niqu8"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_htr8l"]
+[ext_resource type="Texture2D" uid="uid://cflxdotwanusp" path="res://assets/Textures/human naked0000.png" id="3_euslb"]
+[ext_resource type="Texture2D" uid="uid://dwwres3d6xg5" path="res://assets/Textures/human naked0001.png" id="4_b0cv3"]
+[ext_resource type="Texture2D" uid="uid://cqn7rw5emnhsl" path="res://assets/Textures/human naked0002.png" id="5_iuwiu"]
+[ext_resource type="Texture2D" uid="uid://c2ywtf1jyo2ki" path="res://assets/Textures/human naked0003.png" id="6_gh11g"]
+[ext_resource type="Texture2D" uid="uid://de0qc3u1pbjxx" path="res://assets/Textures/human naked0004.png" id="7_f6voq"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_uec7j"]
+
+[sub_resource type="GDScript" id="GDScript_l5eii"]
+script/source = "extends ItemOverworld
+
+@export var content:Texture
+
+func _ready() -> void:
+	connect(NL.item_used,used)
+
+func used():
+	print('paper used')
+	Interface.show_image(content)
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vw860"]
+size = Vector3(0.25, 0.25, 1)
+
+[sub_resource type="Resource" id="Resource_m32y7"]
+script = ExtResource("8_uec7j")
+frames = Array[Texture]([ExtResource("3_euslb"), ExtResource("4_b0cv3"), ExtResource("5_iuwiu"), ExtResource("6_gh11g"), ExtResource("7_f6voq"), ExtResource("1_a18yg")])
+
+[node name="paper generic" type="CharacterBody3D"]
+script = SubResource("GDScript_l5eii")
+content = ExtResource("1_niqu8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vw860")
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="."]
+cast_shadow = 2
+modulate = Color(1, 0, 1, 1)
+axis = 1
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("1_a18yg")
+script = ExtResource("2_htr8l")
+sprites = SubResource("Resource_m32y7")
+face_camera = 1
+axis_ratio = Vector3(1, 1, 0.5)

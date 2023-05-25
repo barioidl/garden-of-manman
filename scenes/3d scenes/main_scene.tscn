@@ -78,9 +78,6 @@ dof_blur_far_transition = 30.0
 dof_blur_near_distance = 1.0
 dof_blur_near_transition = 2.0
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pk2np"]
-friction = 0.2
-
 [sub_resource type="GDScript" id="GDScript_vmftm"]
 script/source = "extends Node3D
 
@@ -98,7 +95,8 @@ func _process(delta: float) -> void:
 		toggle(child)
 
 func toggle(root):
-	var distsq :float=root.global_position. distance_to(player.global_position)
+	var pos = PlayerInputs.global_position
+	var distsq = root.global_position.distance_to(pos)
 	if distsq > disable_range:
 		root.visible = false
 		root.process_mode = Node.PROCESS_MODE_DISABLED
@@ -118,6 +116,9 @@ func _physics_process(delta: float) -> void:
 	if distsq > 13.5*13.5:
 		target.global_position =global_position+ rel.normalized()*13.5
 "
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pk2np"]
+friction = 0.2
 
 [sub_resource type="GDScript" id="GDScript_isicj"]
 script/source = "extends MeshInstance3D
@@ -174,7 +175,7 @@ size = Vector3(5, 5, 17)
 size = Vector3(21, 5, 11)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8y5qc"]
-size = Vector3(4, 60, 4)
+size = Vector3(4, 80, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ylpb0"]
 size = Vector3(32, 6, 18)
@@ -218,24 +219,9 @@ func _ready() -> void:
 environment = SubResource("Environment_pe2si")
 camera_attributes = SubResource("CameraAttributesPractical_3ytga")
 
-[node name="timmy" parent="." instance=ExtResource("1_ssxib")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15.5586, 0.66802, -19.9983)
-collision_layer = 129
-physics_material_override = SubResource("PhysicsMaterial_pk2np")
-max_contacts_reported = 3
-
-[node name="Node" type="Node" parent="timmy"]
-script = ExtResource("4_dn1r6")
-items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("5_6kfeo"), ExtResource("6_f6ljs")])
-
-[node name="attach player control" type="Node" parent="timmy"]
-script = ExtResource("5_bmfmr")
-
 [node name="characters" type="Node3D" parent="." node_paths=PackedStringArray("player")]
-process_mode = 4
-visible = false
 script = SubResource("GDScript_vmftm")
-player = NodePath("../timmy")
+player = NodePath("timmy")
 disable_range = 30
 cd_duration = 3.0
 
@@ -246,9 +232,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5361, 2, -35.6828)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6581, 1.5, -44.1669)
 
 [node name="manman" parent="characters" instance=ExtResource("8_jhbom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.1484)
 
 [node name="namnam" parent="characters" instance=ExtResource("7_8jvxy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3075, 4.38931, -0.481705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.440211, 4.38931, 4.23289)
 
 [node name="mommy long" parent="characters" instance=ExtResource("10_nwwic")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 8, 4, -80)
@@ -259,6 +246,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, -13.5, 0)
 top_level = true
 script = SubResource("GDScript_6wonm")
 target = NodePath("..")
+
+[node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.02256, 1.77791, -19.4083)
+collision_layer = 129
+physics_material_override = SubResource("PhysicsMaterial_pk2np")
+max_contacts_reported = 3
+
+[node name="Node" type="Node" parent="characters/timmy"]
+script = ExtResource("4_dn1r6")
+items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("5_6kfeo"), ExtResource("6_f6ljs")])
+
+[node name="attach player control" type="Node" parent="characters/timmy"]
+script = ExtResource("5_bmfmr")
 
 [node name="map" type="Node3D" parent="."]
 
@@ -759,7 +759,7 @@ skeleton = NodePath("../../../../..")
 [node name="upper lobby" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -17.5)
 script = ExtResource("8_plspx")
-areas = [NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/dinning room"), NodePath("../../-1 areas/upper corridor")]
+areas = [NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/dinning room"), NodePath("../../-1 areas/upper corridor"), NodePath("../../-4 areas/elevator")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="map/garden of manman/floor -1/upper lobby"]
 
