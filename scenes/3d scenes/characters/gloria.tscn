@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bjwc6mkin1w06"]
+[gd_scene load_steps=35 format=3 uid="uid://bjwc6mkin1w06"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_esb8o"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_xq6ho"]
@@ -6,17 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_h77c6"]
 [ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_si1no"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="6_3umno"]
-[ext_resource type="FontFile" uid="uid://bdf26hkq2td8r" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future_thin.ttf" id="6_f3ext"]
-[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="7_c7txm"]
-[ext_resource type="AudioStream" uid="uid://d3l78dbj2yimk" path="res://assets/audio/kenney_interface-sounds/Audio/click_001.ogg" id="8_reswx"]
 [ext_resource type="PackedScene" uid="uid://b2tkvdsahvmko" path="res://scenes/3d scenes/characters/gloria arm.tscn" id="8_vd245"]
 [ext_resource type="Texture2D" uid="uid://nieyjl3abl7l" path="res://assets/Textures/gloria hip0000.png" id="8_xppjg"]
-[ext_resource type="AudioStream" uid="uid://cqsi50adqcbas" path="res://assets/audio/kenney_interface-sounds/Audio/click_002.ogg" id="9_p441a"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="9_x3282"]
 [ext_resource type="Texture2D" uid="uid://d4dsrqguqx4a0" path="res://assets/Textures/gloria hip0002.png" id="10_rd0v5"]
-[ext_resource type="AudioStream" uid="uid://xq02lwtna23i" path="res://assets/audio/kenney_interface-sounds/Audio/click_003.ogg" id="10_ved4e"]
 [ext_resource type="Texture2D" uid="uid://d4blue5efg7ap" path="res://assets/Textures/gloria hip0005.png" id="11_017nn"]
-[ext_resource type="AudioStream" uid="uid://botg3p6msbcl3" path="res://assets/audio/kenney_interface-sounds/Audio/click_005.ogg" id="11_45dnw"]
 [ext_resource type="Texture2D" uid="uid://1kent4afv44l" path="res://assets/Textures/gloria chest0000.png" id="11_tmgpa"]
 [ext_resource type="Texture2D" uid="uid://by4eh4m0wx0qj" path="res://assets/Textures/gloria hip0001.png" id="12_6i8o5"]
 [ext_resource type="Texture2D" uid="uid://c6rv448mcdbdf" path="res://assets/Textures/gloria chest0002.png" id="12_xgd6h"]
@@ -36,202 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://dclltqrcg5ept" path="res://assets/Textures/gloria head0001.png" id="26_yw3cl"]
 [ext_resource type="Texture2D" uid="uid://cgdnpytxj8yeh" path="res://assets/Textures/gloria head0003.png" id="27_pcix2"]
 [ext_resource type="Texture2D" uid="uid://d0siwgh2ag8ha" path="res://assets/Textures/gloria head0004.png" id="28_lo2rk"]
-
-[sub_resource type="GDScript" id="GDScript_eytq4"]
-script/source = "extends Node
-
-var player
-var player_head
-
-@onready var root = $\"..\"
-@onready var input :Inputs= $\"../inputs\"
-@onready var body = $\"../body\"
-@onready var head = $\"../body/head\"
-
-@onready var it_field =$\"IT field\"
-
-var is_sun:=true
-
-func _ready() -> void:
-#	root.connect(\"body_entered\",body_entered.bind())
-#	root.connect(\"body_exited\",body_exited.bind())
-	player = get_tree().get_first_node_in_group('player')
-	if player != null:
-		player_head = player.get_node(\"body/head\")
-
-var time :=0.0
-func _process(delta: float) -> void:
-	time = delta
-	choose()
-
-var cd:=0.0
-func choose():
-	if cd >0:
-		cd-=time
-		return
-	
-	if player == null: return
-	if get_tree().is_paused():return
-	global_states()	
-	
-	face_player(player_head.global_position)
-
-@export var active_range:=20.0
-func global_states():
-	var distsq :float=root.global_position. distance_to(player.global_position)
-	
-	it_field.level = lerp(11,0,distsq/(active_range)) 
-
-func chase_player(target:Vector3):
-	var target_local = body.to_local(target)
-	var dpad1 := Vector2(target_local.x,target_local.z)
-	if dpad1 != Vector2.ZERO:
-		input.dpad1 = dpad1.limit_length(1)
-
-@export var turn_speed:=50
-func face_player(target:Vector3):
-	var local:Vector3=head.to_local(target)
-	local = local.normalized()
-	var x = clampf(local.x *10,-1,1)*turn_speed
-	var y = clampf(local.y *10,-1,1)*turn_speed
-	input.dpad2.x = x
-	input.dpad2.y = -y
-
-var sfx_cd:=0.1
-func play_sfx(sfx, volume:=10, pitch:=1):
-	sfx_cd -= time
-	if sfx_cd > 0:return
-	
-	var pos = root.global_position
-	var player = AudioPool.create_sound_3d(pos,sfx)
-	player.pitch_scale = pitch+randf_range(-0.25,0.25)
-	player.volume_db = volume
-	
-	sfx_cd = randf_range(0.1,0.5) * player.stream.get_length()
-#	AudioLibrary.gm_time
-"
-
-[sub_resource type="FontVariation" id="FontVariation_pbvha"]
-base_font = ExtResource("6_f3ext")
-
-[sub_resource type="Theme" id="Theme_dcwo1"]
-default_font = SubResource("FontVariation_pbvha")
-
-[sub_resource type="GDScript" id="GDScript_fgxx3"]
-script/source = "extends Control
-
-@onready var container = $ColorRect
-var labels:=Array()
-var level:=0
-
-func _ready() -> void:
-	pass
-	create_text_pool()
-	container.visible = false
-
-func create_text_pool():
-	var sample = $\"ColorRect/sample text\"
-	for i in 30:
-		var child = sample.duplicate()
-		container.add_child(child)
-	labels = container.get_children()
-
-var cd := 0.0
-func _process(delta: float) -> void:
-	if !visible:return
-	if level <=0: return
-	if cd >0:
-		cd -= delta
-		return
-	
-	if level <10:
-		cd = lerpf(1,0.2,level*0.1)
-		var duration :float= lerpf(delta,0.1,level*0.1)
-		show_panel(duration)
-		arrange_text(level)
-#		play_static_sfx()
-	else:
-#		cd = 0.5
-		container.visible = true
-		arrange_text(10)
-#		play_static_sfx()
-
-var dialogues:=[
-	\"don't\",
-	\"open\",
-	\"door\",
-	\"cease\",
-	\"away\",
-	\"seal\",
-	\"safe\",
-	'here',
-	\"seek\",
-	\"contaminated\",
-	\"surface\",
-	\"scary\",
-	\"dangerous\",
-	\"monsters\",
-	\"distance\",
-	\"entrance\",
-	\"tower\",
-	\"collapsed\",
-	\"alone\",
-	\"want\",
-	\"rest\",
-	\"die\",
-	\"create\",
-	\"greedy\",
-	\"resource\",
-	\"left\",
-	\"replaced\",
-	\"exodus\",
-	\"moved\",
-	\"abandoned\",
-	\"destroy\",
-]
-func arrange_text(level:int):
-	var quantity :=30 if level == 10 else lerpf(0,10,level*0.1)
-	
-	var rand := lerpf(0,0.5,level*0.1)
-	var rmin:=0.5-rand
-	var rmax:=0.5+rand
-	var rand_pos := Vector2.ZERO
-	
-	var dial_id:=0
-	var dial_size = dialogues.size()
-	
-	var child_count = labels.size()
-	for i in child_count:
-		var label :Label= labels[i]
-		if i >= quantity:
-			label.visible = false
-			continue
-		label.visible = true
-		rand_pos.x = randf_range(rmin,rmax)
-		rand_pos.y = randf_range(rmin,rmax)
-		label.position = size*rand_pos
-		label.text = dialogues[dial_id]
-		dial_id = wrapi(dial_id+1,0,dial_size)
-
-func show_panel(interval):
-	container.visible = true
-	var tween = create_tween()
-	tween.tween_interval(interval)
-	tween.tween_callback(hide)
-
-func hide():
-	container.visible = false
-
-@export var static_sfx:AudioList
-func play_static_sfx():
-	AudioPool.create_sound(static_sfx)
-"
-
-[sub_resource type="Resource" id="Resource_18pmn"]
-script = ExtResource("7_c7txm")
-pitch_range = Vector2(0.1, 0.25)
-volume_range = Vector2(-40, -20)
-streams = Array[AudioStream]([ExtResource("8_reswx"), ExtResource("9_p441a"), ExtResource("10_ved4e"), ExtResource("11_45dnw")])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_la7lu"]
 height = 3.0
@@ -267,43 +65,6 @@ has_hunger = false
 [node name="fps aim" parent="." instance=ExtResource("5_si1no")]
 body_limits = Vector2(-200, 200)
 
-[node name="brain" type="Node" parent="."]
-process_mode = 4
-script = SubResource("GDScript_eytq4")
-active_range = 33.0
-
-[node name="IT field" type="Control" parent="brain"]
-z_as_relative = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = SubResource("Theme_dcwo1")
-script = SubResource("GDScript_fgxx3")
-static_sfx = SubResource("Resource_18pmn")
-
-[node name="ColorRect" type="ColorRect" parent="brain/IT field"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="sample text" type="Label" parent="brain/IT field/ColorRect"]
-layout_mode = 0
-offset_right = 130.0
-offset_bottom = 38.0
-theme_override_font_sizes/font_size = 30
-text = "sample"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_la7lu")
@@ -333,6 +94,8 @@ texture_filter = 0
 texture = ExtResource("11_017nn")
 script = ExtResource("9_x3282")
 sprites = SubResource("Resource_5ypd8")
+select_cd_range = Vector2(0.3, 1)
+rotate_cd_range = Vector2(0.1, 0.5)
 
 [node name="leg" parent="body/spine" node_paths=PackedStringArray("target") instance=ExtResource("8_vd245")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2, 0, 0)
@@ -356,6 +119,8 @@ texture = ExtResource("13_1y47m")
 region_rect = Rect2(42, 41, 29, 31)
 script = ExtResource("9_x3282")
 sprites = SubResource("Resource_2i5x0")
+select_cd_range = Vector2(0.3, 1)
+rotate_cd_range = Vector2(0.1, 0.5)
 
 [node name="arm" parent="body/spine/spine2" node_paths=PackedStringArray("target") instance=ExtResource("8_vd245")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.25, 0)
@@ -397,6 +162,8 @@ texture_filter = 0
 texture = ExtResource("25_717i3")
 script = ExtResource("9_x3282")
 sprites = SubResource("Resource_g34ch")
+select_cd_range = Vector2(0.3, 1)
+rotate_cd_range = Vector2(0.1, 0.5)
 
 [node name="chain" type="Node3D" parent="body/spine/spine2/spine3/head"]
 

@@ -59,20 +59,21 @@ func check_pass():
 	var key := '0100110011110011'
 	var buttons = get_children()
 	for i in buttons.size():
-		var bin = '1' if buttons[i].active else '0'
+		var bin = '1' if buttons[i].button_pressed else '0'
 		if bin != key[i]:
 			return
 	spawn_item()
 
 func spawn_item():
-	if item == null: 
-		push_error('item spawner with null item'+ str(get_path()))
-		return
-	var child = item.prefab.instantiate()
-	child.item = item
-	get_parent().add_child(child)
-	child.global_transform = global_transform
-	queue_free()
+	OS.shell_open('https://www.youtube.com/watch?v=M1Tl2VKR874')
+#	if item == null: 
+#		push_error('item spawner with null item'+ str(get_path()))
+#		return
+#	var child = item.prefab.instantiate()
+#	child.item = item
+#	get_parent().add_child(child)
+#	child.global_transform = global_transform
+#	queue_free()
 "
 
 [node name="power room" type="Node3D"]

@@ -20,8 +20,8 @@ enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 @export var reference_frame:Node3D
 @onready var camera := get_viewport().get_camera_3d()
 
-@export var select_cd_range:=Vector2(0.3,1)
-@export var rotate_cd_range:=Vector2(0.1,0.5)
+@export var select_cd_range:=Vector2(0.2,1)
+@export var rotate_cd_range:=Vector2(0.02,0.5)
 var select_cd:=0.0
 var rotate_cd:=0.1
 
@@ -75,27 +75,42 @@ func _process(delta: float) -> void:
 	if !visible:return
 	
 	var dir = camera.global_position - global_position
-	var dist_ratio = dir.length_squared() / (disable_dist*disable_dist)
+	
+	var cam_forward = camera.global_transform.basis.z
+	if cam_forward.dot(dir) < 0:return
+	
+	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
 	if dist_ratio > 1: return
 	forward = dir.normalized()
 	
-	select_cd -= delta
-	if select_cd < 0 and PerformanceCap.allow_billboard_select():
-		select_cd = lerpf(select_cd_range.x, select_cd_range.y, dist_ratio)
-		rotate_cd = 0
+	select_sprite(delta,dist_ratio)
+	rotate_sprite(delta,dist_ratio)
+
+func select_sprite(delta,dist_ratio):
+	if select_cd > 0:
+		select_cd -= delta
+		return
+	if !PerformanceCap.allow_billboard_select():
+		return
+	select_cd = lerpf(select_cd_range.x, select_cd_range.y, dist_ratio)
+	rotate_cd = 0
 #		camera = get_viewport().get_camera_3d()
-		choose_side()
-		
-	rotate_cd -=delta
-	if rotate_cd < 0 and PerformanceCap.allow_billboard_rotate():
-		rotate_cd = lerpf(rotate_cd_range.x, rotate_cd_range.y, dist_ratio)
-		match face_camera:
-			bill_board_modes.bill_board:
-				billboard_forward()
-			bill_board_modes.lock_y_axis:
-				billboard_up()
-			bill_board_modes.six_sides:
-				axis_rotate()
+	choose_side()
+
+func rotate_sprite(delta,dist_ratio):
+	if rotate_cd > 0:
+		rotate_cd -= delta
+		return
+	if !PerformanceCap.allow_billboard_rotate():
+		return
+	rotate_cd = lerpf(rotate_cd_range.x, rotate_cd_range.y, dist_ratio)
+	match face_camera:
+		bill_board_modes.bill_board:
+			billboard_forward()
+		bill_board_modes.lock_y_axis:
+			billboard_up()
+		bill_board_modes.six_sides:
+			axis_rotate()
 
 func choose_side():
 	var ref = reference_frame.global_transform.basis

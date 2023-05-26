@@ -39,6 +39,7 @@ enum colors{brown,red,green,blue}
 @export var color:=colors.brown
 
 func _ready() -> void:
+	super._ready()
 	$AnimatedSprite3D.sprites = get_color()
 
 func get_color()->BillboardSides:
@@ -86,11 +87,12 @@ shape = SubResource("CylinderShape3D_mgenm")
 
 [node name="AnimatedSprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+cast_shadow = 2
 axis = 1
 shaded = true
 double_sided = false
 texture_filter = 0
-texture = ExtResource("1_ou174")
+texture = ExtResource("6_4sbwx")
 script = ExtResource("25_6v08h")
 sprites = SubResource("Resource_nw28g")
 alphacut = 0

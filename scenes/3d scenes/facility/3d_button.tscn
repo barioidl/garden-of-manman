@@ -39,6 +39,7 @@ frames = Array[Texture]([ExtResource("2_le2kq"), ExtResource("6_ecmqj"), ExtReso
 [node name="3d button" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
 script = ExtResource("1_k0jrn")
+fire_signal_at_start = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.1, 0, 0)

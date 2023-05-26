@@ -171,6 +171,4 @@ head_margin = 0.15
 script = SubResource("GDScript_l165g")
 
 [node name="rig" parent="body" node_paths=PackedStringArray("root") instance=ExtResource("12_tmh3y")]
-process_mode = 4
-visible = false
 root = NodePath("../..")

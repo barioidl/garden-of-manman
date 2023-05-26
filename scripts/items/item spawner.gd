@@ -1,4 +1,3 @@
-@tool
 extends Sprite3D
 class_name ItemSpawner
 
@@ -10,8 +9,10 @@ func _ready() -> void:
 		return
 	if Engine.is_editor_hint():
 		setup_sprite()
-	else:
-		call_deferred('spawn_item')
+
+
+func _process(delta: float) -> void:
+	spawn_item()
 
 func spawn_item():
 	var child = item.prefab.instantiate()

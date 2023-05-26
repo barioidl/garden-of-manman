@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://cwjjqyorvakym"]
+[gd_scene load_steps=103 format=3 uid="uid://cwjjqyorvakym"]
 
 [ext_resource type="Texture2D" uid="uid://bl824tvr05ine" path="res://assets/kenney/kenney_ui-pack/PNG/grey_button00.png" id="2_3ahfj"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_bfr04"]
@@ -90,13 +90,6 @@ enum states{
 	exit
 }
 
-@export var ui_start_page:Control
-@export var ui_game:Control
-@export var ui_over:Control
-@export var ui_pause:Control
-@export var ui_settings:Control
-@export var ui_exit:Control
-
 @export var state := states.gameplay
 var prev_states:Array[states]=[]
 
@@ -105,8 +98,9 @@ var sfx_cd:=1.0
 @export var switch_sounds:AudioList
 @export var roll_sounds:AudioList
 
+signal  state_changed(old_state, state)
 func _ready():
-	update_ui()
+	pass
 
 func _process(delta: float) -> void:
 	if sfx_cd >0:
@@ -126,40 +120,9 @@ func change_state(new_state,add_to_stack:=true):
 	if state == new_state: return
 	if add_to_stack:
 		prev_states.push_back(state)
-	save_file(state,new_state)
+	emit_signal('state_changed',state,new_state)
 	state=new_state
-	update_ui()
-	
 	play_roll_sfx()
-
-func save_file(old_state,new_state):
-	if old_state != states.settings:return
-	$save_loader.save.call()
-
-func update_ui():
-	show_UI()
-	toggle_mouse_lock()
-	pause_world()
-
-func show_UI():
-	ui_start_page.visible = state == states.start_page
-	ui_game.visible = state == states.gameplay
-	ui_over.visible = state == states.gameover
-	ui_pause.visible = state == states.pause
-	ui_settings.visible = state == states.settings
-	ui_exit.visible = state == states.exit
-
-func toggle_mouse_lock():
-	var is_in_game = state == states.gameplay
-	if is_in_game:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
-func pause_world():
-	var is_in_game = state == states.gameplay or state == states.start_page
-	get_tree().paused = !is_in_game
-
 
 
 func play_button_sfx():
@@ -207,30 +170,17 @@ func start():
 	get_tree().change_scene_to_file(\"res://scenes/3d scenes/main_scene.tscn\")
 "
 
-[sub_resource type="GDScript" id="GDScript_rcm42"]
-script/source = "extends TextureButton
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	connect('pressed',_open_page) # Replace with function body.
-
-func _open_page():
-	$\"../../../..\".play_button_sfx()
-	OS.shell_open(\"https://youtu.be/gN24W_psMpE\")
-"
-
 [sub_resource type="GDScript" id="GDScript_xeehh"]
 script/source = "extends TextureButton
 
-
+@export var link:String=\"https://www.youtube.com/channel/UCq5n-U_6j3Y1CQBTotLkSKQ\"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	connect('pressed',_open_page) # Replace with function body.
 
 func _open_page():
 	$\"../../../..\".play_button_sfx()
-	OS.shell_open(\"https://www.youtube.com/channel/UCq5n-U_6j3Y1CQBTotLkSKQ\")
+	OS.shell_open(link)
 "
 
 [sub_resource type="GDScript" id="GDScript_qvros"]
@@ -993,24 +943,96 @@ func yes() -> void:
 	get_tree().quit()# Replace with function body.
 "
 
-[sub_resource type="GDScript" id="GDScript_akyhh"]
+[sub_resource type="GDScript" id="GDScript_jqpvn"]
 script/source = "extends Node
 
-@export var disable_when_debug:=false
+@onready var root = $\"..\"
+@onready var states = root.states
 
-var save:=Callable(save_game)
+@onready var ui_start_page:=$\"../main page\"
+@onready var ui_game:=$\"../Gameplay\"
+@onready var ui_over:=$\"../Game over\"
+@onready var ui_pause:=$\"../Pause\"
+@onready var ui_settings:=$\"../Settings\"
+@onready var ui_exit:=$\"../Exit\"
 
 func _ready() -> void:
-	if disable_when_debug:
-		if OS.is_debug_build():
-			save=Callable(dud)
-			return
-	load_game()
+	root.connect('state_changed',switch_panel)
+	root.connect('state_changed',switch_mousemode)
+	root.connect('state_changed',pause_tree)
 
-func dud():pass
+func switch_panel(old_state,state):
+	ui_start_page.visible = state == states.start_page
+	ui_game.visible = state == states.gameplay
+	ui_over.visible = state == states.gameover
+	ui_pause.visible = state == states.pause
+	ui_settings.visible = state == states.settings
+	ui_exit.visible = state == states.exit
+
+
+@export var mousemode_gameplay = Input.MOUSE_MODE_CAPTURED
+@export var mousemode_default = Input.MOUSE_MODE_VISIBLE
+func switch_mousemode(old_state,state):
+	match state:
+		states.gameplay:
+			Input.set_mouse_mode(mousemode_gameplay)
+		_:
+			Input.set_mouse_mode(mousemode_default)
+
+func pause_tree(old_state,state):
+	var pause = state == states.gameplay or state == states.start_page
+	get_tree().paused = !pause
+"
+
+[sub_resource type="GDScript" id="GDScript_0usqr"]
+script/source = "extends Node
+
+var sfx_cd:=1.0
+@export var button_sounds:AudioList
+@export var switch_sounds:AudioList
+@export var roll_sounds:AudioList
+
+func _ready() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	if sfx_cd >0:
+		sfx_cd -= delta
+
+func play_button_sfx():
+	if sfx_cd >0: return
+	sfx_cd = 0.1
+	AudioPool.create_sound(button_sounds)
+
+func play_switch_sfx():
+	if sfx_cd >0: return
+	sfx_cd = 0.1
+	AudioPool.create_sound(button_sounds)
+
+func play_roll_sfx():
+	if sfx_cd >0: return
+	sfx_cd = 0.1
+	AudioPool.create_sound(button_sounds)
+"
+
+[sub_resource type="GDScript" id="GDScript_akyhh"]
+script/source = "extends Node
+@onready var root = get_parent()
+@export var disable_when_debug:=false
+
+func _ready() -> void:
+	root.connect('state_changed',state_changed)
+	load_ui()
+
+func state_changed(old_state,state):
+	if old_state == root.states.settings:
+		save_ui()
 
 var file_path := \"user://ui_save.save\"
-func save_game():
+func save_ui():
+	if disable_when_debug:
+		if OS.is_debug_build():
+			return
 	var save_game = FileAccess.open(file_path, FileAccess.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group(NL.ui_save_load)
 	for node in save_nodes:
@@ -1021,7 +1043,10 @@ func save_game():
 		var json_string = JSON.stringify(node_data)
 		save_game.store_line(json_string)
 
-func load_game():
+func load_ui():
+	if disable_when_debug:
+		if OS.is_debug_build():
+			return
 	if not FileAccess.file_exists(file_path):
 			return 
 	var save_game = FileAccess.open(file_path, FileAccess.READ)
@@ -1043,7 +1068,7 @@ func load_game():
 		target_node._load(node_data)
 "
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("ui_start_page", "ui_game", "ui_over", "ui_pause", "ui_settings", "ui_exit")]
+[node name="HUD" type="Control"]
 process_mode = 3
 texture_filter = 1
 layout_mode = 3
@@ -1054,13 +1079,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7t2kr")
 script = SubResource("GDScript_5kh0j")
-ui_start_page = NodePath("main page")
-ui_game = NodePath("Gameplay")
-ui_over = NodePath("Game over")
-ui_pause = NodePath("Pause")
-ui_settings = NodePath("Settings")
-ui_exit = NodePath("Exit")
-state = null
 button_sounds = SubResource("Resource_d7d2p")
 switch_sounds = SubResource("Resource_pi23o")
 roll_sounds = SubResource("Resource_4vadk")
@@ -1138,7 +1156,8 @@ texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-script = SubResource("GDScript_rcm42")
+script = SubResource("GDScript_xeehh")
+link = "https://youtu.be/_b_bUNSM3Vo"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/merch"]
 layout_mode = 1
@@ -1162,6 +1181,7 @@ texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
 script = SubResource("GDScript_xeehh")
+link = "https://ninelies.itch.io/"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/wishlist"]
 layout_mode = 1
@@ -1185,6 +1205,7 @@ texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
 script = SubResource("GDScript_xeehh")
+link = "https://ninelies.itch.io/"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/wishlist2"]
 layout_mode = 1
@@ -1231,6 +1252,7 @@ texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
 script = SubResource("GDScript_xeehh")
+link = "https://twitter.com/Ninelie20340672"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/twitter"]
 layout_mode = 1
@@ -1337,6 +1359,9 @@ grow_vertical = 2
 text = "Textures:
 UI pack by Kenney Vleugels (www.kenney.nl)
 
+Shaders:
+Outline shader by embyr
+
 Models:
 Conveyor Kit (1.0)  by Kenney (www.kenney.nl)
 
@@ -1356,6 +1381,7 @@ Interface Sounds (1.0) by Kenney (www.kenney.nl)
 “Additional sound effects from https://www.zapsplat.com“"
 
 [node name="Gameplay" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1571,7 +1597,6 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(150, 150)
-texture = ExtResource("5_5mmy2")
 stretch_mode = 5
 script = SubResource("GDScript_nevrt")
 
@@ -2070,6 +2095,12 @@ grow_vertical = 2
 text = "yes"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="show panels" type="Node" parent="."]
+script = SubResource("GDScript_jqpvn")
+
+[node name="sound effects" type="Node" parent="."]
+script = SubResource("GDScript_0usqr")
 
 [node name="save_loader" type="Node" parent="."]
 script = SubResource("GDScript_akyhh")

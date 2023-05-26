@@ -3,6 +3,7 @@ extends ItemOverworld
 @export var password:Lock.types
 
 func _ready() -> void:
+	super._ready()
 	add_to_group('key')
 	var tween = create_tween()
 	tween.tween_interval(0.1)

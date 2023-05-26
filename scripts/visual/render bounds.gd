@@ -14,12 +14,12 @@ func connect_areas():
 		if area == null:
 			print("area is missing"+ str(path))
 		else:
-			area.connect('body_entered',_on_body_entered)
-			area.connect('body_exited',_on_body_exited)
+			area.connect('area_entered',_on_area_entered)
+			area.connect('area_exited',_on_area_exited)
 
-func _on_body_entered(body: Node3D) -> void:
+func _on_area_entered(body: Node3D) -> void:
 	update_area(1)
-func _on_body_exited(body: Node3D) -> void:
+func _on_area_exited(body: Node3D) -> void:
 	update_area(-1)
 
 var active_areas:=0

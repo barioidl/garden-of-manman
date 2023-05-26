@@ -25,6 +25,7 @@ func _ready() -> void:
 
 [sub_resource type="Environment" id="Environment_pjwlt"]
 ambient_light_source = 2
+ambient_light_color = Color(0.223529, 0.223529, 0.223529, 1)
 adjustment_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xk6h"]
@@ -107,9 +108,7 @@ shape = SubResource("ConcavePolygonShape3D_gr585")
 navigation_mesh = SubResource("NavigationMesh_r78ed")
 
 [node name="timmy" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.421, 0, -40.4508)
-collision_layer = 129
-collision_mask = 129
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.421, 0.335056, -40.4508)
 max_contacts_reported = 3
 linear_damp = 10.0
 
@@ -120,7 +119,7 @@ script = ExtResource("4_ebjnm")
 script = ExtResource("3_65qyn")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.07525, 0, -39.4441)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.354652, 0, -39.4441)
 
 [node name="plasma room" parent="." instance=ExtResource("13_psdo4")]
 script = null
@@ -246,7 +245,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="safe points" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -29)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -3.30875, 1, -41.2289)
 script = SubResource("GDScript_vldcx")
 
 [node name="Marker3D" type="Marker3D" parent="safe points"]

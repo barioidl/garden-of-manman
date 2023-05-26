@@ -377,7 +377,6 @@ texture = ExtResource("19_ywwcc")
 script = ExtResource("14_o6648")
 sprites = SubResource("Resource_hd1to")
 has_shadow = false
-select_cd_range = Vector2(0.2, 1)
 rotate_cd_range = Vector2(0.1, 5)
 
 [node name="hip" type="Node3D" parent="body/rig/body"]

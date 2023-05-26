@@ -16,6 +16,7 @@ script/source = "extends ItemOverworld
 @export var content:Texture
 
 func _ready() -> void:
+	super._ready()
 	connect(NL.item_used,used)
 
 func used():

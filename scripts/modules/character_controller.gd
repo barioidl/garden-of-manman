@@ -4,7 +4,7 @@ class_name RigidCharacter
 var root = self
 
 func _ready():
-	add_to_group("character")
+	add_to_group(NL.character)
 	setup_body()
 
 func setup_body():

@@ -14,6 +14,17 @@ signal item_equipped
 signal item_unequipped
 signal item_used
 
+func _ready() -> void:
+	setup_interface()
+
+var dt :=0.0
+func _physics_process(delta: float) -> void:
+	dt = delta
+	item_physics()
+
+func setup_interface():
+	set_meta(NL.interact,interact)
+
 func equip_item(_hotbar,_id:=-1):
 	emit_signal(NL.item_equipped)
 	hotbar = _hotbar
@@ -49,9 +60,9 @@ func use_item(head:HotbarUser)->bool:
 	var body = head.get_target(interact_range)
 	if body == null: 
 		return false
-	if !body.has_method(NL.interact): 
+	if !body.has_meta(NL.interact): 
 		return false
-	body.interact(self)
+	body.get_meta(NL.interact).call(self)
 	return true
 
 func interact(user):
@@ -68,7 +79,7 @@ func interact(user):
 var gravity: Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
 var time :=0.0
-func _physics_process(delta: float) -> void:
+func item_physics():
 	if !is_in_overworld: 
 		if holder != null:
 			global_position = holder.hand.global_position
@@ -76,14 +87,14 @@ func _physics_process(delta: float) -> void:
 	
 	var on_floor = is_on_floor()
 	if !on_floor:
-		velocity += gravity * delta
+		velocity += gravity * dt
 	
 	if velocity != Vector3.ZERO:
-		var friction = 5*delta if on_floor else delta
+		var friction = 5*dt if on_floor else dt
 		velocity = velocity.lerp(Vector3.ZERO,friction)
 		move_and_slide()
 	else:
-		time -= delta
+		time -= dt
 		if time <0:
 			time = 1
 			move_and_slide()

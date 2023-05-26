@@ -15,7 +15,7 @@ func _ready() -> void:
 var dt :=0.0
 func _process(delta: float) -> void:
 	dt = delta
-	get_scores()
+#	get_scores()
 
 func set_interface():
 	agent.set_local_state(NL.jumpscare,self)

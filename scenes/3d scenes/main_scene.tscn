@@ -1,14 +1,14 @@
-[gd_scene load_steps=84 format=3 uid="uid://18fxmepjaxdw"]
+[gd_scene load_steps=79 format=3 uid="uid://dim6of40ocmv3"]
 
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="5_bmfmr"]
-[ext_resource type="Script" path="res://scripts/bound.gd" id="5_yctgw"]
 [ext_resource type="PackedScene" uid="uid://bk0gpt7acyutf" path="res://scenes/3d scenes/characters/hopper.tscn" id="7_2ewu1"]
 [ext_resource type="PackedScene" uid="uid://djpeyjf27alka" path="res://scenes/3d scenes/characters/spider.tscn" id="7_8jvxy"]
 [ext_resource type="PackedScene" uid="uid://cf5v3dfvq0e77" path="res://scenes/3d scenes/characters/birdup.tscn" id="7_jdoo3"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="8_10ffh"]
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="8_jhbom"]
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="8_plspx"]
+[ext_resource type="Script" path="res://scripts/visual/bound.gd" id="9_rpmhd"]
 [ext_resource type="PackedScene" uid="uid://cv1yxmhpapjbm" path="res://scenes/3d scenes/garden of manman/conveyor_belt_room.tscn" id="10_4rqmp"]
 [ext_resource type="PackedScene" uid="uid://bjwc6mkin1w06" path="res://scenes/3d scenes/characters/gloria.tscn" id="10_nwwic"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="11_78txe"]
@@ -23,16 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://df28f6i0hm2iq" path="res://scenes/3d scenes/garden of manman/storage_room.tscn" id="18_embkh"]
 [ext_resource type="PackedScene" uid="uid://bv1bvetxrnpaq" path="res://scenes/3d scenes/garden of manman/lobby.tscn" id="19_ky2e8"]
 [ext_resource type="PackedScene" uid="uid://cvqsnkankjt6b" path="res://scenes/3d scenes/garden of manman/cnc_room.tscn" id="20_ch4ff"]
-[ext_resource type="PackedScene" uid="uid://b3yvmdboc34qn" path="res://scenes/3d scenes/facility/standing_desk.tscn" id="20_ie4e7"]
 [ext_resource type="PackedScene" uid="uid://d1v6jou48u5ce" path="res://scenes/3d scenes/garden of manman/plasma_room.tscn" id="21_hogdi"]
-[ext_resource type="PackedScene" uid="uid://dhmf723t00pxw" path="res://scenes/3d scenes/facility/simple_benches.tscn" id="21_usp0n"]
 [ext_resource type="PackedScene" uid="uid://dufs68em46log" path="res://scenes/3d scenes/garden of manman/kitchen.tscn" id="22_63gb2"]
 [ext_resource type="PackedScene" uid="uid://cji1p5w5q6tjd" path="res://scenes/3d scenes/garden of manman/assembly.tscn" id="22_gexd2"]
-[ext_resource type="PackedScene" uid="uid://1aoha8cb7h1t" path="res://scenes/3d scenes/facility/bookcase.tscn" id="23_q3t4l"]
-[ext_resource type="PackedScene" uid="uid://8yu44mht2bro" path="res://scenes/3d scenes/facility/crates.tscn" id="24_63kgf"]
-[ext_resource type="ArrayMesh" uid="uid://k6v13was2uue" path="res://assets/sloyd/Cubicals.obj" id="25_75j0b"]
-[ext_resource type="PackedScene" uid="uid://dyhtga7i6ln0w" path="res://scenes/3d scenes/facility/chests.tscn" id="25_uks1r"]
-[ext_resource type="ArrayMesh" uid="uid://c00dw2xo2g81i" path="res://assets/sloyd/Office Chairs.obj" id="26_jjchl"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="34_r8fx0"]
 [ext_resource type="Texture2D" uid="uid://bt6yvogopurs7" path="res://assets/Textures/drone0000.png" id="36_b7sdc"]
 [ext_resource type="Texture2D" uid="uid://tywvx4maqfs6" path="res://assets/Textures/drone0001.png" id="37_ohmvs"]
@@ -42,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://5xkwpoxfq177" path="res://assets/Textures/drone0005.png" id="40_1wsil"]
 [ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="41_ldpjm"]
 [ext_resource type="ArrayMesh" uid="uid://chan4va7mxu04" path="res://assets/borga map/top floor mesh.obj" id="42_2big3"]
+[ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="45_tpgm6"]
 [ext_resource type="ArrayMesh" uid="uid://c8xgmg3movb1c" path="res://assets/borga map/room 6.obj" id="56_tueej"]
 [ext_resource type="ArrayMesh" uid="uid://lrvxjpwred27" path="res://assets/borga map/room 7.obj" id="57_u03av"]
 [ext_resource type="ArrayMesh" uid="uid://dv8v3rera8rh6" path="res://assets/borga map/room 8.obj" id="58_efd17"]
@@ -52,8 +46,17 @@
 [ext_resource type="ArrayMesh" uid="uid://dwjxx6u1rhxds" path="res://assets/borga map/room 13.obj" id="61_q6cjl"]
 [ext_resource type="ArrayMesh" uid="uid://dmqg1oc6vxokx" path="res://assets/borga map/upper corridor.obj" id="65_1mice"]
 
+[sub_resource type="GDScript" id="GDScript_7orv5"]
+script/source = "extends Node3D
+
+func _ready() -> void:
+	pass 
+
+func _process(delta: float) -> void:
+	pass
+"
+
 [sub_resource type="Environment" id="Environment_pe2si"]
-background_mode = 1
 background_color = Color(0.196078, 0, 0, 1)
 ambient_light_color = Color(1, 1, 1, 1)
 reflected_light_source = 1
@@ -211,6 +214,7 @@ func _ready() -> void:
 "
 
 [node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_7orv5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pe2si")
@@ -219,8 +223,7 @@ camera_attributes = SubResource("CameraAttributesPractical_3ytga")
 [node name="characters" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = SubResource("GDScript_vmftm")
 player = NodePath("timmy")
-disable_range = 30
-cd_duration = 3.0
+disable_range = 1
 
 [node name="pumped up bird" parent="characters" instance=ExtResource("7_jdoo3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5361, 2, -35.6828)
@@ -229,10 +232,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5361, 2, -35.6828)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6581, 1.5, -44.1669)
 
 [node name="manman" parent="characters" instance=ExtResource("8_jhbom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.1484)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.971, 0, -8.1484)
 
 [node name="namnam" parent="characters" instance=ExtResource("7_8jvxy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.440211, 4.38931, 4.23289)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.126964, 4.38931, 25.6314)
 
 [node name="mommy long" parent="characters" instance=ExtResource("10_nwwic")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 8, 5, -80)
@@ -248,7 +251,7 @@ target = NodePath("..")
 script = ExtResource("5_bmfmr")
 
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.89632, 1.77791, -79.906)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.106729, 1.83756, -40.6979)
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
 
@@ -280,7 +283,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -20)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/conveyor room"]
@@ -296,7 +299,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 0, -40)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/hydro forming chamber"]
@@ -312,7 +315,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 11)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/disposal pit"]
@@ -324,7 +327,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 11)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/disposal pit middle"]
@@ -337,7 +340,7 @@ visible = false
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/disposal pit top"]
@@ -349,7 +352,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/camera room"]
@@ -361,7 +364,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/camera room2"]
@@ -373,7 +376,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -14.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/camera room3"]
@@ -385,7 +388,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, -36)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/power control room"]
@@ -397,7 +400,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -80)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/Administrator"]
@@ -413,7 +416,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -51.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/pcb assembly"]
@@ -425,7 +428,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -41.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/plasma cutter room"]
@@ -437,7 +440,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -29.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/CNC room"]
@@ -449,7 +452,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -17.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/Lobby"]
@@ -461,7 +464,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5, 0, -20)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/elevator"]
@@ -473,7 +476,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -7.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/storage room"]
@@ -485,7 +488,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-4 areas/disposable storage"]
@@ -541,7 +544,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 22.5, -31.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-1 areas/upper corridor"]
@@ -553,7 +556,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -29.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-1 areas/dinning room"]
@@ -565,7 +568,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -17.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-1 areas/upper lobby"]
@@ -577,7 +580,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -7.5)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-1 areas/upper storage room"]
@@ -589,7 +592,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 22.5, -11)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/-1 areas/kitchen"]
@@ -661,88 +664,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -29.5)
 script = ExtResource("8_plspx")
 areas = [NodePath("../../-1 areas/upper corridor"), NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/dinning room")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="map/garden of manman/floor -1/dinning room"]
-
-[node name="StandingDesk" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -3.5)
-
-[node name="StandingDesk3" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3.5)
-
-[node name="StandingDesk2" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.5)
-
-[node name="StandingDesk4" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3.5)
-
-[node name="StandingDesk5" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 3.5)
-
-[node name="StandingDesk6" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
-
-[node name="StandingDesk7" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-
-[node name="StandingDesk8" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-
-[node name="StandingDesk9" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("20_ie4e7")]
-
-[node name="SimpleBenches" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 1)
-
-[node name="SimpleBenches2" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -1)
-
-[node name="SimpleBenches3" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, 1)
-
-[node name="SimpleBenches4" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, -1)
-
-[node name="SimpleBenches5" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 1)
-
-[node name="SimpleBenches6" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, -1)
-
-[node name="SimpleBenches7" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 4.5)
-
-[node name="SimpleBenches8" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2.5)
-
-[node name="SimpleBenches9" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, 4.5)
-
-[node name="SimpleBenches10" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, 2.5)
-
-[node name="SimpleBenches11" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 4.5)
-
-[node name="SimpleBenches12" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 2.5)
-
-[node name="SimpleBenches13" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2.5)
-
-[node name="SimpleBenches14" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -4.5)
-
-[node name="SimpleBenches15" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, -2.5)
-
-[node name="SimpleBenches16" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, -4.5)
-
-[node name="SimpleBenches17" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, -2.5)
-
-[node name="SimpleBenches18" parent="map/garden of manman/floor -1/dinning room/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, -4.5)
-
 [node name="Room8" type="MeshInstance3D" parent="map/garden of manman/floor -1/dinning room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -22.5, 29.5)
 mesh = ExtResource("58_efd17")
@@ -753,30 +674,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -17.5)
 script = ExtResource("8_plspx")
 areas = [NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/dinning room"), NodePath("../../-1 areas/upper corridor"), NodePath("../../-4 areas/elevator")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="map/garden of manman/floor -1/upper lobby"]
-
-[node name="SimpleBenches6" parent="map/garden of manman/floor -1/upper lobby/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, 2, 0, 1)
-
-[node name="SimpleBenches7" parent="map/garden of manman/floor -1/upper lobby/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, 2, 0, 0.5)
-
-[node name="SimpleBenches8" parent="map/garden of manman/floor -1/upper lobby/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, -1.5, 0, 1.2, 0, 1, 0, -6.55671e-08, -1, 0, 1)
-
-[node name="SimpleBenches9" parent="map/garden of manman/floor -1/upper lobby/StaticBody3D" instance=ExtResource("21_usp0n")]
-transform = Transform3D(-4.37114e-08, 0, 1.5, 0, 1.2, 0, -1, 0, -6.55671e-08, -1, 0, 0.5)
-
-[node name="Cubicals" type="MeshInstance3D" parent="map/garden of manman/floor -1/upper lobby"]
-transform = Transform3D(0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, -4.05732, 0, -3.85205)
-mesh = ExtResource("25_75j0b")
-skeleton = NodePath("../../../../..")
-
-[node name="OfficeChairs" type="MeshInstance3D" parent="map/garden of manman/floor -1/upper lobby"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25515, 0, -4.62567)
-mesh = ExtResource("26_jjchl")
-skeleton = NodePath("../../../../..")
-
 [node name="Room7" type="MeshInstance3D" parent="map/garden of manman/floor -1/upper lobby"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -22.5, 17.5)
 mesh = ExtResource("57_u03av")
@@ -786,46 +683,6 @@ skeleton = NodePath("../../../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -7.5)
 script = ExtResource("8_plspx")
 areas = [NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/upper lobby")]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="map/garden of manman/floor -1/upper storage room"]
-
-[node name="Bookcase" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("23_q3t4l")]
-transform = Transform3D(1.1, 0, 0, 0, 1, 0, 0, 0, 1, 7.25, 0, -4.75)
-
-[node name="Bookcase2" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("23_q3t4l")]
-transform = Transform3D(1.1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, -4.75)
-
-[node name="Crates" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("24_63kgf")]
-transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 3, -8, 0, 4)
-
-[node name="Crates2" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("24_63kgf")]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, -9.27645, 0, 2.82835)
-
-[node name="Crates4" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("24_63kgf")]
-transform = Transform3D(1.98964, 0, -0.101629, 0, 1, 0, 0.203259, 0, 0.994822, -5.27645, 0, 4.62785)
-
-[node name="Crates5" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("24_63kgf")]
-transform = Transform3D(1.98329, 0, 0.128986, 0, 1, 0, -0.257972, 0, 0.991646, -5.27645, 0, 3.76153)
-
-[node name="Crates6" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("24_63kgf")]
-transform = Transform3D(1.68511, 0, -0.538609, 0, 1, 0, 1.07722, 0, 0.842556, -6.06995, 0, 2.82316)
-
-[node name="Crates7" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("24_63kgf")]
-transform = Transform3D(-0.435912, 0, -0.975959, 0, 1, 0, 1.95192, 0, -0.217956, -5.78109, 0.45805, 4.11174)
-
-[node name="Crates3" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("24_63kgf")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -8.87374, 1.34274, 4.27322)
-
-[node name="Chests" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("25_uks1r")]
-
-[node name="Chests2" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("25_uks1r")]
-transform = Transform3D(-0.996195, 0, -0.0871553, 0, 1, 0, 0.0871553, 0, -0.996195, 7.91045, 0, 4.43709)
-
-[node name="Chests4" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("25_uks1r")]
-transform = Transform3D(-0.136096, 0, -0.990696, 0, 1, 0, 0.990696, 0, -0.136096, 6.70893, 0, 4.34421)
-
-[node name="Chests3" parent="map/garden of manman/floor -1/upper storage room/StaticBody3D" instance=ExtResource("25_uks1r")]
-transform = Transform3D(-0.0871562, 0, -0.996195, 0, 1, 0, 0.996195, 0, -0.0871562, 9.49346, 0, 2.63101)
 
 [node name="ceiling lamp" parent="map/garden of manman/floor -1/upper storage room" instance=ExtResource("14_uial0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
@@ -888,7 +745,7 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 30, -29.5)
 collision_layer = 0
 collision_mask = 128
-script = ExtResource("5_yctgw")
+script = ExtResource("9_rpmhd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/surface areas/top floor"]
@@ -913,6 +770,8 @@ skeleton = NodePath("../../../../../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/surface/top floor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -30, 32)
 shape = SubResource("ConcavePolygonShape3D_5gxq2")
+
+[node name="camera console" parent="map" instance=ExtResource("45_tpgm6")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 process_mode = 4

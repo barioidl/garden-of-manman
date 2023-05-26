@@ -111,10 +111,10 @@ func default_interact():
 	var body = get_target()
 	if body == null: return
 	var dist_sq = global_position.distance_squared_to(body.global_position)
-	if dist_sq > interact_range * interact_range: return
-	if !body.has_method(NL.interact): return
-	body.interact(self)
-
+	if dist_sq > interact_range * interact_range: 
+		return
+	if !body.has_meta(NL.interact): return
+	body.get_meta(NL.interact).call(self)
 
 var drop_id:=0
 var drop_strength:=0.0:

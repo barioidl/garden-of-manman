@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu512mwqfs5ow"]
+[gd_scene load_steps=12 format=3 uid="uid://bu512mwqfs5ow"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_ac8xe"]
 [ext_resource type="ArrayMesh" uid="uid://j7b4uied8t2r" path="res://assets/borga map/camera room mesh.obj" id="2_r07jb"]
@@ -7,6 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_ga5ok"]
 [ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="7_qb6os"]
 [ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="7_u5f4c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2puty"]
+resource_name = "metalDark.030"
+albedo_color = Color(0.305882, 0.388235, 0.388235, 1)
+metallic = 0.33
+
+[sub_resource type="QuadMesh" id="QuadMesh_6dkoy"]
+material = SubResource("StandardMaterial3D_2puty")
+size = Vector2(2, 3)
 
 [sub_resource type="GDScript" id="GDScript_ycl6q"]
 script/source = "extends Node3D
@@ -34,6 +43,10 @@ areas = [NodePath("../../render bounds/camera room"), NodePath("../../render bou
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 31.5)
 mesh = ExtResource("2_r07jb")
 skeleton = NodePath("../../../../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraRoomMesh"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.95, 1.5, -33.5)
+mesh = SubResource("QuadMesh_6dkoy")
 
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
@@ -69,7 +82,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 0, 18.5)
 password = 1
 
 [node name="door2" parent="left doors" instance=ExtResource("6_8yiga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25, 0, -2)
 password = 6
 
 [node name="door3" parent="left doors" instance=ExtResource("6_8yiga")]
