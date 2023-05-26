@@ -17,6 +17,13 @@ func _ready() -> void:
 		ActionFindFood.new(),
 		ActionEatFood.new(),
 	]
+	var tween = create_tween()
+	tween.tween_interval(1)
+	tween.tween_callback(print_all_names)
 
 func get_action_planner()->GOAPPlanner:
 	return planner_action
+
+func print_all_names():
+	for i in planner_action.actions:
+		print(i._name())

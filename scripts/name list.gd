@@ -62,6 +62,7 @@ var key := &'key'
 
 var character := &'character'
 var ui_save_load := &'ui_save_load'
+var goap_save_load := &'goap_save_load'
 var billboard_sprites:= &'billboard_sprites'
 
 func list_of_meta():pass

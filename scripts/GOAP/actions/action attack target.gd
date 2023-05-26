@@ -1,7 +1,7 @@
 extends GOAPAction
 class_name ActionAttackTarget
 
-func name()->StringName:
+func _name()->StringName:
 	return 'A attack target'
 
 func is_valid(local_state:Dictionary)->bool:

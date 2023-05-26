@@ -1,21 +1,15 @@
 extends GOAPGoal
-class_name GoalEatFood
+class_name GoalUseElevator
 
 func _name() -> StringName:
-	return 'G eat food'
+	return 'G use elevator'
 
 func is_valid(self_state:Dictionary)->bool:
-	if !self_state.has(NL.hunger):
-		return false
-	if self_state[NL.hunger] <= 0:
-		return false
+
 	return true
 
 func priority(self_state:Dictionary)-> float:
-	var hunger = self_state[NL.hunger]
-	var max_hunger = self_state[NL.max_hunger]
-	var score = Curves.sample(1,3,hunger/max_hunger)
-	return score
+	return 1
 
 func get_result(self_state:Dictionary)->Dictionary:
 	return{

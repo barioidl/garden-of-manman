@@ -1,7 +1,7 @@
 extends Resource
 class_name GOAPGoal
 
-func name() -> StringName:
+func _name() -> StringName:
 	return 'G default'
 
 func is_valid(local_state:Dictionary)->bool:

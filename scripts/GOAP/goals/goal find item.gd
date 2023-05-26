@@ -1,8 +1,8 @@
 extends GOAPGoal
-class_name GoalFlee
+class_name GoalFindItems
 
 func _name() -> StringName:
-	return 'G flee'
+	return 'G find item'
 
 func is_valid(self_state:Dictionary)->bool:
 	return true

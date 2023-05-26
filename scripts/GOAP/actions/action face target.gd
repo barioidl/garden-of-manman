@@ -1,7 +1,7 @@
 extends GOAPAction
 class_name ActionFaceTarget
 
-func name()->StringName:
+func _name()->StringName:
 	return 'A face target'
 
 func is_valid(local_state:Dictionary)->bool:

@@ -3,20 +3,22 @@ class_name ActionFindFood
 
 var range:=50.0
 
-func name()->StringName:
+func _name()->StringName:
 	return 'A find food'
 
 func is_valid(local_state:Dictionary)->bool:
 	var root = local_state.root
+	var agent = local_state.agent
 	var id = get_hotbar_food(root)
 	if id >= 0:
 		return false
-	var food := get_food(root,local_state)
+	var food = agent.get_closest_node3d(NL.food,range)
 	return food != null
 
 func get_cost(local_state:Dictionary)->float:
 	var root = local_state.root
-	var food := get_food(root,local_state)
+	var agent = local_state.agent
+	var food = agent.get_closest_node3d(NL.food,range)
 	if food == null:
 		return 1
 	var dist = food.global_position - root.global_position
@@ -33,7 +35,8 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root
-	var food = get_food(root,local_state)
+	var agent = local_state.agent
+	var food = agent.get_closest_node3d(NL.food,range)
 	if food == null:
 		return false
 	
@@ -74,15 +77,3 @@ func reached_food(root)->bool:
 	if !target.is_in_group(NL.food):
 		return false
 	return true
-
-func get_food(root:Node3D,local_state:Dictionary)-> Node3D:
-	if local_state.has(NL.food):
-		var food = local_state[NL.food]
-		if food == null:
-			local_state.erase(NL.food)
-		else:
-			return local_state[NL.food]
-	var root_pos =root.global_position
-	var food = WorldState.get_closest_node_3d(NL.food, root_pos, range)
-	local_state[NL.food] = food
-	return food

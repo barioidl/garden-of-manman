@@ -1,7 +1,7 @@
-extends Node
+extends Resource
 class_name GOAPAction
 
-func name()->StringName:
+func _name()->StringName:
 	return 'A default'
 
 func is_valid(local_state:Dictionary)->bool:
@@ -17,4 +17,4 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 	return{}
 
 func perform(local_state: Dictionary, dt: float)->bool:
-	return false
+	return true

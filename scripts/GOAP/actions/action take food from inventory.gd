@@ -1,7 +1,7 @@
 extends GOAPAction
 class_name ActionTakeFoodFromItem
 
-func name()->StringName:
+func _name()->StringName:
 	return 'A take food from item'
 
 func get_cost(self_state:Dictionary)-> float:

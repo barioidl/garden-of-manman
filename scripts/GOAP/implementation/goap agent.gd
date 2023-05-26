@@ -33,13 +33,20 @@ func _init() -> void:
 	name = 'goap_agent'
 
 func _ready() -> void:
-	planner = Goap.get_action_planner()
+	add_to_group(NL.goap_save_load)
+	planner = get_planner()
+	set_interface()
+	init_local_state()
+
+func init_local_state():
 	set_local_state(NL.root,root)
 	set_local_state(NL.agent,self)
 	set_local_state(NL.plan_width,planner_limits.x)
 	set_local_state(NL.plan_depth,planner_limits.y)
 	set_local_state(NL.unique_steps,false)
-	set_interface()
+
+func get_planner() -> GOAPPlanner:
+	return Goap.get_action_planner()
 
 func set_interface():
 	root.set_meta(NL.toggle_goap_agent,toggle_goap_agent)
@@ -129,7 +136,7 @@ func debug_plan():
 	debug_display.set_content('plan',content)
 	
 	var cost := str(current_goal.priority(local_state))
-	var goal_name = current_goal.name()
+	var goal_name = current_goal._name()
 	goal_name +=", score: " 
 	goal_name += cost.left(4)
 	debug_display.set_content('goal', goal_name)
@@ -146,3 +153,26 @@ func get_string(_value)->String:
 	if _value is Node:
 		return _value.name
 	return ''
+
+func get_closest_node3d(group:StringName, range:=100.0)-> Node3D:
+	if local_state.has(group):
+		var node = local_state[group]
+		if node == null:
+			local_state.erase(group)
+		else:
+			return local_state[group]
+	var root_pos = local_state.root.global_position
+	var node = WorldState.get_closest_node_3d(group, root_pos, range)
+	local_state[group] = node
+	return node
+
+
+func _save():
+	print('save')
+	for i in goals:
+		print(i._name())
+
+func _load():
+	print('load')
+	for i in goals:
+		print(i._name())

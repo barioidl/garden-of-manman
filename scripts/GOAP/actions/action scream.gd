@@ -1,7 +1,7 @@
 extends GOAPAction
 class_name ActionScream
 
-func name()->StringName:
+func _name()->StringName:
 	return 'A scream'
 
 func is_valid(local_state:Dictionary)->bool:

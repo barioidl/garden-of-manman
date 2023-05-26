@@ -22,7 +22,9 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalEatFood.new(),
-#		GoalFlee.new(),
+		GoalUseElevator.new(),
+		GoalFindItems.new(),
+		GoalFlee.new(),
 #		GoalPlay.new(),
 	]
 	
