@@ -112,6 +112,7 @@ func _physics_process(delta: float) -> void:
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pk2np"]
 friction = 0.2
+bounce = 10.0
 
 [sub_resource type="GDScript" id="GDScript_isicj"]
 script/source = "extends MeshInstance3D
@@ -685,7 +686,7 @@ cast_shadow = 2
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("40_1wsil")
+texture = ExtResource("38_3c42m")
 script = ExtResource("34_r8fx0")
 sprites = SubResource("Resource_pbkqu")
 use_shade = false

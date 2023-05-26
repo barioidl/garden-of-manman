@@ -28,6 +28,7 @@ func get_weight(name:String)->float:
 	return 1
 
 func _save() ->Dictionary:
+	return {'ass':3}
 	return weights
 
 func _load(data:Dictionary):

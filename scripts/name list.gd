@@ -65,6 +65,8 @@ var ui_save_load := &'ui_save_load'
 var goap_save_load := &'goap_save_load'
 var billboard_sprites:= &'billboard_sprites'
 
+var on_quit := &'on_quit'
+
 func list_of_meta():pass
 var show_dialogue:= &'show_dialogue'
 var show_image:= &'show_image'

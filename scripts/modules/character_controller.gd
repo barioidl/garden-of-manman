@@ -17,8 +17,8 @@ func setup_body():
 	var material := PhysicsMaterial.new()
 	material.friction = 0.1
 	material.rough = false
-	material.bounce = 0.1
-	material.absorbent = false
+	material.bounce = 0.0
+	material.absorbent = true
 	physics_material_override = material
 
 var dt := 0.0

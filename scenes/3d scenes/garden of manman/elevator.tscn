@@ -65,6 +65,7 @@ script = ExtResource("3_l2rnb")
 [node name="platform" type="AnimatableBody3D" parent="elevator"]
 script = ExtResource("3_3jgmf")
 doors = Array[NodePath]([NodePath("door panel"), NodePath("door panel2")])
+speed = 2.0
 
 [node name="control panel" type="Marker3D" parent="elevator/platform"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 1, 0.75, -1.75)

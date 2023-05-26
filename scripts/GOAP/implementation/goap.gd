@@ -8,6 +8,14 @@ var planner_action = GOAPPlanner.new()
 #var planner_items
 
 func _ready() -> void:
+	add_to_group(NL.on_quit)
+	init_action_planner()
+	load_all_actions()
+
+func on_quit():
+	save_all_actions()
+
+func init_action_planner():
 	planner_action.actions = [
 		ActionScream.new(),
 		ActionFaceTarget.new(),
@@ -17,22 +25,19 @@ func _ready() -> void:
 		ActionFindFood.new(),
 		ActionEatFood.new(),
 	]
-
-func _enter_tree() -> void:
-	print('tree enter')
-func _exit_tree() -> void:
-	print('tree exit')
-
 func get_action_planner()->GOAPPlanner:
 	return planner_action
 
-func print_all_names():
-	for i in planner_action.actions:
-		print(i._name())
+
+var action_path := "res://data/goap/action weights.json"
+func load_all_actions():
+	_load(planner_action.actions,action_path)
+func save_all_actions():
+	_save(planner_action.actions,action_path)
+
 
 
 var disable_when_debug := false
-#var file_path := "res://data/goap/goap weights.json"
 func _save(resources:Array, path:String):
 	if disable_when_debug:
 		if OS.is_debug_build():
@@ -55,14 +60,15 @@ func _load(resources:Array, path:String):
 			return 
 	
 	var save_game = FileAccess.open(path, FileAccess.READ)
-	var current_position:=0
-	while current_position < save_game.get_length():
+	var current_position:=-1
+	
+	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
-		current_position = save_game.get_position()
+		current_position += 1
 		
 		var json = JSON.new()
-		var parse_result = json.parse(json_string)
-		if parse_result != OK:
+		var error = json.parse(json_string)
+		if error != OK:
 			print("JSON Parse Error: ",json.get_error_line())
 			continue
 		

@@ -917,7 +917,18 @@ func no() -> void:
 
 func yes() -> void:
 	sfx.play_button_sfx()
+	notify_group()
 	get_tree().quit()# Replace with function body.
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		notify_group()
+
+func notify_group():
+	for node in get_tree().get_nodes_in_group(NL.on_quit):
+		if !node.has_method(NL.on_quit):
+			return
+		node.call(NL.on_quit)
 "
 
 [sub_resource type="GDScript" id="GDScript_jqpvn"]
@@ -1020,12 +1031,11 @@ script/source = "extends Node
 @export var disable_when_debug:=false
 
 func _ready() -> void:
-	root.connect('state_changed',state_changed)
+	add_to_group(NL.on_quit)
 	load_ui()
 
-func state_changed(old_state,state):
-	if old_state == root.states.settings:
-		save_ui()
+func on_quit():
+	save_ui()
 
 var file_path := \"user://ui_save.save\"
 func save_ui():
