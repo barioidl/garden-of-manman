@@ -35,6 +35,7 @@ script/source = "extends TabContainer
 var floor_container = preload(\"res://scenes/3d scenes/consoles/minimap_layer.tscn\")
 var camera_button = preload(\"res://scenes/3d scenes/consoles/camera_button.tscn\")
 func _ready() -> void:
+	return
 	setup_minimap()
 
 func setup_minimap():
@@ -145,6 +146,8 @@ shape = SubResource("ConvexPolygonShape3D_ycesc")
 mesh = ExtResource("3_dn3jk")
 
 [node name="UI" type="Control" parent="."]
+process_mode = 4
+visible = false
 z_index = 10
 z_as_relative = false
 custom_minimum_size = Vector2(300, 300)

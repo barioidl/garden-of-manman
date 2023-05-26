@@ -350,10 +350,12 @@ turn_speed = 100
 script = SubResource("GDScript_g145v")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("11_1sjhw")
 scream_sfx = SubResource("Resource_py1ks")
 
 [node name="puzzle" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("11_dctu5")
 
 [node name="debug_display" type="Label3D" parent="."]

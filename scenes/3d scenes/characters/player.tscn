@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=18 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -14,6 +14,20 @@
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
 [ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
+
+[sub_resource type="GDScript" id="GDScript_j6qpi"]
+script/source = "extends GOAPAgent
+
+func _ready() -> void:
+	super._ready()
+	goals = [
+		GoalEatFood.new(),
+#		GoalFlee.new(),
+#		GoalPlay.new(),
+	]
+	
+
+"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
 radius = 0.2
@@ -153,6 +167,9 @@ process_mode = 4
 
 [node name="inventory" parent="." instance=ExtResource("7_co62e")]
 slots = [null, null]
+
+[node name="goap_agent" type="Node" parent="."]
+script = SubResource("GDScript_j6qpi")
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

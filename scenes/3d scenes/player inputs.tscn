@@ -1,6 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://cwmt7cpk5otdo"]
+[gd_scene load_steps=12 format=3 uid="uid://cwmt7cpk5otdo"]
 
 [ext_resource type="Script" path="res://scripts/modules/player.gd" id="1_7xksl"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_gt6pk"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 30.0
+dof_blur_far_transition = 30.0
+dof_blur_near_distance = 1.0
+dof_blur_near_transition = 2.0
 
 [sub_resource type="Shader" id="Shader_w3bbv"]
 code = "shader_type spatial;
@@ -586,6 +593,7 @@ script = ExtResource("1_7xksl")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, -8.74233e-08, 0, 1, 0, 8.74233e-08, 0, -1, 0, 0, 0)
 keep_aspect = 0
+attributes = SubResource("CameraAttributesPractical_gt6pk")
 current = true
 fov = 90.0
 size = 0.1

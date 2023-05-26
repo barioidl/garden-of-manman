@@ -23,7 +23,6 @@ areas = [NodePath("../../-4 areas/Lobby"), NodePath("../../-4 areas/elevator"), 
 
 [node name="Room2" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_1iax0")
-skeleton = NodePath("../../../../..")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 1.5, -16)
