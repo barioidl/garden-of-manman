@@ -93,18 +93,12 @@ enum states{
 @export var state := states.gameplay
 var prev_states:Array[states]=[]
 
-var sfx_cd:=1.0
-@export var button_sounds:AudioList
-@export var switch_sounds:AudioList
-@export var roll_sounds:AudioList
-
 signal  state_changed(old_state, state)
 func _ready():
 	pass
 
 func _process(delta: float) -> void:
-	if sfx_cd >0:
-		sfx_cd -= delta
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_echo(): return
@@ -122,42 +116,8 @@ func change_state(new_state,add_to_stack:=true):
 		prev_states.push_back(state)
 	emit_signal('state_changed',state,new_state)
 	state=new_state
-	play_roll_sfx()
-
-
-func play_button_sfx():
-	if sfx_cd >0: return
-	sfx_cd = 0.1
-	AudioPool.create_sound(button_sounds)
-
-func play_switch_sfx():
-	if sfx_cd >0: return
-	sfx_cd = 0.1
-	AudioPool.create_sound(button_sounds)
-
-func play_roll_sfx():
-	if sfx_cd >0: return
-	sfx_cd = 0.1
-	AudioPool.create_sound(button_sounds)
+	
 "
-
-[sub_resource type="Resource" id="Resource_d7d2p"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("3_uh4a2"), ExtResource("4_s6o33"), ExtResource("5_gbxee"), ExtResource("6_n1leb"), ExtResource("7_qclgw")])
-
-[sub_resource type="Resource" id="Resource_pi23o"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("8_jvp7b"), ExtResource("9_udjct"), ExtResource("10_jygyq"), ExtResource("11_8wsct"), ExtResource("12_l7rcj"), ExtResource("13_7qo6n"), ExtResource("14_luetl"), ExtResource("15_ydxs8"), ExtResource("16_g325f"), ExtResource("17_tc4j1"), ExtResource("18_k27rk"), ExtResource("19_75t5p"), ExtResource("20_l78bs"), ExtResource("21_4a7qx"), ExtResource("22_8qqqc"), ExtResource("23_vj74o"), ExtResource("24_c370f"), ExtResource("25_0hl1y"), ExtResource("26_4v6gu"), ExtResource("27_5xbfe"), ExtResource("28_wotwd"), ExtResource("29_jux6y"), ExtResource("30_k2da2"), ExtResource("31_i1r68"), ExtResource("32_0eafr"), ExtResource("33_4mc8t"), ExtResource("34_hadae"), ExtResource("35_7vus6"), ExtResource("36_5keqm"), ExtResource("37_3as28"), ExtResource("38_vmj16"), ExtResource("39_jiqi7"), ExtResource("40_mr8ks"), ExtResource("41_1i2o5"), ExtResource("42_5bphs"), ExtResource("43_nsshm"), ExtResource("44_udgke"), ExtResource("45_nsyay")])
-
-[sub_resource type="Resource" id="Resource_4vadk"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("46_60wcd"), ExtResource("47_d4qvq"), ExtResource("48_m7ufg"), ExtResource("49_7bn0o"), ExtResource("50_1y8jn"), ExtResource("51_48odo")])
 
 [sub_resource type="GDScript" id="GDScript_xypeh"]
 script/source = "extends TextureButton
@@ -408,16 +368,17 @@ func show_image(image):
 [sub_resource type="GDScript" id="GDScript_elmo7"]
 script/source = "extends Control
 @onready var root = $'..'
+@onready var sfx = $\"../sound effects\"
 func play() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.gameplay)
 
 func settings() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.settings)
 
 func exit() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.exit)
 "
 
@@ -478,6 +439,7 @@ TabContainer/styles/tabbar_background = null
 script/source = "extends BoxContainer
 @onready var player = PlayerInputs
 @onready var root = $\"../../..\"
+@onready var sfx = $\"../../../sound effects\"
 
 @onready var mouse_slider = $\"mouse slider\"
 @onready var gamepad_slider = $\"gamepad slider\"
@@ -497,7 +459,7 @@ func _ready() -> void:
 	tween.tween_callback(update_all)
 
 func play_sfx(val=0):
-	root.play_switch_sfx()
+	sfx.play_switch_sfx()
 
 func update_all():
 	if player == null: return
@@ -507,7 +469,7 @@ func update_all():
 	invert_y_toggled()
 
 func mouse_changed(changed:bool):
-	root.play_roll_sfx()
+	sfx.play_roll_sfx()
 	if changed: return
 	var value = mouse_slider.value/mouse_slider.max_value
 	value = lerpf(1,9,value)
@@ -515,7 +477,7 @@ func mouse_changed(changed:bool):
 #	print(player.mouse_speed)
 
 func gamepad_changed(changed:bool):
-	root.play_roll_sfx()
+	sfx.play_roll_sfx()
 	if changed: return
 	var value = gamepad_slider.value/gamepad_slider.max_value
 	value = lerpf(1,9,value)
@@ -523,11 +485,11 @@ func gamepad_changed(changed:bool):
 #	print(player.joypad_speed)
 
 func invert_x_toggled():
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	player.invert_x = -1 if invert_x.button_pressed else 1
 
 func invert_y_toggled():
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	player.invert_y = -1 if invert_y.button_pressed else 1
 
 func _save():
@@ -553,6 +515,7 @@ script/source = "extends VBoxContainer
 
 @onready var base_button = $key
 @onready var root = $\"../../../..\"
+@onready var sfx = $\"../../../../sound effects\"
 
 func _ready() -> void:
 	add_to_group('ui_save_load')
@@ -568,7 +531,7 @@ func create_reset_button():
 	set_text(base_button,'Reset all buttons')
 	base_button.connect('pressed',reset_keymap)
 func reset_keymap():
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	InputMap.load_from_project_settings()
 	update_all_buttons()
 
@@ -633,7 +596,7 @@ func update_button_keybinds(button, action):
 	set_text(button,button.name + ': '+keys)
 
 func button_changed(button,action):
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	if assigning_button != null: return
 	if assigning_action != '': return
 	set_text(button,button.name+ ': ')
@@ -707,6 +670,8 @@ func _load(save_dict:Dictionary):
 [sub_resource type="GDScript" id="GDScript_j6o1j"]
 script/source = "extends Control
 
+@onready var sound_effects = $\"../../../sound effects\"
+
 @onready var master_slider = $Master
 
 @onready var music_slider = $Music
@@ -776,19 +741,23 @@ func update_all_settings():
 
 func adjust_bus(changed:bool,slider,bus:int):
 	if changed: return
+	sound_effects.play_switch_sfx()
 	var value = slider.value
 	AudioServer.set_bus_volume_db(bus,value)
 
 func toggle_music(pressed:bool):
-	pass
+	sound_effects.play_button_sfx()
 
 func toggle_sfx(pressed:bool):
+	sound_effects.play_button_sfx()
 	AudioPool.disable_sfx = !pressed
 
 func toggle_sfx_2d(pressed:bool):
+	sound_effects.play_button_sfx()
 	AudioPool.disable_sfx_2d = !pressed
 
 func toggle_sfx_3d(pressed:bool):
+	sound_effects.play_button_sfx()
 	AudioPool.disable_sfx_3d = !pressed
 
 func _save():
@@ -823,6 +792,8 @@ func _load(data:Dictionary):
 
 [sub_resource type="GDScript" id="GDScript_yc5g0"]
 script/source = "extends BoxContainer
+
+@onready var sfx = $\"../../../sound effects\"
 
 @onready var vsync_button = $vsync
 @onready var slider_brightness =$brightness
@@ -859,6 +830,7 @@ func update_all_settings():
 	set_saturation(false)
 
 func set_vsync(value):
+	sfx.play_button_sfx()
 	var mode = DisplayServer.VSYNC_DISABLED 
 	if value:
 		mode = DisplayServer.VSYNC_ENABLED
@@ -866,18 +838,21 @@ func set_vsync(value):
 
 func set_contrast(changed:bool):
 	if changed: return
+	sfx.play_button_sfx()
 	var value = slider_contrast.value
 	if environment == null: return
 	environment.adjustment_contrast = value
 
 func set_brightness(changed:bool):
 	if changed: return
+	sfx.play_button_sfx()
 	var value = slider_brightness.value
 	if environment == null: return
 	environment.adjustment_brightness = value
 
 func set_saturation(changed:bool):
 	if changed: return
+	sfx.play_button_sfx()
 	var value = slider_saturation.value
 	if environment == null: return
 	environment.adjustment_saturation = value
@@ -902,19 +877,21 @@ func _load(data:Dictionary):
 [sub_resource type="GDScript" id="GDScript_a2aip"]
 script/source = "extends Control
 @onready var root = $'..'
+@onready var sfx = $\"../sound effects\"
 
 func restart() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.gameplay) 
 
 func exit() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.exit)
 "
 
 [sub_resource type="GDScript" id="GDScript_ulijc"]
 script/source = "extends Control
 @onready var root = $'..'
+@onready var sfx = $\"../sound effects\"
 
 func _ready() -> void:
 	connect('visibility_changed',toggled.bind())
@@ -935,11 +912,11 @@ func add_word():
 	no_text.text += 'no ' 
 
 func no() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.pause)
 
 func yes() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	get_tree().quit()# Replace with function body.
 "
 
@@ -993,11 +970,15 @@ var sfx_cd:=1.0
 @export var roll_sounds:AudioList
 
 func _ready() -> void:
-	pass
+	get_parent().connect('state_changed',state_changed)
 
 func _process(delta: float) -> void:
 	if sfx_cd >0:
 		sfx_cd -= delta
+
+
+func state_changed(old_state,state):
+	play_roll_sfx()
 
 func play_button_sfx():
 	if sfx_cd >0: return
@@ -1014,6 +995,24 @@ func play_roll_sfx():
 	sfx_cd = 0.1
 	AudioPool.create_sound(button_sounds)
 "
+
+[sub_resource type="Resource" id="Resource_d7d2p"]
+script = ExtResource("2_bfr04")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("3_uh4a2"), ExtResource("4_s6o33"), ExtResource("5_gbxee"), ExtResource("6_n1leb"), ExtResource("7_qclgw")])
+
+[sub_resource type="Resource" id="Resource_pi23o"]
+script = ExtResource("2_bfr04")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("8_jvp7b"), ExtResource("9_udjct"), ExtResource("10_jygyq"), ExtResource("11_8wsct"), ExtResource("12_l7rcj"), ExtResource("13_7qo6n"), ExtResource("14_luetl"), ExtResource("15_ydxs8"), ExtResource("16_g325f"), ExtResource("17_tc4j1"), ExtResource("18_k27rk"), ExtResource("19_75t5p"), ExtResource("20_l78bs"), ExtResource("21_4a7qx"), ExtResource("22_8qqqc"), ExtResource("23_vj74o"), ExtResource("24_c370f"), ExtResource("25_0hl1y"), ExtResource("26_4v6gu"), ExtResource("27_5xbfe"), ExtResource("28_wotwd"), ExtResource("29_jux6y"), ExtResource("30_k2da2"), ExtResource("31_i1r68"), ExtResource("32_0eafr"), ExtResource("33_4mc8t"), ExtResource("34_hadae"), ExtResource("35_7vus6"), ExtResource("36_5keqm"), ExtResource("37_3as28"), ExtResource("38_vmj16"), ExtResource("39_jiqi7"), ExtResource("40_mr8ks"), ExtResource("41_1i2o5"), ExtResource("42_5bphs"), ExtResource("43_nsshm"), ExtResource("44_udgke"), ExtResource("45_nsyay")])
+
+[sub_resource type="Resource" id="Resource_4vadk"]
+script = ExtResource("2_bfr04")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("46_60wcd"), ExtResource("47_d4qvq"), ExtResource("48_m7ufg"), ExtResource("49_7bn0o"), ExtResource("50_1y8jn"), ExtResource("51_48odo")])
 
 [sub_resource type="GDScript" id="GDScript_akyhh"]
 script/source = "extends Node
@@ -1079,9 +1078,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7t2kr")
 script = SubResource("GDScript_5kh0j")
-button_sounds = SubResource("Resource_d7d2p")
-switch_sounds = SubResource("Resource_pi23o")
-roll_sounds = SubResource("Resource_4vadk")
 
 [node name="main page" type="BoxContainer" parent="."]
 visible = false
@@ -2101,6 +2097,9 @@ script = SubResource("GDScript_jqpvn")
 
 [node name="sound effects" type="Node" parent="."]
 script = SubResource("GDScript_0usqr")
+button_sounds = SubResource("Resource_d7d2p")
+switch_sounds = SubResource("Resource_pi23o")
+roll_sounds = SubResource("Resource_4vadk")
 
 [node name="save_loader" type="Node" parent="."]
 script = SubResource("GDScript_akyhh")

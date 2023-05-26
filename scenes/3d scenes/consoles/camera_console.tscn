@@ -53,7 +53,7 @@ func create_layer(_floor):
 		layer.add_child(button)
 		button.position = Vector2(pos.x,pos.z) * min_size
 		button.position -= button.pivot_offset
-#		button.rotation = camera.rotation.y
+		button.rotation = camera.rotation.y
 "
 
 [node name="camera console" type="Node3D"]
