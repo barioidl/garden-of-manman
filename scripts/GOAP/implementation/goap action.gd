@@ -18,3 +18,17 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 
 func perform(local_state: Dictionary, dt: float)->bool:
 	return true
+
+
+var weights :={}
+func get_weight(name:String)->float:
+	if weights.has(name):
+		return weights[name]
+	weights[name] = 1
+	return 1
+
+func _save() ->Dictionary:
+	return weights
+
+func _load(data:Dictionary):
+	weights = data

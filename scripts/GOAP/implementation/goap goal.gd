@@ -18,3 +18,17 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	agent.loop_plan = false
 	agent.set_local_state(NL.unique_steps,false)
 	return true
+
+
+var weights :={}
+func get_weight(name:String)->float:
+	if weights.has(name):
+		return weights[name]
+	weights[name] = 1
+	return 1
+
+func _save() ->Dictionary:
+	return weights
+
+func _load(data:Dictionary):
+	weights = data
