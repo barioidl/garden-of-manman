@@ -43,18 +43,21 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	_save()
 
-func init_local_state():
-	set_local_state(NL.root,root)
-	set_local_state(NL.agent,self)
-	set_local_state(NL.plan_width,planner_limits.x)
-	set_local_state(NL.plan_depth,planner_limits.y)
-	set_local_state(NL.unique_steps,false)
+var dt:=0.0
+func _process(delta: float) -> void:
+	dt = delta
+	generate_plan()
+	follow_plan()
 
-func get_planner() -> GOAPPlanner:
-	return Goap.get_action_planner()
 
 func set_interface():
+	root.set_meta(NL.get_goap_agent,get_goap_agent)
 	root.set_meta(NL.toggle_goap_agent,toggle_goap_agent)
+	root.set_meta(NL.reward_agent,reward)
+	root.set_meta(NL.get_closest_node3d,get_closest_node3d)
+
+func get_goap_agent()->GOAPAgent:
+	return self
 
 func toggle_goap_agent(on:bool):
 	var mode = Node.PROCESS_MODE_INHERIT 
@@ -62,11 +65,18 @@ func toggle_goap_agent(on:bool):
 		mode =  Node.PROCESS_MODE_DISABLED
 	process_mode = mode
 
-var dt:=0.0
-func _process(delta: float) -> void:
-	dt = delta
-	generate_plan()
-	follow_plan()
+func reward(amount:=0.1):
+	current_goal.score += amount
+
+func get_planner() -> GOAPPlanner:
+	return Goap.get_action_planner()
+
+func init_local_state():
+	set_local_state(NL.root,root)
+	set_local_state(NL.agent,self)
+	set_local_state(NL.plan_width,planner_limits.x)
+	set_local_state(NL.plan_depth,planner_limits.y)
+	set_local_state(NL.unique_steps,false)
 
 func set_local_state(key,value):
 	if local_state.has(key):
@@ -120,7 +130,6 @@ func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
 		return false
 	return a.priority(local_state) > b.priority(local_state)
 
-
 func debug_local_state():
 	if !show_local_state: return
 	if debug_display == null: return
@@ -159,6 +168,7 @@ func get_string(_value)->String:
 		return _value.name
 	return ''
 
+
 func get_closest_node3d(group:StringName, range:=100.0)-> Node3D:
 	if local_state.has(group):
 		var node = local_state[group]
@@ -166,14 +176,16 @@ func get_closest_node3d(group:StringName, range:=100.0)-> Node3D:
 			local_state.erase(group)
 		else:
 			return local_state[group]
-	var root_pos = local_state.root.global_position
+	var root_pos = root.global_position
 	var node = WorldState.get_closest_node_3d(group, root_pos, range)
 	local_state[group] = node
 	return node
 
 
+
 func _save():
 	if !can_process():
+		_print('avoid saving dormant agent')
 		return
 	_print('agent saving goals')
 	for goal in goals:

@@ -213,7 +213,7 @@ environment = SubResource("Environment_pe2si")
 [node name="characters" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = SubResource("GDScript_vmftm")
 player = NodePath("timmy")
-disable_range = 1
+disable_range = 3
 
 [node name="pumped up bird" parent="characters" instance=ExtResource("7_jdoo3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5361, 2, -35.6828)

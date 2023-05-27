@@ -1,8 +1,8 @@
 extends Node
 class_name Stats
 
-@onready var root = get_parent().root
-var agent
+var root :Node3D
+var agent : GOAPAgent
 
 @export var has_health := true
 @export var health := 10.0
@@ -38,7 +38,8 @@ signal hunger_updated(delta,value,max)
 
 func _init() -> void:
 	name = 'stats'
-func _ready() -> void:
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
 #	root.add_to_group('stats')
 	set_interface()
@@ -110,7 +111,7 @@ func set_interface():
 
 
 func connect_goap_agent():
-	agent = get_node_or_null("../goap_agent")
+	agent = Interface.get_goap_agent(root)
 	if agent == null: return
 	if has_health:
 		update_agent_health(0,health,max_health)
@@ -134,6 +135,9 @@ func connect_goap_agent():
 func update_agent_health(delta,_value,_max):
 	agent.set_local_state(NL.health,_value)
 	agent.set_local_state(NL.max_health,_max)
+	if health <= 0 or health >= max_health:
+		return
+	Interface.reward_agent(root,1)
 
 func update_agent_strength(delta,_value,_max):
 	agent.set_local_state(NL.strength,_value)

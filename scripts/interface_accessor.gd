@@ -98,3 +98,29 @@ func show_dialogue(line:String):
 func show_image(img:Texture):
 	var meta = Hud.get_meta(NL.show_image)
 	meta.call(img)
+
+func get_goap_agent(body:Node3D)->GOAPAgent:
+	if body == null:
+		return
+	if !body.has_meta(NL.get_goap_agent):
+		return
+	var meta = body.get_meta(NL.get_goap_agent)
+	return meta.call()
+
+func reward_agent(body:Node3D,amount:=0.0):
+	if body == null:
+		return
+	if is_equal_approx(amount,0):
+		return
+	if !body.has_meta(NL.reward_agent):
+		return
+	var meta = body.get_meta(NL.reward_agent)
+	return meta.call(amount)
+
+func get_closest_node3d(body:Node3D, group:StringName, range:=100.0)-> Node3D:
+	if body == null:
+		return null
+	if !body.has_meta(NL.get_closest_node3d):
+		return null
+	var meta = body.get_meta(NL.get_closest_node3d)
+	return meta.call(group,range)

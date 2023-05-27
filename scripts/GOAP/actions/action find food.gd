@@ -17,8 +17,7 @@ func is_valid(local_state:Dictionary)->bool:
 
 func get_cost(local_state:Dictionary)->float:
 	var root = local_state.root
-	var agent = local_state.agent
-	var food = agent.get_closest_node3d(NL.food,range)
+	var food = Interface.get_closest_node3d(root,NL.food,range)
 	if food == null:
 		return 1
 	var dist = food.global_position - root.global_position
@@ -35,8 +34,7 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root
-	var agent = local_state.agent
-	var food = agent.get_closest_node3d(NL.food,range)
+	var food = Interface.get_closest_node3d(root,NL.food,range)
 	if food == null:
 		return false
 	

@@ -1,12 +1,13 @@
 extends Node
 class_name Inputs
 
-@onready var root = get_parent().root
+var root :Node3D
 
 func _init() -> void:
 	name = 'inputs'
 
-func _ready() -> void:
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
 	root.set_meta(NL.get_inputs, Callable(get_inputs))
 

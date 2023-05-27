@@ -1,9 +1,8 @@
 extends Node
 class_name Platformer
 
-@onready var root = get_parent().root
-@onready var input = $'../inputs'
-
+var root :Node3D
+var input : Inputs
 
 @export var horizontal_speed:=5.0
 
@@ -32,10 +31,14 @@ var old_state := state
 signal on_state_changed(state:states)
 func _init() -> void:
 	name = 'platformer'
-func _ready():
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
-	input.connect( "jump_pressed", trigger_jump.bind())
 	set_interface()
+	input = Interface.get_input(root)
+	
+	input.connect( "jump_pressed", trigger_jump.bind())
+
 
 var cool_down :=0.0
 var dt:=0.0

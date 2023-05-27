@@ -96,7 +96,10 @@ var receive_message:= &'receive_message'
 
 var respawn := &'respawn'
 
+var get_goap_agent := &'get_goap_agent'
 var toggle_goap_agent := &'toggle_goap_agent'
+var reward_agent := &'reward_agent'
+var get_closest_node3d := &'get_closest_node3d'
 
 var get_nav_agent := &'get_nav_agent'
 
