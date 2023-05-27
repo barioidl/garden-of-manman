@@ -38,6 +38,11 @@ func _ready() -> void:
 	set_interface()
 	init_local_state()
 
+func _enter_tree() -> void:
+	_load()
+func _exit_tree() -> void:
+	_save()
+
 func init_local_state():
 	set_local_state(NL.root,root)
 	set_local_state(NL.agent,self)
@@ -168,11 +173,17 @@ func get_closest_node3d(group:StringName, range:=100.0)-> Node3D:
 
 
 func _save():
-	print('save')
-	for i in goals:
-		print(i._name())
+	if !can_process():
+		return
+	_print('agent saving goals')
+	for goal in goals:
+		goal._save()
 
 func _load():
-	print('load')
-	for i in goals:
-		print(i._name())
+	_print('agent loading goals')
+	for goal in goals:
+		goal._load()
+
+func _print(line:String):
+	return
+	print(line)

@@ -22,8 +22,8 @@ func get_cost(local_state:Dictionary)->float:
 	if food == null:
 		return 1
 	var dist = food.global_position - root.global_position
-	dist = dist.length_squared()
-	return dist / (range*range)
+	dist = dist.length_squared() / (range*range)
+	return dist * get_weight(NL.food)
 
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{}

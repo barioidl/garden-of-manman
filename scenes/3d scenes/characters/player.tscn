@@ -155,6 +155,7 @@ jump_height = 4.0
 extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("3_iebvc")]
+hunger = 8.0
 
 [node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
 
@@ -184,7 +185,9 @@ script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" instance=ExtResource("9_8vf4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+connect_to_shape = false
 head_margin = 0.15
+connect_to_bone = true
 
 [node name="hotbar" type="Node3D" parent="body"]
 script = SubResource("GDScript_l165g")

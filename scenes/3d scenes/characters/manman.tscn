@@ -298,6 +298,7 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_t33xl")]
+hunger = 8.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
 time_scale = 0.2
@@ -319,14 +320,16 @@ turn_speed = 100
 script = SubResource("GDScript_g145v")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("13_ipner")
 scream_sfx = SubResource("Resource_re18v")
 
 [node name="puzzle" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("13_boe7p")
 
 [node name="debug_display" type="Label3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.5, 0)
 billboard = 1
 double_sided = false
 fixed_size = true

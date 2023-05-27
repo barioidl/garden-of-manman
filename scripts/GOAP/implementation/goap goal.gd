@@ -20,15 +20,32 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	return true
 
 
+var score:=0.0
 var weights :={}
 func get_weight(name:String)->float:
 	if weights.has(name):
+		_print('use existing weight')
 		return weights[name]
+	_print('use new weight')
 	weights[name] = 1
 	return 1
 
-func _save() ->Dictionary:
-	return weights
+func _save():
+	_print('goal save')
+	var data :={}
+	data.name = _name()
+	data.weights = weights
+	data.score = score
+	Goap.save_mutations(data)
 
-func _load(data:Dictionary):
-	weights = data
+func _load():
+	_print('goal load')
+	var data := Goap.load_mutations(_name())
+	if data.is_empty():
+		return
+	weights = data.weights
+	score = data.score
+
+func _print(line:String):
+	return
+	print(line)

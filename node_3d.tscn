@@ -1,8 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=24 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
-[ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="4_ebjnm"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_pmy02"]
@@ -97,6 +96,7 @@ environment = SubResource("Environment_pjwlt")
 [node name="map collision" type="StaticBody3D" parent="."]
 
 [node name="TotalMap" type="MeshInstance3D" parent="map collision"]
+visible = false
 layers = 16
 material_override = SubResource("StandardMaterial3D_2xk6h")
 mesh = ExtResource("1_ptihf")
@@ -106,17 +106,6 @@ shape = SubResource("ConcavePolygonShape3D_gr585")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="map collision"]
 navigation_mesh = SubResource("NavigationMesh_r78ed")
-
-[node name="timmy" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.421, 0.335056, -40.4508)
-max_contacts_reported = 3
-linear_damp = 10.0
-
-[node name="ItemStartup" type="Node" parent="timmy"]
-script = ExtResource("4_ebjnm")
-
-[node name="attach player control" type="Node" parent="timmy"]
-script = ExtResource("3_65qyn")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.354652, 0, -39.4441)
@@ -259,3 +248,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -20)
 
 [node name="Marker3D4" type="Marker3D" parent="safe points"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 17)
+
+[node name="player" parent="." instance=ExtResource("4_t373y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2484, 0, -40.214)
+
+[node name="Node" type="Node" parent="player"]
+script = ExtResource("3_65qyn")
