@@ -2,7 +2,7 @@ extends Resource
 class_name GOAPAction
 
 func _name()->StringName:
-	return 'A default'
+	return &'A default'
 
 func is_valid(local_state:Dictionary)->bool:
 	return true

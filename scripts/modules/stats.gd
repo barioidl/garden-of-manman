@@ -36,6 +36,13 @@ signal thirst_updated(delta,value,max)
 signal hunger_updated(delta,value,max)
 
 
+@export var priority_health := 1.0
+@export var priority_strength := 0.75
+@export var priority_mana := 0.5
+@export var priority_stamina := 0.25
+@export var priority_thirst := -0.6
+@export var priority_hunger := -0.3
+
 func _init() -> void:
 	name = 'stats'
 func _enter_tree() -> void:
@@ -55,6 +62,7 @@ func change_health(delta):
 	hurt_sfx(delta)
 	if health <= 0:
 		emit_signal('die')
+		Interface.reward_agent(root,-10)
 
 func change_strength(delta):
 	if !has_strength: return
@@ -133,32 +141,41 @@ func connect_goap_agent():
 		update_agent_hunger(0,hunger,max_hunger)
 		connect(NL.hunger_updated,update_agent_hunger)
 
-func update_agent_health(delta,_value,_max):
+func update_agent_health(_delta,_value,_max):
 	agent.set_local_state(NL.health,_value)
 	agent.set_local_state(NL.max_health,_max)
-	if health <= 0 or health >= max_health:
-		return
-	Interface.reward_agent(root,1)
+	if _value > 0 and _value < _max:
+		Interface.reward_agent(root,_delta * priority_health)
 
-func update_agent_strength(delta,_value,_max):
+func update_agent_strength(_delta,_value,_max):
 	agent.set_local_state(NL.strength,_value)
 	agent.set_local_state(NL.max_strength,_max)
+	if _value > 0 and _value < _max:
+		Interface.reward_agent(root,_delta * priority_strength)
 
-func update_agent_mana(delta,_value,_max):
+func update_agent_mana(_delta,_value,_max):
 	agent.set_local_state(NL.mana,_value)
 	agent.set_local_state(NL.max_mana,_max)
+	if _value > 0 and _value < _max:
+		Interface.reward_agent(root,_delta * priority_mana)
 
-func update_agent_stamina(delta,_value,_max):
+func update_agent_stamina(_delta,_value,_max):
 	agent.set_local_state(NL.stamina,_value)
 	agent.set_local_state(NL.max_stamina,_max)
+	if _value > 0 and _value < _max:
+		Interface.reward_agent(root,_delta * priority_stamina)
 
-func update_agent_thirst(delta,_value,_max):
+func update_agent_thirst(_delta,_value,_max):
 	agent.set_local_state(NL.thirst,_value)
 	agent.set_local_state(NL.max_thirst,_max)
+	if _value > 0 and _value < _max:
+		Interface.reward_agent(root,_delta * priority_thirst)
 
-func update_agent_hunger(delta,_value,_max):
+func update_agent_hunger(_delta,_value,_max):
 	agent.set_local_state(NL.hunger,_value)
 	agent.set_local_state(NL.max_hunger,_max)
+	if _value > 0 and _value < _max:
+		Interface.reward_agent(root,_delta * priority_hunger)
 
 
 

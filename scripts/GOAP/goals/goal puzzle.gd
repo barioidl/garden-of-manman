@@ -2,7 +2,7 @@ extends GOAPGoal
 class_name GoalPuzzle
 
 func _name() -> StringName:
-	return 'G puzzle'
+	return &'G puzzle'
 
 func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.puzzle)

@@ -18,13 +18,17 @@ func on_quit():
 
 func init_action_planner():
 	var planner_actions := [
-		ActionScream.new(),
-		ActionFaceTarget.new(),
-		ActionAttackTarget.new(),
-		ActionPuzzle.new(),
-		
+#		ActionTakeFoodFromItem.new(),
 		ActionFindFood.new(),
 		ActionEatFood.new(),
+		
+		ActionFindKey.new(),
+		ActionOpenDoor.new(),
+#		ActionScream.new(),
+#		ActionFaceTarget.new(),
+#		ActionAttackTarget.new(),
+#		ActionPuzzle.new(),
+		
 	]
 	for action in planner_actions:
 		action._load()

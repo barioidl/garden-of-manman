@@ -4,7 +4,7 @@ class_name ActionFindFood
 var range:=50.0
 
 func _name()->StringName:
-	return 'A find food'
+	return &'A find food'
 
 func is_valid(local_state:Dictionary)->bool:
 	var root = local_state.root
@@ -20,9 +20,10 @@ func get_cost(local_state:Dictionary)->float:
 	var food = Interface.get_closest_node3d(root,NL.food,range)
 	if food == null:
 		return 1
-	var dist = food.global_position - root.global_position
-	dist = dist.length_squared() / (range*range)
-	return dist * get_weight(NL.food)
+	var dist :Vector3= food.global_position - root.global_position
+	var cost = dist.length_squared() / (range*range)
+	cost *= get_weight(NL.food)
+	return cost
 
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{}
@@ -69,7 +70,7 @@ func get_hotbar_food(root) -> int:
 	return -1
 
 func reached_food(root)->bool:
-	var target = Interface.get_target(root)
+	var target = Interface.get_head_target(root)
 	if target == null:
 		return false
 	if !target.is_in_group(NL.food):

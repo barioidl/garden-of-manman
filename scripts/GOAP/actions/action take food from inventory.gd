@@ -2,7 +2,7 @@ extends GOAPAction
 class_name ActionTakeFoodFromItem
 
 func _name()->StringName:
-	return 'A take food from item'
+	return &'A take food from item'
 
 func is_valid(self_state:Dictionary)->bool:
 	return false

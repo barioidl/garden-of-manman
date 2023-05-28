@@ -2,7 +2,7 @@ extends GOAPAction
 class_name ActionEatFood
 
 func _name()->StringName:
-	return 'A eat food'
+	return &'A eat food'
 
 func get_inputs(local_state:Dictionary)->Dictionary:
 	if local_state.has(NL.root):
@@ -14,7 +14,6 @@ func get_inputs(local_state:Dictionary)->Dictionary:
 
 func get_outputs(local_state:Dictionary)->Dictionary:
 	return {
-		NL.has_food:-1,
 		NL.hunger: -1
 	}
 

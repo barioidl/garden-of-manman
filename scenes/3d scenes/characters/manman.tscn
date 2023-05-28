@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bi85pq8ys3rxq"]
+[gd_scene load_steps=39 format=3 uid="uid://bi85pq8ys3rxq"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_h85l8"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="9_kdcl8"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="10_md03h"]
+[ext_resource type="Script" path="res://scripts/tags.gd" id="11_dynar"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="11_newbt"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="11_qhlc8"]
 [ext_resource type="AudioStream" uid="uid://bm44g8fpxx2nx" path="res://assets/audio/fl exported/spider hunt.ogg" id="12_hqwsp"]
@@ -285,6 +286,9 @@ puzzle_sfx = ExtResource("6_r3q25")
 hunt_sfx = ExtResource("7_pwdy1")
 kill_sfx = ExtResource("8_h85l8")
 turn_speed = 100
+
+[node name="tags" type="Node" parent="."]
+script = ExtResource("11_dynar")
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")

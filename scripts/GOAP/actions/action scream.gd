@@ -2,7 +2,7 @@ extends GOAPAction
 class_name ActionScream
 
 func _name()->StringName:
-	return 'A scream'
+	return &'A scream'
 
 func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.jumpscare)

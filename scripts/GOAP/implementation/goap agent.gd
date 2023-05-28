@@ -68,8 +68,12 @@ func toggle_goap_agent(on:bool):
 	process_mode = mode
 
 func reward(amount:=0.1):
-	if current_goal != null:
-		current_goal.score += amount
+	if current_goal == null:
+		return
+	_print('agent rewarded: ' + str(amount))
+	current_goal.score += amount
+	for action in current_plan:
+		action.score += amount
 
 func get_planner() -> GOAPPlanner:
 	return Goap.get_action_planner()
@@ -115,7 +119,6 @@ func generate_plan():
 	
 	current_goal.perform(local_state,dt)
 	current_plan = planner.get_plan(current_goal, local_state)
-	
 	debug_plan()
 
 func select_goal()-> GOAPGoal:
@@ -207,5 +210,5 @@ func _load():
 		goal._load()
 
 func _print(line:String):
-	return
+#	return
 	print(line)

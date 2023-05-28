@@ -43,10 +43,10 @@ func get_input(body:Node3D)->Node:
 		return null
 	return body.get_meta(NL.get_inputs).call()
 
-func get_target(body:Node3D)->Node3D:
-	if !body.has_meta(NL.get_target):
+func get_head_target(body:Node3D)->Node3D:
+	if !body.has_meta(NL.get_head_target):
 		return null
-	return body.get_meta(NL.get_target).call()
+	return body.get_meta(NL.get_head_target).call()
 
 func get_head_position(body:Node3D)->Vector3:
 	if !body.has_meta(NL.get_head_position):

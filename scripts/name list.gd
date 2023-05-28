@@ -52,8 +52,13 @@ var player_tension := &'player_tension'
 var root :=&'root'
 var agent := &'agent'
 
+var exploration := &'exploration'
+
 func list_of_group_names():pass
 var player := &'player'
+
+var human:= &'human'
+var monster := &'monster'
 
 var food := &'food'
 var drink := &'drink'
@@ -80,7 +85,7 @@ var sneak_to_target := &'sneak_to_target'
 var sprint_to_target := &'sprint_to_target'
 var jump_to_target := &'jump_to_target'
 
-var get_target := &'get_target'
+var get_head_target := &'get_head_target'
 var get_head_position := &'get_head_position'
 var input_use_item := &'input_use_item'
 

@@ -37,7 +37,7 @@ func connect_hotbar():
 	inputs.connect(NL.misc_pressed,misc)
 
 func set_interface():
-	root.set_meta(NL.get_target, Callable(get_target))
+	root.set_meta(NL.get_head_target, Callable(get_target))
 	root.set_meta(NL.get_head_position, Callable(get_head_position))
 	root.set_meta(NL.input_use_item, Callable(input_use_item))
 
