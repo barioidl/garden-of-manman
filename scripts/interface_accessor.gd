@@ -15,9 +15,8 @@ func change_hunger(body,delta:=-1.0)->bool:
 	return true
 
 func stunt(body,duration:=0.5):
-	if body.has_meta('delay_platformer'):
-		body.get_meta('delay_platformer').call(duration)
-
+	if body.has_meta(NL.delay_platformer):
+		body.get_meta(NL.delay_platformer).call(duration)
 
 func walk_to(body:Node3D,target:Vector3)->bool:
 	if !body.has_meta(NL.walk_to_target):

@@ -35,7 +35,7 @@ func set_damp():
 		linear_damp = 3 
 	else:
 		linear_damp = 1
-#	print("on_floor: "+ str(on_floor)+", on_wall: "+ str(on_wall)+", on_ceiling: "+ str(on_ceiling))
+#	print("`on_floor: "+ str(on_floor)+", on_wall: "+ str(on_wall)+", on_ceiling: "+ str(on_ceiling))
 
 var bungee_duration := 0.2
 var on_floor_bungee := 0.0
@@ -78,10 +78,9 @@ func move_body():
 	abs_y = max(abs_y,abs(velo.y))
 	abs_z = max(abs_z,abs(velo.z))
 	
-	var accel:= dt * 60
-	velo.x = clampf(velo.x + local_velocity.x * accel, -abs_x,abs_x)
-	velo.y = clampf(velo.y + local_velocity.y * accel, -abs_y,abs_y)
-	velo.z = clampf(velo.z + local_velocity.z * accel, -abs_z,abs_z)
+	velo.x = clampf(velo.x + local_velocity.x, -abs_x, abs_x)
+	velo.y = clampf(velo.y + local_velocity.y, -abs_y, abs_y)
+	velo.z = clampf(velo.z + local_velocity.z, -abs_z, abs_z)
 	
 	local_velocity = Vector3.ZERO
 	linear_velocity = custom_transform.basis * velo
