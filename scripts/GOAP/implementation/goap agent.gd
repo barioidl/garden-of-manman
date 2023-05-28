@@ -1,7 +1,7 @@
 extends Node
 class_name GOAPAgent
 
-@onready var root:Node3D=get_parent().root
+var root:Node3D
 var local_state:={}
 var planner :GOAPPlanner
 
@@ -32,22 +32,24 @@ var loop_plan:= false
 func _init() -> void:
 	name = 'goap_agent'
 
+func _enter_tree() -> void:
+	root = get_parent().root
+	set_interface()
+	_load()
+
 func _ready() -> void:
 	add_to_group(NL.goap_save_load)
 	planner = get_planner()
-	set_interface()
 	init_local_state()
-
-func _enter_tree() -> void:
-	_load()
-func _exit_tree() -> void:
-	_save()
 
 var dt:=0.0
 func _process(delta: float) -> void:
 	dt = delta
 	generate_plan()
 	follow_plan()
+
+func _exit_tree() -> void:
+	_save()
 
 
 func set_interface():
@@ -66,7 +68,8 @@ func toggle_goap_agent(on:bool):
 	process_mode = mode
 
 func reward(amount:=0.1):
-	current_goal.score += amount
+	if current_goal != null:
+		current_goal.score += amount
 
 func get_planner() -> GOAPPlanner:
 	return Goap.get_action_planner()

@@ -1,22 +1,26 @@
 extends Node3D
 class_name Rig
 
-@export var root :Node3D
-@onready var shape :=$"../../shape"
+var root :Node3D
+var shape :Node
+var platformer:Platformer
 @export var head_bone:Node3D
-@onready var platformer = $"../../platformer"
 
+@export var connect_to_shape:=true
 @export var item_holders:Array[NodePath]=[]
 
 func _init() -> void:
 	name = 'rig'
-
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
 func _ready() -> void:
 	if !visible: return
+	shape = root.get_node('shape')
+	platformer = root.get_node('platformer')
 	use_shape_size()
 	platformer.connect(NL.on_state_changed, state_changed)
 
-@export var connect_to_shape:=true
 func use_shape_size():
 	if !connect_to_shape: return
 	shape.connect('on_size_changed',on_size_changed)

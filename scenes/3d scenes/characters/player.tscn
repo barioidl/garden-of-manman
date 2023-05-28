@@ -39,10 +39,10 @@ height = 1.0
 script/source = "extends Node3D
 class_name Hotbar
 
-@onready var root=$\"../..\"
+var root:Node3D
 @onready var head :HotbarUser=$\"../head\"
-@onready var inventory:Inventory=$'../../inventory'
-@onready var shape :=$\"../../shape\"
+var inventory:Inventory
+var shape:Node3D
 
 var fist = preload('res://scenes/3d scenes/items/place_holder_fist.tscn')
 var hands:=[]
@@ -61,12 +61,16 @@ var hotbar_items:=[]
 var item_holders:=[]
 
 signal hotbar_updated
-func _ready():
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
+	set_interface()
+func _ready():
+	inventory = root.get_node_or_null('inventory')
+	shape = root.get_node('shape')
 	get_item_holders()
 	hotbar_items.resize(max_items)
 #	spawn_fists()
-	set_interface()
 	use_shape_size()
 
 func set_interface():
@@ -192,5 +196,4 @@ connect_to_bone = true
 [node name="hotbar" type="Node3D" parent="body"]
 script = SubResource("GDScript_l165g")
 
-[node name="rig" parent="body" node_paths=PackedStringArray("root") instance=ExtResource("12_tmh3y")]
-root = NodePath("../..")
+[node name="rig" parent="body" instance=ExtResource("12_tmh3y")]

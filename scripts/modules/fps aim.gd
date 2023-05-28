@@ -1,9 +1,10 @@
 extends Node
+class_name FPS_Aim
 
-@onready var root=$'..'.root
-@onready var input = $'../inputs'
-@onready var head = $'../body/head'
-@onready var body = $'../body'
+var root:Node3D
+var inputs:Inputs
+var head:HotbarUser
+var body:Node3D
 
 var rotation_body:= 0.0
 var rotation_head:=0.0
@@ -12,9 +13,14 @@ var rotation_head:=0.0
 
 func _init() -> void:
 	name = 'fps_aim'
-func _ready():
+func _enter_tree() -> void:
+	root=$'..'.root
 	owner = root
 	set_interface()
+func _ready():
+	inputs = root.get_node('inputs')
+	body = root.get_node('body')
+	head = body.get_node("head")
 
 func _process(delta: float) -> void:
 	rotate_fps(delta)
@@ -22,7 +28,7 @@ func _process(delta: float) -> void:
 func rotate_fps(delta):
 	if body == null: 
 		return
-	var axis = input.dpad2
+	var axis = inputs.dpad2
 	if axis == Vector2.ZERO : 
 		return
 	rotation_body += axis.x*delta
@@ -50,9 +56,9 @@ func turn_head_toward(target:Vector3, turn_speed:=1.0)-> bool:
 	var y = atan2(local.y, local.z)
 	
 	if is_equal_approx(x,0) and is_equal_approx(y,0):
-		input.dpad2 = Vector2.ZERO
+		inputs.dpad2 = Vector2.ZERO
 		return true
 	
-	input.dpad2.x = rad_to_deg(x) * turn_speed * 5
-	input.dpad2.y = -rad_to_deg(y) * turn_speed * 5
+	inputs.dpad2.x = rad_to_deg(x) * turn_speed * 5
+	inputs.dpad2.y = -rad_to_deg(y) * turn_speed * 5
 	return false

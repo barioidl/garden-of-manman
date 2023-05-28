@@ -1,22 +1,25 @@
 extends RayCast3D
 class_name HotbarUser
 
+var root:Node3D
 @onready var hotbar:=$"../hotbar"
-@onready var root:=$'../..'
-@onready var input:Inputs=$'../../inputs'
-@onready var shape :=$"../../shape"
+var inputs:Inputs
+var shape
 #@onready var platformer=$'../../platformer'
 #var body
 @export var interact_range:=2.0
 
 func _init() -> void:
 	name = 'head'
-func _ready() -> void:
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
-	add_exception(root)
-	
-	connect_hotbar()
 	set_interface()
+func _ready() -> void:
+	add_exception(root)
+	inputs = root.get_node('inputs')
+	shape = root.get_node('shape')
+	connect_hotbar()
 	get_head_bone()
 	use_shape_size()
 
@@ -25,13 +28,13 @@ func _process(delta: float) -> void:
 
 func connect_hotbar():
 	if hotbar == null: return
-	input.connect(NL.drop_pressed,drop_start)
-	input.connect(NL.drop_released,drop_stop)
+	inputs.connect(NL.drop_pressed,drop_start)
+	inputs.connect(NL.drop_released,drop_stop)
 	
-	input.connect(NL.act_pressed,act)
-	input.connect(NL.attack_pressed,attack)
-	input.connect(NL.skill_pressed,skill)
-	input.connect(NL.misc_pressed,misc)
+	inputs.connect(NL.act_pressed,act)
+	inputs.connect(NL.attack_pressed,attack)
+	inputs.connect(NL.skill_pressed,skill)
+	inputs.connect(NL.misc_pressed,misc)
 
 func set_interface():
 	root.set_meta(NL.get_target, Callable(get_target))
@@ -40,10 +43,10 @@ func set_interface():
 
 func input_use_item(id:int):
 	match id:
-		0:input.emit_signal(NL.attack_pressed)
-		1:input.emit_signal(NL.skill_pressed)
-		2:input.emit_signal(NL.misc_pressed)
-		_:input.emit_signal(NL.act_pressed)
+		0:inputs.emit_signal(NL.attack_pressed)
+		1:inputs.emit_signal(NL.skill_pressed)
+		2:inputs.emit_signal(NL.misc_pressed)
+		_:inputs.emit_signal(NL.act_pressed)
 
 @export var connect_to_shape:=true
 @export var head_margin:=0.2

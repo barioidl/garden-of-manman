@@ -9,6 +9,9 @@ func _init() -> void:
 func _enter_tree() -> void:
 	root = get_parent().root
 	owner = root
+	set_interface()
+
+func set_interface():
 	root.set_meta(NL.get_inputs, Callable(get_inputs))
 
 func get_inputs()->Inputs:

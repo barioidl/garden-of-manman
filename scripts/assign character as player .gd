@@ -2,7 +2,7 @@ extends Node
 
 @export var disable_goap:=true
 
-func _enter_tree() -> void:
+func _ready() -> void:
 	attach_to_player()
 	queue_free()
 

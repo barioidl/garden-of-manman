@@ -41,8 +41,9 @@ func _init() -> void:
 func _enter_tree() -> void:
 	root = get_parent().root
 	owner = root
-#	root.add_to_group('stats')
 	set_interface()
+func _ready() -> void:
+#	root.add_to_group('stats')
 	connect_goap_agent()
 
 

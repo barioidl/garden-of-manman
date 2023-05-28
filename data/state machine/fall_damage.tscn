@@ -3,8 +3,9 @@
 [sub_resource type="GDScript" id="GDScript_xyoju"]
 script/source = "extends Node
 
-@onready var root = get_parent().root
-
+var root:Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
 func _ready() -> void:
 	return
 	root.connect(NL.body_entered,body_entered)

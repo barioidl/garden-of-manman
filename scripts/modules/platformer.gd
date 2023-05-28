@@ -35,8 +35,8 @@ func _enter_tree() -> void:
 	root = get_parent().root
 	owner = root
 	set_interface()
+func _ready() -> void:
 	input = Interface.get_input(root)
-	
 	input.connect( "jump_pressed", trigger_jump.bind())
 
 
