@@ -54,9 +54,8 @@ func save_mutations(data:Dictionary):
 
 func load_mutations(name:StringName)->Dictionary:
 	if !all_mutations.has(name):
-		_print('load unavailable mutation')
+		_print('load failed, return empty mutation')
 		return {}
-	
 	all_mutations[name].score *= 0.5
 	
 	var weights = all_mutations[name].weights

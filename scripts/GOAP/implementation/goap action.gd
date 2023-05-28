@@ -31,6 +31,7 @@ func get_weight(name:String)->float:
 	return 1
 
 func _save():
+	_print('saving goap action')
 	var data :={}
 	data.name = _name()
 	data.weights = weights
@@ -38,6 +39,7 @@ func _save():
 	Goap.save_mutations(data)
 
 func _load():
+	_print('loading goap action')
 	var data := Goap.load_mutations(_name())
 	if data.is_empty():
 		return
@@ -45,4 +47,5 @@ func _load():
 	score = data.score
 
 func _print(line:String):
+	return
 	print(line)

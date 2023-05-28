@@ -85,6 +85,7 @@ func set_local_state(key,value):
 	if local_state.has(key):
 		if local_state[key] == value:	return
 	local_state[key] = value
+	_print('set local state: '+ str(key)+', '+str(value))
 	debug_local_state()
 
 func follow_plan():
@@ -94,6 +95,7 @@ func follow_plan():
 		return
 	var action = current_plan[current_step]
 	var completed = action.perform(local_state, dt)
+	_print('performed ' + action._name())
 	if completed:
 		current_step += 1
 
@@ -148,15 +150,20 @@ func debug_local_state():
 	debug_display.set_content('local_state',output)
 
 func debug_plan():
-	if debug_display == null: return
-	var content = planner.print_plan(current_plan)
-	debug_display.set_content('plan',content)
+	if current_goal == null: return
 	
-	var cost := str(current_goal.priority(local_state))
 	var goal_name = current_goal._name()
-	goal_name +=", score: " 
-	goal_name += cost.left(4)
+	var score := str(current_goal.priority(local_state))
+	score = score.left(5)
+	goal_name +=", score: " + score
+	var plan = planner.print_plan(current_plan)
+	
+	_print('current goal' + goal_name)
+	_print('plan: '+ plan)
+	
+	if debug_display == null: return
 	debug_display.set_content('goal', goal_name)
+	debug_display.set_content('plan',plan)
 
 func get_string(_value)->String:
 	if _value == null:
@@ -187,7 +194,7 @@ func get_closest_node3d(group:StringName, range:=100.0)-> Node3D:
 
 
 func _save():
-	if !can_process():
+	if process_mode == PROCESS_MODE_DISABLED:
 		_print('avoid saving dormant agent')
 		return
 	_print('agent saving goals')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=19 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
+[ext_resource type="PackedScene" uid="uid://be0ykq12fij2y" path="res://data/state machine/debug_display.tscn" id="11_ba5kq"]
 [ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
 
 [sub_resource type="GDScript" id="GDScript_j6qpi"]
@@ -177,6 +178,9 @@ slots = [null, null]
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_j6qpi")
+
+[node name="debug_display" parent="." instance=ExtResource("11_ba5kq")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.2, 0)
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

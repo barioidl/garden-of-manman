@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://scripts/modules/jumpscare.gd" id="13_ipner"]
 [ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="14_7ugkw"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="14_o6648"]
+[ext_resource type="PackedScene" uid="uid://be0ykq12fij2y" path="res://data/state machine/debug_display.tscn" id="15_hcd4e"]
 [ext_resource type="Texture2D" uid="uid://liruub56ame2" path="res://assets/Textures/manman face0001.png" id="15_l1jl5"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="15_mi7sy"]
 [ext_resource type="Texture2D" uid="uid://c0jdnyte7aqxr" path="res://assets/Textures/manman face0002.png" id="16_kopr6"]
@@ -248,37 +249,6 @@ pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
 streams = Array[AudioStream]([ExtResource("12_hqwsp")])
 
-[sub_resource type="GDScript" id="GDScript_17foq"]
-script/source = "extends Label3D
-var content:={}
-
-func _init() -> void:
-	name = 'debug_display'
-
-func _ready() -> void:
-	if !OS.is_debug_build():
-		queue_free()
-		return
-
-func set_content(key,value):
-	if content.has(key):
-		if content[key] == value: return
-	content[key] = value
-	refresh_text()
-
-func refresh_text():
-	var keys = content.keys()
-	var values = content.values()
-	var iterations = content.size()
-	var output:=''
-	for i in iterations:
-		output += keys[i]
-		output += ': '
-		output += str(values[i])
-		output += '\\n'
-	text = output
-"
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
 height = 2.4
 
@@ -328,16 +298,7 @@ scream_sfx = SubResource("Resource_re18v")
 process_mode = 4
 script = ExtResource("13_boe7p")
 
-[node name="debug_display" type="Label3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.5, 0)
-billboard = 1
-double_sided = false
-fixed_size = true
-texture_filter = 0
-text = "debug"
-autowrap_mode = 2
-width = 1000.0
-script = SubResource("GDScript_17foq")
+[node name="debug_display" parent="." instance=ExtResource("15_hcd4e")]
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
@@ -359,10 +320,9 @@ connect_to_bone = true
 
 [node name="hotbar" parent="body" instance=ExtResource("12_m7c2m")]
 
-[node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("root", "head_bone")]
+[node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("head_bone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 script = ExtResource("15_mi7sy")
-root = NodePath("../..")
 head_bone = NodePath("body")
 item_holders = Array[NodePath]([NodePath("body/right shoulder"), NodePath("body/left shoulder")])
 
