@@ -17,12 +17,9 @@ extends CollisionShape3D
 
 func _init() -> void:
 	name = 'shape'
-
-func _enter_tree() -> void:
-	root = get_parent().root
-	owner = root
-
 func _ready() -> void:
+	owner = root
+	
 	platformer.connect(NL.on_state_changed, on_state_changed)
 
 func on_state_changed(state:StringName):

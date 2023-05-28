@@ -1,10 +1,5 @@
 extends Node
 
-<<<<<<< Updated upstream
-=======
-@export var disable_goap:=true
-
->>>>>>> Stashed changes
 func _ready() -> void:
 	attach_to_player()
 	queue_free()

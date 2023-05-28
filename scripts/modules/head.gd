@@ -1,9 +1,9 @@
 extends RayCast3D
 class_name HotbarUser
 
-var root:Node3D
-@onready var input:Inputs=$'../../inputs'
 @onready var hotbar:=$"../hotbar"
+@onready var root:=$'../..'
+@onready var input:Inputs=$'../../inputs'
 @onready var shape :=$"../../shape"
 #@onready var platformer=$'../../platformer'
 #var body
@@ -11,15 +11,12 @@ var root:Node3D
 
 func _init() -> void:
 	name = 'head'
-
-func _enter_tree() -> void:
-	root = get_parent().root
-	owner = root
-	set_interface()
-
 func _ready() -> void:
+	owner = root
 	add_exception(root)
+	
 	connect_hotbar()
+	set_interface()
 	get_head_bone()
 	use_shape_size()
 

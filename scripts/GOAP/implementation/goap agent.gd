@@ -1,7 +1,7 @@
 extends Node
 class_name GOAPAgent
 
-var root:Node3D
+@onready var root:Node3D=get_parent().root
 var local_state:={}
 var planner :GOAPPlanner
 
@@ -32,15 +32,7 @@ var loop_plan:= false
 func _init() -> void:
 	name = 'goap_agent'
 
-func _enter_tree() -> void:
-	root=get_parent().root
-	owner = root
-	set_interface()
-	
-	_load()
-
 func _ready() -> void:
-<<<<<<< Updated upstream
 	planner = Goap.get_action_planner()
 	set_local_state(NL.root,root)
 	set_local_state(NL.agent,self)
@@ -48,22 +40,6 @@ func _ready() -> void:
 	set_local_state(NL.plan_depth,planner_limits.y)
 	set_local_state(NL.unique_steps,false)
 	set_interface()
-=======
-	add_to_group(NL.goap_save_load)
-	planner = get_planner()
-	init_local_state()
-
-
-func _exit_tree() -> void:
-	_save()
-
-var dt:=0.0
-func _process(delta: float) -> void:
-	dt = delta
-	generate_plan()
-	follow_plan()
-
->>>>>>> Stashed changes
 
 func set_interface():
 	root.set_meta(NL.toggle_goap_agent,toggle_goap_agent)
@@ -82,24 +58,21 @@ func _process(delta: float) -> void:
 
 func set_local_state(key,value):
 	if local_state.has(key):
-		if local_state[key] == value:
-			return
+		if local_state[key] == value:	return
 	local_state[key] = value
-	_print('set local state:'+str(key)+', '+str(value))
-#	debug_local_state()
+	debug_local_state()
 
 func follow_plan():
 	if current_step >= plan_size:
 		if loop_plan:
 			current_step=0
 		return
-	var action :GOAPAction= current_plan[current_step]
+	var action = current_plan[current_step]
 	var completed = action.perform(local_state, dt)
-	_print('performed step: '+action._name())
 	if completed:
 		current_step += 1
 
-var generate_cd :=0.5
+var generate_cd :=0.0
 func generate_plan():
 	if generate_cd >0:
 		generate_cd -= dt
@@ -116,9 +89,7 @@ func generate_plan():
 	current_goal.perform(local_state,dt)
 	current_plan = planner.get_plan(current_goal, local_state)
 	
-	_print('new goal: ' + current_goal._name())
-	_print('new plan: '+planner.print_plan(current_plan))
-#	debug_plan()
+	debug_plan()
 
 func select_goal()-> GOAPGoal:
 	goals.sort_custom(compare_goals)
@@ -175,38 +146,3 @@ func get_string(_value)->String:
 	if _value is Node:
 		return _value.name
 	return ''
-<<<<<<< Updated upstream
-=======
-
-
-func get_closest_node3d(group:StringName, range:=100.0)-> Node3D:
-	if local_state.has(group):
-		var node = local_state[group]
-		if node == null:
-			local_state.erase(group)
-		else:
-			return local_state[group]
-	var root_pos = root.global_position
-	var node = WorldState.get_closest_node_3d(group, root_pos, range)
-	local_state[group] = node
-	return node
-
-
-
-func _save():
-	if !can_process():
-		_print('avoid saving dormant agent')
-		return
-	_print('agent saving goals')
-	for goal in goals:
-		goal._save()
-
-func _load():
-	_print('agent loading goals')
-	for goal in goals:
-		goal._load()
-
-func _print(line:String):
-#	return
-	print(line)
->>>>>>> Stashed changes

@@ -8,12 +8,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	owner = root
-	set_interface()
-
-func _ready() -> void:
-	pass
-
-func set_interface():
 	root.set_meta(NL.get_inputs, Callable(get_inputs))
 
 func get_inputs()->Inputs:

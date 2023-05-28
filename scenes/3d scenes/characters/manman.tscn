@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bi85pq8ys3rxq"]
+[gd_scene load_steps=38 format=3 uid="uid://bi85pq8ys3rxq"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -248,6 +248,37 @@ pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
 streams = Array[AudioStream]([ExtResource("12_hqwsp")])
 
+[sub_resource type="GDScript" id="GDScript_17foq"]
+script/source = "extends Label3D
+var content:={}
+
+func _init() -> void:
+	name = 'debug_display'
+
+func _ready() -> void:
+	if !OS.is_debug_build():
+		queue_free()
+		return
+
+func set_content(key,value):
+	if content.has(key):
+		if content[key] == value: return
+	content[key] = value
+	refresh_text()
+
+func refresh_text():
+	var keys = content.keys()
+	var values = content.values()
+	var iterations = content.size()
+	var output:=''
+	for i in iterations:
+		output += keys[i]
+		output += ': '
+		output += str(values[i])
+		output += '\\n'
+	text = output
+"
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
 height = 2.4
 
@@ -294,7 +325,6 @@ scream_sfx = SubResource("Resource_re18v")
 [node name="puzzle" type="Node" parent="goap_agent"]
 script = ExtResource("13_boe7p")
 
-<<<<<<< Updated upstream
 [node name="debug_display" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
 billboard = 1
@@ -306,8 +336,6 @@ autowrap_mode = 2
 width = 1000.0
 script = SubResource("GDScript_17foq")
 
-=======
->>>>>>> Stashed changes
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_plrhc")
@@ -328,9 +356,10 @@ connect_to_bone = true
 
 [node name="hotbar" parent="body" instance=ExtResource("12_m7c2m")]
 
-[node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("head_bone")]
+[node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("root", "head_bone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 script = ExtResource("15_mi7sy")
+root = NodePath("../..")
 head_bone = NodePath("body")
 item_holders = Array[NodePath]([NodePath("body/right shoulder"), NodePath("body/left shoulder")])
 

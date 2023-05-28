@@ -1,22 +1,19 @@
 extends Node
 class_name Inventory
 
-var root:Node3D
 @export var slots:=Array()
+
+@onready var root = get_parent().root
 
 signal inventory_changed(id)
 signal inventory_swapped(old_id,new_id)
 func _init() -> void:
 	name = 'inventory'
-
-func _enter_tree() -> void:
-	root = get_parent().root
-	owner = root
-	set_interface()
-
 func _ready() -> void:
+	owner = root
 	root.add_to_group('inventory')
 #	add_to_group('save and load')
+	set_interface()
 
 func set_interface():
 	root.set_meta('get_inventory', Callable(get_inventory))
