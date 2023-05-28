@@ -1,15 +1,18 @@
 extends Node
 class_name SpawnPoints
 
-@onready var root=$'..'.root
+var root:Node3D
 
 func _init() -> void:
 	name='spawn_point'
 
-func _ready() -> void:
+func _enter_tree() -> void:
+	root=$'..'.root
 	owner = root
-	root.add_to_group('spawn_point')
 	root.set_meta(NL.respawn,Callable(respawn))
+
+func _ready() -> void:
+	root.add_to_group('spawn_point')
 	position = root.global_position
 
 var position:=Vector3.ZERO

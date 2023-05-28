@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://coxyg6x4cftmy"]
+
+[sub_resource type="GDScript" id="GDScript_17foq"]
+script/source = "extends Label3D
+var content:={}
+
+func _init() -> void:
+	name = 'debug_display'
+
+func _ready() -> void:
+	if !OS.is_debug_build():
+		queue_free()
+		return
+
+func set_content(key,value):
+	if content.has(key):
+		if content[key] == value: return
+	content[key] = value
+	refresh_text()
+
+func refresh_text():
+	var keys = content.keys()
+	var values = content.values()
+	var iterations = content.size()
+	var output:=''
+	for i in iterations:
+		output += keys[i]
+		output += ': '
+		output += str(values[i])
+		output += '\\n'
+	text = output
+"
+
+[node name="debug_display" type="Label3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.5, 0)
+billboard = 1
+double_sided = false
+fixed_size = true
+texture_filter = 0
+text = "debug"
+autowrap_mode = 2
+width = 1000.0
+script = SubResource("GDScript_17foq")

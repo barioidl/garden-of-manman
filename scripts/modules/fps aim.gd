@@ -1,6 +1,6 @@
 extends Node
 
-@onready var root=$'..'.root
+var root:Node3D
 @onready var input = $'../inputs'
 @onready var head = $'../body/head'
 @onready var body = $'../body'
@@ -12,9 +12,14 @@ var rotation_head:=0.0
 
 func _init() -> void:
 	name = 'fps_aim'
-func _ready():
+
+func _enter_tree() -> void:
+	root = $'..'.root
 	owner = root
 	set_interface()
+
+func _ready():
+	pass
 
 func _process(delta: float) -> void:
 	rotate_fps(delta)

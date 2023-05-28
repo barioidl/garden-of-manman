@@ -40,8 +40,9 @@ func _init() -> void:
 	name = 'stats'
 func _ready() -> void:
 	owner = root
-#	root.add_to_group('stats')
 	set_interface()
+func _ready() -> void:
+#	root.add_to_group('stats')
 	connect_goap_agent()
 
 

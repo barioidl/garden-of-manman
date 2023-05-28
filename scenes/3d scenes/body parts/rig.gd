@@ -1,7 +1,7 @@
 extends Node3D
 class_name Rig
 
-@export var root :Node3D
+var root :Node3D
 @onready var shape :=$"../../shape"
 @export var head_bone:Node3D
 @onready var platformer = $"../../platformer"
@@ -10,6 +10,10 @@ class_name Rig
 
 func _init() -> void:
 	name = 'rig'
+
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
 
 func _ready() -> void:
 	if !visible: return

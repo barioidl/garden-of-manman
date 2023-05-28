@@ -34,8 +34,17 @@ func _init() -> void:
 	name = 'platformer'
 func _ready():
 	owner = root
+<<<<<<< Updated upstream
+=======
+	set_interface()
+func _ready() -> void:
+	input = Interface.get_input(root)
+>>>>>>> Stashed changes
 	input.connect( "jump_pressed", trigger_jump.bind())
 	set_interface()
+
+
+
 
 var cool_down :=0.0
 var dt:=0.0

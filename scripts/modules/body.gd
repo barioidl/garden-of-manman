@@ -1,10 +1,12 @@
 extends Node3D
 
-@onready var root=$".."
+var root:Node3D
 
 func _init() -> void:
 	name = 'body'
-func _ready() -> void:
+
+func _enter_tree() -> void:
+	root=$"..".root
 	owner = root
 
 func _process(delta: float) -> void:

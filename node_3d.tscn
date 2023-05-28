@@ -260,3 +260,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -20)
 
 [node name="Marker3D4" type="Marker3D" parent="safe points"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 17)
+<<<<<<< Updated upstream
+=======
+
+[node name="player" parent="." instance=ExtResource("4_t373y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2484, 0, -40.214)
+
+[node name="Node" type="Node" parent="player"]
+script = ExtResource("3_65qyn")
+disable_goap = false
+>>>>>>> Stashed changes

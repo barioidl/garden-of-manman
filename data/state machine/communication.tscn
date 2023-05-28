@@ -11,9 +11,11 @@ class_name Communication
 func _init() -> void:
 	name = 'communication'
 
-func _ready() -> void:
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
 	set_interface()
+
 func set_interface():
 	var callable = Callable(receive_message)
 	root.set_meta(NL.receive_message, callable)

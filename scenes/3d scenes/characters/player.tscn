@@ -23,7 +23,7 @@ height = 1.0
 script/source = "extends Node3D
 class_name Hotbar
 
-@onready var root=$\"../..\"
+var root:Node3D
 @onready var head :HotbarUser=$\"../head\"
 @onready var inventory:Inventory=$'../../inventory'
 @onready var shape :=$\"../../shape\"
@@ -45,12 +45,15 @@ var hotbar_items:=[]
 var item_holders:=[]
 
 signal hotbar_updated
-func _ready():
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
+	set_interface()
+
+func _ready():
 	get_item_holders()
 	hotbar_items.resize(max_items)
 #	spawn_fists()
-	set_interface()
 	use_shape_size()
 
 func set_interface():
@@ -169,7 +172,11 @@ head_margin = 0.15
 [node name="hotbar" type="Node3D" parent="body"]
 script = SubResource("GDScript_l165g")
 
+<<<<<<< Updated upstream
 [node name="rig" parent="body" node_paths=PackedStringArray("root") instance=ExtResource("12_tmh3y")]
 process_mode = 4
 visible = false
 root = NodePath("../..")
+=======
+[node name="rig" parent="body" instance=ExtResource("12_tmh3y")]
+>>>>>>> Stashed changes
