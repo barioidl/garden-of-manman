@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=34 format=3 uid="uid://rl1fv4l3ai0l"]
 
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_gpyxi"]
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
@@ -73,6 +73,8 @@ func use_camera(layer_id:int,cam_id:int):
 	body.global_rotation = rot
 
 
+func reject_user():
+	pass
 
 
 
@@ -98,13 +100,19 @@ func _print(line:String):
 script/source = "extends StaticBody3D
 
 var root :Node3D
+var current_user:Node3D
+@export var interact_range := 5.0
 func _enter_tree() -> void:
 	root = get_parent().root
 func _ready() -> void:
 	set_interface()
 
 func _process(delta: float) -> void:
-	pass
+	if current_user == null:
+		return
+	var dist_sq = current_user.global_position. distance_squared_to(global_position)
+	if dist_sq > interact_range * interact_range:
+		reject_user()
 
 
 func set_interface():
@@ -112,13 +120,23 @@ func set_interface():
 
 func interact(user):
 	var _root :Node3D= user.root
+	if _root == null:
+		return
 	if !_root.is_in_group(NL.player):
 		return
 	_print('use console')
 	if root.state != root.states.off:
 		return
 	root.change_state(root.states.selecting)
+	current_user = _root
 
+func reject_user():
+	if current_user == null:
+		return
+	root.change_state(root.states.off)
+	PlayerInputs.attach_to(current_user)
+	current_user = null
+	_print('rejected user')
 
 func _print(line:String):
 #	return
@@ -255,6 +273,27 @@ func create_layer(_floor):
 		button.position -= button.pivot_offset
 "
 
+[sub_resource type="GDScript" id="GDScript_8pykj"]
+script/source = "extends TextureButton
+
+var root : Node3D
+@export var console:Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	connect('pressed',pressed) # Replace with function body.
+
+func pressed():
+	_print('boop')
+	console.reject_user()
+	
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
 [sub_resource type="GDScript" id="GDScript_ca8tx"]
 script/source = "extends Control
 
@@ -385,17 +424,17 @@ gizmo_extents = 1.0
 z_as_relative = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
-anchors_preset = 6
+anchors_preset = 3
 anchor_left = 1.0
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -307.0
-offset_top = -150.0
-offset_right = -7.0
-offset_bottom = 150.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -320.0
+offset_right = -20.0
+offset_bottom = -20.0
 grow_horizontal = 0
-grow_vertical = 2
+grow_vertical = 0
 pivot_offset = Vector2(150, 150)
 theme = SubResource("Theme_rxedv")
 script = SubResource("GDScript_dtqdo")
@@ -410,29 +449,36 @@ grow_vertical = 2
 script = SubResource("GDScript_qyh21")
 
 [node name="layers container" type="TabContainer" parent="UI/minimaps" node_paths=PackedStringArray("reference_frame", "floor_container")]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = SubResource("Theme_75xow")
 script = SubResource("GDScript_cvw4c")
 reference_frame = NodePath("../../../reference frame")
 floor_container = NodePath("../../../floors")
 
-[node name="return button" type="TextureButton" parent="UI/minimaps"]
+[node name="return button" type="TextureButton" parent="UI/minimaps" node_paths=PackedStringArray("console")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
+offset_left = -100.0
 offset_top = -50.0
-offset_right = -1.0
+offset_right = -51.0
 offset_bottom = -5.0
 grow_vertical = 0
 texture_normal = ExtResource("13_rjk7u")
 texture_pressed = ExtResource("12_qlpju")
+script = SubResource("GDScript_8pykj")
+console = NodePath("../../../console")
 
 [node name="Label" type="Label" parent="UI/minimaps/return button"]
 layout_mode = 1
@@ -460,9 +506,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
+offset_left = -100.0
 offset_top = -50.0
-offset_right = -1.0
+offset_right = -51.0
 offset_bottom = -5.0
 grow_vertical = 0
 texture_normal = ExtResource("13_rjk7u")
