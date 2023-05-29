@@ -8,15 +8,19 @@
 [sub_resource type="GDScript" id="GDScript_vcuxi"]
 script/source = "extends StaticBody3D
 
+@onready var s
 
+signal on_state_changed(state)
+enum states{off, selecting, watching}
+var state:=states.off
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_interface() # Replace with function body.
+	set_interface()
+	connect(NL.on_state_changed,set_mousemode)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
 
 func set_interface():
 	set_meta(NL.interact,interact)
@@ -26,7 +30,31 @@ func interact(user):
 	var root :Node3D= user.root
 	if !root.is_in_group(NL.player):
 		return
-	Hud.get_meta(NL.mousemode)
+
+
+func change_state(new_state:states):
+	if new_state == state:
+		return
+	state = new_state
+	emit_signal(NL.on_state_changed,state)
+
+
+func set_mousemode(_state:states):
+	var mousemode := Input.MOUSE_MODE_CAPTURED
+	match _state:
+		states.off:
+			mousemode = Input.MOUSE_MODE_CAPTURED
+		states.selecting:
+			mousemode = Input.MOUSE_MODE_CONFINED
+		states.watching:
+			mousemode = Input.MOUSE_MODE_CONFINED
+	var meta = Hud.get_meta(NL.set_gameplay_mousemode)
+	meta.call(mousemode)
+
+func set_visib(_state:states):
+	$\"../UI\".visible = true
+#	Input.MOUSE_MODE_CAPTURED
+	
 "
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4gdrg"]
@@ -164,6 +192,7 @@ mesh = ExtResource("3_dn3jk")
 
 [node name="UI" type="Control" parent="."]
 process_mode = 4
+visible = false
 z_as_relative = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3

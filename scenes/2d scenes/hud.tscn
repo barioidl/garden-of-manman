@@ -936,7 +936,6 @@ func notify_group():
 script/source = "extends Node
 
 @onready var root = $\"..\"
-@onready var states = root.states
 
 @onready var ui_start_page:=$\"../main page\"
 @onready var ui_game:=$\"../Gameplay\"
@@ -945,10 +944,8 @@ script/source = "extends Node
 @onready var ui_settings:=$\"../Settings\"
 @onready var ui_exit:=$\"../Exit\"
 
-func _enter_tree() -> void:
-	set_interface()
-
 func _ready() -> void:
+	set_interface()
 	root.connect('state_changed',switch_panel)
 	root.connect('state_changed',switch_mousemode)
 	root.connect('state_changed',pause_tree)
@@ -956,31 +953,31 @@ func _ready() -> void:
 func set_interface():
 	root.set_meta(NL.set_gameplay_mousemode, set_gameplay_mousemode)
 
-func set_gameplay_mousemode(mode):
-	mousemode_gameplay = mode
-	if root.state == states.ui_game:
-		Input.set_mouse_mode(mousemode_gameplay)
 
 func switch_panel(old_state,state):
-	ui_start_page.visible = state == states.start_page
-	ui_game.visible = state == states.gameplay
-	ui_over.visible = state == states.gameover
-	ui_pause.visible = state == states.pause
-	ui_settings.visible = state == states.settings
-	ui_exit.visible = state == states.exit
+	ui_start_page.visible = state == root.states.start_page
+	ui_game.visible = state == root.states.gameplay
+	ui_over.visible = state == root.states.gameover
+	ui_pause.visible = state == root.states.pause
+	ui_settings.visible = state == root.states.settings
+	ui_exit.visible = state == root.states.exit
 
+func set_gameplay_mousemode(_mode):
+	mousemode_gameplay = _mode
+	if root.state == root.states.gameplay:
+		Input.set_mouse_mode(mousemode_gameplay)
 
 @export var mousemode_gameplay = Input.MOUSE_MODE_CAPTURED
 @export var mousemode_default = Input.MOUSE_MODE_VISIBLE
 func switch_mousemode(old_state,state):
 	match state:
-		states.gameplay:
+		root.states.gameplay:
 			Input.set_mouse_mode(mousemode_gameplay)
 		_:
 			Input.set_mouse_mode(mousemode_default)
 
 func pause_tree(old_state,state):
-	var pause = state == states.gameplay or state == states.start_page
+	var pause = state == root.states.gameplay or state == root.states.start_page
 	get_tree().paused = !pause
 "
 
