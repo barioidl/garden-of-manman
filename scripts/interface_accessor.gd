@@ -43,7 +43,7 @@ func get_input(body:Node3D)-> Inputs:
 		return null
 	return body.get_meta(NL.get_inputs).call()
 
-func reset_input(body:Node3D):
+func reset_inputs(body:Node3D):
 	if !body.has_meta(NL.reset_inputs):
 		return null
 	return body.get_meta(NL.reset_inputs).call()

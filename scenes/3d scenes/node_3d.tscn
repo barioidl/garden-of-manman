@@ -190,10 +190,10 @@ texture = ExtResource("14_575jw")
 script = ExtResource("7_pmy02")
 item = ExtResource("8_tyqn8")
 
-[node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0468, 2.78146, -78.5415)
+[node name="RigidBody3D" parent="." instance=ExtResource("4_t373y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.047, 0.1, -78.541)
 
-[node name="Node" type="Node" parent="player"]
+[node name="Node" type="Node" parent="RigidBody3D"]
 script = ExtResource("3_65qyn")
 
 [node name="camera console" parent="." instance=ExtResource("13_bcey7")]

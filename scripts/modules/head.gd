@@ -2,7 +2,7 @@ extends RayCast3D
 class_name HotbarUser
 
 var root:Node3D
-@onready var hotbar:=$"../hotbar"
+@onready var hotbar:=get_node_or_null("../hotbar")
 var inputs:Inputs
 var shape
 #@onready var platformer=$'../../platformer'
@@ -16,9 +16,10 @@ func _enter_tree() -> void:
 	owner = root
 	set_interface()
 func _ready() -> void:
-	add_exception(root)
-	inputs = root.get_node('inputs')
-	shape = root.get_node('shape')
+	if root is PhysicsBody3D:
+		add_exception(root)
+	inputs = root.get_node_or_null('inputs')
+	shape = root.get_node_or_null('shape')
 	connect_hotbar()
 	get_head_bone()
 	use_shape_size()
@@ -52,7 +53,7 @@ func input_use_item(id:int):
 @export var head_margin:=0.2
 func use_shape_size():
 	if !connect_to_shape: return
-	if head_bone != null: return
+	if shape == null: return
 	shape.connect('on_size_changed',on_size_changed)
 
 func on_size_changed(_size:Vector3):

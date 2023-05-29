@@ -12,4 +12,5 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	root.custom_transform = global_transform
+	if root is RigidCharacter:
+		root.custom_transform = global_transform

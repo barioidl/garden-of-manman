@@ -1,9 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=33 format=3 uid="uid://rl1fv4l3ai0l"]
 
+[ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_gpyxi"]
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
+[ext_resource type="Script" path="res://scripts/modules/body.gd" id="2_fqbyt"]
 [ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="2_sgoax"]
 [ext_resource type="ArrayMesh" uid="uid://cjt7lpbfdluhy" path="res://assets/factory/mouse.obj" id="3_dn3jk"]
+[ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="3_xnssc"]
 [ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
+[ext_resource type="Texture2D" uid="uid://bi7nnx78xrt1j" path="res://assets/kenney/kenney_ui-pack/PNG/red_button09.png" id="8_hjvxd"]
+[ext_resource type="Texture2D" uid="uid://yqet5cwa7oud" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button05.png" id="9_l0hsb"]
+[ext_resource type="Texture2D" uid="uid://cedj0ci5h3d0a" path="res://assets/kenney/kenney_ui-pack/PNG/green_panel.png" id="10_tfjj7"]
+[ext_resource type="Texture2D" uid="uid://bxla7ujm52rqv" path="res://assets/kenney/kenney_ui-pack/PNG/green_button12.png" id="11_3tj7u"]
+[ext_resource type="Texture2D" uid="uid://dy8d8kd08wf5y" path="res://assets/kenney/kenney_ui-pack/PNG/green_button11.png" id="12_qlpju"]
+[ext_resource type="Texture2D" uid="uid://dqu8kim6qvskn" path="res://assets/kenney/kenney_ui-pack/PNG/green_button10.png" id="13_rjk7u"]
 
 [sub_resource type="GDScript" id="GDScript_a87ma"]
 script/source = "extends Node3D
@@ -13,6 +22,8 @@ var root = self
 @onready var UI = $\"UI\"
 @onready var ui_minimap = $\"UI/minimaps\"
 @onready var ui_camera = $\"UI/camera view\"
+@onready var floor_container = $floors
+@onready var body = $body
 
 signal on_state_changed(state)
 enum states{off, selecting, watching}
@@ -49,6 +60,35 @@ func set_tabs(_state:states):
 	ui_minimap.visible = _state == states.selecting
 	ui_camera.visible = _state == states.watching
 
+
+func use_camera(layer_id:int,cam_id:int):
+	change_state(root.states.watching)
+	_print('used camera: '+str(layer_id)+', '+str(cam_id))
+	PlayerInputs.attach_to(root)
+	var camera :Node3D= floor_container.get_child(layer_id)
+	camera = camera.get_child(cam_id)
+	var pos = camera.global_position
+	var rot = camera.global_rotation
+	body.global_position = pos
+	body.global_rotation = rot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 func _print(line:String):
 #	return
 	print(line)
@@ -75,7 +115,8 @@ func interact(user):
 	if !_root.is_in_group(NL.player):
 		return
 	_print('use console')
-#	if root.state == root.states.off:
+	if root.state != root.states.off:
+		return
 	root.change_state(root.states.selecting)
 
 
@@ -93,6 +134,13 @@ points = PackedVector3Array(-0.1411, 0, -0.059093, -0.1411, 0, 0.059099, -0.1411
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ycesc"]
 points = PackedVector3Array(0.024852, 0.023572, -5.88633e-05, -0.024848, 0.023572, -5.88633e-05, 0.0243266, 0.023572, 0.00645556, 0.0243266, 0, 0.00645556, 0.024852, 0, -0.0367129, 0.024852, 0.0153347, -0.0367129, -0.024848, 0.0153347, -0.0367129, -0.024848, 0, -0.0367129, -0.0243275, 0, 0.00645556, -0.0243275, 0.023572, 0.00645556, 0.0220255, 0.023572, 0.0126034, 0.0220255, 0, 0.0126034, 0.012427, 0, -0.059605, -0.012423, 0, -0.059605, -0.0220263, 0, 0.0126034, -0.0220263, 0.023572, 0.0126034, 0.0181044, 0.023572, 0.0179183, 0.0181044, 0, 0.0179183, -0.0181052, 0, 0.0179183, -0.0181052, 0.023572, 0.0179183, 0.0128648, 0.023572, 0.0220252, 0.0128648, 0, 0.0220252, -0.0128657, 0, 0.0220252, -0.0128657, 0.023572, 0.0220252, 0.00667667, 0.023572, 0.0246076, 0.00667667, 0, 0.0246076, -0.00667753, 0, 0.0246076, -0.00667753, 0.023572, 0.0246076, 2.00048e-06, 0.023572, 0.025499, 2.00048e-06, 0, 0.025499)
 
+[sub_resource type="FontVariation" id="FontVariation_6a513"]
+
+[sub_resource type="Theme" id="Theme_rxedv"]
+default_font = SubResource("FontVariation_6a513")
+default_font_size = 14
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
+
 [sub_resource type="GDScript" id="GDScript_dtqdo"]
 script/source = "extends Control
 
@@ -106,6 +154,73 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 "
+
+[sub_resource type="GDScript" id="GDScript_qyh21"]
+script/source = "extends Control
+
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	pass 
+
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sxtie"]
+texture = ExtResource("8_hjvxd")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i3ptv"]
+texture = ExtResource("9_l0hsb")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4nrx"]
+texture = ExtResource("10_tfjj7")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tavcy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ucmnc"]
+texture = ExtResource("11_3tj7u")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6kyna"]
+texture = ExtResource("12_qlpju")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Theme" id="Theme_75xow"]
+CheckButton/colors/font_color = Color(1, 1, 1, 1)
+CheckButton/colors/font_outline_color = Color(0, 0, 0, 1)
+CheckButton/constants/outline_size = 0
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_sxtie")
+HSlider/styles/slider = SubResource("StyleBoxTexture_i3ptv")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_i4nrx")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxTexture_tavcy")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_ucmnc")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_6kyna")
+TabContainer/styles/tabbar_background = null
 
 [sub_resource type="GDScript" id="GDScript_cvw4c"]
 script/source = "extends TabContainer
@@ -179,6 +294,39 @@ func _print(line:String):
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -51)
 script = SubResource("GDScript_a87ma")
 
+[node name="inputs" parent="." instance=ExtResource("1_gpyxi")]
+
+[node name="body" type="Node3D" parent="."]
+script = ExtResource("2_fqbyt")
+
+[node name="head" parent="body" instance=ExtResource("3_xnssc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="console" type="StaticBody3D" parent="."]
+transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, 1.20151, 2, -27.1787)
+script = SubResource("GDScript_vcuxi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="console"]
+transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, -7.62939e-06, 0, -0.394623)
+shape = SubResource("ConvexPolygonShape3D_4gdrg")
+
+[node name="MonitorScreen2" type="MeshInstance3D" parent="console/CollisionShape3D"]
+mesh = ExtResource("1_gstf6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="console"]
+transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, 0.23624, 0, -0.923069)
+shape = SubResource("ConvexPolygonShape3D_7qgms")
+
+[node name="Keyboard" type="MeshInstance3D" parent="console/CollisionShape3D2"]
+mesh = ExtResource("2_sgoax")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="console"]
+transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, -0.437092, 2.38419e-07, -0.96254)
+shape = SubResource("ConvexPolygonShape3D_ycesc")
+
+[node name="Mouse" type="MeshInstance3D" parent="console/CollisionShape3D3"]
+mesh = ExtResource("3_dn3jk")
+
 [node name="floors" type="Node3D" parent="."]
 
 [node name="floor -4" type="Node3D" parent="floors"]
@@ -233,67 +381,72 @@ transform = Transform3D(-2.50718e-08, -3.58063e-08, -1, -0.819152, 0.573576, 0, 
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, -25, 0, -40)
 gizmo_extents = 1.0
 
-[node name="console" type="StaticBody3D" parent="."]
-transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, 1.20151, 2, -27.1787)
-script = SubResource("GDScript_vcuxi")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="console"]
-transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, -7.62939e-06, 0, -0.394623)
-shape = SubResource("ConvexPolygonShape3D_4gdrg")
-
-[node name="MonitorScreen2" type="MeshInstance3D" parent="console/CollisionShape3D"]
-mesh = ExtResource("1_gstf6")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="console"]
-transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, 0.23624, 0, -0.923069)
-shape = SubResource("ConvexPolygonShape3D_7qgms")
-
-[node name="Keyboard" type="MeshInstance3D" parent="console/CollisionShape3D2"]
-mesh = ExtResource("2_sgoax")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="console"]
-transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, -0.437092, 2.38419e-07, -0.96254)
-shape = SubResource("ConvexPolygonShape3D_ycesc")
-
-[node name="Mouse" type="MeshInstance3D" parent="console/CollisionShape3D3"]
-mesh = ExtResource("3_dn3jk")
-
 [node name="UI" type="Control" parent="."]
 z_as_relative = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -150.0
+offset_left = -307.0
 offset_top = -150.0
-offset_right = 150.0
+offset_right = -7.0
 offset_bottom = 150.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 2
 pivot_offset = Vector2(150, 150)
+theme = SubResource("Theme_rxedv")
 script = SubResource("GDScript_dtqdo")
 
-[node name="minimaps" type="TabContainer" parent="UI" node_paths=PackedStringArray("reference_frame", "floor_container")]
+[node name="minimaps" type="Control" parent="UI"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -165.5
-offset_right = 150.0
-offset_bottom = 165.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_qyh21")
+
+[node name="layers container" type="TabContainer" parent="UI/minimaps" node_paths=PackedStringArray("reference_frame", "floor_container")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_75xow")
 script = SubResource("GDScript_cvw4c")
-reference_frame = NodePath("../../reference frame")
-floor_container = NodePath("../../floors")
+reference_frame = NodePath("../../../reference frame")
+floor_container = NodePath("../../../floors")
+
+[node name="return button" type="TextureButton" parent="UI/minimaps"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = -1.0
+offset_bottom = -5.0
+grow_vertical = 0
+texture_normal = ExtResource("13_rjk7u")
+texture_pressed = ExtResource("12_qlpju")
+
+[node name="Label" type="Label" parent="UI/minimaps/return button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "return"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="camera view" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -302,19 +455,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_ca8tx")
 
-[node name="TextureButton" type="TextureButton" parent="UI/camera view"]
+[node name="return button" type="TextureButton" parent="UI/camera view"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = -45.0
-offset_right = 207.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = -1.0
 offset_bottom = -5.0
 grow_vertical = 0
+texture_normal = ExtResource("13_rjk7u")
+texture_pressed = ExtResource("12_qlpju")
 script = SubResource("GDScript_0r5ds")
 
-[node name="Label" type="Label" parent="UI/camera view/TextureButton"]
+[node name="Label" type="Label" parent="UI/camera view/return button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

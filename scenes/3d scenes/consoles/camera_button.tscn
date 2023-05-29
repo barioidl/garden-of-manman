@@ -6,15 +6,21 @@
 script/source = "extends TextureButton
 
 var root : Node3D
+
+var layer_id := -1
+var cam_id := -1
+
 func _enter_tree() -> void:
 	root = get_parent().root
 
 func _ready() -> void:
 	connect('pressed',pressed) # Replace with function body.
+	layer_id = get_parent().get_index()
+	cam_id = get_index()
 
 func pressed():
 	_print('boop')
-	root.change_state(root.states.watching)
+	root.use_camera(layer_id,cam_id)
 
 func _print(line:String):
 #	return
