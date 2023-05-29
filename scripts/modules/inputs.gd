@@ -3,20 +3,6 @@ class_name Inputs
 
 var root :Node3D
 
-func _init() -> void:
-	name = 'inputs'
-
-func _enter_tree() -> void:
-	root = get_parent().root
-	owner = root
-	set_interface()
-
-func set_interface():
-	root.set_meta(NL.get_inputs, Callable(get_inputs))
-
-func get_inputs()->Inputs:
-	return self
-
 var dpad1:=Vector2.ZERO
 var dpad2:=Vector2.ZERO
 
@@ -63,7 +49,22 @@ signal flip_pressed
 signal flip_released
 var flip := false
 
-func reset():
+func _init() -> void:
+	name = 'inputs'
+
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
+	set_interface()
+
+func set_interface():
+	root.set_meta(NL.get_inputs, Callable(get_inputs))
+	root.set_meta(NL.reset_inputs, Callable(reset_inputs))
+
+func get_inputs()->Inputs:
+	return self
+
+func reset_inputs():
 	dpad1 = Vector2.ZERO
 	dpad2 = Vector2.ZERO
 	jump = false

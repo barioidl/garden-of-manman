@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends RigidBody3D
 class_name ItemOverworld
 
 var item:Resource
@@ -84,23 +84,17 @@ func item_physics():
 		if holder != null:
 			global_position = holder.hand.global_position
 		return
-	
-	var on_floor = is_on_floor()
-	if !on_floor:
-		velocity += gravity * dt
-	
-	if velocity != Vector3.ZERO:
-		var friction = 5*dt if on_floor else dt
-		velocity = velocity.lerp(Vector3.ZERO,friction)
-		move_and_slide()
-	else:
-		time -= dt
-		if time <0:
-			time = 1
-			move_and_slide()
 
 func toggle_physics():
+	var lock_axis = !is_in_overworld
+	axis_lock_linear_x = lock_axis
+	axis_lock_linear_y = lock_axis
+	axis_lock_linear_z = lock_axis
+	axis_lock_angular_x = lock_axis
+	axis_lock_angular_y = lock_axis
+	axis_lock_angular_z = lock_axis
+	
 	for shape in get_children():
 		if not shape is CollisionShape3D: 
 			continue
-		shape.disabled = !is_in_overworld
+		shape.disabled = lock_axis

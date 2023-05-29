@@ -31,7 +31,7 @@ size = Vector3(0.25, 0.25, 1)
 script = ExtResource("8_uec7j")
 frames = Array[Texture]([ExtResource("3_euslb"), ExtResource("4_b0cv3"), ExtResource("5_iuwiu"), ExtResource("6_gh11g"), ExtResource("7_f6voq"), ExtResource("1_a18yg")])
 
-[node name="paper generic" type="CharacterBody3D"]
+[node name="paper generic" type="RigidBody3D"]
 script = SubResource("GDScript_l5eii")
 content = ExtResource("1_niqu8")
 

@@ -46,8 +46,8 @@ var jumpscare := &'jumpscare'
 var puzzle := &'puzzle'
 var playing := &'playing'
 
-var player_fear := &'player_fear'
-var player_tension := &'player_tension'
+var fear := &'player_fear'
+var tension := &'player_tension'
 
 var root :=&'root'
 var agent := &'agent'
@@ -64,7 +64,7 @@ var food := &'food'
 var drink := &'drink'
 var healing_item := &'healing_item'
 var key := &'key'
-
+var door := &'door'
 var character := &'character'
 var ui_save_load := &'ui_save_load'
 var goap_save_load := &'goap_save_load'
@@ -78,6 +78,7 @@ var show_image:= &'show_image'
 var connect_stats_display := &'connect_stats_display'
 
 var get_inputs := &'get_inputs'
+var reset_inputs := &'reset_inputs'
 
 var delay_platformer := &'delay_platformer'
 var walk_to_target := &'walk_to_target'
@@ -98,6 +99,7 @@ var turn_head_toward:= &'turn_head_toward'
 
 var send_message:= &'send_message'
 var receive_message:= &'receive_message'
+var set_gameplay_mousemode := &'set_gameplay_mousemode'
 
 var respawn := &'respawn'
 

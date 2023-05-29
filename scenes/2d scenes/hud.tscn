@@ -110,6 +110,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if prev != null:
 			change_state(prev,false)
 
+
 func change_state(new_state,add_to_stack:=true):
 	if state == new_state: return
 	if add_to_stack:
@@ -944,10 +945,21 @@ script/source = "extends Node
 @onready var ui_settings:=$\"../Settings\"
 @onready var ui_exit:=$\"../Exit\"
 
+func _enter_tree() -> void:
+	set_interface()
+
 func _ready() -> void:
 	root.connect('state_changed',switch_panel)
 	root.connect('state_changed',switch_mousemode)
 	root.connect('state_changed',pause_tree)
+
+func set_interface():
+	root.set_meta(NL.set_gameplay_mousemode, set_gameplay_mousemode)
+
+func set_gameplay_mousemode(mode):
+	mousemode_gameplay = mode
+	if root.state == states.ui_game:
+		Input.set_mouse_mode(mousemode_gameplay)
 
 func switch_panel(old_state,state):
 	ui_start_page.visible = state == states.start_page

@@ -1,9 +1,33 @@
-[gd_scene load_steps=10 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=11 format=3 uid="uid://rl1fv4l3ai0l"]
 
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
 [ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="2_sgoax"]
 [ext_resource type="ArrayMesh" uid="uid://cjt7lpbfdluhy" path="res://assets/factory/mouse.obj" id="3_dn3jk"]
 [ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
+
+[sub_resource type="GDScript" id="GDScript_vcuxi"]
+script/source = "extends StaticBody3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	set_interface() # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func set_interface():
+	set_meta(NL.interact,interact)
+
+func interact(user):
+	print('use console')
+	var root :Node3D= user.root
+	if !root.is_in_group(NL.player):
+		return
+	Hud.get_meta(NL.mousemode)
+"
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4gdrg"]
 points = PackedVector3Array(-0.207516, 0.0779017, -0.0239547, 0.18449, 0.290888, 0.0370769, 0.0791152, 0.00935739, 0.0570556, 0.0791152, -0.00311586, -0.0551159, -0.207516, 0.296008, 0.00719549, -0.0828224, -0.00311586, 0.0570556, -0.20069, 0.290888, 0.0370769, 0.191316, 0.296008, 0.00719549, 0.191316, 0.0405112, 0.00719549, -0.0828224, 0.00312077, -0.0551159, -0.207516, 0.0405112, 0.00719549, 0.191316, 0.0779017, -0.0239547, 0.0791152, -0.00311586, 0.0570556, -0.207516, 0.246144, 0.0383567, 0.0791152, 0.00935739, -0.0551159, 0.191316, 0.246144, 0.0383567, -0.0828224, -0.00311586, -0.0551159, -0.207516, 0.0467479, -0.0239547, 0.191316, 0.0467479, -0.0239547, -0.076576, 0.00935739, -0.0551159, -0.076576, 0.00935739, 0.0570556, -0.207516, 0.0716651, 0.0134321, 0.191316, 0.0716651, 0.0134321, -0.207516, 0.258617, 0.000969842, 0.191316, 0.258617, 0.000969842, -0.207516, 0.214961, -0.0052558, 0.191316, 0.214961, -0.0052558, -0.0828224, 0.00312077, 0.0570556)
@@ -32,19 +56,19 @@ func _process(delta: float) -> void:
 script/source = "extends TabContainer
 
 @export var reference_frame:Node3D
-var floor_container = preload(\"res://scenes/3d scenes/consoles/minimap_layer.tscn\")
+@export var floor_container:Node3D
+var minimap_layer = preload(\"res://scenes/3d scenes/consoles/minimap_layer.tscn\")
 var camera_button = preload(\"res://scenes/3d scenes/consoles/camera_button.tscn\")
 func _ready() -> void:
-	return
 	setup_minimap()
 
 func setup_minimap():
-	var floors = reference_frame.get_children()
+	var floors = floor_container.get_children()
 	for floor in floors:
 		create_layer(floor)
 
 func create_layer(_floor):
-	var layer = floor_container.instantiate()
+	var layer = minimap_layer.instantiate()
 	add_child(layer)
 	layer.name = _floor.name
 	var min_size = layer.custom_minimum_size
@@ -54,75 +78,68 @@ func create_layer(_floor):
 		layer.add_child(button)
 		button.position = Vector2(pos.x,pos.z) * min_size
 		button.position -= button.pivot_offset
-		button.rotation = camera.rotation.y
 "
 
 [node name="camera console" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -51)
 
+[node name="floors" type="Node3D" parent="."]
+
+[node name="floor -4" type="Node3D" parent="floors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.00543e-05, 3, -4.19617e-05)
+
+[node name="camera" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.640857, -0.298836, -0.707107, -0.422618, 0.906308, 0, 0.640857, 0.298836, -0.707107, -2.35577, 0, -5.66117)
+
+[node name="camera2" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.640856, -0.298836, 0.707107, -0.422618, 0.906308, 0, -0.640856, -0.298836, -0.707107, -2.29783, 0, 14.326)
+
+[node name="camera3" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.6682, 0.311587, 0.67559, -0.422618, 0.906308, -1.49012e-08, -0.612293, -0.285517, 0.737278, -21.6211, 0, 26.1575)
+
+[node name="camera4" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664463, 0.241845, -0.707107, -2.35052, 0, 27.3439)
+
+[node name="camera5" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.719846, 0.262003, 0.642788, -0.34202, 0.939692, 0, -0.604023, -0.219846, 0.766045, -21.5701, 0, 47.6578)
+
+[node name="camera6" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664463, 0.241845, 0.707107, -6.79345, 2, 50.2201)
+
+[node name="camera7" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, -0.707107, 8.63077, 2, 79.6703)
+
+[node name="camera8" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, 0.707107, 21.2444, 1.99423, 48.8077)
+
+[node name="camera9" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 30.7579, 1.99423, 19.5965)
+
+[node name="camera10" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, 0.707107, 37.127, 1.99423, 15.8077)
+
+[node name="camera11" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 86.9208, 1.99423, 6.08816)
+
+[node name="camera12" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 7.6122, 1.73571, 0.426441)
+
+[node name="camera13" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, -1.05367e-08, -0.664463, -0.241845, 0.707107, 0.46195, 1.73571, 39.4461)
+
+[node name="camera14" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.224144, -0.129409, -0.965926, -0.5, 0.866025, 0, 0.836516, 0.482963, -0.258819, 5.195, 1.5, -18.212)
+
+[node name="camera15" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-2.50718e-08, -3.58063e-08, -1, -0.819152, 0.573576, 0, 0.573576, 0.819152, -4.37114e-08, 4, 16.4731, -38.5)
+
 [node name="reference frame" type="Marker3D" parent="."]
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, -25, 0, -40)
 gizmo_extents = 1.0
 
-[node name="floor -4" type="Node3D" parent="reference frame"]
-transform = Transform3D(0.00833333, 0, 0, 0, 0.00833333, 0, 0, 0, 0.00833333, 0.208333, 0.025, 0.333333)
-
-[node name="camera" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.640857, -0.298836, -0.707107, -0.422618, 0.906308, 0, 0.640857, 0.298836, -0.707107, -2.35577, 0, -5.66117)
-
-[node name="camera2" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.640856, -0.298836, 0.707107, -0.422618, 0.906308, 0, -0.640856, -0.298836, -0.707107, -2.29783, 0, 14.326)
-
-[node name="camera3" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(0.6682, 0.311587, 0.67559, -0.422618, 0.906308, -1.49012e-08, -0.612293, -0.285517, 0.737278, -21.6211, 0, 26.1575)
-
-[node name="camera4" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664463, 0.241845, -0.707107, -2.35052, 0, 27.3439)
-
-[node name="camera5" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(0.719846, 0.262003, 0.642788, -0.34202, 0.939692, 0, -0.604023, -0.219846, 0.766045, -21.5701, 0, 47.6578)
-
-[node name="camera6" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(0.664463, 0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664463, 0.241845, 0.707107, -6.79345, 2, 50.2201)
-
-[node name="camera7" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.664463, -0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, -0.707107, 8.63077, 2, 79.6703)
-
-[node name="camera8" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, 0.707107, 21.2444, 1.99423, 48.8077)
-
-[node name="camera9" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 30.7579, 1.99423, 19.5965)
-
-[node name="camera10" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, 0.707107, 37.127, 1.99423, 15.8077)
-
-[node name="camera11" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 86.9208, 1.99423, 6.08816)
-
-[node name="camera12" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 7.6122, 1.73571, 0.426441)
-
-[node name="camera13" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, -1.05367e-08, -0.664463, -0.241845, 0.707107, 0.46195, 1.73571, 39.4461)
-
-[node name="camera14" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.224144, -0.129409, -0.965926, -0.5, 0.866025, 0, 0.836516, 0.482963, -0.258819, 5.195, 1.5, -18.212)
-
-[node name="camera15" parent="reference frame/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-2.50718e-08, -3.58063e-08, -1, -0.819152, 0.573576, 0, 0.573576, 0.819152, -4.37114e-08, 4, 16.4731, -38.5)
-
-[node name="floor -1" type="Node3D" parent="reference frame"]
-transform = Transform3D(0.00833333, 0, 0, 0, 0.00833333, 0, 0, 0, 0.00833333, 0.208333, 0.0583333, 0.333333)
-
-[node name="camera" parent="reference frame/floor -1" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.640857, -0.298836, -0.707107, -0.422618, 0.906308, 0, 0.640857, 0.298836, -0.707107, 6.64423, 0, 16.1259)
-
-[node name="camera2" parent="reference frame/floor -1" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.640857, -0.298836, -0.707107, -0.422618, 0.906308, 0, 0.640857, 0.298836, -0.707107, -3.49314, 0, -5.66117)
-
 [node name="console" type="StaticBody3D" parent="."]
 transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, 1.20151, 2, -27.1787)
+script = SubResource("GDScript_vcuxi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="console"]
 transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, -7.62939e-06, 0, -0.394623)
@@ -147,8 +164,6 @@ mesh = ExtResource("3_dn3jk")
 
 [node name="UI" type="Control" parent="."]
 process_mode = 4
-visible = false
-z_index = 10
 z_as_relative = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
@@ -167,7 +182,7 @@ pivot_offset = Vector2(150, 150)
 mouse_filter = 1
 script = SubResource("GDScript_dtqdo")
 
-[node name="minimaps" type="TabContainer" parent="UI" node_paths=PackedStringArray("reference_frame")]
+[node name="minimaps" type="TabContainer" parent="UI" node_paths=PackedStringArray("reference_frame", "floor_container")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -182,6 +197,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_cvw4c")
 reference_frame = NodePath("../../reference frame")
+floor_container = NodePath("../../floors")
 
 [node name="camera view" type="Control" parent="UI"]
 visible = false

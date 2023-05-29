@@ -75,7 +75,7 @@ frames = Array[Texture]([ExtResource("19_av1w3"), ExtResource("20_03new"), ExtRe
 height = 0.4
 radius = 0.15
 
-[node name="eyejar generic" type="CharacterBody3D"]
+[node name="eyejar generic" type="RigidBody3D"]
 script = SubResource("GDScript_7vpa8")
 brown_sprites = SubResource("Resource_nw28g")
 red_sprites = SubResource("Resource_bi0pm")

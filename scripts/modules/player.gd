@@ -23,6 +23,7 @@ func attach_to(_character:Node3D):
 		return
 	if character != null:
 		character.remove_from_group(NL.player)
+		Interface.reset_inputs(character)
 	character = _character
 	character.add_to_group(NL.player)
 	input = character.get_node('inputs')

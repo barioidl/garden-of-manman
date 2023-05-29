@@ -83,7 +83,7 @@ func load_all_data():
 	all_mutations = _load(mutations_path)
 
 
-var disable_when_debug := false
+var disable_when_debug := true
 func _save(resources:Array, path:String):
 	if disable_when_debug:
 		if OS.is_debug_build():

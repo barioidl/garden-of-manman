@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdgds7brwefq3"]
+[gd_scene load_steps=3 format=3 uid="uid://bdgds7brwefq3"]
 
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="1_s7q7d"]
+
+[sub_resource type="GDScript" id="GDScript_4qeti"]
+script/source = "extends TextureButton
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	connect('pressed',pressed) # Replace with function body.
+
+func pressed():
+	print('boop')
+"
 
 [node name="camera button" type="TextureButton"]
 anchors_preset = 8
@@ -17,3 +29,4 @@ grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(24, 24)
 texture_normal = ExtResource("1_s7q7d")
+script = SubResource("GDScript_4qeti")

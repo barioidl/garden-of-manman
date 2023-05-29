@@ -93,8 +93,6 @@ func select_sprite(delta,dist_ratio):
 	if !PerformanceCap.allow_billboard_select():
 		return
 	select_cd = lerpf(select_cd_range.x, select_cd_range.y, dist_ratio)
-	rotate_cd = 0
-#		camera = get_viewport().get_camera_3d()
 	choose_side()
 
 func rotate_sprite(delta,dist_ratio):
@@ -113,12 +111,7 @@ func rotate_sprite(delta,dist_ratio):
 			axis_rotate()
 
 func choose_side():
-	var ref = reference_frame.global_transform.basis
-	
-	var dist_axis:=Vector3.ZERO
-	dist_axis.x = -forward.dot(ref.x)
-	dist_axis.y = -forward.dot(ref.y)
-	dist_axis.z = -forward.dot(ref.z)
+	var dist_axis := reference_frame.to_local(camera.global_position)
 	if axis_ratio != Vector3.ONE:
 		dist_axis *= axis_ratio
 	

@@ -8,7 +8,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vqfqb"]
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="generic_key_overworld" type="CharacterBody3D"]
+[node name="generic_key_overworld" type="RigidBody3D"]
 rotation_edit_mode = 1
 script = ExtResource("1_ix07v")
 password = 1

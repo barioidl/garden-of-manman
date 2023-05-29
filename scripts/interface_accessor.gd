@@ -38,10 +38,15 @@ func is_hotbar_full(body:Node3D)->bool:
 		return true
 	return body.get_meta(NL.is_hotbar_full).call()
 
-func get_input(body:Node3D)->Node:
+func get_input(body:Node3D)-> Inputs:
 	if !body.has_meta(NL.get_inputs):
 		return null
 	return body.get_meta(NL.get_inputs).call()
+
+func reset_input(body:Node3D):
+	if !body.has_meta(NL.reset_inputs):
+		return null
+	return body.get_meta(NL.reset_inputs).call()
 
 func get_head_target(body:Node3D)->Node3D:
 	if !body.has_meta(NL.get_head_target):

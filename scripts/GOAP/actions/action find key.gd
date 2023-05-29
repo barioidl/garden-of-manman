@@ -15,7 +15,7 @@ func get_inputs(local_state:Dictionary)->Dictionary:
 
 func get_outputs(local_state:Dictionary)->Dictionary:
 	return{
-		NL.player_fear:0.2
+		NL.fear:0.2
 	}
 
 func perform(local_state: Dictionary, dt: float)->bool:

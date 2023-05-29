@@ -31,7 +31,7 @@ size = Vector3(0.25, 0.25, 1)
 script = ExtResource("8_hsllx")
 frames = Array[Texture]([ExtResource("2_js5c2"), ExtResource("3_o2nql"), ExtResource("4_xut3h"), ExtResource("5_tfbrt"), ExtResource("6_66caq"), ExtResource("7_n2pu1")])
 
-[node name="food generic" type="CharacterBody3D"]
+[node name="food generic" type="RigidBody3D"]
 script = SubResource("GDScript_quuds")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
