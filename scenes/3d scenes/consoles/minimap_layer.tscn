@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://br0p4orfb2nmd"]
+[gd_scene load_steps=3 format=3 uid="uid://br0p4orfb2nmd"]
 
 [ext_resource type="Texture2D" uid="uid://b2dmrbnjwihv7" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button01.png" id="1_2pts6"]
+
+[sub_resource type="GDScript" id="GDScript_rcjyj"]
+script/source = "extends TextureRect
+
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+	
+func _ready() -> void:
+	pass # Replace with function body.
+
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="floor -1" type="TextureRect"]
 custom_minimum_size = Vector2(300, 300)
 texture = ExtResource("1_2pts6")
 stretch_mode = 5
+script = SubResource("GDScript_rcjyj")

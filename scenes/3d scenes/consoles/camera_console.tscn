@@ -1,42 +1,35 @@
-[gd_scene load_steps=11 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=14 format=3 uid="uid://rl1fv4l3ai0l"]
 
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
 [ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="2_sgoax"]
 [ext_resource type="ArrayMesh" uid="uid://cjt7lpbfdluhy" path="res://assets/factory/mouse.obj" id="3_dn3jk"]
 [ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
 
-[sub_resource type="GDScript" id="GDScript_vcuxi"]
-script/source = "extends StaticBody3D
+[sub_resource type="GDScript" id="GDScript_a87ma"]
+script/source = "extends Node3D
 
-@onready var s
+var root = self
+
+@onready var UI = $\"UI\"
+@onready var ui_minimap = $\"UI/minimaps\"
+@onready var ui_camera = $\"UI/camera view\"
 
 signal on_state_changed(state)
 enum states{off, selecting, watching}
 var state:=states.off
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
-	set_interface()
 	connect(NL.on_state_changed,set_mousemode)
-
-func _process(delta: float) -> void:
-	pass
-
-
-func set_interface():
-	set_meta(NL.interact,interact)
-
-func interact(user):
-	print('use console')
-	var root :Node3D= user.root
-	if !root.is_in_group(NL.player):
-		return
-
+	connect(NL.on_state_changed,set_tabs)
+	
+	emit_signal(NL.on_state_changed,state)
 
 func change_state(new_state:states):
 	if new_state == state:
 		return
 	state = new_state
 	emit_signal(NL.on_state_changed,state)
+	_print('new state: ' + states.keys()[state])
 
 
 func set_mousemode(_state:states):
@@ -51,10 +44,44 @@ func set_mousemode(_state:states):
 	var meta = Hud.get_meta(NL.set_gameplay_mousemode)
 	meta.call(mousemode)
 
-func set_visib(_state:states):
-	$\"../UI\".visible = true
-#	Input.MOUSE_MODE_CAPTURED
-	
+func set_tabs(_state:states):
+	UI.visible = _state != states.off
+	ui_minimap.visible = _state == states.selecting
+	ui_camera.visible = _state == states.watching
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
+[sub_resource type="GDScript" id="GDScript_vcuxi"]
+script/source = "extends StaticBody3D
+
+var root :Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+func _ready() -> void:
+	set_interface()
+
+func _process(delta: float) -> void:
+	pass
+
+
+func set_interface():
+	set_meta(NL.interact,interact)
+
+func interact(user):
+	var _root :Node3D= user.root
+	if !_root.is_in_group(NL.player):
+		return
+	_print('use console')
+#	if root.state == root.states.off:
+	root.change_state(root.states.selecting)
+
+
+func _print(line:String):
+#	return
+	print(line)
 "
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4gdrg"]
@@ -69,13 +96,13 @@ points = PackedVector3Array(0.024852, 0.023572, -5.88633e-05, -0.024848, 0.02357
 [sub_resource type="GDScript" id="GDScript_dtqdo"]
 script/source = "extends Control
 
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 "
@@ -83,10 +110,15 @@ func _process(delta: float) -> void:
 [sub_resource type="GDScript" id="GDScript_cvw4c"]
 script/source = "extends TabContainer
 
+var root : Node3D
+
 @export var reference_frame:Node3D
 @export var floor_container:Node3D
 var minimap_layer = preload(\"res://scenes/3d scenes/consoles/minimap_layer.tscn\")
 var camera_button = preload(\"res://scenes/3d scenes/consoles/camera_button.tscn\")
+
+func _enter_tree() -> void:
+	root = get_parent().root
 func _ready() -> void:
 	setup_minimap()
 
@@ -108,8 +140,44 @@ func create_layer(_floor):
 		button.position -= button.pivot_offset
 "
 
+[sub_resource type="GDScript" id="GDScript_ca8tx"]
+script/source = "extends Control
+
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_0r5ds"]
+script/source = "extends TextureButton
+
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	connect('pressed',pressed) # Replace with function body.
+
+func pressed():
+	_print('boop')
+	root.change_state(root.states.selecting)
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
 [node name="camera console" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -51)
+script = SubResource("GDScript_a87ma")
 
 [node name="floors" type="Node3D" parent="."]
 
@@ -191,8 +259,6 @@ shape = SubResource("ConvexPolygonShape3D_ycesc")
 mesh = ExtResource("3_dn3jk")
 
 [node name="UI" type="Control" parent="."]
-process_mode = 4
-visible = false
 z_as_relative = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
@@ -208,7 +274,6 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(150, 150)
-mouse_filter = 1
 script = SubResource("GDScript_dtqdo")
 
 [node name="minimaps" type="TabContainer" parent="UI" node_paths=PackedStringArray("reference_frame", "floor_container")]
@@ -229,13 +294,13 @@ reference_frame = NodePath("../../reference frame")
 floor_container = NodePath("../../floors")
 
 [node name="camera view" type="Control" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_ca8tx")
 
 [node name="TextureButton" type="TextureButton" parent="UI/camera view"]
 layout_mode = 1
@@ -247,6 +312,7 @@ offset_top = -45.0
 offset_right = 207.0
 offset_bottom = -5.0
 grow_vertical = 0
+script = SubResource("GDScript_0r5ds")
 
 [node name="Label" type="Label" parent="UI/camera view/TextureButton"]
 layout_mode = 1

@@ -5,13 +5,20 @@
 [sub_resource type="GDScript" id="GDScript_4qeti"]
 script/source = "extends TextureButton
 
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	connect('pressed',pressed) # Replace with function body.
 
 func pressed():
-	print('boop')
+	_print('boop')
+	root.change_state(root.states.watching)
+
+func _print(line:String):
+#	return
+	print(line)
 "
 
 [node name="camera button" type="TextureButton"]
