@@ -1,21 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dixiiw3pwd15x"]
 
-[sub_resource type="GDScript" id="GDScript_176np"]
-script/source = "extends AudioStreamPlayer2D
-
-func _ready() -> void:
-	connect('finished',finished) # Replace with function body.
-
-func play_sfx(audio):
-	add_to_group('audio_player_2d')
-	stream = audio
-	play()
-
-func finished():
-	remove_from_group('audio_player_2d')
-	var pool :AudioPool= get_parent()
-	pool.push_player_2d(self)
-"
+[ext_resource type="Script" path="res://scripts/audio/sfx/speaker2d.gd" id="1_af6oo"]
 
 [node name="speaker2d" type="AudioStreamPlayer2D"]
-script = SubResource("GDScript_176np")
+script = ExtResource("1_af6oo")

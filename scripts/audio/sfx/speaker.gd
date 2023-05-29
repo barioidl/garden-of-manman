@@ -1,7 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c816y8rey5so"]
+extends AudioStreamPlayer
 
-[sub_resource type="GDScript" id="GDScript_176np"]
-script/source = "extends AudioStreamPlayer
+var offset_volume := 0.0
 
 func _ready() -> void:
 	connect('finished',finished) # Replace with function body.
@@ -14,10 +13,6 @@ func play_sfx(audio):
 func finished():
 	for group in get_groups():
 		remove_from_group(group)
+	offset_volume = 0
 	var pool :AudioPool= get_parent()
 	pool.push_player(self)
-"
-
-[node name="speaker" type="AudioStreamPlayer"]
-bus = &"Sfx"
-script = SubResource("GDScript_176np")
