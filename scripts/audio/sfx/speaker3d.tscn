@@ -1,23 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cxo4xi3nrjdip"]
 
-[sub_resource type="GDScript" id="GDScript_k2ol7"]
-script/source = "extends AudioStreamPlayer3D
-
-func _ready() -> void:
-	connect('finished',finished) # Replace with function body.
-
-func play_sfx(audio):
-	add_to_group('audio_player_3d')
-	stream = audio
-	play()
-
-func finished():
-	for group in get_groups():
-		remove_from_group(group)
-	
-	var pool :AudioPool= get_parent()
-	pool.push_player_3d(self)
-"
+[ext_resource type="Script" path="res://scripts/audio/sfx/speaker3d.gd" id="1_pyqhx"]
 
 [node name="speaker3d" type="AudioStreamPlayer3D"]
-script = SubResource("GDScript_k2ol7")
+script = ExtResource("1_pyqhx")

@@ -20,8 +20,8 @@ enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 @export var reference_frame:Node3D
 @onready var camera := get_viewport().get_camera_3d()
 
-@export var select_cd_range:=Vector2(0.2,1)
-@export var rotate_cd_range:=Vector2(0.02,0.5)
+@export var select_cd_range:=Vector2(0.1,.5)
+@export var rotate_cd_range:=Vector2(0.02,0.2)
 var select_cd:=0.0
 var rotate_cd:=0.1
 
@@ -77,7 +77,7 @@ func _process(delta: float) -> void:
 	var dir = camera.global_position - global_position
 	
 	var cam_forward = camera.global_transform.basis.z
-	if cam_forward.dot(dir) < 0:return
+	if cam_forward.dot(dir) < 0: return
 	
 	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
 	if dist_ratio > 1: return

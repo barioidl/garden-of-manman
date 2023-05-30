@@ -237,13 +237,13 @@ top_level = true
 script = SubResource("GDScript_6wonm")
 target = NodePath("..")
 
+[node name="attach player control" type="Node" parent="characters/mommy long"]
+script = ExtResource("5_bmfmr")
+
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.3243, 1.49846, -20.561)
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
-
-[node name="attach player control" type="Node" parent="characters/timmy"]
-script = ExtResource("5_bmfmr")
 
 [node name="map" type="Node3D" parent="."]
 
@@ -756,8 +756,6 @@ mesh = ExtResource("42_2big3")
 skeleton = NodePath("../../../../..")
 
 [node name="camera console" parent="map" instance=ExtResource("45_tpgm6")]
-process_mode = 4
-visible = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 process_mode = 4

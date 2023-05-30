@@ -76,6 +76,7 @@ script = ExtResource("13_n86ck")
 
 [node name="head" parent="body" instance=ExtResource("13_cdclh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+interact_range = 5.0
 head_margin = 0.3
 
 [node name="hotbar" parent="body" instance=ExtResource("15_t2qn8")]

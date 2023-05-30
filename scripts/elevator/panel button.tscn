@@ -13,8 +13,9 @@ size = Vector3(0.1, 0.5, 0.5)
 [sub_resource type="BoxMesh" id="BoxMesh_intie"]
 size = Vector3(0.1, 0.5, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0he0c"]
-size = Vector3(0.2, 0.4, 0.4)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bdosv"]
+height = 0.2
+radius = 0.2
 
 [sub_resource type="Resource" id="Resource_c5kax"]
 script = ExtResource("3_2pr3j")
@@ -43,14 +44,13 @@ shape = SubResource("BoxShape3D_85rae")
 mesh = SubResource("BoxMesh_intie")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
-shape = SubResource("BoxShape3D_0he0c")
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.2, 0, 0)
+shape = SubResource("CylinderShape3D_bdosv")
 script = ExtResource("2_aa607")
 transition = 4
 sfx_list = SubResource("Resource_c5kax")
 
 [node name="button" type="MeshInstance3D" parent="CollisionShape3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_wdngq")
 mesh = SubResource("CylinderMesh_ycwv7")
 skeleton = NodePath("../..")

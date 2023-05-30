@@ -108,12 +108,12 @@ func set_interface():
 	set_meta(NL.interact,interact)
 
 func interact(user):
+	_print('use console')
 	var _root :Node3D= user.root
 	if _root == null:
 		return
 	if !_root.is_in_group(NL.player):
 		return
-	_print('use console')
 	if root.state != root.states.off:
 		return
 	root.change_state(root.states.selecting)
@@ -325,7 +325,8 @@ func option_pressed(id:int):
 			volume = 4
 	var pos = body.global_position
 	var player = AudioPool.create_sound_3d(pos,list)
-	player.offset_volume = volume
+	if player != null:
+		player.offset_volume = volume
 
 func _print(line:String):
 	print(line)
@@ -474,10 +475,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -320.0
-offset_top = -320.0
-offset_right = -20.0
-offset_bottom = -20.0
+offset_left = -315.0
+offset_top = -315.0
+offset_right = -15.0
+offset_bottom = -15.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(150, 150)
@@ -485,7 +486,6 @@ theme = SubResource("Theme_rxedv")
 script = SubResource("GDScript_dtqdo")
 
 [node name="minimaps" type="Control" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -516,11 +516,12 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -50.0
-offset_right = -51.0
-offset_bottom = -5.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = -1.0
+offset_bottom = 5.0
 grow_vertical = 0
+scale = Vector2(0.75, 0.75)
 texture_normal = ExtResource("13_rjk7u")
 texture_pressed = ExtResource("12_qlpju")
 script = SubResource("GDScript_8pykj")
@@ -538,40 +539,24 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="camera view" type="FlowContainer" parent="UI"]
-custom_minimum_size = Vector2(500, 0)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -475.0
-offset_top = -45.0
+offset_left = -100.0
+offset_top = -261.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(100, 260)
 alignment = 2
 script = SubResource("GDScript_ca8tx")
 audio_0 = SubResource("Resource_4eqh7")
 audio_1 = SubResource("Resource_r3jrp")
 audio_2 = SubResource("Resource_aykf0")
 audio_3 = SubResource("Resource_vq7ff")
-
-[node name="return button" type="TextureButton" parent="UI/camera view"]
-layout_mode = 2
-texture_normal = ExtResource("13_rjk7u")
-texture_pressed = ExtResource("12_qlpju")
-script = SubResource("GDScript_0r5ds")
-
-[node name="Label" type="Label" parent="UI/camera view/return button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "return"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="option 0" type="TextureButton" parent="UI/camera view"]
 custom_minimum_size = Vector2(100, 0)
@@ -642,5 +627,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "reluctant yes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="return button" type="TextureButton" parent="UI/camera view"]
+layout_mode = 2
+texture_normal = ExtResource("13_rjk7u")
+texture_pressed = ExtResource("12_qlpju")
+script = SubResource("GDScript_0r5ds")
+
+[node name="Label" type="Label" parent="UI/camera view/return button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "return"
 horizontal_alignment = 1
 vertical_alignment = 1

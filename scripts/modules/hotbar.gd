@@ -5,8 +5,8 @@ var root:Node3D
 var inventory:Inventory
 var shape:CollisionShape3D
 
-@onready var head :HotbarUser=$"../head"
-@onready var rig :Rig= $"../rig"
+@onready var head :HotbarUser=get_node_or_null("../head")
+@onready var rig :Rig= get_node_or_null("../rig")
 
 @export var max_items:=2
 var hotbar_items:=[]
@@ -40,6 +40,8 @@ func on_size_changed(_size:Vector3):
 	position = Vector3(0,_size.y * 0.5,0)
 
 func get_item_holders():
+	if rig == null:
+		return
 	item_holders = rig.get_item_holders()
 	max_items = item_holders.size()
 
