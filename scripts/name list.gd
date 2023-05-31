@@ -11,14 +11,12 @@ var jump := &'jump'
 var fall := &'fall'
 
 func list_of_goap_states():pass
-var creativity := &'creativity'
-var curiosity := &'curiosity'
-var integrity := &'integrity'
-var compassion := &'compassion'
-var efficient := &'efficient'
-var ambitious := &'ambitious'
-var honesty := &'honesty'
-var bravery := &'bravery'
+var root :=&'root'
+var agent := &'agent'
+
+var jumpscare := &'jumpscare'
+var puzzle := &'puzzle'
+var playing := &'playing'
 
 var plan_width := &'plan_width'
 var plan_depth := &'plan_depth'
@@ -27,7 +25,6 @@ var unique_steps := &'unique_steps'
 var has_food := &'has_food'
 var has_drink := &'has_drink'
 var has_key := &'has_key'
-
 
 var health := &'health'
 var max_health := &'max_health'
@@ -42,34 +39,52 @@ var max_thirst := &'max_thirst'
 var hunger := &'hunger'
 var max_hunger := &'max_hunger'
 
-var jumpscare := &'jumpscare'
-var puzzle := &'puzzle'
-var playing := &'playing'
+var allies := &'allies'
+var enemies := &'enemies'
+var predators := &'predator'
+var preys := &'prey'
 
-var fear := &'player_fear'
-var tension := &'player_tension'
+var interest := &'interest'
+var joy := &'joy'
+var surprise := &'surprise'
+var sadness := &'sadness'
+var anger := &'anger'
+var disgust := &'disgust'
+var contempt := &'contempt'
+var self_hostility := &'self_hostility'
+var fear := &'fear'
+var shame := &'shame'
+var shyness := &'shyness'
+var guilt := &'guilt'
 
-var root :=&'root'
-var agent := &'agent'
 
-var exploration := &'exploration'
+#var creativity := &'creativity'
+#var curiosity := &'curiosity'
+#var integrity := &'integrity'
+#var compassion := &'compassion'
+#var efficient := &'efficient'
+#var ambitious := &'ambitious'
+#var honesty := &'honesty'
+#var bravery := &'bravery'
 
 func list_of_group_names():pass
 var player := &'player'
+var character := &'character'
 
 var human:= &'human'
 var monster := &'monster'
 
 var food := &'food'
 var drink := &'drink'
-var healing_item := &'healing_item'
 var key := &'key'
+
 var door := &'door'
-var character := &'character'
-var ui_save_load := &'ui_save_load'
-var goap_save_load := &'goap_save_load'
+var healing_item := &'healing_item'
+
 var billboard_sprites:= &'billboard_sprites'
 
+var ui_save_load := &'ui_save_load'
+var goap_save_load := &'goap_save_load'
 var on_quit := &'on_quit'
 
 func list_of_meta():pass
@@ -148,6 +163,7 @@ var reload_released := &'reload_released'
 var flip_pressed := &'flip_pressed'
 var flip_released := &'flip_released'
 
+var on_state_changed := &'on_state_changed'
 
 var body_entered := &'body_entered'
 var body_exited := &'body_exited'
@@ -174,9 +190,6 @@ var stamina_updated := &'stamina_updated'
 var thirst_updated := &'thirst_updated'
 var hunger_updated := &'hunger_updated'
 
-
-
-var on_state_changed := &'on_state_changed'
 
 var item_equipped := &'item_equipped'
 var item_unequipped := &'item_unequipped'

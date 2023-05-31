@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="9_028uu"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="9_a4kr7"]
 [ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="10_xc4vt"]
-[ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="13_bcey7"]
 [ext_resource type="PackedScene" uid="uid://d1v6jou48u5ce" path="res://scenes/3d scenes/garden of manman/plasma_room.tscn" id="13_psdo4"]
 [ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="14_575jw"]
 [ext_resource type="Script" path="res://scripts/dispay tutorial.gd" id="14_ftg3b"]
+[ext_resource type="PackedScene" uid="uid://bdygo1vh3hoq" path="res://scenes/3d scenes/garden of manman/elevator.tscn" id="14_w18gc"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
 script/source = "extends Node3D
@@ -95,9 +95,7 @@ shape = SubResource("ConcavePolygonShape3D_gr585")
 navigation_mesh = SubResource("NavigationMesh_r78ed")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.4492, 0, -8.60106)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5508, 0, -28.6011)
 
 [node name="tutorials" type="Node3D" parent="."]
 process_mode = 4
@@ -190,13 +188,11 @@ texture = ExtResource("14_575jw")
 script = ExtResource("7_pmy02")
 item = ExtResource("8_tyqn8")
 
-[node name="RigidBody3D" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06165, 15.6107, -76.9389)
+[node name="player" parent="." instance=ExtResource("4_t373y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.70672, 0, -28.5625)
 
-[node name="Node" type="Node" parent="RigidBody3D"]
+[node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
+disable_goap = false
 
-[node name="camera console" parent="." instance=ExtResource("13_bcey7")]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.848926, 0.136789, -0.510504, 0.528512, -0.219718, 0.819999, 0, -0.965926, -0.258819, 0, 0, 0)
+[node name="elevator" parent="." instance=ExtResource("14_w18gc")]

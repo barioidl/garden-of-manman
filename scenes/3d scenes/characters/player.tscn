@@ -23,12 +23,12 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalFlee.new(),
-		GoalEatFood.new(),
-		GoalOpenDoor.new(),
-		GoalFindItems.new(),
-		GoalUseElevator.new(),
+#		GoalEatFood.new(),
+#		GoalOpenDoor.new(),
+#		GoalFindItems.new(),
+#		GoalUseElevator.new(),
 	]
-	
+	set_local_state(NL.plan_width,planner_limits.x)
 
 "
 

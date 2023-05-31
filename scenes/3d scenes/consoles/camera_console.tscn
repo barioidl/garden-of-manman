@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=48 format=3 uid="uid://rl1fv4l3ai0l"]
 
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_gpyxi"]
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
@@ -7,10 +7,8 @@
 [ext_resource type="ArrayMesh" uid="uid://cjt7lpbfdluhy" path="res://assets/factory/mouse.obj" id="3_dn3jk"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="3_xnssc"]
 [ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
-[ext_resource type="Texture2D" uid="uid://bi7nnx78xrt1j" path="res://assets/kenney/kenney_ui-pack/PNG/red_button09.png" id="8_hjvxd"]
-[ext_resource type="Texture2D" uid="uid://yqet5cwa7oud" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button05.png" id="9_l0hsb"]
-[ext_resource type="Texture2D" uid="uid://cedj0ci5h3d0a" path="res://assets/kenney/kenney_ui-pack/PNG/green_panel.png" id="10_tfjj7"]
-[ext_resource type="Texture2D" uid="uid://bxla7ujm52rqv" path="res://assets/kenney/kenney_ui-pack/PNG/green_button12.png" id="11_3tj7u"]
+[ext_resource type="Script" path="res://scenes/3d scenes/consoles/camera layer.gd" id="7_njrme"]
+[ext_resource type="Texture2D" uid="uid://bn0omgmyn3hcu" path="res://assets/minimap0004.png" id="8_5ungq"]
 [ext_resource type="Texture2D" uid="uid://dy8d8kd08wf5y" path="res://assets/kenney/kenney_ui-pack/PNG/green_button11.png" id="12_qlpju"]
 [ext_resource type="Texture2D" uid="uid://dqu8kim6qvskn" path="res://assets/kenney/kenney_ui-pack/PNG/green_button10.png" id="13_rjk7u"]
 [ext_resource type="Texture2D" uid="uid://bjdkpihewpqgv" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button07.png" id="14_77w03"]
@@ -176,58 +174,68 @@ func _process(delta: float) -> void:
 	pass
 "
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sxtie"]
-texture = ExtResource("8_hjvxd")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b42on"]
+load_path = "res://.godot/imported/red_button09.png-5f4b93ef8f689c44936838f8f9985bc6.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xsonk"]
+texture = SubResource("CompressedTexture2D_b42on")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i3ptv"]
-texture = ExtResource("9_l0hsb")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dacp0"]
+load_path = "res://.godot/imported/blue_button05.png-d5dcb657e5226d77526bd046f26ccc6a.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v5h0n"]
+texture = SubResource("CompressedTexture2D_dacp0")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4nrx"]
-texture = ExtResource("10_tfjj7")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-expand_margin_left = 10.0
-expand_margin_top = 5.0
-expand_margin_right = 10.0
-expand_margin_bottom = 10.0
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3mj63"]
+load_path = "res://.godot/imported/green_panel.png-8d4102ef8dea4dd3d0065da54422f496.bptc.ctex"
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tavcy"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ucmnc"]
-texture = ExtResource("11_3tj7u")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqsey"]
+texture = SubResource("CompressedTexture2D_3mj63")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6kyna"]
-texture = ExtResource("12_qlpju")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dugsf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oc37p"]
+load_path = "res://.godot/imported/green_button12.png-364531e9aeba81d4232b81c69313cf08.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3i026"]
+texture = SubResource("CompressedTexture2D_oc37p")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="Theme" id="Theme_75xow"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xk3vx"]
+load_path = "res://.godot/imported/green_button11.png-133fb3208deaae78fa33b80d04acacc8.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5u77q"]
+texture = SubResource("CompressedTexture2D_xk3vx")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Theme" id="Theme_5cl0h"]
 CheckButton/colors/font_color = Color(1, 1, 1, 1)
 CheckButton/colors/font_outline_color = Color(0, 0, 0, 1)
 CheckButton/constants/outline_size = 0
-HSlider/styles/grabber_area = SubResource("StyleBoxTexture_sxtie")
-HSlider/styles/slider = SubResource("StyleBoxTexture_i3ptv")
-TabContainer/styles/panel = SubResource("StyleBoxTexture_i4nrx")
-TabContainer/styles/tab_disabled = SubResource("StyleBoxTexture_tavcy")
-TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_ucmnc")
-TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_6kyna")
-TabContainer/styles/tabbar_background = null
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_xsonk")
+HSlider/styles/slider = SubResource("StyleBoxTexture_v5h0n")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_bqsey")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxTexture_dugsf")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_3i026")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_5u77q")
 
 [sub_resource type="GDScript" id="GDScript_cvw4c"]
 script/source = "extends TabContainer
@@ -253,6 +261,7 @@ func create_layer(_floor):
 	var layer = minimap_layer.instantiate()
 	add_child(layer)
 	layer.name = _floor.name
+	layer.texture = _floor.minimap_texture
 	var min_size = layer.custom_minimum_size
 	for camera in _floor.get_children():
 		var pos := reference_frame.to_local(camera.global_position)
@@ -416,6 +425,8 @@ mesh = ExtResource("3_dn3jk")
 
 [node name="floor -4" type="Node3D" parent="floors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.00543e-05, 3, -4.19617e-05)
+script = ExtResource("7_njrme")
+minimap_texture = ExtResource("8_5ungq")
 
 [node name="camera" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
 transform = Transform3D(-0.640857, -0.298836, -0.707107, -0.422618, 0.906308, 0, 0.640857, 0.298836, -0.707107, -2.35577, 0, -5.66117)
@@ -463,7 +474,7 @@ transform = Transform3D(-0.224144, -0.129409, -0.965926, -0.5, 0.866025, 0, 0.83
 transform = Transform3D(-2.50718e-08, -3.58063e-08, -1, -0.819152, 0.573576, 0, 0.573576, 0.819152, -4.37114e-08, 4, 16.4731, -38.5)
 
 [node name="reference frame" type="Marker3D" parent="."]
-transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, -25, 0, -40)
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, -29, 0, -39.5)
 gizmo_extents = 1.0
 
 [node name="UI" type="Control" parent="."]
@@ -475,10 +486,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -315.0
-offset_top = -315.0
-offset_right = -15.0
-offset_bottom = -15.0
+offset_left = -305.0
+offset_top = -305.0
+offset_right = -5.0
+offset_bottom = -5.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(150, 150)
@@ -506,7 +517,7 @@ offset_left = -40.0
 offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = SubResource("Theme_75xow")
+theme = SubResource("Theme_5cl0h")
 script = SubResource("GDScript_cvw4c")
 reference_frame = NodePath("../../../reference frame")
 floor_container = NodePath("../../../floors")

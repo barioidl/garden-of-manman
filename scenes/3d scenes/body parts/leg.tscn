@@ -1,15 +1,42 @@
-[gd_scene load_steps=10 format=3 uid="uid://cokr73x1eh2bc"]
+[gd_scene load_steps=29 format=3 uid="uid://cokr73x1eh2bc"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1cf1t"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_bd7cy"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_uap0l"]
-[ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_6311e"]
 [ext_resource type="PackedScene" uid="uid://b6876vc1gukeb" path="res://scenes/3d scenes/body parts/leg animation.tscn" id="2_mk4xy"]
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="2_o0xlv"]
-[ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_nc5ff"]
-[ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="5_vnnro"]
+[ext_resource type="Texture2D" uid="uid://dbhrt117hgguf" path="res://assets/Textures/timmy thigh0001.png" id="5_7v8av"]
+[ext_resource type="Texture2D" uid="uid://cl3px2sv1jkig" path="res://assets/Textures/timmy thigh0000.png" id="7_dg5dq"]
+[ext_resource type="Texture2D" uid="uid://loy5ye6caxvn" path="res://assets/Textures/timmy bottom leg0001.png" id="8_3ktau"]
+[ext_resource type="Texture2D" uid="uid://cygk8xnn1pcy2" path="res://assets/Textures/timmy thigh0002.png" id="8_65adv"]
+[ext_resource type="Texture2D" uid="uid://clhxet1nwkdnb" path="res://assets/Textures/timmy bottom feet0001.png" id="8_g5w7y"]
+[ext_resource type="Texture2D" uid="uid://cslgb6vrqgads" path="res://assets/Textures/timmy thigh0003.png" id="9_7tiqd"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="9_beo2n"]
+[ext_resource type="Texture2D" uid="uid://tydg8y7k4l0k" path="res://assets/Textures/timmy bottom feet0000.png" id="10_ac61s"]
+[ext_resource type="Texture2D" uid="uid://47gm8pl3a50j" path="res://assets/Textures/timmy bottom leg0000.png" id="10_x74pj"]
+[ext_resource type="Texture2D" uid="uid://307d0lfvlb4h" path="res://assets/Textures/timmy thigh0004.png" id="10_xblj1"]
+[ext_resource type="Texture2D" uid="uid://mj23812ndcbk" path="res://assets/Textures/timmy bottom feet0002.png" id="11_8cvch"]
+[ext_resource type="Texture2D" uid="uid://jjr4ak5taoti" path="res://assets/Textures/timmy bottom leg0002.png" id="11_a8dj6"]
+[ext_resource type="Texture2D" uid="uid://cro4frj2dh6s0" path="res://assets/Textures/timmy thigh0005.png" id="11_c5jsm"]
+[ext_resource type="Texture2D" uid="uid://b5owy5aefih0t" path="res://assets/Textures/timmy bottom feet0003.png" id="12_2fjfm"]
+[ext_resource type="Texture2D" uid="uid://b6kfkjbfr0qv8" path="res://assets/Textures/timmy bottom leg0003.png" id="12_ifydu"]
+[ext_resource type="Texture2D" uid="uid://clsl02lclnou" path="res://assets/Textures/timmy bottom feet0004.png" id="13_mf2iu"]
+[ext_resource type="Texture2D" uid="uid://dwtuidmt06cx" path="res://assets/Textures/timmy bottom leg0004.png" id="13_mm4j1"]
+[ext_resource type="Texture2D" uid="uid://capc1xxajmr52" path="res://assets/Textures/timmy bottom feet0005.png" id="14_aq620"]
+[ext_resource type="Texture2D" uid="uid://m16vahi5lhxt" path="res://assets/Textures/timmy bottom leg0005.png" id="14_tlh86"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="15_84gaw"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_et74j"]
+[sub_resource type="Resource" id="Resource_sjuck"]
+script = ExtResource("15_84gaw")
+frames = Array[Texture]([ExtResource("7_dg5dq"), ExtResource("5_7v8av"), ExtResource("8_65adv"), ExtResource("9_7tiqd"), ExtResource("10_xblj1"), ExtResource("11_c5jsm")])
+
+[sub_resource type="Resource" id="Resource_hr1j5"]
+script = ExtResource("15_84gaw")
+frames = Array[Texture]([ExtResource("10_x74pj"), ExtResource("8_3ktau"), ExtResource("11_a8dj6"), ExtResource("12_ifydu"), ExtResource("13_mm4j1"), ExtResource("14_tlh86")])
+
+[sub_resource type="Resource" id="Resource_pbbro"]
+script = ExtResource("15_84gaw")
+frames = Array[Texture]([ExtResource("10_ac61s"), ExtResource("8_g5w7y"), ExtResource("11_8cvch"), ExtResource("12_2fjfm"), ExtResource("13_mf2iu"), ExtResource("14_aq620")])
 
 [node name="leg" type="Node3D" node_paths=PackedStringArray("raycast", "target", "hand")]
 script = ExtResource("1_uap0l")
@@ -35,11 +62,16 @@ script = ExtResource("1_bd7cy")
 min_angles = Vector3(-150, -60, -60)
 max_angles = Vector3(60, 60, 60)
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="leg"]
-transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.02, 0, -0.1, 0)
-material_override = ExtResource("2_6311e")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="leg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("5_7v8av")
+script = ExtResource("9_beo2n")
+sprites = SubResource("Resource_sjuck")
 
 [node name="knee" type="Marker3D" parent="leg" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
@@ -56,14 +88,19 @@ script = ExtResource("1_bd7cy")
 min_angles = Vector3(0, 0, 0)
 max_angles = Vector3(150, 0, 0)
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee"]
-transform = Transform3D(0.032, 0, 0, 0, 0.2, 0, 0, 0, 0.032, 0, -0.1, 0)
-material_override = ExtResource("3_nc5ff")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="leg/knee"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("11_a8dj6")
+script = ExtResource("9_beo2n")
+sprites = SubResource("Resource_hr1j5")
 
 [node name="ankle" type="Marker3D" parent="leg/knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23, 0)
 gizmo_extents = 0.02
 
 [node name="ik_constraint" type="Node" parent="leg/knee/ankle"]
@@ -71,23 +108,22 @@ script = ExtResource("1_bd7cy")
 min_angles = Vector3(-90, -30, -90)
 max_angles = Vector3(90, 30, 90)
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee/ankle"]
-transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, -0.05, 0)
-material_override = ExtResource("2_6311e")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="leg/knee/ankle"]
+transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 0, -0.04, 0.04)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("12_2fjfm")
+script = ExtResource("9_beo2n")
+sprites = SubResource("Resource_pbbro")
 
 [node name="foot" type="Marker3D" parent="leg/knee/ankle" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, 0)
 gizmo_extents = 0.02
 script = ExtResource("2_o0xlv")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
 accuracy = 0.005
-
-[node name="placeholder mesh" type="MeshInstance3D" parent="leg/knee/ankle/foot"]
-transform = Transform3D(0.05, 0, 0, 0, -4.37114e-09, 0.02, 0, -0.1, -8.74228e-10, 0, 0.01, 0.03)
-material_override = ExtResource("5_vnnro")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
