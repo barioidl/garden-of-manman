@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=19 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -28,8 +28,22 @@ func _ready() -> void:
 #		GoalFindItems.new(),
 #		GoalUseElevator.new(),
 	]
-	set_local_state(NL.plan_width,planner_limits.x)
+	
 
+"
+
+[sub_resource type="GDScript" id="GDScript_se6fn"]
+script/source = "extends Node
+
+var root:Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	root.add_to_group(NL.human)
+	
+	var agent = Interface.get_goap_agent(root)
+	agent.set_local_state(NL.predators,[NL.monster])
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
@@ -72,6 +86,9 @@ slots = [null, null]
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_j6qpi")
+
+[node name="human" type="Node" parent="goap_agent"]
+script = SubResource("GDScript_se6fn")
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

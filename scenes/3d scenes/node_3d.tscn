@@ -23,7 +23,7 @@ func _ready() -> void:
 
 [sub_resource type="Environment" id="Environment_pjwlt"]
 ambient_light_source = 2
-ambient_light_color = Color(0.223529, 0.223529, 0.223529, 1)
+ambient_light_color = Color(0.45098, 0.45098, 0.45098, 1)
 adjustment_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xk6h"]
@@ -95,6 +95,7 @@ shape = SubResource("ConcavePolygonShape3D_gr585")
 navigation_mesh = SubResource("NavigationMesh_r78ed")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5508, 0, -28.6011)
 
 [node name="tutorials" type="Node3D" parent="."]

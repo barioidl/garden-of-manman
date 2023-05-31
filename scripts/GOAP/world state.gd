@@ -41,7 +41,7 @@ func get_nodes(group:StringName)->Array:
 	saved_groups[group] = nodes
 	return nodes
 
-func get_closest_node_3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
+func get_closest_node3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
 	var nodes := get_nodes(group)
 	var closest_node :Node3D= null
 	var min_distance_sq := max_distance * max_distance
@@ -56,7 +56,7 @@ func get_closest_node_3d(group:StringName, position:Vector3, max_distance:=100.0
 		closest_node = node
 	return closest_node
 
-func get_farest_node_3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
+func get_farest_node3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
 	var nodes := get_nodes(group)
 	var farest_node :Node3D= null
 	max_distance *= max_distance

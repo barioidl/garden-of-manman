@@ -1,5 +1,10 @@
 extends Node
 
+func get_input(body:Node3D)-> Inputs:
+	if !body.has_meta(NL.get_inputs):
+		return null
+	return body.get_meta(NL.get_inputs).call()
+
 func change_health(body,delta:=-1.0)->bool:
 	if !body.has_meta(NL.change_health):
 		return false
@@ -38,10 +43,6 @@ func is_hotbar_full(body:Node3D)->bool:
 		return true
 	return body.get_meta(NL.is_hotbar_full).call()
 
-func get_input(body:Node3D)-> Inputs:
-	if !body.has_meta(NL.get_inputs):
-		return null
-	return body.get_meta(NL.get_inputs).call()
 
 func reset_inputs(body:Node3D):
 	if !body.has_meta(NL.reset_inputs):
@@ -102,4 +103,10 @@ func get_closest_node3d(body:Node3D, group:StringName, range:=100.0)-> Node3D:
 	if !body.has_meta(NL.get_closest_node3d):
 		return null
 	var meta = body.get_meta(NL.get_closest_node3d)
+	return meta.call(group,range)
+
+func get_farest_node3d(body:Node3D, group:StringName, range:=100.0)-> Node3D:
+	if !body.has_meta(NL.get_farest_node3d):
+		return null
+	var meta = body.get_meta(NL.get_farest_node3d)
 	return meta.call(group,range)
