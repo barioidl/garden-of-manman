@@ -13,6 +13,7 @@ var fall := &'fall'
 func list_of_goap_states():pass
 var root :=&'root'
 var agent := &'agent'
+var proximity_tool := &'proximity_tool'
 
 var jumpscare := &'jumpscare'
 var puzzle := &'puzzle'

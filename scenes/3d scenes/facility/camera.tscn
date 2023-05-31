@@ -1,55 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://mcxrrexffl64"]
+[gd_scene load_steps=10 format=3 uid="uid://mcxrrexffl64"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_qhpah"]
-size = Vector3(0.4, 0.2, 0.2)
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="1_ov42e"]
+[ext_resource type="Texture2D" uid="uid://n28urg45wyei" path="res://assets/Textures/camera0000.png" id="2_oe7cd"]
+[ext_resource type="Texture2D" uid="uid://bygumoepa8uw6" path="res://assets/Textures/camera0001.png" id="3_syls5"]
+[ext_resource type="Texture2D" uid="uid://1opf3uxknjwp" path="res://assets/Textures/camera0002.png" id="4_mn3kp"]
+[ext_resource type="Texture2D" uid="uid://c2cwehjcfpeba" path="res://assets/Textures/camera0003.png" id="5_2hc8h"]
+[ext_resource type="Texture2D" uid="uid://ljgj0mneldks" path="res://assets/Textures/camera0004.png" id="6_ggymb"]
+[ext_resource type="Texture2D" uid="uid://ct7rywassqmu3" path="res://assets/Textures/camera0005.png" id="7_bmmga"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_tejtl"]
 
-[sub_resource type="GDScript" id="GDScript_30gub"]
-script/source = "extends MeshInstance3D
-#
-#@export var rotate_range:=Vector2(-30,30)
-#@export var duration:=2.0
-#@export var cooldown:=2.0
-#
-#var time :=0.0
-#var state:=false
-#
-#signal detected(target)
-#func _ready() -> void:
-#	pass
-#func _process(delta: float) -> void:
-#	pass
-#
-#func camera_move():
-##	print(\"camera goes brrrr\")
-#	state = !state
-#	var tween = create_tween()
-#	var start = rotate_range.x if !state else rotate_range.y
-#	var end = rotate_range.x if state else rotate_range.y
-#	tween.tween_method(rotate_joint,start,end, duration).set_ease(Tween.EASE_IN_OUT)
-#
-#@onready var joint :=$joint
-#func rotate_joint(angle):
-#	joint.rotation_degrees.y = angle
-#
-"
+[sub_resource type="Resource" id="Resource_oqrwp"]
+script = ExtResource("8_tejtl")
+frames = Array[Texture]([ExtResource("2_oe7cd"), ExtResource("3_syls5"), ExtResource("4_mn3kp"), ExtResource("5_2hc8h"), ExtResource("6_ggymb"), ExtResource("7_bmmga")])
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w447s"]
-blend_mode = 1
-cull_mode = 2
+[node name="camera" type="Node3D"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_j3d36"]
-material = SubResource("StandardMaterial3D_w447s")
-flip_faces = true
-top_radius = 0.0
-bottom_radius = 1.15
-cap_top = false
-cap_bottom = false
-
-[node name="camera" type="MeshInstance3D"]
-mesh = SubResource("BoxMesh_qhpah")
-script = SubResource("GDScript_30gub")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-07, -10, 0, 10, -4.37114e-07, 0, 0, 0, 17.5, 10, 0, 0)
-visible = false
-mesh = SubResource("CylinderMesh_j3d36")
+[node name="Sprite3D" type="Sprite3D" parent="."]
+script = ExtResource("1_ov42e")
+sprites = SubResource("Resource_oqrwp")

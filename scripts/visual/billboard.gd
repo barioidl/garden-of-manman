@@ -114,43 +114,48 @@ func choose_side():
 	var dist_axis := reference_frame.to_local(camera.global_position)
 	if axis_ratio != Vector3.ONE:
 		dist_axis *= axis_ratio
-	
 	var max_axis = dist_axis.abs().max_axis_index()
 	match max_axis:
 		Vector3.AXIS_X:
-			if dist_axis.x > 0:
-				select(3)
-				axis_forward = axises._x
-				axis_up = axises.y
-				return
-			else:
-				select(1)
-				axis_forward = axises.x
-				axis_up=axises.y
-				return
+			select_x(dist_axis.x)
+			return
 		Vector3.AXIS_Y:
-			if dist_axis.y > 0:
-				select(4)
-				axis_forward = axises._y
-				axis_up=axises._z
-				return
-			else:
-				select(5)
-				axis_forward = axises.y
-				axis_up=axises.z
-				return
+			select_y(dist_axis.y)
+			return
 		Vector3.AXIS_Z:
-			if dist_axis.z > 0:
-				select(0)
-				axis_forward = axises._z
-				axis_up=axises.y
-				return
-			else:
-				select(2)
-				axis_forward = axises.z
-				axis_up=axises.y
-				return
+			select_y(dist_axis.z)
+			return
 	axis_up=axises.local
+
+func select_x(dist_axis:float):
+	if dist_axis > 0:
+		select(3)
+		axis_forward = axises._x
+		axis_up = axises.y
+	else:
+		select(1)
+		axis_forward = axises.x
+		axis_up=axises.y
+func select_y(dist_axis:float):
+	if dist_axis > 0:
+		select(4)
+		axis_forward = axises._y
+		axis_up=axises._z
+	else:
+		select(5)
+		axis_forward = axises.y
+		axis_up=axises.z
+func select_z(dist_axis:float):
+	if dist_axis > 0:
+		select(0)
+		axis_forward = axises._z
+		axis_up=axises.y
+	else:
+		select(2)
+		axis_forward = axises.z
+		axis_up=axises.y
+
+
 
 func select(side):
 	current_side = side

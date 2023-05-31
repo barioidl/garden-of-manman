@@ -99,14 +99,14 @@ func reward_agent(body:Node3D,amount:=0.0):
 	var meta = body.get_meta(NL.reward_agent)
 	return meta.call(amount)
 
-func get_closest_node3d(body:Node3D, group:StringName, range:=100.0)-> Node3D:
+func get_closest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0)-> Node3D:
 	if !body.has_meta(NL.get_closest_node3d):
 		return null
 	var meta = body.get_meta(NL.get_closest_node3d)
-	return meta.call(group,range)
+	return meta.call(group,pos,_range)
 
-func get_farest_node3d(body:Node3D, group:StringName, range:=100.0)-> Node3D:
+func get_farest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0)-> Node3D:
 	if !body.has_meta(NL.get_farest_node3d):
 		return null
 	var meta = body.get_meta(NL.get_farest_node3d)
-	return meta.call(group,range)
+	return meta.call(group,pos,_range)

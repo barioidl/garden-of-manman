@@ -35,7 +35,6 @@ func set_damp():
 		linear_damp = 3 
 	else:
 		linear_damp = 1
-#	print("`on_floor: "+ str(on_floor)+", on_wall: "+ str(on_wall)+", on_ceiling: "+ str(on_ceiling))
 
 var bungee_duration := 0.2
 var on_floor_bungee := 0.0

@@ -56,8 +56,6 @@ func set_interface():
 	root.set_meta(NL.get_goap_agent,get_goap_agent)
 	root.set_meta(NL.toggle_goap_agent,toggle_goap_agent)
 	root.set_meta(NL.reward_agent,reward)
-	root.set_meta(NL.get_closest_node3d,get_closest_node3d)
-	root.set_meta(NL.get_farest_node3d,get_farest_node3d)
 
 func get_goap_agent()->GOAPAgent:
 	return self
@@ -183,31 +181,6 @@ func get_string(_value)->String:
 	return ''
 
 
-var closest_buffer := {}
-func get_closest_node3d(group:StringName, pos := root.global_position, range:=100.0)-> Node3D:
-	if closest_buffer.has(group):
-		var node = closest_buffer[group]
-		if node != null:
-			_print('use existing closest 3d node')
-			return node 
-	var node = WorldState.get_closest_node3d(group, pos, range)
-	closest_buffer[group] = node
-	_print('use new closest 3d node')
-	return node
-
-var farest_buffer := {}
-func get_farest_node3d(group:StringName, pos:= root.global_position, range:=100.0)-> Node3D:
-	if farest_buffer.has(group):
-		var node = farest_buffer[group]
-		if node != null:
-			_print('use existing farthest 3d node')
-			return node
-	var node = WorldState.get_farest_node3d(group, pos, range)
-	farest_buffer[group] = node
-	_print('use new farthest 3d node')
-	return node
-
-
 func _save():
 	if process_mode == PROCESS_MODE_DISABLED:
 		_print('avoid saving dormant agent')
@@ -222,5 +195,5 @@ func _load():
 		goal._load()
 
 func _print(line:String):
-	return
+#	return
 	print(line)

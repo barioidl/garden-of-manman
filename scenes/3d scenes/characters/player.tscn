@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=20 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
+[ext_resource type="Script" path="res://scripts/proximity tool.gd" id="11_0qbtp"]
 [ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
 [ext_resource type="Script" path="res://scripts/modules/hotbar.gd" id="14_ofs36"]
 
@@ -23,7 +24,7 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalFlee.new(),
-#		GoalEatFood.new(),
+		GoalEatFood.new(),
 #		GoalOpenDoor.new(),
 #		GoalFindItems.new(),
 #		GoalUseElevator.new(),
@@ -72,7 +73,6 @@ extra_jumps = 0
 [node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_6yv8t")]
-process_mode = 4
 time_scale = 0.2
 
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
@@ -90,6 +90,9 @@ script = SubResource("GDScript_j6qpi")
 [node name="human" type="Node" parent="goap_agent"]
 script = SubResource("GDScript_se6fn")
 
+[node name="proximity_tool" type="Node" parent="goap_agent"]
+script = ExtResource("11_0qbtp")
+
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_uh8a4")
@@ -97,7 +100,6 @@ script = ExtResource("8_ihxnv")
 average_size = Vector3(0.2, 1, 0.2)
 
 [node name="body" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" instance=ExtResource("9_8vf4s")]

@@ -1720,7 +1720,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -1745,6 +1744,7 @@ pivot_offset = Vector2(0, 185)
 theme = SubResource("Theme_njgrs")
 
 [node name="Control" type="BoxContainer" parent="Settings/TabContainer"]
+visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_tlnk4")
@@ -1816,7 +1816,6 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Audio" type="BoxContainer" parent="Settings/TabContainer"]
-visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_j6o1j")
@@ -1838,7 +1837,6 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "Music"
 
 [node name="Music" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1853,7 +1851,6 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "Sound effects"
 
 [node name="SFX" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1867,7 +1864,6 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "2d sound effects"
 
 [node name="SFX2d" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1881,7 +1877,6 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "3d sound effects"
 
 [node name="SFX3d" type="HSlider" parent="Settings/TabContainer/Audio"]

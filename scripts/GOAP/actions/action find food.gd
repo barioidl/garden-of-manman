@@ -8,16 +8,17 @@ func _name()->StringName:
 
 func is_valid(local_state:Dictionary)->bool:
 	var root = local_state.root
-	var agent = local_state.agent
 	var id = get_hotbar_food(root)
 	if id >= 0:
 		return false
-	var food = agent.get_closest_node3d(NL.food,range)
+	var pos = root.global_position
+	var food = Interface.get_closest_node3d(root,NL.food,pos,range)
 	return food != null
 
 func get_cost(local_state:Dictionary)->float:
 	var root = local_state.root
-	var food = Interface.get_closest_node3d(root,NL.food,range)
+	var pos = root.global_position
+	var food = Interface.get_closest_node3d(root,NL.food,pos,range)
 	if food == null:
 		return 1
 	var dist :Vector3= food.global_position - root.global_position
@@ -35,9 +36,10 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root
-	var food = Interface.get_closest_node3d(root,NL.food,range)
+	var pos = root.global_position
+	var food = Interface.get_closest_node3d(root,NL.food,pos,range)
 	if food == null:
-		return false
+		return true
 	
 	if !reached_food(root):
 		Interface.attach_nav_agent(root,food)

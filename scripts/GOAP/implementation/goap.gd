@@ -19,8 +19,8 @@ func on_quit():
 func init_action_planner():
 	var planner_actions := [
 #		ActionTakeFoodFromItem.new(),
-#		ActionFindFood.new(),
-#		ActionEatFood.new(),
+		ActionFindFood.new(),
+		ActionEatFood.new(),
 		
 #		ActionFindKey.new(),
 #		ActionOpenDoor.new(),

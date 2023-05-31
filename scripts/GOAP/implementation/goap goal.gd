@@ -24,9 +24,9 @@ var score:=0.0
 var weights :={}
 func get_weight(name:String)->float:
 	if weights.has(name):
-		_print('use existing weight')
+#		_print('use existing weight')
 		return weights[name]
-	_print('use new weight')
+#	_print('use new weight')
 	weights[name] = 1
 	return 1
 
@@ -47,5 +47,5 @@ func _load():
 	score = data.score
 
 func _print(line:String):
-	return
+#	return
 	print(line)
