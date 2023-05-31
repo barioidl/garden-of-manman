@@ -597,22 +597,22 @@ attributes = SubResource("CameraAttributesPractical_gt6pk")
 current = true
 fov = 90.0
 size = 0.1
-near = 0.1
+near = 0.5
 far = 50.0
 
 [node name="outline toon shader" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.2)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.5)
 visible = false
 mesh = SubResource("PlaneMesh_57txa")
 
 [node name="toon white shader" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.2)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.5)
 visible = false
 mesh = SubResource("PlaneMesh_57txa")
 surface_material_override/0 = SubResource("ShaderMaterial_baqlc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 material_override = SubResource("ShaderMaterial_g7hpw")
 mesh = SubResource("PlaneMesh_gxwb1")
 

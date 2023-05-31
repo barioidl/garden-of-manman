@@ -6,8 +6,7 @@ func _ready() -> void:
 	super._ready()
 	if sprites == null:
 		print(str(get_path())+' billboard sprite with null sides')
-	else:
-		sprites.change_frame(0)
+	
 
 @export var sprites:BillboardSides:
 	get:

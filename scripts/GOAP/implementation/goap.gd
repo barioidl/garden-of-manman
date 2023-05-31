@@ -19,11 +19,11 @@ func on_quit():
 func init_action_planner():
 	var planner_actions := [
 #		ActionTakeFoodFromItem.new(),
-		ActionFindFood.new(),
-		ActionEatFood.new(),
+#		ActionFindFood.new(),
+#		ActionEatFood.new(),
 		
-		ActionFindKey.new(),
-		ActionOpenDoor.new(),
+#		ActionFindKey.new(),
+#		ActionOpenDoor.new(),
 #		ActionScream.new(),
 #		ActionFaceTarget.new(),
 #		ActionAttackTarget.new(),
@@ -83,7 +83,7 @@ func load_all_data():
 	all_mutations = _load(mutations_path)
 
 
-var disable_when_debug := true
+var disable_when_debug := false
 func _save(resources:Array, path:String):
 	if disable_when_debug:
 		if OS.is_debug_build():

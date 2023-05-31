@@ -124,5 +124,7 @@ func change_speaker_prop(player,pitch:Vector2,volume:Vector2):
 	player.pitch_scale = randf_range(pitch.x,pitch.y)
 	player.volume_db = randf_range(volume.x,volume.y)
 
+
 func _print(line:String):
+	return
 	print(line)

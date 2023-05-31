@@ -97,6 +97,7 @@ script = ExtResource("8_ihxnv")
 average_size = Vector3(0.2, 1, 0.2)
 
 [node name="body" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" instance=ExtResource("9_8vf4s")]

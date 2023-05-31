@@ -30,7 +30,7 @@ var rotate_cd:=0.1
 signal rotation_changed()
 signal sprite_changed()
 
-var current_side:=-1
+var current_side:=0
 enum axises{x,_x,y,_y,z,_z,local}
 var axis_forward:=axises.z
 var axis_up:=axises.y
@@ -118,7 +118,7 @@ func choose_side():
 	var max_axis = dist_axis.abs().max_axis_index()
 	match max_axis:
 		Vector3.AXIS_X:
-			if dist_axis.x <0:
+			if dist_axis.x > 0:
 				select(3)
 				axis_forward = axises._x
 				axis_up = axises.y
@@ -129,7 +129,7 @@ func choose_side():
 				axis_up=axises.y
 				return
 		Vector3.AXIS_Y:
-			if dist_axis.y <0:
+			if dist_axis.y > 0:
 				select(4)
 				axis_forward = axises._y
 				axis_up=axises._z
@@ -140,7 +140,7 @@ func choose_side():
 				axis_up=axises.z
 				return
 		Vector3.AXIS_Z:
-			if dist_axis.z <0:
+			if dist_axis.z > 0:
 				select(0)
 				axis_forward = axises._z
 				axis_up=axises.y
