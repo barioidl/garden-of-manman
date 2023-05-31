@@ -19,23 +19,24 @@ func _ready() -> void:
 func set_interface():
 	root.set_meta(NL.get_closest_node3d,get_closest_node3d)
 	root.set_meta(NL.get_farest_node3d,get_farest_node3d)
+	root.set_meta(NL.get_random_position,get_random_position)
 
 
 
 func get_random_position(center:Vector3, min_range:=Vector3.ONE, max_range:=Vector3.ONE):
-	var dir := max_range
+	var range := max_range
 	if min_range.x != max_range.x:
-		dir.x = randf_range(min_range.x, max_range.x)
+		range.x = randf_range(min_range.x, max_range.x)
 	if min_range.y != max_range.y:
-		dir.y = randf_range(min_range.y, max_range.y)
+		range.y = randf_range(min_range.y, max_range.y)
 	if min_range.z != max_range.z:
-		dir.z = randf_range(min_range.z, max_range.z)
+		range.z = randf_range(min_range.z, max_range.z)
 	
-	if randi()%20 <10:dir.x *= -1
-	if randi()%20 <10:dir.y *= -1
-	if randi()%20 <10:dir.z *= -1
+	if randi()%20 <10:range.x *= -1
+	if randi()%20 <10:range.y *= -1
+	if randi()%20 <10:range.z *= -1
 	
-	return dir
+	return center + range
 
 var closest_buffer := {}
 func get_closest_node3d(groups, pos :Vector3, _range:=def_range)-> Node3D:

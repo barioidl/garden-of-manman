@@ -235,8 +235,8 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalEatFood.new(),
-		GoalJumpscare.new(),
-		GoalPuzzle.new(),
+#		GoalJumpscare.new(),
+#		GoalPuzzle.new(),
 #		GoalFlee.new(),
 #		GoalPlay.new(),
 	]
@@ -284,7 +284,7 @@ step_speed = 0.2
 hunger = 8.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
-time_scale = 0.5
+time_scale = 0.2
 
 [node name="fall_damage" parent="stats" instance=ExtResource("6_01le1")]
 
@@ -303,8 +303,8 @@ turn_speed = 100
 script = ExtResource("11_dynar")
 
 [node name="goap_agent" type="Node" parent="."]
-process_mode = 4
 script = SubResource("GDScript_g145v")
+show_local_state = true
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
 process_mode = 4

@@ -24,6 +24,7 @@ func get_cost(local_state:Dictionary)->float:
 	var dist :Vector3= food.global_position - root.global_position
 	var cost = dist.length_squared() / (range*range)
 	cost *= get_weight(NL.food)
+	_print('food cost ' + str(cost))
 	return cost
 
 func get_inputs(local_state:Dictionary)->Dictionary:

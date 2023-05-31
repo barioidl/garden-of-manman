@@ -110,3 +110,12 @@ func get_farest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0
 		return null
 	var meta = body.get_meta(NL.get_farest_node3d)
 	return meta.call(group,pos,_range)
+
+func get_position_around(body:Node3D, min_range:=Vector3.ONE, max_range:=Vector3.ONE)-> Vector3:
+	if !body.has_meta(NL.get_random_position):
+		return body.global_position
+	var center = body.global_position
+	var meta = body.get_meta(NL.get_random_position)
+	return meta.call(center,min_range,max_range)
+	
+
