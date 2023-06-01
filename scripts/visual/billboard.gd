@@ -21,7 +21,7 @@ enum bill_board_modes{bill_board,lock_y_axis,six_sides}
 @onready var camera := get_viewport().get_camera_3d()
 
 @export var select_cd_range:=Vector2(0.1,.5)
-@export var rotate_cd_range:=Vector2(0.02,0.2)
+@export var rotate_cd_range:=Vector2(0.05,0.25)
 var select_cd:=0.0
 var rotate_cd:=0.1
 
