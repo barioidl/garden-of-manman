@@ -95,7 +95,8 @@ shape = SubResource("ConcavePolygonShape3D_gr585")
 navigation_mesh = SubResource("NavigationMesh_r78ed")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5508, 0, -40.5965)
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7504, 0, -40.5965)
 
 [node name="tutorials" type="Node3D" parent="."]
 process_mode = 4
@@ -189,13 +190,10 @@ script = ExtResource("7_pmy02")
 item = ExtResource("8_tyqn8")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.70672, 0, -38.6599)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.99886, 0, -40.2672)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
 disable_goap = false
 
 [node name="elevator" parent="." instance=ExtResource("14_w18gc")]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.996064, 0, 0.0886336, 0, 1, 0, -0.0886336, 0, -0.996064, -4.22674, 1.5598, -43.9733)

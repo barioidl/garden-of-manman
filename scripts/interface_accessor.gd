@@ -25,10 +25,9 @@ func stunt(body,duration:=0.5):
 
 func walk_to(body:Node3D,target:Vector3)->bool:
 	if !body.has_meta(NL.walk_to_target):
-		return false
+		return true
 	var walk_to = body.get_meta(NL.walk_to_target)
-	walk_to.call(target)
-	return true
+	return walk_to.call(target)
 
 func turn_head(body:Node3D, target:Vector3, speed:=1.0) -> bool:
 	if !body.has_meta(NL.turn_head_toward):

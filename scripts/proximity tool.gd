@@ -144,6 +144,7 @@ func farest_node3d_in_group(group:String, pos:Vector3, _range:float)-> Node3D:
 	_print('use new farthest 3d node')
 	return node
 
+
 func _print(line:String):
 	return
 	print(line)

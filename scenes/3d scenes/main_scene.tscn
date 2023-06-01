@@ -57,8 +57,10 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="Environment" id="Environment_pe2si"]
-background_color = Color(0.196078, 0, 0, 1)
-ambient_light_color = Color(1, 1, 1, 1)
+background_mode = 1
+background_color = Color(1, 0.5, 0.5, 1)
+background_energy_multiplier = 0.1
+ambient_light_color = Color(0.141176, 0.141176, 0.141176, 1)
 reflected_light_source = 1
 tonemap_mode = 2
 ssao_intensity = 22.61
@@ -260,6 +262,7 @@ skeleton = NodePath("../../../..")
 script = SubResource("GDScript_isicj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/map collision"]
+visible = false
 shape = SubResource("ConcavePolygonShape3D_5dojh")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="map/garden of manman/map collision"]
@@ -687,7 +690,7 @@ cast_shadow = 2
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("40_1wsil")
+texture = ExtResource("36_b7sdc")
 script = ExtResource("34_r8fx0")
 sprites = SubResource("Resource_pbkqu")
 use_shade = false

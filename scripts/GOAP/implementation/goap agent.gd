@@ -80,9 +80,9 @@ func get_planner() -> GOAPPlanner:
 func init_local_state():
 	set_local_state(NL.root,root)
 	set_local_state(NL.agent,self)
+	set_local_state(NL.unique_steps,false)
 	set_local_state(NL.plan_width,planner_limits.x)
 	set_local_state(NL.plan_depth,planner_limits.y)
-	set_local_state(NL.unique_steps,false)
 
 func set_local_state(key,value):
 	if local_state.has(key):
@@ -195,5 +195,5 @@ func _load():
 		goal._load()
 
 func _print(line:String):
-#	return
+	return
 	print(line)

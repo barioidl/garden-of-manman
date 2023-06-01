@@ -7,7 +7,7 @@ func _name()->StringName:
 	return &'A flee'
 
 func is_valid(local_state:Dictionary)->bool:
-	return true
+	return local_state.has(NL.predators)
 
 func get_cost(local_state:Dictionary)->float:
 	return randf_range(0.1,1)
@@ -26,11 +26,12 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	var predators = local_state[NL.predators]
 	
 	var proxi_tool :ProximityTool= local_state[NL.proximity_tool]
-	var target = proxi_tool.get_closest_node3d(predators, root_pos, _range)
-	
+	var predator = proxi_tool.get_closest_node3d(predators, root_pos, _range)
+	var dir = root_pos.direction_to(predator.global_position)
 	if !reached_target(root):
-		Interface.attach_nav_agent(root,Vector3.ZERO)
+		Interface.attach_nav_agent(root,root_pos + dir * 5)
 		return false
+	Interface.walk_to(root,root_pos + dir * 5)
 	
 	var nav_agent = Interface.get_nav_agent(root)
 	if nav_agent != null:

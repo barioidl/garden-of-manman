@@ -12,7 +12,7 @@ func connect_areas():
 	for path in areas:
 		var area = get_node_or_null(path)
 		if area == null:
-			print("area is missing"+ str(path))
+			_print("area is missing"+ str(path))
 		else:
 			area.connect('area_entered',_on_area_entered)
 			area.connect('area_exited',_on_area_exited)
@@ -45,3 +45,8 @@ func disable():
 	for node in get_children():
 		node.process_mode = Node.PROCESS_MODE_DISABLED
 		node.visible = false
+
+
+func _print(line:String):
+	return
+	print(line)

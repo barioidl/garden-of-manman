@@ -113,7 +113,7 @@ func rotate_sprite(delta,dist_ratio):
 func choose_side():
 	var dist_axis := reference_frame.to_local(camera.global_position)
 	if axis_ratio != Vector3.ONE:
-		dist_axis = dist_axis.normalized() * axis_ratio
+		dist_axis = dist_axis * axis_ratio
 	var max_axis = dist_axis.abs().max_axis_index()
 	match max_axis:
 		Vector3.AXIS_X:

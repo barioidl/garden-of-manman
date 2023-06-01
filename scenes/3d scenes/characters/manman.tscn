@@ -304,7 +304,6 @@ script = ExtResource("11_dynar")
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")
-show_local_state = true
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
 process_mode = 4

@@ -173,35 +173,41 @@ func set_interface():
 func delay_platformer(duration):
 	cool_down = duration
 
-func walk_to_target(target:Vector3):
-	dpad_from_position(target)
+func walk_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = false
 	input.ctrl = false
 	input.jump = false
-func sneak_to_target(target:Vector3):
-	dpad_from_position(target)
+	return reached
+func sneak_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = true
 	input.ctrl = false
 	input.jump = false
-func sprint_to_target(target:Vector3):
-	dpad_from_position(target)
+	return reached
+func sprint_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = false
 	input.ctrl = true
 	input.jump = false
-func jump_to_target(target:Vector3):
-	dpad_from_position(target)
+	return reached
+func jump_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = false
 	input.ctrl = false
 	input.jump = true
 	input.emit_signal('jump_pressed')
+	return reached
 
-func dpad_from_position(target:Vector3):
+func dpad_from_position(target:Vector3)->bool:
 	var trans = root.custom_transform.inverse()
 	var target_local = trans * target
 #	body.to_local(target)
 	var dpad1 := Vector2(target_local.x,target_local.z)
 	if dpad1 != Vector2.ZERO:
 		input.dpad1 = dpad1.limit_length(1)
+		return false
+	return true
 
 
 
