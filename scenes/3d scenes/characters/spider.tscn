@@ -333,6 +333,7 @@ hunger = 10.0
 [node name="fall_damage" parent="stats" instance=ExtResource("5_tp48m")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_g0jqh")]
+process_mode = 4
 time_scale = 0.5
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]

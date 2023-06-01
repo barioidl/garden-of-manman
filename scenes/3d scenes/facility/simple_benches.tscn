@@ -1,17 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://dhmf723t00pxw"]
 
+[ext_resource type="Material" uid="uid://buyxi0x42330o" path="res://materials/wood.tres" id="1_1kh7d"]
 [ext_resource type="ArrayMesh" uid="uid://ktl6yjqqvhr1" path="res://assets/sloyd/Simple Benches.obj" id="1_woui0"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uiqxc"]
 points = PackedVector3Array(-0.031853, 0.0279509, -0.919146, -0.0400214, 0.0299502, -0.936962, 0.351791, 0.0279509, -0.919146, -0.031853, 0.0279509, 0.930893, -0.0482435, 0.0320066, -0.919146, -0.154002, 0.605979, -1, -0.126004, 0.493961, -1, -0.0700079, 0.319964, -1, 0.35996, 0.0299502, -0.936962, -0.0400214, 0.0299502, 0.913077, 0.351791, 0.0279509, 0.930893, -0.0700079, 0.319964, 1, -0.0482435, 0.0320066, 0.930893, -0.159, 0.588956, -0.950078, -0.131969, 0.61152, -1, -0.154002, 0.605979, 1, 0.39, 0.319964, -1, 0.368182, 0.0320066, -0.919146, 0.35996, 0.0299502, 0.913077, 0.368182, 0.0320066, 0.930893, 0.39, 0.319964, 1, -0.126004, 0.493961, 1, -0.159, 0.588956, 0.949883, 0.39, 0.347554, -1, -0.131969, 0.61152, 1, 0.39, 0.309967, -0.950078, 0.39, 0.309967, 0.949883, 0.39, 0.347554, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_he47j"]
-albedo_color = Color(0.415686, 0.690196, 0.298039, 1)
-
 [node name="SimpleBenches" type="CollisionShape3D"]
 shape = SubResource("ConvexPolygonShape3D_uiqxc")
 
 [node name="SimpleBenches" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_he47j")
+material_override = ExtResource("1_1kh7d")
 mesh = ExtResource("1_woui0")
-skeleton = NodePath("../../../../../../..")

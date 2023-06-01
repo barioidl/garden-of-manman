@@ -32,6 +32,6 @@ func random_transforms()->Transform3D:
 	var child_count = get_child_count()
 	if child_count <=0:
 		return global_transform
-	var id = randi() % child_count
+	var id = 0 if child_count == 1 else randi() % child_count
 	var child :Node3D= get_child(id)
 	return child.global_transform

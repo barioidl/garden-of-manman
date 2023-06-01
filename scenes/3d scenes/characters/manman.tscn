@@ -284,6 +284,7 @@ step_speed = 0.2
 hunger = 8.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
+process_mode = 4
 time_scale = 0.2
 
 [node name="fall_damage" parent="stats" instance=ExtResource("6_01le1")]

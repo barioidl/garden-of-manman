@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://18fxmepjaxdw"]
+[gd_scene load_steps=79 format=3 uid="uid://18fxmepjaxdw"]
 
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="5_bmfmr"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://d1v6jou48u5ce" path="res://scenes/3d scenes/garden of manman/plasma_room.tscn" id="21_hogdi"]
 [ext_resource type="PackedScene" uid="uid://dufs68em46log" path="res://scenes/3d scenes/garden of manman/kitchen.tscn" id="22_63gb2"]
 [ext_resource type="PackedScene" uid="uid://cji1p5w5q6tjd" path="res://scenes/3d scenes/garden of manman/assembly.tscn" id="22_gexd2"]
+[ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="28_rg7uq"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="34_r8fx0"]
 [ext_resource type="Texture2D" uid="uid://bt6yvogopurs7" path="res://assets/Textures/drone0000.png" id="36_b7sdc"]
 [ext_resource type="Texture2D" uid="uid://tywvx4maqfs6" path="res://assets/Textures/drone0001.png" id="37_ohmvs"]
@@ -117,7 +118,7 @@ friction = 0.2
 bounce = 10.0
 
 [sub_resource type="GDScript" id="GDScript_d5dec"]
-script/source = "extends Node
+script/source = "extends Label3D
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_echo():
@@ -261,8 +262,13 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.50
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
 
-[node name="easter egg" type="Node" parent="characters/timmy"]
+[node name="easter egg" type="Label3D" parent="characters/timmy"]
 process_mode = 3
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0.0832977, 1.80783, 3.23636)
+billboard = 1
+fixed_size = true
+text = "Press H to 
+use elevator"
 script = SubResource("GDScript_d5dec")
 
 [node name="map" type="Node3D" parent="."]
@@ -548,7 +554,6 @@ areas = [NodePath("../../-4 areas/plasma cutter room"), NodePath("../../-4 areas
 [node name="assembly" parent="map/garden of manman/floor -4" instance=ExtResource("22_gexd2")]
 
 [node name="-1 areas" type="Node3D" parent="map/garden of manman"]
-visible = false
 
 [node name="upper corridor" type="Area3D" parent="map/garden of manman/-1 areas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 22.5, -31.5)
@@ -650,10 +655,6 @@ password = 2
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 21)
 password = 2
 
-[node name="door15" parent="map/garden of manman/floor -1/upper corridor" instance=ExtResource("11_78txe")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.43051e-06, 0, -20)
-password = 2
-
 [node name="door13" parent="map/garden of manman/floor -1/upper corridor" instance=ExtResource("11_78txe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, 13)
 password = 2
@@ -669,6 +670,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 6)
 
 [node name="ceiling lamp3" parent="map/garden of manman/floor -1/upper corridor" instance=ExtResource("14_uial0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 16)
+
+[node name="door" parent="map/garden of manman/floor -1/upper corridor" instance=ExtResource("28_rg7uq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -20.697)
+password = 2
+
+[node name="top" parent="map/garden of manman/floor -1/upper corridor/door" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, 3, 0)
+open_position = 5.5
+
+[node name="lock" parent="map/garden of manman/floor -1/upper corridor/door" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.9)
+
+[node name="CollisionShape3D" parent="map/garden of manman/floor -1/upper corridor/door/lock" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 
 [node name="dinning room" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -29.5)
@@ -724,27 +739,22 @@ mesh = ExtResource("56_tueej")
 skeleton = NodePath("../../../../..")
 
 [node name="Room9" type="MeshInstance3D" parent="map/garden of manman/floor -1"]
-visible = false
 mesh = ExtResource("59_cj3i8")
 skeleton = NodePath("../../../..")
 
 [node name="Room10" type="MeshInstance3D" parent="map/garden of manman/floor -1"]
-visible = false
 mesh = ExtResource("58_jgv8y")
 skeleton = NodePath("../../../..")
 
 [node name="Room12" type="MeshInstance3D" parent="map/garden of manman/floor -1"]
-visible = false
 mesh = ExtResource("60_ctwrq")
 skeleton = NodePath("../../../..")
 
 [node name="Room13" type="MeshInstance3D" parent="map/garden of manman/floor -1"]
-visible = false
 mesh = ExtResource("61_q6cjl")
 skeleton = NodePath("../../../..")
 
 [node name="Room14" type="MeshInstance3D" parent="map/garden of manman/floor -1"]
-visible = false
 mesh = ExtResource("60_lm31w")
 skeleton = NodePath("../../../..")
 
@@ -787,3 +797,5 @@ script = SubResource("GDScript_ct3wt")
 [node name="OmniLight3D" type="OmniLight3D" parent="Camera3D"]
 editor_only = true
 omni_range = 20.0
+
+[editable path="map/garden of manman/floor -1/upper corridor/door"]
