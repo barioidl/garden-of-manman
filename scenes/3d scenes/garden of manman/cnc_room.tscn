@@ -1,10 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvqsnkankjt6b"]
+[gd_scene load_steps=17 format=3 uid="uid://cvqsnkankjt6b"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_fuygo"]
 [ext_resource type="ArrayMesh" uid="uid://vbacuigiwgcu" path="res://assets/borga map/room 3.obj" id="2_pgxss"]
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="3_0ub8w"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="3_ili5b"]
 [ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="4_f3qpr"]
+[ext_resource type="PackedScene" uid="uid://gk67ml5mffkw" path="res://scenes/3d scenes/cnc/cnc_frame.tscn" id="6_7e7r8"]
+[ext_resource type="Material" uid="uid://daq1jsntv2geq" path="res://materials/hard steel .tres" id="7_vd8in"]
+[ext_resource type="PackedScene" uid="uid://8yu44mht2bro" path="res://scenes/3d scenes/facility/crates.tscn" id="8_4ppvp"]
+[ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="9_sq0hu"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="10_ihixv"]
+[ext_resource type="PackedScene" uid="uid://bjyc0exh2hp4w" path="res://scenes/3d scenes/facility/bath_tub.tscn" id="11_q463w"]
+[ext_resource type="ArrayMesh" uid="uid://dw2n4y8hbqvv0" path="res://assets/factory/bear face.obj" id="12_p0ugo"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_iwi0e"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_117t2"]
+top_radius = 0.02
+bottom_radius = 0.01
+height = 0.5
+
+[sub_resource type="GDScript" id="GDScript_trmce"]
+script/source = "extends Node3D
+
+func _on_3d_button_toggled(button_pressed) -> void:
+	for light in get_children():
+		light.switch(button_pressed)
+"
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4obnf"]
+points = PackedVector3Array(0.0832059, 0.176926, -1.38778e-17, -0.198432, -0.121401, -0.0296673, -0.0555975, 0, -0.243899, 0.201489, -0.114241, -0.0296673, -0.198432, 0.121401, -0.0296673, -0.0120532, -0.21782, 1.38778e-17, 0.0514894, 0, -0.251046, -0.0127236, 0.228571, -0.0296673, 0.165781, 0.107126, -0.101094, -0.189027, 0.11569, 0, 0.00865464, -0.228571, -0.0296673, 0.192084, 0.108868, -1.38778e-17, -0.0245596, 0.045621, -0.239828, -0.162724, 0.114286, -0.101094, -0.0239918, -0.0510207, -0.230892, 0.192084, -0.108868, -1.38778e-17, -0.189027, -0.11569, 0, 0.137198, 0.135675, -0.101094, 0.201489, 0.114241, -0.0296673, 0.0259072, -0.048805, -0.226185, -0.16985, 0.0571429, -0.101094, 0.172946, 0.0570981, -0.101094, -0.141306, 0.135675, -0.101094, -0.0127236, -0.228571, -0.0296673, -0.0120532, 0.21782, 1.38778e-17, 0.00865464, 0.228571, -0.0296673, 0.0264937, 0.0437171, -0.234931, 0.172946, -0.135675, -0.0296673, 0.0355204, -0.204175, 2.77556e-17, 0.172946, 0.135675, -0.0296673, -0.0484714, 0, -0.251046, 0.0371981, -0.214252, -0.0296673)
 
 [node name="cnc room" type="Node3D"]
 script = ExtResource("1_fuygo")
@@ -15,10 +43,119 @@ mesh = ExtResource("2_pgxss")
 skeleton = NodePath("../../../../..")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -29)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16404, 1.12173, -25.2135)
 modulate = Color(0, 0, 1, 1)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("3_0ub8w")
 script = ExtResource("3_ili5b")
 item = ExtResource("4_f3qpr")
+
+[node name="CNC machine" parent="." instance=ExtResource("6_7e7r8")]
+
+[node name="mill head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.85, 2.7, -31.5)
+mesh = SubResource("CylinderMesh_iwi0e")
+skeleton = NodePath("../CNC machine/y slider")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mill head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.742023, 0)
+material_override = ExtResource("7_vd8in")
+mesh = SubResource("CylinderMesh_117t2")
+
+[node name="3d button" parent="." instance=ExtResource("10_ihixv")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1.5, -34.75)
+
+[node name="decor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -34.5)
+script = SubResource("GDScript_trmce")
+
+[node name="ceiling lamp" parent="decor" instance=ExtResource("9_sq0hu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3.35, 4.75)
+skeleton = NodePath("../..")
+
+[node name="ceiling lamp2" parent="decor" instance=ExtResource("9_sq0hu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.35, 4.75)
+skeleton = NodePath("../..")
+
+[node name="boxes" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, -33)
+
+[node name="Crates" parent="boxes" instance=ExtResource("8_4ppvp")]
+transform = Transform3D(0.517638, 0, 1.93185, 0, 2, 0, -1.93185, 0, 0.517638, -1, 0, -2)
+
+[node name="Crates3" parent="boxes" instance=ExtResource("8_4ppvp")]
+transform = Transform3D(1.96962, 0, -0.173648, 0, 1, 0, 0.347296, 0, 0.984808, 0.5, 0, -2.5)
+
+[node name="Crates6" parent="boxes" instance=ExtResource("8_4ppvp")]
+transform = Transform3D(1.87939, 0, 0.34202, 0, 1, 0, -0.68404, 0, 0.939693, 0.329063, 0, -1.5)
+
+[node name="Crates4" parent="boxes" instance=ExtResource("8_4ppvp")]
+transform = Transform3D(1.81262, 0, 0.422618, 0, 1, 0, -0.845237, 0, 0.906308, 2.07984, 0, -2.19424)
+
+[node name="Crates5" parent="boxes" instance=ExtResource("8_4ppvp")]
+transform = Transform3D(1.73564, 0, -0.496883, 0, 1, 0, 0.993766, 0, 0.867818, 1.25899, 0.462145, -2.19424)
+
+[node name="Crates2" parent="boxes" instance=ExtResource("8_4ppvp")]
+transform = Transform3D(-0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, -0.766044, -1, 0.909108, -2)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="boxes"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 3.2955, 0, 8)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
+
+[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D2"]
+mesh = ExtResource("12_p0ugo")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="boxes"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, -0.204498, 0, 8)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
+
+[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D8"]
+mesh = ExtResource("12_p0ugo")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="boxes"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 5.08496, 0, 11)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
+
+[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D4"]
+mesh = ExtResource("12_p0ugo")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="boxes"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 3.2955, 0, 14)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
+
+[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D3"]
+mesh = ExtResource("12_p0ugo")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="boxes"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 6.7955, 0, 14)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
+
+[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D5"]
+mesh = ExtResource("12_p0ugo")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="boxes"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, -0.204498, 0, 14)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
+
+[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D6"]
+mesh = ExtResource("12_p0ugo")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="boxes"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 1.67257, 0, 11)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
+
+[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D7"]
+mesh = ExtResource("12_p0ugo")
+skeleton = NodePath("../../../..")
+
+[node name="BathTub" parent="." instance=ExtResource("11_q463w")]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -0.448146, 0, -24.562)
+
+[connection signal="toggled" from="3d button" to="decor" method="_on_3d_button_toggled"]

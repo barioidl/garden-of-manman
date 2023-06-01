@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://18fxmepjaxdw"]
+[gd_scene load_steps=78 format=3 uid="uid://18fxmepjaxdw"]
 
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="5_bmfmr"]
@@ -116,6 +116,19 @@ func _physics_process(delta: float) -> void:
 friction = 0.2
 bounce = 10.0
 
+[sub_resource type="GDScript" id="GDScript_d5dec"]
+script/source = "extends Node
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_echo():
+		return
+	if !Input.is_action_just_pressed(\"act\"):
+		return
+	var parent = get_parent()
+	PlayerInputs.attach_to(parent)
+	queue_free()
+"
+
 [sub_resource type="GDScript" id="GDScript_isicj"]
 script/source = "extends MeshInstance3D
 
@@ -219,13 +232,13 @@ disable_range = 30
 cd_duration = 2.0
 
 [node name="pumped up bird" parent="characters" instance=ExtResource("7_jdoo3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5361, 2, -35.6828)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.88124, 1.77417, -26.7364)
 
 [node name="jumbo zo" parent="characters" instance=ExtResource("7_2ewu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6581, 1.5, -44.1669)
 
 [node name="manman" parent="characters" instance=ExtResource("8_jhbom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.971, 0, -8.1484)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5367, 0, -8.31085)
 
 [node name="namnam" parent="characters" instance=ExtResource("7_8jvxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.126964, 4.38931, 25.6314)
@@ -244,9 +257,13 @@ target = NodePath("..")
 script = ExtResource("5_bmfmr")
 
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.3243, 1.49846, -20.561)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.504, 0, -20.0553)
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
+
+[node name="easter egg" type="Node" parent="characters/timmy"]
+process_mode = 3
+script = SubResource("GDScript_d5dec")
 
 [node name="map" type="Node3D" parent="."]
 

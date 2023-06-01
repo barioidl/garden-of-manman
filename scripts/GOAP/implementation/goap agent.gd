@@ -96,10 +96,11 @@ func follow_plan():
 		if loop_plan:
 			current_step=0
 		return
-	var action = current_plan[current_step]
+	var action :GOAPAction= current_plan[current_step]
 	var completed = action.perform(local_state, dt)
 	_print('performed ' + action._name())
 	if completed:
+		action.score += 0.5
 		current_step += 1
 
 var generate_cd :=0.0

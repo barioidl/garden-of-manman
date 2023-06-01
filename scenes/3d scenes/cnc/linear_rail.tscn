@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://sqraxny7hc1h"]
+
+[ext_resource type="Material" uid="uid://daq1jsntv2geq" path="res://materials/hard steel .tres" id="1_g5bou"]
+[ext_resource type="ArrayMesh" uid="uid://dlbhaiqrl7r5y" path="res://assets/cnc/linear rail.obj" id="1_vooo2"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_l0sl7"]
+points = PackedVector3Array(0.0429285, 0.297072, -0.0319071, -0.127887, -0.00790542, -1.00774, 0.119658, 0, -0.982443, -0.127887, -0.00790542, 0.00773764, -0.112029, 0.245988, -1.00774, 0.125982, 0.00797069, 0.00773764, 0.1, 0.23731, -0.961458, -0.112029, 0.245988, 0.00773764, -0.0443937, 0.295606, -0.963405, 0.1, 0.23731, -0.0385421, 0.0429285, 0.297072, -0.968093, 0.125982, 0.00797069, -1.00774, -0.0443937, 0.295606, -0.0365955, 0.119658, 0, -0.0175572, -0.127887, 0.00797069, -1.00774, 0.0868217, 0.253178, -0.0319634, -0.127887, 0.00797069, 0.00773764, 0.0868217, 0.253178, -0.968037)
+
+[node name="LinearRail" type="CollisionShape3D"]
+transform = Transform3D(0, -4.37114e-08, -20, -1, -4.37114e-08, 3.82137e-14, -4.37114e-08, 1, -8.74228e-07, -0.46, 0, -0.45)
+shape = SubResource("ConvexPolygonShape3D_l0sl7")
+
+[node name="LinearRail" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -3.55271e-15, 3.38813e-21, 3.55271e-15, 1, 5.68434e-14, 6.61744e-24, 0, 1, 0, 0, 0)
+material_override = ExtResource("1_g5bou")
+mesh = ExtResource("1_vooo2")
+skeleton = NodePath("../../..")

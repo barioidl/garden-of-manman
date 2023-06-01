@@ -85,6 +85,7 @@ time_scale = 0.2
 slots = [null, null]
 
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_j6qpi")
 
 [node name="human" type="Node" parent="goap_agent"]

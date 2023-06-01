@@ -51,7 +51,7 @@ func put_item_on_shelves():
 	var tween = create_tween()
 	for shelf in get_children():
 		tween.tween_callback(fill_shelf.bind(shelf))
-		tween.tween_interval(0.05)
+		tween.tween_interval(0.1)
 
 func fill_shelf(shelf):
 	var points_size = local_spawnpoints.size()
@@ -61,7 +61,7 @@ func fill_shelf(shelf):
 		var pos = shelf.to_global(point)
 		var jar= select_jar()
 		spawn_jar(pos,jar)
-		i += randi_range(1,50)
+		i += randi_range(1,20)
 
 func spawn_jar(pos,item):
 	var child = item.prefab.instantiate()
@@ -122,7 +122,6 @@ red_jar = ExtResource("4_44ylj")
 green_jar = ExtResource("5_fqi7d")
 blue_jar = ExtResource("6_k15cw")
 placement_template = NodePath("high shelf/jar position template")
-dont_spawn = true
 
 [node name="high shelf" parent="shelves" instance=ExtResource("3_bso4f")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, -0.75)

@@ -303,6 +303,7 @@ turn_speed = 100
 script = ExtResource("11_dynar")
 
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_g145v")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]

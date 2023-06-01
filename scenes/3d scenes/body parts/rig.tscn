@@ -138,12 +138,12 @@ script = ExtResource("9_6jw76")
 sprites = SubResource("Resource_hdgjh")
 
 [node name="arm" parent="hip/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.13, 0)
 mirrored = false
 container = NodePath("../../../..")
 
 [node name="arm2" parent="hip/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.13, 0)
 container = NodePath("../../../..")
 
 [node name="neck" type="Marker3D" parent="hip/spine/chest"]
@@ -160,6 +160,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("14_xtger")
+texture = ExtResource("10_rglap")
 script = ExtResource("9_6jw76")
 sprites = SubResource("Resource_je7v3")
+face_camera = 2
