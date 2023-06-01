@@ -233,7 +233,7 @@ disable_range = 30
 cd_duration = 2.0
 
 [node name="pumped up bird" parent="characters" instance=ExtResource("7_jdoo3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.88124, 1.77417, -26.7364)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.88124, 1.77417, -36.7823)
 
 [node name="jumbo zo" parent="characters" instance=ExtResource("7_2ewu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6581, 1.5, -44.1669)

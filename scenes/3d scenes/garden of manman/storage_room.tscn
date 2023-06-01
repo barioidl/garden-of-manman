@@ -1,19 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://df28f6i0hm2iq"]
+[gd_scene load_steps=10 format=3 uid="uid://df28f6i0hm2iq"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_o3na5"]
 [ext_resource type="ArrayMesh" uid="uid://devl1r834kqg2" path="res://assets/borga map/room 1.obj" id="2_nsb7n"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="3_ams0f"]
-[ext_resource type="ArrayMesh" uid="uid://k6v13was2uue" path="res://assets/sloyd/Cubicals.obj" id="4_isrli"]
 [ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="5_m732t"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdp5i"]
-albedo_color = Color(0.376856, 0.402086, 0.726195, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_xxoi3"]
-material = SubResource("StandardMaterial3D_rdp5i")
-top_radius = 0.3
-bottom_radius = 0.3
-height = 5.0
+[ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="6_dv3nw"]
+[ext_resource type="PackedScene" uid="uid://cu3b3oytrilip" path="res://assets/sloyd/container_shelf.tscn" id="6_qguy6"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_tewd6"]
 
 [sub_resource type="GDScript" id="GDScript_8tpbd"]
 script/source = "extends Decal
@@ -22,6 +15,14 @@ script/source = "extends Decal
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	queue_free() # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_v0osh"]
+script/source = "extends Node3D
+
+func _on_3d_button_toggled(button_pressed) -> void:
+	for light in get_children():
+		light.switch(button_pressed)
 "
 
 [node name="storage room" type="Node3D"]
@@ -36,24 +37,52 @@ skeleton = NodePath("../../../../..")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2)
 password = 5
 
-[node name="Cubicals" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.82937, 0, -8.69591)
-mesh = ExtResource("4_isrli")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Cubicals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.270707, 1.5, -0.27828)
-mesh = SubResource("CylinderMesh_xxoi3")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cubicals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35807, 1.5, -0.27828)
-mesh = SubResource("CylinderMesh_xxoi3")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cubicals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51581, 1.5, -0.27828)
-mesh = SubResource("CylinderMesh_xxoi3")
-
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
 texture_albedo = ExtResource("5_m732t")
 modulate = Color(1, 1, 0, 1)
 script = SubResource("GDScript_8tpbd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)
+
+[node name="ContainerShelf" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(9, 0, 0, 0, 8, 0, 0, 0, 5, 2.42034, 0, 0.176236)
+
+[node name="ContainerShelf2" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-10, 0, -7.54979e-07, 0, 8, 0, 1.50996e-06, 0, -5, 2.75, 0, 9.8)
+
+[node name="ContainerShelf3" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-1.62921e-06, 0, 4, 0, 8, 0, -10, 0, -6.51683e-07, 0.2, 0, 5)
+
+[node name="ContainerShelf4" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-10, 0, -7.54979e-07, 0, 8, 0, 1.50996e-06, 0, -5, 8.25, 0, 9.8)
+
+[node name="ContainerShelf5" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-10, 0, -7.54979e-07, 0, 8, 0, 1.50996e-06, 0, -5, 13.75, 0, 9.8)
+
+[node name="ContainerShelf6" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 5, 16.5, 0, 0.176)
+
+[node name="ContainerShelf7" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 5, 11, 0, 0.176)
+
+[node name="ContainerShelf8" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-4.37114e-07, 0, -5, 0, 8, 0, 10, 0, -2.18557e-07, 19.75, 0, 4.5)
+
+[node name="3d button" parent="." instance=ExtResource("6_tewd6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.2531, 1.5, -12.7123)
+
+[node name="lamps" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)
+script = SubResource("GDScript_v0osh")
+
+[node name="ceiling lamp" parent="lamps" instance=ExtResource("6_dv3nw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3.35, 4.75)
+skeleton = NodePath("../..")
+
+[node name="ceiling lamp2" parent="lamps" instance=ExtResource("6_dv3nw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.35, 4.75)
+skeleton = NodePath("../..")
+
+[connection signal="toggled" from="3d button" to="lamps" method="_on_3d_button_toggled"]

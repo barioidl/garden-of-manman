@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cvqsnkankjt6b"]
+[gd_scene load_steps=16 format=3 uid="uid://cvqsnkankjt6b"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_fuygo"]
 [ext_resource type="ArrayMesh" uid="uid://vbacuigiwgcu" path="res://assets/borga map/room 3.obj" id="2_pgxss"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://8yu44mht2bro" path="res://scenes/3d scenes/facility/crates.tscn" id="8_4ppvp"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="9_sq0hu"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="10_ihixv"]
-[ext_resource type="PackedScene" uid="uid://bjyc0exh2hp4w" path="res://scenes/3d scenes/facility/bath_tub.tscn" id="11_q463w"]
 [ext_resource type="ArrayMesh" uid="uid://dw2n4y8hbqvv0" path="res://assets/factory/bear face.obj" id="12_p0ugo"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_iwi0e"]
@@ -43,7 +42,7 @@ mesh = ExtResource("2_pgxss")
 skeleton = NodePath("../../../../..")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16404, 1.12173, -25.2135)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.513162, 0.843912, -32.4593)
 modulate = Color(0, 0, 1, 1)
 billboard = 1
 texture_filter = 0
@@ -154,8 +153,5 @@ shape = SubResource("ConvexPolygonShape3D_4obnf")
 [node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D7"]
 mesh = ExtResource("12_p0ugo")
 skeleton = NodePath("../../../..")
-
-[node name="BathTub" parent="." instance=ExtResource("11_q463w")]
-transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -0.448146, 0, -24.562)
 
 [connection signal="toggled" from="3d button" to="decor" method="_on_3d_button_toggled"]

@@ -83,15 +83,15 @@ script = SubResource("GDScript_sh4ht")
 [node name="3d button" parent="." instance=ExtResource("8_t4yr8")]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 1.7122, 1.5, -19.6444)
 
-[node name="decor" type="Node3D" parent="."]
+[node name="lamps" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -23.5)
 script = SubResource("GDScript_bwksu")
 
-[node name="ceiling lamp" parent="decor" instance=ExtResource("9_6b4dp")]
+[node name="ceiling lamp" parent="lamps" instance=ExtResource("9_6b4dp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3.35, 4.75)
 skeleton = NodePath("../..")
 
-[node name="ceiling lamp2" parent="decor" instance=ExtResource("9_6b4dp")]
+[node name="ceiling lamp2" parent="lamps" instance=ExtResource("9_6b4dp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.35, 4.75)
 skeleton = NodePath("../..")
 
@@ -162,6 +162,6 @@ transform = Transform3D(0.0880772, 0, 0.996114, 0, 1, 0, -0.996114, 0, 0.0880772
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.56951, 0, -13.5351)
 mesh = ExtResource("18_cfj2v")
 
-[connection signal="toggled" from="3d button" to="decor" method="_on_3d_button_toggled"]
+[connection signal="toggled" from="3d button" to="lamps" method="_on_3d_button_toggled"]
 
 [editable path="HighLamp"]
