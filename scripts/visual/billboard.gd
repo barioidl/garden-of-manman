@@ -29,6 +29,9 @@ var axis_up:=axises.x
 var forward := Vector3.ONE 
 var prev_dir:=Vector3.ZERO
 
+func _ready() -> void:
+	pass
+
 func _enter_tree() -> void:
 	add_to_group(NL.billboard_sprites)
 	camera = get_viewport().get_camera_3d()
@@ -45,16 +48,14 @@ func _process(delta: float) -> void:
 	if !PerformanceCap.allow_billboard():	return
 	
 	var dir = camera.global_position - global_position
-	if dir.distance_squared_to(prev_dir) < 0.02:
-		return
-	prev_dir = dir
 	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
 	if dist_ratio > 1: return
-	forward = dir.normalized()
-	
-	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
-	
+	if dir.distance_squared_to(prev_dir) < 0.1 * dist_ratio:
+		return
+	prev_dir = dir
 	print('boop')
+	forward = dir.normalized()
+	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
 	select_sprite(delta)
 	rotate_sprite(delta)
 

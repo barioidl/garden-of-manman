@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=49 format=3 uid="uid://rl1fv4l3ai0l"]
 
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_gpyxi"]
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
 [ext_resource type="Script" path="res://scenes/3d scenes/consoles/camera layer.gd" id="7_njrme"]
 [ext_resource type="Texture2D" uid="uid://bn0omgmyn3hcu" path="res://assets/minimap0004.png" id="8_5ungq"]
+[ext_resource type="PackedScene" uid="uid://br0p4orfb2nmd" path="res://scenes/3d scenes/consoles/minimap_layer.tscn" id="10_kualx"]
 [ext_resource type="Texture2D" uid="uid://2o5vl6fu5bmk" path="res://assets/kenney/kenney_ui-pack/PNG/green_button00.png" id="11_lbuse"]
 [ext_resource type="Texture2D" uid="uid://5itacy7m0cws" path="res://assets/kenney/kenney_ui-pack/PNG/green_button01.png" id="12_1xcmf"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="14_fxc52"]
@@ -32,7 +33,7 @@ var root = self
 
 signal on_state_changed(state)
 enum states{off, selecting, watching}
-var state:=states.off
+@export var state:=states.off
 
 func _ready() -> void:
 	connect(NL.on_state_changed,set_mousemode)
@@ -263,13 +264,10 @@ func create_layer(_floor):
 	layer.name = _floor.name
 	layer.texture = _floor.minimap_texture
 	for camera in _floor.get_children():
-		var pos := reference_frame.to_local(camera.global_position)
+		var pos := reference_frame. to_local(camera.global_position)
 		var button :TextureButton= camera_button.instantiate()
 		layer.add_child(button)
-		button.anchor_left = pos.x
-		button.anchor_right = pos.x
-		button.anchor_top = pos.y
-		button.anchor_bottom = pos.y
+		button.position = Vector2(pos.x,pos.z) * layer.size
 		button.position -= button.pivot_offset
 "
 
@@ -389,6 +387,7 @@ func _print(line:String):
 [node name="camera console" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -51)
 script = SubResource("GDScript_a87ma")
+state = 1
 
 [node name="inputs" parent="." instance=ExtResource("1_gpyxi")]
 
@@ -495,35 +494,51 @@ script = SubResource("GDScript_dtqdo")
 [node name="minimaps" type="Control" parent="UI"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
-anchor_left = 0.5
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -200.0
 grow_horizontal = 0
-grow_vertical = 2
+grow_vertical = 0
 script = SubResource("GDScript_qyh21")
 
 [node name="layers container" type="TabContainer" parent="UI/minimaps" node_paths=PackedStringArray("reference_frame", "floor_container")]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -520.0
+offset_top = -560.0
+offset_right = -10.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(510, 554)
 theme = SubResource("Theme_5cl0h")
 script = SubResource("GDScript_cvw4c")
 reference_frame = NodePath("../../../reference frame")
 floor_container = NodePath("../../../floors")
 
+[node name="floor -1" parent="UI/minimaps/layers container" instance=ExtResource("10_kualx")]
+layout_mode = 2
+
 [node name="return button" type="TextureButton" parent="UI/minimaps" node_paths=PackedStringArray("console")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.25
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = -0.25
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -0.0400391
-offset_right = -0.0800171
+offset_left = -200.0
+offset_top = -55.0
+offset_right = -10.0
+offset_bottom = -6.0
+grow_horizontal = 0
 grow_vertical = 0
 texture_normal = ExtResource("11_lbuse")
 texture_pressed = ExtResource("12_1xcmf")
@@ -549,11 +564,11 @@ vertical_alignment = 1
 
 [node name="camera view" type="FlowContainer" parent="UI"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.99
+anchor_top = 0.99
+anchor_right = 0.99
+anchor_bottom = 0.99
 offset_left = -190.0
 offset_top = -261.0
 grow_horizontal = 0

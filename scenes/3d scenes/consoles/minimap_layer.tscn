@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://br0p4orfb2nmd"]
+[gd_scene load_steps=3 format=3 uid="uid://br0p4orfb2nmd"]
+
+[ext_resource type="Texture2D" uid="uid://bn0omgmyn3hcu" path="res://assets/minimap0004.png" id="1_3hyse"]
 
 [sub_resource type="GDScript" id="GDScript_rcjyj"]
 script/source = "extends TextureRect
@@ -9,11 +11,15 @@ func _enter_tree() -> void:
 "
 
 [node name="floor -1" type="TextureRect"]
-custom_minimum_size = Vector2(300, 300)
-anchors_preset = 15
-anchor_right = 1.0
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = -300.0
+offset_right = 300.0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_3hyse")
 stretch_mode = 5
 script = SubResource("GDScript_rcjyj")
