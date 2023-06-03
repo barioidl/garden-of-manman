@@ -1,29 +1,20 @@
 @tool
-extends SpriteBase3D
+extends Node3D
 class_name Billboard3d
 
-@export_category('material settings')
-@export var use_shade:=true
-@export var has_shadow:= true
-@export var alphacut:=SpriteBase3D.ALPHA_CUT_DISCARD
-@export var disable_dist:=30.0
-
-@export_category('billboard settings')
-enum bill_board_modes{bill_board,lock_y_axis,six_sides}
+enum bill_board_modes{bill_board, lock_y_axis, six_sides}
 @export var face_camera:=bill_board_modes.bill_board:
 	get:
 		return face_camera
 	set(value):
 		face_camera = value
-		set_face_axis()
 
+@export var disable_dist:=30.0
 @export var reference_frame:Node3D
-@onready var camera := get_viewport().get_camera_3d()
+var camera :Camera3D
 
-@export var select_cd_range:=Vector2(0.1,.5)
-@export var rotate_cd_range:=Vector2(0.05,0.25)
-var select_cd:=0.0
-var rotate_cd:=0.1
+@export var cd_range:=Vector2(0.02,0.5)
+var cooldown:=0.2
 
 @export var axis_ratio:=Vector3.ONE
 
@@ -33,75 +24,49 @@ signal sprite_changed()
 var current_side:=0
 enum axises{x,_x,y,_y,z,_z,local}
 var axis_forward:=axises.z
-var axis_up:=axises.y
+var axis_up:=axises.x
 
 var forward := Vector3.ONE 
-
-func _ready() -> void:
-	if NL.is_inside_tree():
-		add_to_group(NL.billboard_sprites)
-	set_up_sprite()
-	set_face_axis()
+var prev_dir:=Vector3.ZERO
 
 func _enter_tree() -> void:
+	add_to_group(NL.billboard_sprites)
 	camera = get_viewport().get_camera_3d()
 	if reference_frame == null:
 		reference_frame = get_parent()
 
-func set_up_sprite():
-	set_draw_flag(SpriteBase3D.FLAG_DOUBLE_SIDED, false)
-	texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-	shaded = use_shade
-	alpha_cut = alphacut
-	transparent = true
-	
-	if has_shadow:
-		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED
-	else:
-		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-
-func set_face_axis():
-	match face_camera:
-		bill_board_modes.bill_board:
-			axis = Vector3.AXIS_Z
-		bill_board_modes.lock_y_axis:
-			axis = Vector3.AXIS_Y
-		bill_board_modes.six_sides:
-			axis = Vector3.AXIS_Z
-
 func _process(delta: float) -> void:
 	if reference_frame == null: return
 	if camera == null:return
-	if !visible:return
+	
+	if cooldown > 0:
+		cooldown -= delta
+		return
+	if !PerformanceCap.allow_billboard():	return
 	
 	var dir = camera.global_position - global_position
-	
-	var cam_forward = camera.global_transform.basis.z
-	if cam_forward.dot(dir) < 0: return
-	
+	if dir.distance_squared_to(prev_dir) < 0.02:
+		return
+	prev_dir = dir
 	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
 	if dist_ratio > 1: return
 	forward = dir.normalized()
 	
-	select_sprite(delta,dist_ratio)
-	rotate_sprite(delta,dist_ratio)
+	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
+	
+	print('boop')
+	select_sprite(delta)
+	rotate_sprite(delta)
 
-func select_sprite(delta,dist_ratio):
-	if select_cd > 0:
-		select_cd -= delta
+var select_counter := 1
+func select_sprite(delta):
+	if select_counter > 0:
+		select_counter -= 1
 		return
-	if !PerformanceCap.allow_billboard_select():
-		return
-	select_cd = lerpf(select_cd_range.x, select_cd_range.y, dist_ratio)
+	select_counter = 3
 	choose_side()
 
-func rotate_sprite(delta,dist_ratio):
-	if rotate_cd > 0:
-		rotate_cd -= delta
-		return
-	if !PerformanceCap.allow_billboard_rotate():
-		return
-	rotate_cd = lerpf(rotate_cd_range.x, rotate_cd_range.y, dist_ratio)
+func rotate_sprite(delta):
 	match face_camera:
 		bill_board_modes.bill_board:
 			billboard_forward()

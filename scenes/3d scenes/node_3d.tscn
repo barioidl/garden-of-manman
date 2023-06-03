@@ -95,7 +95,6 @@ shape = SubResource("ConcavePolygonShape3D_gr585")
 navigation_mesh = SubResource("NavigationMesh_r78ed")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7504, 0, -40.5965)
 
 [node name="tutorials" type="Node3D" parent="."]

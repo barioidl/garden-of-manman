@@ -48,10 +48,8 @@ func get_spawnpoints():
 	placement_template.queue_free()
 
 func put_item_on_shelves():
-	var tween = create_tween()
 	for shelf in get_children():
-		tween.tween_callback(fill_shelf.bind(shelf))
-		tween.tween_interval(0.1)
+		fill_shelf(shelf)
 
 func fill_shelf(shelf):
 	var points_size = local_spawnpoints.size()

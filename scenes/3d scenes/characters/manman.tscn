@@ -360,9 +360,9 @@ alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("13_62xdx")
 script = ExtResource("14_o6648")
-sprites = SubResource("Resource_hd1to")
 has_shadow = false
-rotate_cd_range = Vector2(0.1, 5)
+sprites = SubResource("Resource_hd1to")
+cd_range = null
 
 [node name="hip" type="Node3D" parent="body/rig/body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

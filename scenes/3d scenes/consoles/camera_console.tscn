@@ -9,15 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
 [ext_resource type="Script" path="res://scenes/3d scenes/consoles/camera layer.gd" id="7_njrme"]
 [ext_resource type="Texture2D" uid="uid://bn0omgmyn3hcu" path="res://assets/minimap0004.png" id="8_5ungq"]
-[ext_resource type="Texture2D" uid="uid://dy8d8kd08wf5y" path="res://assets/kenney/kenney_ui-pack/PNG/green_button11.png" id="12_qlpju"]
-[ext_resource type="Texture2D" uid="uid://dqu8kim6qvskn" path="res://assets/kenney/kenney_ui-pack/PNG/green_button10.png" id="13_rjk7u"]
-[ext_resource type="Texture2D" uid="uid://bjdkpihewpqgv" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button07.png" id="14_77w03"]
+[ext_resource type="Texture2D" uid="uid://2o5vl6fu5bmk" path="res://assets/kenney/kenney_ui-pack/PNG/green_button00.png" id="11_lbuse"]
+[ext_resource type="Texture2D" uid="uid://5itacy7m0cws" path="res://assets/kenney/kenney_ui-pack/PNG/green_button01.png" id="12_1xcmf"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="14_fxc52"]
 [ext_resource type="AudioStream" uid="uid://bkqogr3dw3n2l" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/1.ogg" id="15_q4ngd"]
-[ext_resource type="Texture2D" uid="uid://1f3gel33ucnd" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button08.png" id="15_vs2hv"]
 [ext_resource type="AudioStream" uid="uid://doan1l0uckmll" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/2.ogg" id="16_mqeuq"]
 [ext_resource type="AudioStream" uid="uid://2pbpi4vlugu3" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/3.ogg" id="17_pp58v"]
+[ext_resource type="Texture2D" uid="uid://crfddtl2yns0u" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button00.png" id="18_8kfyj"]
 [ext_resource type="AudioStream" uid="uid://dbifl2frqkd0k" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/4.ogg" id="18_q5ebp"]
+[ext_resource type="Texture2D" uid="uid://b2dmrbnjwihv7" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button01.png" id="19_yxgk1"]
 
 [sub_resource type="GDScript" id="GDScript_a87ma"]
 script/source = "extends Node3D
@@ -143,7 +143,7 @@ points = PackedVector3Array(0.024852, 0.023572, -5.88633e-05, -0.024848, 0.02357
 
 [sub_resource type="Theme" id="Theme_rxedv"]
 default_font = SubResource("FontVariation_6a513")
-default_font_size = 14
+default_font_size = 24
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="GDScript" id="GDScript_dtqdo"]
@@ -262,12 +262,14 @@ func create_layer(_floor):
 	add_child(layer)
 	layer.name = _floor.name
 	layer.texture = _floor.minimap_texture
-	var min_size = layer.custom_minimum_size
 	for camera in _floor.get_children():
 		var pos := reference_frame.to_local(camera.global_position)
 		var button :TextureButton= camera_button.instantiate()
 		layer.add_child(button)
-		button.position = Vector2(pos.x,pos.z) * min_size
+		button.anchor_left = pos.x
+		button.anchor_right = pos.x
+		button.anchor_top = pos.y
+		button.anchor_bottom = pos.y
 		button.position -= button.pivot_offset
 "
 
@@ -479,44 +481,35 @@ gizmo_extents = 1.0
 
 [node name="UI" type="Control" parent="."]
 z_as_relative = false
+texture_filter = 1
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -305.0
-offset_top = -305.0
-offset_right = -5.0
-offset_bottom = -5.0
-grow_horizontal = 0
-grow_vertical = 0
-pivot_offset = Vector2(150, 150)
-theme = SubResource("Theme_rxedv")
-script = SubResource("GDScript_dtqdo")
-
-[node name="minimaps" type="Control" parent="UI"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_rxedv")
+script = SubResource("GDScript_dtqdo")
+
+[node name="minimaps" type="Control" parent="UI"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
 grow_vertical = 2
 script = SubResource("GDScript_qyh21")
 
 [node name="layers container" type="TabContainer" parent="UI/minimaps" node_paths=PackedStringArray("reference_frame", "floor_container")]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_5cl0h")
 script = SubResource("GDScript_cvw4c")
 reference_frame = NodePath("../../../reference frame")
@@ -524,25 +517,30 @@ floor_container = NodePath("../../../floors")
 
 [node name="return button" type="TextureButton" parent="UI/minimaps" node_paths=PackedStringArray("console")]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = -1
+anchor_left = -0.25
 anchor_top = 1.0
+anchor_right = -0.25
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -40.0
-offset_right = -1.0
-offset_bottom = 5.0
+offset_top = -0.0400391
+offset_right = -0.0800171
 grow_vertical = 0
-scale = Vector2(0.75, 0.75)
-texture_normal = ExtResource("13_rjk7u")
-texture_pressed = ExtResource("12_qlpju")
+texture_normal = ExtResource("11_lbuse")
+texture_pressed = ExtResource("12_1xcmf")
+stretch_mode = 0
 script = SubResource("GDScript_8pykj")
 console = NodePath("../../../console")
 
 [node name="Label" type="Label" parent="UI/minimaps/return button"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = -0.393
+anchor_top = -2.452
+anchor_bottom = 7.266
+offset_left = 74.67
+offset_top = 120.148
+offset_right = 190.0
+offset_bottom = -307.034
 grow_horizontal = 2
 grow_vertical = 2
 text = "return"
@@ -556,11 +554,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -100.0
+offset_left = -190.0
 offset_top = -261.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(0.75, 0.75)
 pivot_offset = Vector2(100, 260)
 alignment = 2
 script = SubResource("GDScript_ca8tx")
@@ -572,8 +569,8 @@ audio_3 = SubResource("Resource_vq7ff")
 [node name="option 0" type="TextureButton" parent="UI/camera view"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture_normal = ExtResource("14_77w03")
-texture_pressed = ExtResource("15_vs2hv")
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="UI/camera view/option 0"]
@@ -590,8 +587,8 @@ vertical_alignment = 1
 [node name="option 1" type="TextureButton" parent="UI/camera view"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture_normal = ExtResource("14_77w03")
-texture_pressed = ExtResource("15_vs2hv")
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="UI/camera view/option 1"]
@@ -608,8 +605,8 @@ vertical_alignment = 1
 [node name="option 2" type="TextureButton" parent="UI/camera view"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture_normal = ExtResource("14_77w03")
-texture_pressed = ExtResource("15_vs2hv")
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="UI/camera view/option 2"]
@@ -626,8 +623,8 @@ vertical_alignment = 1
 [node name="option 3" type="TextureButton" parent="UI/camera view"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture_normal = ExtResource("14_77w03")
-texture_pressed = ExtResource("15_vs2hv")
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="UI/camera view/option 3"]
@@ -643,8 +640,8 @@ vertical_alignment = 1
 
 [node name="return button" type="TextureButton" parent="UI/camera view"]
 layout_mode = 2
-texture_normal = ExtResource("13_rjk7u")
-texture_pressed = ExtResource("12_qlpju")
+texture_normal = ExtResource("11_lbuse")
+texture_pressed = ExtResource("12_1xcmf")
 script = SubResource("GDScript_0r5ds")
 
 [node name="Label" type="Label" parent="UI/camera view/return button"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://cwjjqyorvakym"]
+[gd_scene load_steps=104 format=3 uid="uid://cwjjqyorvakym"]
 
 [ext_resource type="Texture2D" uid="uid://bl824tvr05ine" path="res://assets/kenney/kenney_ui-pack/PNG/grey_button00.png" id="2_3ahfj"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_bfr04"]
@@ -33,6 +33,7 @@
 [ext_resource type="AudioStream" uid="uid://tmc8efse5bxq" path="res://assets/audio/kenney_ui-audio/Audio/switch6.ogg" id="13_7qo6n"]
 [ext_resource type="Texture2D" uid="uid://dy8d8kd08wf5y" path="res://assets/kenney/kenney_ui-pack/PNG/green_button11.png" id="13_hsqbb"]
 [ext_resource type="AudioStream" uid="uid://dcurhapoes262" path="res://assets/audio/kenney_ui-audio/Audio/switch7.ogg" id="14_luetl"]
+[ext_resource type="Texture2D" uid="uid://tklgf0b20ggn" path="res://assets/Textures/birdup leg0001.png" id="15_gp7rv"]
 [ext_resource type="AudioStream" uid="uid://beckqidnu8r0c" path="res://assets/audio/kenney_ui-audio/Audio/switch8.ogg" id="15_ydxs8"]
 [ext_resource type="AudioStream" uid="uid://b3m2fur6ut28s" path="res://assets/audio/kenney_ui-audio/Audio/switch9.ogg" id="16_g325f"]
 [ext_resource type="AudioStream" uid="uid://bysyj6wa0fieu" path="res://assets/audio/kenney_ui-audio/Audio/switch10.ogg" id="17_tc4j1"]
@@ -75,7 +76,7 @@
 
 [sub_resource type="Theme" id="Theme_7t2kr"]
 default_font = SubResource("FontVariation_6xpj3")
-default_font_size = 20
+default_font_size = 24
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="GDScript" id="GDScript_5kh0j"]
@@ -1093,6 +1094,7 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7t2kr")
@@ -1101,20 +1103,16 @@ script = SubResource("GDScript_5kh0j")
 [node name="main page" type="BoxContainer" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 100.0
-offset_right = 94.0
-offset_bottom = 240.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.3
+anchor_right = 0.6
+anchor_bottom = 0.99
 
 [node name="NinePatchRect" type="NinePatchRect" parent="main page"]
-custom_minimum_size = Vector2(220, 500)
+custom_minimum_size = Vector2(200, 500)
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("2_whvft")
 patch_margin_left = 20
 patch_margin_top = 20
@@ -1125,18 +1123,12 @@ axis_stretch_vertical = 1
 
 [node name="VBoxContainer" type="BoxContainer" parent="main page/NinePatchRect"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -95.0
-offset_top = -77.5
-offset_right = 95.0
-offset_bottom = 77.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 2
+alignment = 1
 vertical = true
 
 [node name="start" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
@@ -1351,8 +1343,10 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="asset list" type="NinePatchRect" parent="main page"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
 texture = ExtResource("5_7ouj8")
 patch_margin_left = 10
 patch_margin_top = 10
@@ -1396,7 +1390,6 @@ Interface Sounds (1.0) by Kenney (www.kenney.nl)
 “Additional sound effects from https://www.zapsplat.com“"
 
 [node name="Gameplay" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1405,12 +1398,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Display stats" type="BoxContainer" parent="Gameplay"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 205.0
-offset_bottom = 25.0
-scale = Vector2(0.5, 0.5)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.2
+anchor_bottom = 0.2
+offset_left = 5.2
+offset_top = 4.8
 vertical = true
 script = SubResource("GDScript_moe80")
 duration = 5.0
@@ -1515,6 +1511,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="thirst" type="TextureProgressBar" parent="Gameplay/Display stats"]
+visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
@@ -1566,52 +1563,41 @@ vertical_alignment = 1
 
 [node name="cursor" type="TextureRect" parent="Gameplay"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -36.0
-offset_right = 36.0
-offset_bottom = 36.0
+anchors_preset = -1
+anchor_left = 0.49
+anchor_top = 0.49
+anchor_right = 0.51
+anchor_bottom = 0.51
+offset_left = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(36, 36)
 texture = ExtResource("3_i7e3p")
+stretch_mode = 5
 
 [node name="chat_box" type="BoxContainer" parent="Gameplay"]
-custom_minimum_size = Vector2(400, 250)
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -260.0
-offset_right = 410.0
-offset_bottom = -10.0
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.5
+anchor_right = 0.3
+anchor_bottom = 0.99
 grow_vertical = 0
-scale = Vector2(0.6, 0.6)
-pivot_offset = Vector2(0, 250)
 alignment = 2
 vertical = true
 script = SubResource("GDScript_s874g")
 
 [node name="image content" type="TextureRect" parent="Gameplay"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.1
+anchor_right = 0.7
+anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(150, 150)
+texture = ExtResource("15_gp7rv")
 stretch_mode = 5
 script = SubResource("GDScript_nevrt")
 
@@ -1619,13 +1605,15 @@ script = SubResource("GDScript_nevrt")
 visible = false
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -100.0
-offset_right = 210.0
-offset_bottom = 100.0
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.4
+anchor_right = 0.2
+anchor_bottom = 0.7
+offset_left = 0.200001
+offset_top = -25.0
+offset_right = 81.0
+offset_bottom = 47.0
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
 pivot_offset = Vector2(0, 100)
@@ -1638,10 +1626,11 @@ script = SubResource("GDScript_elmo7")
 
 [node name="List" type="BoxContainer" parent="Pause"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -16.0
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.03
+anchor_right = 0.97
+anchor_bottom = 0.97
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
@@ -1649,20 +1638,20 @@ vertical = true
 
 [node name="Paused" type="Label" parent="Pause/List"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Paused"
 horizontal_alignment = 1
-vertical_alignment = 2
+vertical_alignment = 1
 
 [node name="continue" type="TextureButton" parent="Pause/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-stretch_mode = 4
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Pause/List/continue"]
 layout_mode = 1
@@ -1677,14 +1666,13 @@ vertical_alignment = 1
 
 [node name="settings" type="TextureButton" parent="Pause/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-stretch_mode = 4
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Pause/List/settings"]
 layout_mode = 1
@@ -1699,14 +1687,13 @@ vertical_alignment = 1
 
 [node name="exit" type="TextureButton" parent="Pause/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-stretch_mode = 4
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Pause/List/exit"]
 layout_mode = 1
@@ -1720,31 +1707,31 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
+visible = false
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -20.0
-offset_right = 10.0
-offset_bottom = -20.0
+anchor_left = 0.02
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_bottom = -3.05176e-05
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="TabContainer" type="TabContainer" parent="Settings"]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -184.0
-offset_right = 313.0
-offset_bottom = 186.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.00003
+offset_right = -24.2
+offset_bottom = 3.00003
+grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(0, 185)
 theme = SubResource("Theme_njgrs")
 
 [node name="Control" type="BoxContainer" parent="Settings/TabContainer"]
-visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_tlnk4")
@@ -1783,22 +1770,22 @@ text = "Invert Y:"
 
 [node name="keybind" type="ScrollContainer" parent="Settings/TabContainer"]
 visible = false
-custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/TabContainer/keybind"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = SubResource("GDScript_6c6nf")
 
 [node name="key" type="TextureButton" parent="Settings/TabContainer/keybind/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Settings/TabContainer/keybind/VBoxContainer/key"]
 layout_mode = 1
@@ -1816,6 +1803,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Audio" type="BoxContainer" parent="Settings/TabContainer"]
+visible = false
 layout_mode = 2
 vertical = true
 script = SubResource("GDScript_j6o1j")
@@ -1946,12 +1934,11 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = -80.0
+offset_top = -75.0
 offset_right = 100.0
-offset_bottom = 70.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(100, 75)
 texture = ExtResource("4_8musn")
 patch_margin_left = 20
@@ -1965,6 +1952,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -1972,13 +1963,14 @@ vertical = true
 
 [node name="texr" type="Label" parent="Game over/List"]
 layout_mode = 2
+size_flags_vertical = 2
 text = "Game over"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="restart" type="TextureButton" parent="Game over/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 2
 toggle_mode = true
 texture_normal = ExtResource("10_s564t")
 texture_pressed = ExtResource("11_i8xw5")
@@ -1997,8 +1989,7 @@ vertical_alignment = 1
 
 [node name="exit" type="TextureButton" parent="Game over/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 2
 toggle_mode = true
 texture_normal = ExtResource("10_s564t")
 texture_pressed = ExtResource("11_i8xw5")
@@ -2017,62 +2008,59 @@ vertical_alignment = 1
 
 [node name="Exit" type="NinePatchRect" parent="."]
 visible = false
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -80.0
-offset_right = 210.0
-offset_bottom = 70.0
+anchors_preset = -1
+anchor_left = 0.0078125
+anchor_top = 0.4
+anchor_right = 0.2
+anchor_bottom = 0.65
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(0, 75)
 texture = ExtResource("4_8musn")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
 patch_margin_bottom = 20
 script = SubResource("GDScript_ulijc")
+metadata/_edit_use_anchors_ = true
 
 [node name="List" type="BoxContainer" parent="Exit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 vertical = true
 
 [node name="continue" type="Label" parent="Exit/List"]
-custom_minimum_size = Vector2(200, 25)
 layout_mode = 2
+size_flags_vertical = 3
 text = "Exit game?"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="no" type="TextureButton" parent="Exit/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Exit/List/no"]
 layout_direction = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -11.5
-offset_top = -10.5
-offset_right = 11.5
-offset_bottom = 10.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "no"
@@ -2081,25 +2069,19 @@ vertical_alignment = 1
 
 [node name="yes" type="TextureButton" parent="Exit/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Exit/List/yes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.0
-offset_top = -10.5
-offset_right = 17.0
-offset_bottom = 10.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "yes"

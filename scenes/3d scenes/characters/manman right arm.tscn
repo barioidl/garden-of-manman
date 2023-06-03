@@ -88,9 +88,10 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("1_uqr12")
+texture = ExtResource("3_p01qj")
 script = ExtResource("2_sc85m")
 sprites = SubResource("Resource_bsjuk")
+cd_range = null
 axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Node3D" type="Marker3D" parent="."]
@@ -104,9 +105,10 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("9_jb6qy")
+texture = ExtResource("10_ocme5")
 script = ExtResource("2_sc85m")
 sprites = SubResource("Resource_iybxd")
+cd_range = null
 axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="Node3D2" type="Marker3D" parent="."]
@@ -120,9 +122,10 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("15_qaai4")
+texture = ExtResource("16_pt6ny")
 script = ExtResource("2_sc85m")
 sprites = SubResource("Resource_hm21w")
+cd_range = null
 axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="ik target" type="Marker3D" parent="."]
@@ -149,9 +152,10 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("21_3jamw")
+texture = ExtResource("22_0h2n5")
 script = ExtResource("2_sc85m")
 sprites = SubResource("Resource_j48bk")
+cd_range = null
 axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="elbow" type="Marker3D" parent="arm" node_paths=PackedStringArray("target")]
@@ -176,9 +180,10 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("27_yung1")
+texture = ExtResource("28_3i0i4")
 script = ExtResource("2_sc85m")
 sprites = SubResource("Resource_g0skq")
+cd_range = null
 axis_ratio = Vector3(1, 0.5, 1)
 
 [node name="wrist" type="Marker3D" parent="arm/elbow"]
@@ -197,9 +202,10 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("33_jbc7e")
+texture = ExtResource("34_umre4")
 script = ExtResource("2_sc85m")
 sprites = SubResource("Resource_go6np")
+cd_range = null
 axis_ratio = Vector3(1, 0.8, 1)
 
 [node name="hand" type="Marker3D" parent="arm/elbow/wrist" node_paths=PackedStringArray("target")]

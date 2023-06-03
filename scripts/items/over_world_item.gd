@@ -80,10 +80,12 @@ var gravity: Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var time :=0.0
 func item_physics():
-	if !is_in_overworld: 
-		if holder != null:
-			global_position = holder.hand.global_position
+	if is_in_overworld: 
 		return
+	if holder == null:
+		return
+	global_position = holder.hand.global_position
+
 
 func toggle_physics():
 	var lock_axis = !is_in_overworld

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bdgds7brwefq3"]
 
-[ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="1_s7q7d"]
+[ext_resource type="Texture2D" uid="uid://c2cwehjcfpeba" path="res://assets/Textures/camera0003.png" id="1_2r6ng"]
 
 [sub_resource type="GDScript" id="GDScript_4qeti"]
 script/source = "extends TextureButton
@@ -28,18 +28,21 @@ func _print(line:String):
 "
 
 [node name="camera button" type="TextureButton"]
-anchors_preset = 8
+texture_filter = 1
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -180.0
-offset_right = -272.0
-offset_bottom = -132.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(24, 24)
-texture_normal = ExtResource("1_s7q7d")
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(8, 8)
+texture_normal = ExtResource("1_2r6ng")
+ignore_texture_size = true
+stretch_mode = 3
 script = SubResource("GDScript_4qeti")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwmt7cpk5otdo"]
+[gd_scene load_steps=15 format=3 uid="uid://cwmt7cpk5otdo"]
 
 [ext_resource type="Script" path="res://scripts/modules/player.gd" id="1_7xksl"]
 
@@ -8,6 +8,17 @@ dof_blur_far_distance = 30.0
 dof_blur_far_transition = 30.0
 dof_blur_near_distance = 1.0
 dof_blur_near_transition = 2.0
+
+[sub_resource type="GDScript" id="GDScript_wut8v"]
+script/source = "extends Camera3D
+
+var transform_changed := false
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		transform_changed = true
+func _process(delta: float) -> void:
+	transform_changed = false
+"
 
 [sub_resource type="Shader" id="Shader_w3bbv"]
 code = "shader_type spatial;
@@ -583,11 +594,14 @@ shader_parameter/min_distance = 2.0
 flip_faces = true
 orientation = 2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iltyg"]
-size = Vector3(1, 1, 30)
+[sub_resource type="BoxShape3D" id="BoxShape3D_jwcje"]
+size = Vector3(6, 6, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wwdhl"]
 size = Vector3(20, 13, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iltyg"]
+size = Vector3(8, 8, 8)
 
 [node name="Player" type="Node3D"]
 transform = Transform3D(0.999997, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 0, 0)
@@ -602,6 +616,7 @@ fov = 90.0
 size = 0.1
 near = 0.1
 far = 50.0
+script = SubResource("GDScript_wut8v")
 
 [node name="outline toon shader" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.5)
@@ -623,10 +638,14 @@ mesh = SubResource("PlaneMesh_gxwb1")
 collision_layer = 128
 collision_mask = 0
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
-shape = SubResource("BoxShape3D_iltyg")
+[node name="1" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+shape = SubResource("BoxShape3D_jwcje")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+[node name="2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.5)
 shape = SubResource("BoxShape3D_wwdhl")
+
+[node name="3" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26)
+shape = SubResource("BoxShape3D_iltyg")

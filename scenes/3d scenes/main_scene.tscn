@@ -51,10 +51,7 @@
 script/source = "extends Node3D
 
 func _ready() -> void:
-	pass 
-
-func _process(delta: float) -> void:
-	pass
+	Hud.change_state(Hud.states.gameplay) 
 "
 
 [sub_resource type="Environment" id="Environment_pe2si"]
@@ -87,19 +84,22 @@ func _process(delta: float) -> void:
 		cd -= delta
 		return
 	cd = cd_duration
+	
+	var pos := Vector3(0,0,disable_range * 0.3)
+	pos = PlayerInputs.to_global(pos)
+	
+	var disable_dist = disable_range * disable_range
+	var disabled = Node.PROCESS_MODE_DISABLED
+	var inherit = Node.PROCESS_MODE_INHERIT
 	for child in get_children():
-		toggle(child)
+		var dist = child.global_position.distance_squared_to(pos)
+		if dist > disable_dist:
+			child.visible = false
+			child.process_mode = disabled
+		else:
+			child.visible = true
+			child.process_mode = inherit
 
-func toggle(root):
-	var pos = PlayerInputs.global_position
-	var distsq = root.global_position.distance_to(pos)
-	if distsq > disable_range:
-		root.visible = false
-		root.process_mode = Node.PROCESS_MODE_DISABLED
-		return
-	else:
-		root.visible = true
-		root.process_mode = Node.PROCESS_MODE_INHERIT
 "
 
 [sub_resource type="GDScript" id="GDScript_6wonm"]
@@ -223,8 +223,7 @@ environment = SubResource("Environment_pe2si")
 [node name="characters" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = SubResource("GDScript_vmftm")
 player = NodePath("timmy")
-disable_range = 30
-cd_duration = 2.0
+disable_range = 25
 
 [node name="pumped up bird" parent="characters" instance=ExtResource("7_jdoo3")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.88124, 1.77417, -36.7823)
@@ -248,8 +247,11 @@ top_level = true
 script = SubResource("GDScript_6wonm")
 target = NodePath("..")
 
+[node name="attach player control" type="Node" parent="characters/mommy long"]
+script = ExtResource("5_bmfmr")
+
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.504, 0, -20.0553)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.07752, 0.183545, -15.2981)
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
 
@@ -261,9 +263,6 @@ fixed_size = true
 text = "Press H to 
 use elevator"
 script = SubResource("GDScript_d5dec")
-
-[node name="attach player control" type="Node" parent="characters/timmy"]
-script = ExtResource("5_bmfmr")
 
 [node name="map" type="Node3D" parent="."]
 
