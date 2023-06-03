@@ -26,8 +26,8 @@ func attach_to(_character:Node3D):
 		Interface.reset_inputs(character)
 	character = _character
 	character.add_to_group(NL.player)
-	input = character.get_node('inputs')
-	head = character.get_node('body/head')
+	input = character.get_node_or_null('inputs')
+	head = character.get_node_or_null('body/head')
 
 var dt:=0.0
 func _process(delta: float) -> void:

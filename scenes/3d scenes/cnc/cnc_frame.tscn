@@ -5,34 +5,34 @@
 [ext_resource type="ArrayMesh" uid="uid://dlbhaiqrl7r5y" path="res://assets/cnc/linear rail.obj" id="3_fqmua"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aevvt"]
-size = Vector3(0.4, 1, 10)
+size = Vector3(0.4, 0.7, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_avwv0"]
 albedo_color = Color(1, 0.458824, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_h70hq"]
-size = Vector3(0.1, 1, 10)
+size = Vector3(0.1, 0.7, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_121dl"]
 albedo_color = Color(0.0941176, 0.501961, 0.741176, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_l3f8k"]
-size = Vector3(0.75, 0.85, 0.4)
+size = Vector3(0.75, 0.65, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_djofc"]
-size = Vector3(0.3, 1, 1)
+size = Vector3(0.3, 0.7, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00330"]
 albedo_color = Color(1, 0.458824, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pfmq2"]
-size = Vector3(0.1, 1, 1)
+size = Vector3(0.1, 0.7, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_a8aqe"]
 size = Vector3(0.25, 0.3, 0.9)
 
 [node name="CNC machine" type="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 2.7, -34.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 2.8, -34.5)
 
 [node name="LinearRail" parent="." instance=ExtResource("1_evdb6")]
 
@@ -44,13 +44,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4.75)
 shape = SubResource("BoxShape3D_aevvt")
 
 [node name="LinearRail" type="MeshInstance3D" parent="x slider"]
-transform = Transform3D(4.37114e-08, 1, 1.43446e-06, 1, -4.37114e-08, 0, 6.60024e-15, 1.50996e-07, -9.5, -0.1, 0.3, -4.75)
+transform = Transform3D(4.37114e-08, 1, 1.43446e-06, 1, -4.37114e-08, 0, 6.60024e-15, 1.50996e-07, -9.5, -0.1, 0.2, -4.75)
 material_override = ExtResource("2_1sr4s")
 mesh = ExtResource("3_fqmua")
 skeleton = NodePath("../../..")
 
 [node name="LinearRail2" type="MeshInstance3D" parent="x slider"]
-transform = Transform3D(4.37114e-08, 1, 1.43446e-06, 1, -4.37114e-08, 0, 6.60024e-15, 1.50996e-07, -9.5, -0.1, -0.3, -4.75)
+transform = Transform3D(4.37114e-08, 1, 1.43446e-06, 1, -4.37114e-08, 0, 6.60024e-15, 1.50996e-07, -9.5, -0.1, -0.2, -4.75)
 material_override = ExtResource("2_1sr4s")
 mesh = ExtResource("3_fqmua")
 skeleton = NodePath("../../..")
@@ -80,11 +80,11 @@ material_override = SubResource("StandardMaterial3D_00330")
 mesh = SubResource("BoxMesh_pfmq2")
 
 [node name="bearing" type="MeshInstance3D" parent="y slider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, 0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, 0.2, 0)
 material_override = SubResource("StandardMaterial3D_121dl")
 mesh = SubResource("BoxMesh_a8aqe")
 
 [node name="bearing2" type="MeshInstance3D" parent="y slider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, -0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, -0.2, 0)
 material_override = SubResource("StandardMaterial3D_121dl")
 mesh = SubResource("BoxMesh_a8aqe")

@@ -40,7 +40,7 @@ func get_action_planner()->GOAPPlanner:
 	return planner_action
 
 
-var mutation_amount:=0.01
+var mutation_amount:=0.05
 var all_mutations := {}
 var mutations_path := "user://mutations.json"
 func save_mutations(data:Dictionary):
@@ -65,9 +65,9 @@ func load_mutations(name:StringName)->Dictionary:
 	all_mutations[name].score *= 0.5
 	
 	var weights = all_mutations[name].weights
-	for key in weights.keys():
+	for i in weights.size():
 		var delta = randf_range(-1,1) * mutation_amount
-		weights[key] = clampf(weights[key]+delta,0,1)
+		weights[i] = clampf(weights[i]+delta,0,1)
 	
 	return all_mutations[name]
 

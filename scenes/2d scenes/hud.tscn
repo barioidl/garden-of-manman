@@ -1,76 +1,29 @@
-[gd_scene load_steps=104 format=3 uid="uid://cwjjqyorvakym"]
+[gd_scene load_steps=54 format=3 uid="uid://cwjjqyorvakym"]
 
 [ext_resource type="Texture2D" uid="uid://bl824tvr05ine" path="res://assets/kenney/kenney_ui-pack/PNG/grey_button00.png" id="2_3ahfj"]
-[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_bfr04"]
 [ext_resource type="Texture2D" uid="uid://dqu8kim6qvskn" path="res://assets/kenney/kenney_ui-pack/PNG/green_button10.png" id="2_whvft"]
 [ext_resource type="Texture2D" uid="uid://dap1733rrkqyw" path="res://assets/kenney/kenney_ui-pack/PNG/grey_crossGrey.png" id="3_i7e3p"]
-[ext_resource type="AudioStream" uid="uid://dxa3kdb7d7ugm" path="res://assets/audio/kenney_ui-audio/Audio/click1.ogg" id="3_uh4a2"]
 [ext_resource type="Texture2D" uid="uid://cionnh1nd384b" path="res://assets/kenney/kenney_ui-pack/PNG/red_button01.png" id="3_y0kql"]
 [ext_resource type="Texture2D" uid="uid://cedj0ci5h3d0a" path="res://assets/kenney/kenney_ui-pack/PNG/green_panel.png" id="4_8musn"]
 [ext_resource type="Texture2D" uid="uid://dm8x6bce6cfm2" path="res://assets/kenney/kenney_ui-pack/PNG/red_button00.png" id="4_qnttq"]
-[ext_resource type="AudioStream" uid="uid://bpleif45g7nqw" path="res://assets/audio/kenney_ui-audio/Audio/click2.ogg" id="4_s6o33"]
 [ext_resource type="Texture2D" uid="uid://crfddtl2yns0u" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button00.png" id="5_5mmy2"]
 [ext_resource type="Texture2D" uid="uid://dhahnnjppku2s" path="res://assets/kenney/kenney_ui-pack/PNG/red_button07.png" id="5_7ouj8"]
-[ext_resource type="AudioStream" uid="uid://bxmjgnnwj44k6" path="res://assets/audio/kenney_ui-audio/Audio/click3.ogg" id="5_gbxee"]
-[ext_resource type="AudioStream" uid="uid://bonwo33lxday8" path="res://assets/audio/kenney_ui-audio/Audio/click4.ogg" id="6_n1leb"]
 [ext_resource type="Texture2D" uid="uid://b2dmrbnjwihv7" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button01.png" id="6_wtw1i"]
 [ext_resource type="Texture2D" uid="uid://clhpbxksikdkm" path="res://assets/kenney/kenney_ui-pack/PNG/red_button13.png" id="7_pjynr"]
-[ext_resource type="AudioStream" uid="uid://wx1kk88shqtw" path="res://assets/audio/kenney_ui-audio/Audio/click5.ogg" id="7_qclgw"]
 [ext_resource type="Texture2D" uid="uid://duacvj3v7702f" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button02.png" id="7_ylyai"]
-[ext_resource type="AudioStream" uid="uid://cowcj26nn10kk" path="res://assets/audio/kenney_ui-audio/Audio/switch1.ogg" id="8_jvp7b"]
 [ext_resource type="Texture2D" uid="uid://dgc76cx6utdtb" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button03.png" id="8_tdxnv"]
 [ext_resource type="Texture2D" uid="uid://b14x3g2cjdl" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button04.png" id="9_3n0b5"]
-[ext_resource type="AudioStream" uid="uid://c2u51bnc0pxtb" path="res://assets/audio/kenney_ui-audio/Audio/switch2.ogg" id="9_udjct"]
-[ext_resource type="AudioStream" uid="uid://dk7mjjhwjpfrc" path="res://assets/audio/kenney_ui-audio/Audio/switch3.ogg" id="10_jygyq"]
 [ext_resource type="Texture2D" uid="uid://b77dwdec5wg3q" path="res://assets/kenney/kenney_ui-pack/PNG/red_button02.png" id="10_s564t"]
 [ext_resource type="Texture2D" uid="uid://bi7nnx78xrt1j" path="res://assets/kenney/kenney_ui-pack/PNG/red_button09.png" id="10_x3v8o"]
-[ext_resource type="AudioStream" uid="uid://cbqcmde5jwqpe" path="res://assets/audio/kenney_ui-audio/Audio/switch4.ogg" id="11_8wsct"]
 [ext_resource type="Texture2D" uid="uid://dhkpae8nx4ufc" path="res://assets/kenney/kenney_ui-pack/PNG/red_button11.png" id="11_i8xw5"]
 [ext_resource type="Texture2D" uid="uid://yqet5cwa7oud" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button05.png" id="11_juupq"]
 [ext_resource type="Texture2D" uid="uid://dcyc0i6l00vjp" path="res://assets/kenney/kenney_ui-pack/PNG/red_button12.png" id="12_asujs"]
 [ext_resource type="Texture2D" uid="uid://bxla7ujm52rqv" path="res://assets/kenney/kenney_ui-pack/PNG/green_button12.png" id="12_bexpq"]
-[ext_resource type="AudioStream" uid="uid://dk2bcq87hngvw" path="res://assets/audio/kenney_ui-audio/Audio/switch5.ogg" id="12_l7rcj"]
-[ext_resource type="AudioStream" uid="uid://tmc8efse5bxq" path="res://assets/audio/kenney_ui-audio/Audio/switch6.ogg" id="13_7qo6n"]
 [ext_resource type="Texture2D" uid="uid://dy8d8kd08wf5y" path="res://assets/kenney/kenney_ui-pack/PNG/green_button11.png" id="13_hsqbb"]
-[ext_resource type="AudioStream" uid="uid://dcurhapoes262" path="res://assets/audio/kenney_ui-audio/Audio/switch7.ogg" id="14_luetl"]
 [ext_resource type="Texture2D" uid="uid://tklgf0b20ggn" path="res://assets/Textures/birdup leg0001.png" id="15_gp7rv"]
-[ext_resource type="AudioStream" uid="uid://beckqidnu8r0c" path="res://assets/audio/kenney_ui-audio/Audio/switch8.ogg" id="15_ydxs8"]
-[ext_resource type="AudioStream" uid="uid://b3m2fur6ut28s" path="res://assets/audio/kenney_ui-audio/Audio/switch9.ogg" id="16_g325f"]
-[ext_resource type="AudioStream" uid="uid://bysyj6wa0fieu" path="res://assets/audio/kenney_ui-audio/Audio/switch10.ogg" id="17_tc4j1"]
-[ext_resource type="AudioStream" uid="uid://7gpoth4mw7hl" path="res://assets/audio/kenney_ui-audio/Audio/switch11.ogg" id="18_k27rk"]
-[ext_resource type="AudioStream" uid="uid://d4isnagb1ec1o" path="res://assets/audio/kenney_ui-audio/Audio/switch12.ogg" id="19_75t5p"]
-[ext_resource type="AudioStream" uid="uid://18aw316v2ekm" path="res://assets/audio/kenney_ui-audio/Audio/switch13.ogg" id="20_l78bs"]
-[ext_resource type="AudioStream" uid="uid://dd8et1lqibta" path="res://assets/audio/kenney_ui-audio/Audio/switch14.ogg" id="21_4a7qx"]
-[ext_resource type="AudioStream" uid="uid://hkrr0xbsy4r6" path="res://assets/audio/kenney_ui-audio/Audio/switch15.ogg" id="22_8qqqc"]
-[ext_resource type="AudioStream" uid="uid://dkqch65h6eokt" path="res://assets/audio/kenney_ui-audio/Audio/switch16.ogg" id="23_vj74o"]
-[ext_resource type="AudioStream" uid="uid://do34lkwp7x55r" path="res://assets/audio/kenney_ui-audio/Audio/switch17.ogg" id="24_c370f"]
-[ext_resource type="AudioStream" uid="uid://2r1o4i0g4lsj" path="res://assets/audio/kenney_ui-audio/Audio/switch18.ogg" id="25_0hl1y"]
-[ext_resource type="AudioStream" uid="uid://ck10oi5myfkur" path="res://assets/audio/kenney_ui-audio/Audio/switch19.ogg" id="26_4v6gu"]
-[ext_resource type="AudioStream" uid="uid://h5j2ol1hsyg2" path="res://assets/audio/kenney_ui-audio/Audio/switch20.ogg" id="27_5xbfe"]
-[ext_resource type="AudioStream" uid="uid://b1nudoqam3kxl" path="res://assets/audio/kenney_ui-audio/Audio/switch21.ogg" id="28_wotwd"]
-[ext_resource type="AudioStream" uid="uid://dw25cbxq735xx" path="res://assets/audio/kenney_ui-audio/Audio/switch22.ogg" id="29_jux6y"]
-[ext_resource type="AudioStream" uid="uid://c06eewodtbnje" path="res://assets/audio/kenney_ui-audio/Audio/switch23.ogg" id="30_k2da2"]
-[ext_resource type="AudioStream" uid="uid://buoi7tqsx57vx" path="res://assets/audio/kenney_ui-audio/Audio/switch24.ogg" id="31_i1r68"]
-[ext_resource type="AudioStream" uid="uid://bgo1abru0osi6" path="res://assets/audio/kenney_ui-audio/Audio/switch25.ogg" id="32_0eafr"]
-[ext_resource type="AudioStream" uid="uid://cadr270jahx8n" path="res://assets/audio/kenney_ui-audio/Audio/switch26.ogg" id="33_4mc8t"]
-[ext_resource type="AudioStream" uid="uid://c2esxvwvvdxka" path="res://assets/audio/kenney_ui-audio/Audio/switch27.ogg" id="34_hadae"]
-[ext_resource type="AudioStream" uid="uid://8uairjkwhqwu" path="res://assets/audio/kenney_ui-audio/Audio/switch28.ogg" id="35_7vus6"]
-[ext_resource type="AudioStream" uid="uid://dteskmgpnn0ca" path="res://assets/audio/kenney_ui-audio/Audio/switch29.ogg" id="36_5keqm"]
-[ext_resource type="AudioStream" uid="uid://be8imc8k1lx4v" path="res://assets/audio/kenney_ui-audio/Audio/switch30.ogg" id="37_3as28"]
-[ext_resource type="AudioStream" uid="uid://btjsl8v1vfsr5" path="res://assets/audio/kenney_ui-audio/Audio/switch31.ogg" id="38_vmj16"]
-[ext_resource type="AudioStream" uid="uid://b4vgw56vf301u" path="res://assets/audio/kenney_ui-audio/Audio/switch32.ogg" id="39_jiqi7"]
-[ext_resource type="AudioStream" uid="uid://dmfmjlinqd62i" path="res://assets/audio/kenney_ui-audio/Audio/switch33.ogg" id="40_mr8ks"]
-[ext_resource type="AudioStream" uid="uid://cwn505tgwkp0" path="res://assets/audio/kenney_ui-audio/Audio/switch34.ogg" id="41_1i2o5"]
-[ext_resource type="AudioStream" uid="uid://dsx6edlpclscg" path="res://assets/audio/kenney_ui-audio/Audio/switch35.ogg" id="42_5bphs"]
-[ext_resource type="AudioStream" uid="uid://btbuhftrvtspa" path="res://assets/audio/kenney_ui-audio/Audio/switch36.ogg" id="43_nsshm"]
-[ext_resource type="AudioStream" uid="uid://dhsaknua30l6" path="res://assets/audio/kenney_ui-audio/Audio/switch37.ogg" id="44_udgke"]
-[ext_resource type="AudioStream" uid="uid://c3nwvwcgmuob7" path="res://assets/audio/kenney_ui-audio/Audio/switch38.ogg" id="45_nsyay"]
-[ext_resource type="AudioStream" uid="uid://dw4liyuhepn4g" path="res://assets/audio/kenney_ui-audio/Audio/rollover1.ogg" id="46_60wcd"]
-[ext_resource type="AudioStream" uid="uid://dghcgjir7h5dm" path="res://assets/audio/kenney_ui-audio/Audio/rollover2.ogg" id="47_d4qvq"]
-[ext_resource type="AudioStream" uid="uid://qk6bnu84ewy8" path="res://assets/audio/kenney_ui-audio/Audio/rollover3.ogg" id="48_m7ufg"]
-[ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="49_7bn0o"]
-[ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="50_1y8jn"]
-[ext_resource type="AudioStream" uid="uid://07k2diroxtl1" path="res://assets/audio/kenney_ui-audio/Audio/rollover6.ogg" id="51_48odo"]
+[ext_resource type="Resource" uid="uid://bws6ypv636q81" path="res://data/audio/button click.tres" id="22_sdrfh"]
+[ext_resource type="Resource" uid="uid://bxucddp07vxk3" path="res://data/audio/button switch.tres" id="23_l55x2"]
+[ext_resource type="Resource" uid="uid://bndclbdf5ooje" path="res://data/audio/button roll.tres" id="24_xapgb"]
 
 [sub_resource type="FontVariation" id="FontVariation_6xpj3"]
 
@@ -1016,24 +969,6 @@ func play_roll_sfx():
 	sfx_cd = 0.1
 	AudioPool.create_sound(button_sounds)
 "
-
-[sub_resource type="Resource" id="Resource_d7d2p"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("3_uh4a2"), ExtResource("4_s6o33"), ExtResource("5_gbxee"), ExtResource("6_n1leb"), ExtResource("7_qclgw")])
-
-[sub_resource type="Resource" id="Resource_pi23o"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("8_jvp7b"), ExtResource("9_udjct"), ExtResource("10_jygyq"), ExtResource("11_8wsct"), ExtResource("12_l7rcj"), ExtResource("13_7qo6n"), ExtResource("14_luetl"), ExtResource("15_ydxs8"), ExtResource("16_g325f"), ExtResource("17_tc4j1"), ExtResource("18_k27rk"), ExtResource("19_75t5p"), ExtResource("20_l78bs"), ExtResource("21_4a7qx"), ExtResource("22_8qqqc"), ExtResource("23_vj74o"), ExtResource("24_c370f"), ExtResource("25_0hl1y"), ExtResource("26_4v6gu"), ExtResource("27_5xbfe"), ExtResource("28_wotwd"), ExtResource("29_jux6y"), ExtResource("30_k2da2"), ExtResource("31_i1r68"), ExtResource("32_0eafr"), ExtResource("33_4mc8t"), ExtResource("34_hadae"), ExtResource("35_7vus6"), ExtResource("36_5keqm"), ExtResource("37_3as28"), ExtResource("38_vmj16"), ExtResource("39_jiqi7"), ExtResource("40_mr8ks"), ExtResource("41_1i2o5"), ExtResource("42_5bphs"), ExtResource("43_nsshm"), ExtResource("44_udgke"), ExtResource("45_nsyay")])
-
-[sub_resource type="Resource" id="Resource_4vadk"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("46_60wcd"), ExtResource("47_d4qvq"), ExtResource("48_m7ufg"), ExtResource("49_7bn0o"), ExtResource("50_1y8jn"), ExtResource("51_48odo")])
 
 [sub_resource type="GDScript" id="GDScript_akyhh"]
 script/source = "extends Node
@@ -2093,9 +2028,9 @@ script = SubResource("GDScript_jqpvn")
 
 [node name="sound effects" type="Node" parent="."]
 script = SubResource("GDScript_0usqr")
-button_sounds = SubResource("Resource_d7d2p")
-switch_sounds = SubResource("Resource_pi23o")
-roll_sounds = SubResource("Resource_4vadk")
+button_sounds = ExtResource("22_sdrfh")
+switch_sounds = ExtResource("23_l55x2")
+roll_sounds = ExtResource("24_xapgb")
 
 [node name="save_loader" type="Node" parent="."]
 script = SubResource("GDScript_akyhh")

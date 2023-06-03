@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://18fxmepjaxdw"]
+[gd_scene load_steps=76 format=3 uid="uid://18fxmepjaxdw"]
 
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="5_bmfmr"]
@@ -117,19 +117,6 @@ func _physics_process(delta: float) -> void:
 friction = 0.2
 bounce = 10.0
 
-[sub_resource type="GDScript" id="GDScript_d5dec"]
-script/source = "extends Label3D
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_echo():
-		return
-	if !Input.is_action_just_pressed(\"act\"):
-		return
-	var parent = get_parent()
-	PlayerInputs.attach_to(parent)
-	queue_free()
-"
-
 [sub_resource type="GDScript" id="GDScript_isicj"]
 script/source = "extends MeshInstance3D
 
@@ -247,22 +234,13 @@ top_level = true
 script = SubResource("GDScript_6wonm")
 target = NodePath("..")
 
-[node name="attach player control" type="Node" parent="characters/mommy long"]
-script = ExtResource("5_bmfmr")
-
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.07752, 0.183545, -15.2981)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 56.8422, 0.183545, -38.3045)
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
 
-[node name="easter egg" type="Label3D" parent="characters/timmy"]
-process_mode = 3
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0.0832977, 1.80783, 3.23636)
-billboard = 1
-fixed_size = true
-text = "Press H to 
-use elevator"
-script = SubResource("GDScript_d5dec")
+[node name="attach player control" type="Node" parent="characters/timmy"]
+script = ExtResource("5_bmfmr")
 
 [node name="map" type="Node3D" parent="."]
 
@@ -694,11 +672,9 @@ alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("36_b7sdc")
 script = ExtResource("34_r8fx0")
-sprites = SubResource("Resource_pbkqu")
 use_shade = false
+sprites = SubResource("Resource_pbkqu")
 face_camera = 2
-select_cd_range = Vector2(0.3, 10)
-rotate_cd_range = Vector2(0.1, 5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/floor -1/upper storage room/Drone"]
 shape = SubResource("BoxShape3D_r4k31")

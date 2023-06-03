@@ -1,15 +1,12 @@
-[gd_scene load_steps=49 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=46 format=3 uid="uid://rl1fv4l3ai0l"]
 
-[ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_gpyxi"]
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
-[ext_resource type="Script" path="res://scripts/modules/body.gd" id="2_fqbyt"]
 [ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="2_sgoax"]
 [ext_resource type="ArrayMesh" uid="uid://cjt7lpbfdluhy" path="res://assets/factory/mouse.obj" id="3_dn3jk"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="3_xnssc"]
 [ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
 [ext_resource type="Script" path="res://scenes/3d scenes/consoles/camera layer.gd" id="7_njrme"]
 [ext_resource type="Texture2D" uid="uid://bn0omgmyn3hcu" path="res://assets/minimap0004.png" id="8_5ungq"]
-[ext_resource type="PackedScene" uid="uid://br0p4orfb2nmd" path="res://scenes/3d scenes/consoles/minimap_layer.tscn" id="10_kualx"]
 [ext_resource type="Texture2D" uid="uid://2o5vl6fu5bmk" path="res://assets/kenney/kenney_ui-pack/PNG/green_button00.png" id="11_lbuse"]
 [ext_resource type="Texture2D" uid="uid://5itacy7m0cws" path="res://assets/kenney/kenney_ui-pack/PNG/green_button01.png" id="12_1xcmf"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="14_fxc52"]
@@ -387,15 +384,13 @@ func _print(line:String):
 [node name="camera console" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -51)
 script = SubResource("GDScript_a87ma")
-state = 1
-
-[node name="inputs" parent="." instance=ExtResource("1_gpyxi")]
 
 [node name="body" type="Node3D" parent="."]
-script = ExtResource("2_fqbyt")
 
 [node name="head" parent="body" instance=ExtResource("3_xnssc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+enabled = false
+script = null
 
 [node name="console" type="StaticBody3D" parent="."]
 transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, 1.20151, 2, -27.1787)
@@ -492,14 +487,12 @@ theme = SubResource("Theme_rxedv")
 script = SubResource("GDScript_dtqdo")
 
 [node name="minimaps" type="Control" parent="UI"]
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -200.0
 grow_horizontal = 0
 grow_vertical = 0
 script = SubResource("GDScript_qyh21")
@@ -518,14 +511,10 @@ offset_right = -10.0
 offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 0
-pivot_offset = Vector2(510, 554)
 theme = SubResource("Theme_5cl0h")
 script = SubResource("GDScript_cvw4c")
 reference_frame = NodePath("../../../reference frame")
 floor_container = NodePath("../../../floors")
-
-[node name="floor -1" parent="UI/minimaps/layers container" instance=ExtResource("10_kualx")]
-layout_mode = 2
 
 [node name="return button" type="TextureButton" parent="UI/minimaps" node_paths=PackedStringArray("console")]
 layout_mode = 1

@@ -2,10 +2,10 @@ extends RigidBody3D
 class_name RigidCharacter
 
 var root = self
-
+func _init() -> void:
+	setup_body()
 func _ready():
 	add_to_group(NL.character)
-	setup_body()
 
 func setup_body():
 	axis_lock_angular_x = true

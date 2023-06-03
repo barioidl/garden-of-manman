@@ -21,14 +21,13 @@ func perform(local_state: Dictionary, dt: float)->bool:
 
 
 var score:=0.0
-var weights :={}
-func get_weight(name:String)->float:
-	if weights.has(name):
-#		_print('use existing weight')
-		return weights[name]
-#	_print('use new weight')
-	weights[name] = 1
-	return 1
+var weights :=[]
+func get_weight(id:int)-> float:
+	var size := weights.size()
+	if id >= size:
+		for i in  1 + id - size:
+			weights.append(1)
+	return weights[id]
 
 func _save():
 	_print('saving goap goal')

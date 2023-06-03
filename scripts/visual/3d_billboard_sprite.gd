@@ -40,7 +40,7 @@ func set_face_axis():
 		if sprites == value: return
 		sprites = value
 		if sprites == null:	return
-		sprites.init()
+		sprites._init()
 		select(current_side)
 
 func select(side):

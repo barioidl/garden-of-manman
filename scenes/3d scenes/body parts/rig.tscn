@@ -155,6 +155,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 gizmo_extents = 0.02
 
 [node name="Sprite3D" type="Sprite3D" parent="hip/spine/chest/neck/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
 cast_shadow = 2
 shaded = true
 double_sided = false

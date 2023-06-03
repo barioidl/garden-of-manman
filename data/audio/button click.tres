@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=7 format=3 uid="uid://bws6ypv636q81"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_t1ihk"]
+[ext_resource type="AudioStream" uid="uid://dxa3kdb7d7ugm" path="res://assets/audio/kenney_ui-audio/Audio/click1.ogg" id="2_nnl3g"]
+[ext_resource type="AudioStream" uid="uid://bpleif45g7nqw" path="res://assets/audio/kenney_ui-audio/Audio/click2.ogg" id="3_6wx0k"]
+[ext_resource type="AudioStream" uid="uid://bxmjgnnwj44k6" path="res://assets/audio/kenney_ui-audio/Audio/click3.ogg" id="4_nbmpx"]
+[ext_resource type="AudioStream" uid="uid://bonwo33lxday8" path="res://assets/audio/kenney_ui-audio/Audio/click4.ogg" id="5_e1alj"]
+[ext_resource type="AudioStream" uid="uid://wx1kk88shqtw" path="res://assets/audio/kenney_ui-audio/Audio/click5.ogg" id="6_yrujd"]
+
+[resource]
+script = ExtResource("1_t1ihk")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("2_nnl3g"), ExtResource("3_6wx0k"), ExtResource("4_nbmpx"), ExtResource("5_e1alj"), ExtResource("6_yrujd")])

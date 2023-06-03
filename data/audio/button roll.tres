@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=8 format=3 uid="uid://bndclbdf5ooje"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_0yl1b"]
+[ext_resource type="AudioStream" uid="uid://dw4liyuhepn4g" path="res://assets/audio/kenney_ui-audio/Audio/rollover1.ogg" id="2_247gh"]
+[ext_resource type="AudioStream" uid="uid://dghcgjir7h5dm" path="res://assets/audio/kenney_ui-audio/Audio/rollover2.ogg" id="3_ar0q3"]
+[ext_resource type="AudioStream" uid="uid://qk6bnu84ewy8" path="res://assets/audio/kenney_ui-audio/Audio/rollover3.ogg" id="4_8y2p2"]
+[ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="5_tb4ym"]
+[ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="6_7eq4o"]
+[ext_resource type="AudioStream" uid="uid://07k2diroxtl1" path="res://assets/audio/kenney_ui-audio/Audio/rollover6.ogg" id="7_4dmni"]
+
+[resource]
+script = ExtResource("1_0yl1b")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("2_247gh"), ExtResource("3_ar0q3"), ExtResource("4_8y2p2"), ExtResource("5_tb4ym"), ExtResource("6_7eq4o"), ExtResource("7_4dmni")])
