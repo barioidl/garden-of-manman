@@ -61,8 +61,7 @@ func get_head_position(body:Node3D)->Vector3:
 
 func attach_nav_agent(body:Node3D,target):
 	if body.has_meta(NL.get_nav_agent):
-		var agent = body.get_meta(NL.get_nav_agent)
-		agent = agent.call()
+		var agent = body.get_meta(NL.get_nav_agent).call()
 		agent.set_target(target)
 		return
 	var agent = NavAgentPool.get_agent_3d()

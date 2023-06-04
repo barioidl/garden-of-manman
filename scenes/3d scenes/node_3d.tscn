@@ -190,7 +190,7 @@ script = ExtResource("7_pmy02")
 item = ExtResource("8_tyqn8")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.0011, 0.485399, -42.1228)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.99886, 0.485399, -42.1228)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")

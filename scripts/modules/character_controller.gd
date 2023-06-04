@@ -6,6 +6,22 @@ func _init() -> void:
 	setup_body()
 func _ready():
 	add_to_group(NL.character)
+	connect_signals()
+
+var dt := 0.0
+func _physics_process(delta):
+	dt = delta
+	move_body()
+	bungee_time()
+
+func body_entered(body):
+	set_damp()
+func body_exited(body):
+	set_damp()
+
+func connect_signals():
+	connect("body_entered",body_entered)
+	connect("body_exited", body_exited)
 
 func setup_body():
 	axis_lock_angular_x = true
@@ -21,22 +37,17 @@ func setup_body():
 	material.absorbent = true
 	physics_material_override = material
 
-var dt := 0.0
-func _physics_process(delta):
-	dt = delta
-	move_body()
-	bungee_time()
-	set_damp()
 
 func set_damp():
 	if on_floor:
 		linear_damp = 10
-	elif on_wall:
+		return
+	if on_wall:
 		linear_damp = 3 
-	else:
-		linear_damp = 1
+		return
+	linear_damp = 1
 
-var bungee_duration := 0.2
+var bungee_duration := 0.1
 var on_floor_bungee := 0.0
 var on_wall_bungee := 0.0
 var on_ceiling_bungee := 0.0
@@ -58,10 +69,11 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		var dist = normal.dot(basis.y)
 		if dist > 0.7:#45 degrees
 			on_floor_bungee = bungee_duration
-		elif dist < -0.7:
+			continue
+		if dist < -0.7:
 			on_ceiling_bungee = bungee_duration
-		else:
-			on_wall_bungee = bungee_duration
+			continue
+		on_wall_bungee = bungee_duration
 
 var inverted_velocity := Vector3.ZERO
 var local_velocity := Vector3.ZERO

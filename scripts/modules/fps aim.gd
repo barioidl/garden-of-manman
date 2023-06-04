@@ -59,6 +59,6 @@ func turn_head_toward(target:Vector3, turn_speed:=1.0)-> bool:
 		inputs.dpad2 = Vector2.ZERO
 		return true
 	
-	inputs.dpad2.x = rad_to_deg(x) * turn_speed * 5
-	inputs.dpad2.y = -rad_to_deg(y) * turn_speed * 5
+	inputs.dpad2.x = rad_to_deg(x) * turn_speed * 10
+	inputs.dpad2.y = -rad_to_deg(y) * turn_speed * 10
 	return false

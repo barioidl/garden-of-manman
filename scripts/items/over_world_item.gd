@@ -57,6 +57,8 @@ func reset_exception(_root):
 
 func use_item(head:HotbarUser)->bool:
 	emit_signal(NL.item_used)
+	if head == null:
+		return false
 	var body = head.get_target(interact_range)
 	if body == null: 
 		return false
@@ -71,9 +73,11 @@ func interact(user):
 	
 	user = user.root
 	if user == null:return
+	if !user.has_meta(NL.append_item_node):return
 	var append_item_node = user.get_meta(NL.append_item_node)
-	if append_item_node == null:return
 	var added = append_item_node.call(self)
+	if !added:
+		use_item(null)
 
 
 var gravity: Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
