@@ -85,8 +85,31 @@ func spawn_item():
 #	queue_free()
 "
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rdyw8"]
-size = Vector3(1, 0.1, 0.8)
+[sub_resource type="GDScript" id="GDScript_dvkam"]
+script/source = "extends Node3D
+
+var target :Node3D
+@onready var eye = $eye
+@export var speed :=0.5
+
+var cd := 0.0
+func _ready() -> void:
+	target = get_viewport().get_camera_3d()
+
+func _process(delta: float) -> void:
+	if cd > 0:
+		cd -= delta
+		return
+	if target == null:
+		cd = 1
+		return
+	var pos = to_local(target.global_position)
+	pos = pos / abs(pos.y)
+	pos *= 0.5
+	var max = Vector3(0.5,0,0.4)
+	eye.position = pos.clamp(-max,max)
+	cd = pos.length_squared() * speed
+"
 
 [node name="power room" type="Node3D"]
 script = ExtResource("1_1pg7p")
@@ -99,7 +122,6 @@ skeleton = NodePath("../../../../..")
 
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 4, -35.5)
-visible = false
 script = SubResource("GDScript_weihl")
 
 [node name="ceiling lamp" parent="lights" instance=ExtResource("3_6n4qc")]
@@ -255,10 +277,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.5)
 [node name="3d button16" parent="switches" instance=ExtResource("4_7c172")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="isma" type="Node3D" parent="."]
+[node name="ismo" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, -41)
 
-[node name="bottom" type="Decal" parent="isma"]
+[node name="bottom" type="Decal" parent="ismo"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 5)
 layers = 512
 sorting_offset = 1.0
@@ -270,7 +292,7 @@ upper_fade = 0.01
 lower_fade = 0.01
 cull_mask = 1048064
 
-[node name="top" type="Decal" parent="isma"]
+[node name="top" type="Decal" parent="ismo"]
 transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 0, 4, 5)
 layers = 512
 sorting_offset = 1.0
@@ -282,7 +304,7 @@ upper_fade = 0.01
 lower_fade = 0.01
 cull_mask = 1048064
 
-[node name="left" type="Decal" parent="isma"]
+[node name="left" type="Decal" parent="ismo"]
 transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 2, 0.05)
 layers = 512
 size = Vector3(4, 0.1, 4)
@@ -293,7 +315,7 @@ upper_fade = 0.01
 lower_fade = 0.01
 cull_mask = 1048064
 
-[node name="right" type="Decal" parent="isma"]
+[node name="right" type="Decal" parent="ismo"]
 transform = Transform3D(-5.21253e-16, -1.19249e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, 1.19249e-08, 0, 2, 9.975)
 layers = 512
 size = Vector3(4, 0.1, 4)
@@ -304,18 +326,32 @@ upper_fade = 0.01
 lower_fade = 0.01
 cull_mask = 1048064
 
-[node name="eyes" type="Node3D" parent="isma"]
+[node name="eyes" type="Node3D" parent="ismo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 4, 3)
+script = SubResource("GDScript_dvkam")
+speed = 0.25
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="isma/eyes"]
-shape = SubResource("BoxShape3D_rdyw8")
-
-[node name="right" type="Decal" parent="isma/eyes"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+[node name="eye" type="Decal" parent="ismo/eyes"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.0841188, 0, 0.0325973)
 layers = 512
 size = Vector3(4, 0.1, 4)
 texture_albedo = ExtResource("26_qunf7")
-modulate = Color(0, 0, 0.0392157, 1)
+modulate = Color(0, 0, 0, 1)
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1048064
+
+[node name="eyes_2" type="Node3D" parent="ismo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 4, 3)
+script = SubResource("GDScript_dvkam")
+speed = 0.25
+
+[node name="eye" type="Decal" parent="ismo/eyes_2"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.168884, 0, 0.0325973)
+layers = 512
+size = Vector3(4, 0.1, 4)
+texture_albedo = ExtResource("26_qunf7")
+modulate = Color(0, 0, 0, 1)
 upper_fade = 0.01
 lower_fade = 0.01
 cull_mask = 1048064

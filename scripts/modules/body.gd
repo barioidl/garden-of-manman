@@ -9,8 +9,5 @@ func _enter_tree() -> void:
 	owner = root
 	
 func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
 	if root is RigidCharacter:
-		root.custom_transform = global_transform
+		root.custom_transform = self

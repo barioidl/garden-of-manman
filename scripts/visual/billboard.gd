@@ -30,10 +30,10 @@ var forward := Vector3.ONE
 var prev_dir:=Vector3.ZERO
 
 func _ready() -> void:
-	pass
+	if NL.is_inside_tree():
+		add_to_group(NL.billboard_sprites)
 
 func _enter_tree() -> void:
-	add_to_group(NL.billboard_sprites)
 	camera = get_viewport().get_camera_3d()
 	if reference_frame == null:
 		reference_frame = get_parent()
@@ -53,7 +53,7 @@ func _process(delta: float) -> void:
 	if dir.distance_squared_to(prev_dir) < 0.1 * dist_ratio:
 		return
 	prev_dir = dir
-	print('boop')
+	
 	forward = dir.normalized()
 	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
 	select_sprite(delta)
@@ -170,6 +170,4 @@ func convert_to_axis(_axis)->Vector3:
 			return ref_basis.z
 		axises._z:
 			return -ref_basis.z
-		axises.local:
-			return basis.y
 	return basis.y

@@ -3,24 +3,23 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkvwlrdptxf7w"
-path.bptc="res://.godot/imported/gloria chest0004.png-ce7633d2e783f2259ff84c725ba1f0ae.bptc.ctex"
+path="res://.godot/imported/gloria chest0004.png-ce7633d2e783f2259ff84c725ba1f0ae.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/Textures/gloria chest0004.png"
-dest_files=["res://.godot/imported/gloria chest0004.png-ce7633d2e783f2259ff84c725ba1f0ae.bptc.ctex"]
+dest_files=["res://.godot/imported/gloria chest0004.png-ce7633d2e783f2259ff84c725ba1f0ae.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=4
+compress/high_quality=false
 compress/lossy_quality=1.0
-compress/hdr_compression=1
-compress/normal_map=0
+compress/hdr_compression=2
+compress/normal_map=2
 compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
@@ -31,5 +30,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=0
+process/size_limit=250
+detect_3d/compress_to=2

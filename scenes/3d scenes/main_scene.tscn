@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://18fxmepjaxdw"]
+[gd_scene load_steps=77 format=3 uid="uid://18fxmepjaxdw"]
 
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="5_bmfmr"]
@@ -116,6 +116,9 @@ func _physics_process(delta: float) -> void:
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pk2np"]
 friction = 0.2
 bounce = 10.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0e7qt"]
+absorbent = true
 
 [sub_resource type="GDScript" id="GDScript_isicj"]
 script/source = "extends MeshInstance3D
@@ -235,7 +238,7 @@ script = SubResource("GDScript_6wonm")
 target = NodePath("..")
 
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 56.8422, 0.183545, -38.3045)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.85063, 1.06914, -33.3045)
 physics_material_override = SubResource("PhysicsMaterial_pk2np")
 max_contacts_reported = 3
 
@@ -247,6 +250,7 @@ script = ExtResource("5_bmfmr")
 [node name="garden of manman" type="Node3D" parent="map"]
 
 [node name="map collision" type="StaticBody3D" parent="map/garden of manman"]
+physics_material_override = SubResource("PhysicsMaterial_0e7qt")
 
 [node name="TotalMap" type="MeshInstance3D" parent="map/garden of manman/map collision"]
 process_mode = 4

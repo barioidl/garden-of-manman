@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://fbskajw2hjb7" path="res://scenes/3d scenes/facility/attached_platform.tscn" id="4_1s2vx"]
 [ext_resource type="PackedScene" uid="uid://dljnsowyktm2" path="res://scenes/3d scenes/facility/hanging_platform.tscn" id="5_rgvsn"]
 [ext_resource type="PackedScene" uid="uid://bf1h0gfkioxhx" path="res://scenes/3d scenes/facility/hanging_strings.tscn" id="6_usfqs"]
-[ext_resource type="Texture2D" uid="uid://cpfpb085plcvy" path="res://assets/Textures/key_card0004.png" id="7_fea1j"]
+[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="7_kdo3f"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_l3o7c"]
-[ext_resource type="Resource" uid="uid://b3elydd8a3xp5" path="res://data/items/key generic.tres" id="8_ihofh"]
+[ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="9_1xt42"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8ea8x"]
 size = Vector3(1.5, 0.3, 3.976)
@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 		scanning = false
 		return
 	for body in bodies:
-		if !body.is_in_group('character'):
+		if !body.is_in_group(NL.character):
 			body.queue_free()
 		else:
 			Interface.change_health(body,-1)
@@ -72,7 +72,6 @@ orientation = 1
 [node name="disposal pit" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 11)
 script = ExtResource("1_yvqmc")
-areas = [NodePath("../../render bounds/disposal pit"), NodePath("../../render bounds/conveyor room"), NodePath("../../render bounds/disposable storage"), NodePath("../../render bounds/kitchen")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -342,8 +341,9 @@ omni_attenuation = 0.1
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.46864, 14.3105, 8.89658)
+modulate = Color(1, 0, 0, 1)
 billboard = 1
 texture_filter = 0
-texture = ExtResource("7_fea1j")
+texture = ExtResource("7_kdo3f")
 script = ExtResource("7_l3o7c")
-item = ExtResource("8_ihofh")
+item = ExtResource("9_1xt42")

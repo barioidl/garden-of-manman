@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=21 format=3 uid="uid://dnwyoafck8xle"]
 
+[ext_resource type="PhysicsMaterial" uid="uid://m7rds1wlcgf2" path="res://materials/default_physics_material.tres" id="1_bb1vc"]
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
 [ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="2_7jd1i"]
@@ -56,6 +57,7 @@ disable_mode = 1
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+physics_material_override = ExtResource("1_bb1vc")
 max_contacts_reported = 10
 contact_monitor = true
 script = ExtResource("1_bstlq")
@@ -74,6 +76,7 @@ hunger = 6.0
 [node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_6yv8t")]
+process_mode = 4
 time_scale = 0.5
 
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
@@ -86,6 +89,7 @@ time_scale = 0.5
 slots = [null, null]
 
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_j6qpi")
 
 [node name="human" type="Node" parent="goap_agent"]

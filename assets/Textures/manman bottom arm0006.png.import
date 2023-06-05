@@ -3,26 +3,25 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpasoy6unltoy"
-path.bptc="res://.godot/imported/manman bottom arm0006.png-1aead785088b959c75d7a74eb16589c0.bptc.ctex"
+path="res://.godot/imported/manman bottom arm0006.png-1aead785088b959c75d7a74eb16589c0.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/Textures/manman bottom arm0006.png"
-dest_files=["res://.godot/imported/manman bottom arm0006.png-1aead785088b959c75d7a74eb16589c0.bptc.ctex"]
+dest_files=["res://.godot/imported/manman bottom arm0006.png-1aead785088b959c75d7a74eb16589c0.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=4
+compress/high_quality=false
 compress/lossy_quality=1.0
-compress/hdr_compression=1
-compress/normal_map=0
+compress/hdr_compression=2
+compress/normal_map=2
 compress/channel_pack=1
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,5 +30,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=250
 detect_3d/compress_to=0

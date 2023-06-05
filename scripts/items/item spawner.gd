@@ -1,3 +1,4 @@
+@tool
 extends Sprite3D
 class_name ItemSpawner
 
@@ -12,6 +13,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	spawn_item()
 
 func spawn_item():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://df28f6i0hm2iq"]
+[gd_scene load_steps=13 format=3 uid="uid://df28f6i0hm2iq"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_o3na5"]
 [ext_resource type="ArrayMesh" uid="uid://devl1r834kqg2" path="res://assets/borga map/room 1.obj" id="2_nsb7n"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="6_dv3nw"]
 [ext_resource type="PackedScene" uid="uid://cu3b3oytrilip" path="res://assets/sloyd/container_shelf.tscn" id="6_qguy6"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_tewd6"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="8_0jc2w"]
+[ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="8_ph1ev"]
+[ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="9_1b0i5"]
 
 [sub_resource type="GDScript" id="GDScript_8tpbd"]
 script/source = "extends Decal
@@ -35,12 +38,13 @@ skeleton = NodePath("../../../../..")
 
 [node name="door" parent="." instance=ExtResource("3_ams0f")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2)
-password = 5
+password = 2
 
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
+size = Vector3(1.59422, 2, 2)
 texture_albedo = ExtResource("5_m732t")
-modulate = Color(1, 1, 0, 1)
+modulate = Color(1, 0, 0, 1)
 script = SubResource("GDScript_8tpbd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
@@ -84,5 +88,14 @@ skeleton = NodePath("../..")
 [node name="ceiling lamp2" parent="lamps" instance=ExtResource("6_dv3nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.35, 4.75)
 skeleton = NodePath("../..")
+
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6655, 1.18334, -4.1766)
+modulate = Color(0, 0, 1, 1)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("8_ph1ev")
+script = ExtResource("8_0jc2w")
+item = ExtResource("9_1b0i5")
 
 [connection signal="toggled" from="3d button" to="lamps" method="_on_3d_button_toggled"]
