@@ -1,8 +1,12 @@
-extends Node
+extends Resource
 class_name GOAPAction
 
-func name()->StringName:
-	return 'A default'
+func _print(line:String):
+#	return
+	print(line)
+
+func _name()->StringName:
+	return &'A default'
 
 func is_valid(local_state:Dictionary)->bool:
 	return true
@@ -17,4 +21,30 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 	return{}
 
 func perform(local_state: Dictionary, dt: float)->bool:
-	return false
+	return true
+
+
+var score:=0.0
+var weights :=[]
+func get_weight(id:int)-> float:
+	var size := weights.size()
+	if id >= size:
+		for i in  1 + id - size:
+			weights.append(1)
+	return weights[id]
+
+func _save():
+	_print('saving goap action')
+	var data :={}
+	data.name = _name()
+	data.weights = weights
+	data.score = score
+	Goap.save_mutations(data)
+
+func _load():
+	_print('loading goap action')
+	var data := Goap.load_mutations(_name())
+	if data.is_empty():
+		return
+	weights = data.weights
+	score = data.score

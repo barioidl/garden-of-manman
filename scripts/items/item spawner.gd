@@ -10,8 +10,12 @@ func _ready() -> void:
 		return
 	if Engine.is_editor_hint():
 		setup_sprite()
-	else:
-		call_deferred('spawn_item')
+
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	spawn_item()
 
 func spawn_item():
 	var child = item.prefab.instantiate()
@@ -31,6 +35,6 @@ func random_transforms()->Transform3D:
 	var child_count = get_child_count()
 	if child_count <=0:
 		return global_transform
-	var id = randi() % child_count
+	var id = 0 if child_count == 1 else randi() % child_count
 	var child :Node3D= get_child(id)
 	return child.global_transform

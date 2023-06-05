@@ -3,26 +3,25 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cujdgqyl4jwnx"
-path.bptc="res://.godot/imported/moon face0000.png-c50b5d3542c1a248e7ba74d49590fc93.bptc.ctex"
+path="res://.godot/imported/moon face0000.png-c50b5d3542c1a248e7ba74d49590fc93.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/Textures/moon face0000.png"
-dest_files=["res://.godot/imported/moon face0000.png-c50b5d3542c1a248e7ba74d49590fc93.bptc.ctex"]
+dest_files=["res://.godot/imported/moon face0000.png-c50b5d3542c1a248e7ba74d49590fc93.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=4
+compress/high_quality=false
 compress/lossy_quality=1.0
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=true
+compress/hdr_compression=2
+compress/normal_map=2
+compress/channel_pack=1
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,5 +30,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=0
+process/size_limit=250
+detect_3d/compress_to=2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bi85pq8ys3rxq"]
+[gd_scene load_steps=40 format=3 uid="uid://bi85pq8ys3rxq"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_h85l8"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="9_kdcl8"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="10_md03h"]
+[ext_resource type="Script" path="res://scripts/tags.gd" id="11_dynar"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="11_newbt"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="11_qhlc8"]
 [ext_resource type="AudioStream" uid="uid://bm44g8fpxx2nx" path="res://assets/audio/fl exported/spider hunt.ogg" id="12_hqwsp"]
@@ -21,6 +22,7 @@
 [ext_resource type="Script" path="res://scripts/modules/jumpscare.gd" id="13_ipner"]
 [ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="14_7ugkw"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="14_o6648"]
+[ext_resource type="PackedScene" uid="uid://be0ykq12fij2y" path="res://data/state machine/debug_display.tscn" id="15_hcd4e"]
 [ext_resource type="Texture2D" uid="uid://liruub56ame2" path="res://assets/Textures/manman face0001.png" id="15_l1jl5"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="15_mi7sy"]
 [ext_resource type="Texture2D" uid="uid://c0jdnyte7aqxr" path="res://assets/Textures/manman face0002.png" id="16_kopr6"]
@@ -233,8 +235,8 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalEatFood.new(),
-		GoalJumpscare.new(),
-		GoalPuzzle.new(),
+#		GoalJumpscare.new(),
+#		GoalPuzzle.new(),
 #		GoalFlee.new(),
 #		GoalPlay.new(),
 	]
@@ -248,35 +250,16 @@ pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
 streams = Array[AudioStream]([ExtResource("12_hqwsp")])
 
-[sub_resource type="GDScript" id="GDScript_17foq"]
-script/source = "extends Label3D
-var content:={}
+[sub_resource type="GDScript" id="GDScript_hy5xe"]
+script/source = "extends Node
 
-func _init() -> void:
-	name = 'debug_display'
+
+var root:Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
 
 func _ready() -> void:
-	if !OS.is_debug_build():
-		queue_free()
-		return
-
-func set_content(key,value):
-	if content.has(key):
-		if content[key] == value: return
-	content[key] = value
-	refresh_text()
-
-func refresh_text():
-	var keys = content.keys()
-	var values = content.values()
-	var iterations = content.size()
-	var output:=''
-	for i in iterations:
-		output += keys[i]
-		output += ': '
-		output += str(values[i])
-		output += '\\n'
-	text = output
+	root.add_to_group(NL.monster)
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
@@ -298,8 +281,10 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_t33xl")]
+hunger = 8.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
+process_mode = 4
 time_scale = 0.2
 
 [node name="fall_damage" parent="stats" instance=ExtResource("6_01le1")]
@@ -315,26 +300,26 @@ hunt_sfx = ExtResource("7_pwdy1")
 kill_sfx = ExtResource("8_h85l8")
 turn_speed = 100
 
+[node name="tags" type="Node" parent="."]
+script = ExtResource("11_dynar")
+
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_g145v")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("13_ipner")
 scream_sfx = SubResource("Resource_re18v")
 
 [node name="puzzle" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("13_boe7p")
 
-[node name="debug_display" type="Label3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3.5, 0)
-billboard = 1
-double_sided = false
-fixed_size = true
-texture_filter = 0
-text = "debug"
-autowrap_mode = 2
-width = 1000.0
-script = SubResource("GDScript_17foq")
+[node name="monster" type="Node" parent="."]
+script = SubResource("GDScript_hy5xe")
+
+[node name="debug_display" parent="." instance=ExtResource("15_hcd4e")]
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
@@ -344,6 +329,7 @@ average_size = Vector3(0.5, 2.4, 0.5)
 sneak_size = Vector3(1.2, 0.75, 1.2)
 
 [node name="body" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("10_md03h")
 
 [node name="head" parent="body" instance=ExtResource("11_qhlc8")]
@@ -356,10 +342,9 @@ connect_to_bone = true
 
 [node name="hotbar" parent="body" instance=ExtResource("12_m7c2m")]
 
-[node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("root", "head_bone")]
+[node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("head_bone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 script = ExtResource("15_mi7sy")
-root = NodePath("../..")
 head_bone = NodePath("body")
 item_holders = Array[NodePath]([NodePath("body/right shoulder"), NodePath("body/left shoulder")])
 
@@ -373,12 +358,11 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("19_ywwcc")
+texture = ExtResource("13_62xdx")
 script = ExtResource("14_o6648")
-sprites = SubResource("Resource_hd1to")
 has_shadow = false
-select_cd_range = Vector2(0.2, 1)
-rotate_cd_range = Vector2(0.1, 5)
+sprites = SubResource("Resource_hd1to")
+cd_range = null
 
 [node name="hip" type="Node3D" parent="body/rig/body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

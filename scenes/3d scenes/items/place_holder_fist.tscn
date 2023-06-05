@@ -32,6 +32,7 @@ script/source = "extends ItemOverworld
 @onready var sprite = $Sprite3D
 
 func _ready() -> void:
+	super._ready()
 	if id > 0:
 		sprite.sprites=right_hand
 	else:
@@ -84,7 +85,7 @@ frames = Array[Texture]([ExtResource("18_ymhqh"), ExtResource("19_1nmla"), ExtRe
 [sub_resource type="BoxShape3D" id="BoxShape3D_4p4vs"]
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="place_holder_fist" type="CharacterBody3D"]
+[node name="place_holder_fist" type="RigidBody3D"]
 script = SubResource("GDScript_hrdh5")
 right_hand = SubResource("Resource_phlh5")
 left_hand = SubResource("Resource_psp5v")
@@ -92,6 +93,7 @@ sfx = SubResource("Resource_guxy1")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+cast_shadow = 2
 shaded = true
 double_sided = false
 alpha_cut = 1

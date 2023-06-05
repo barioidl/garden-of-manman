@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu512mwqfs5ow"]
+[gd_scene load_steps=12 format=3 uid="uid://bu512mwqfs5ow"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_ac8xe"]
 [ext_resource type="ArrayMesh" uid="uid://j7b4uied8t2r" path="res://assets/borga map/camera room mesh.obj" id="2_r07jb"]
@@ -7,6 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_ga5ok"]
 [ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="7_qb6os"]
 [ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="7_u5f4c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2puty"]
+resource_name = "metalDark.030"
+albedo_color = Color(0.305882, 0.388235, 0.388235, 1)
+metallic = 0.33
+
+[sub_resource type="QuadMesh" id="QuadMesh_6dkoy"]
+material = SubResource("StandardMaterial3D_2puty")
+size = Vector2(2, 3)
 
 [sub_resource type="GDScript" id="GDScript_ycl6q"]
 script/source = "extends Node3D
@@ -35,6 +44,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 31.5)
 mesh = ExtResource("2_r07jb")
 skeleton = NodePath("../../../../..")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraRoomMesh"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.95, 1.5, -33.5)
+mesh = SubResource("QuadMesh_6dkoy")
+
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 script = SubResource("GDScript_ycl6q")
@@ -62,43 +75,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1.5, -16)
 
 [node name="door" parent="left doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 0, 8.5)
-password = 5
+password = 4
 
 [node name="door9" parent="left doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 0, 18.5)
-password = 1
+password = 4
 
 [node name="door2" parent="left doors" instance=ExtResource("6_8yiga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25, 0, -2)
 password = 6
 
 [node name="door3" parent="left doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 0, -12.5)
-password = 1
+password = 4
 
 [node name="door8" parent="left doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 20.65)
-password = 1
+password = 2
 
 [node name="right doors" type="Node3D" parent="."]
 
 [node name="door4" parent="right doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15, 0, -8.5)
-password = 4
 
 [node name="door5" parent="right doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15, 0, -17.5)
-password = 5
 
 [node name="door6" parent="right doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15, 0, 2.5)
 
 [node name="door7" parent="right doors" instance=ExtResource("6_8yiga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15, 0, 13.5)
-password = 5
 
 [node name="big door2" parent="." instance=ExtResource("7_u5f4c")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -19.65)
+password = 2
 
 [node name="decals" type="Node3D" parent="."]
 script = SubResource("GDScript_rbx8y")
@@ -107,19 +118,43 @@ script = SubResource("GDScript_rbx8y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47955, 1.5, 8.5)
 size = Vector3(2, 3, 2)
 texture_albedo = ExtResource("7_qb6os")
-modulate = Color(0.74902, 0.54902, 0, 1)
+modulate = Color(0.0313726, 0, 1, 1)
+
+[node name="Decal_2" type="Decal" parent="decals"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.5, -19.5)
+size = Vector3(2, 3, 3)
+texture_albedo = ExtResource("7_qb6os")
+modulate = Color(0.74902, 0, 0, 1)
+
+[node name="Decal_3" type="Decal" parent="decals"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.5, 20.5)
+size = Vector3(2, 3, 2)
+texture_albedo = ExtResource("7_qb6os")
+modulate = Color(0.74902, 0, 0, 1)
+
+[node name="Decal7" type="Decal" parent="decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47955, 1.5, 18.5)
+size = Vector3(2, 3, 2)
+texture_albedo = ExtResource("7_qb6os")
+modulate = Color(0.0823529, 0, 1, 1)
 
 [node name="Decal2" type="Decal" parent="decals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47955, 1.5, -2)
 size = Vector3(2, 3, 2)
 texture_albedo = ExtResource("7_qb6os")
-modulate = Color(0.901961, 0, 1, 1)
+modulate = Color(1, 0, 1, 1)
+
+[node name="Decal2_2" type="Decal" parent="decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.48, 1.5, -12.5)
+size = Vector3(2, 3, 2)
+texture_albedo = ExtResource("7_qb6os")
+modulate = Color(0.0823529, 0, 1, 1)
 
 [node name="Decal3" type="Decal" parent="decals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.52045, 1.5, 13.5)
 size = Vector3(2, 3, 2)
 texture_albedo = ExtResource("7_qb6os")
-modulate = Color(1, 1, 0, 1)
+modulate = Color(0, 1, 0, 1)
 
 [node name="Decal4" type="Decal" parent="decals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.52045, 1.5, 2.5)
@@ -131,12 +166,12 @@ modulate = Color(0, 1, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.52045, 1.5, -8.5)
 size = Vector3(2, 3, 2)
 texture_albedo = ExtResource("7_qb6os")
-modulate = Color(0, 0.164706, 1, 1)
+modulate = Color(0, 1, 0, 1)
 
 [node name="Decal6" type="Decal" parent="decals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.52045, 1.5, -17.5)
 size = Vector3(2, 3, 2)
 texture_albedo = ExtResource("7_qb6os")
-modulate = Color(1, 0.768627, 0, 1)
+modulate = Color(0, 1, 0, 1)
 
 [connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]

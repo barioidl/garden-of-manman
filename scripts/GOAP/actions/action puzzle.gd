@@ -1,8 +1,8 @@
 extends GOAPAction
 class_name ActionPuzzle
 
-func name()->StringName:
-	return 'A puzzle'
+func _name()->StringName:
+	return &'A puzzle'
 
 func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.puzzle)

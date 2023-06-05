@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdgds7brwefq3"]
+
+[ext_resource type="Texture2D" uid="uid://c2cwehjcfpeba" path="res://assets/Textures/camera0003.png" id="1_2r6ng"]
+
+[sub_resource type="GDScript" id="GDScript_4qeti"]
+script/source = "extends TextureButton
+
+var root : Node3D
+
+var layer_id := -1
+var cam_id := -1
+
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	connect('pressed',pressed) # Replace with function body.
+	layer_id = get_parent().get_index()
+	cam_id = get_index()
+
+func pressed():
+	_print('boop')
+	root.use_camera(layer_id,cam_id)
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
+[node name="camera button" type="TextureButton"]
+texture_filter = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 16.0
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(8, 8)
+texture_normal = ExtResource("1_2r6ng")
+ignore_texture_size = true
+stretch_mode = 3
+script = SubResource("GDScript_4qeti")

@@ -47,7 +47,7 @@ func print_plan(plan:Array)->String:
 	if plan.size() <=0:
 		return 'empty.'
 	for step in plan:
-		content += step.name()
+		content += step._name()
 		content += ', '
 	return content
 

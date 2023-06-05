@@ -41,18 +41,25 @@ NL="*res://scripts/name list.gd"
 
 [debug]
 
+settings/profiler/max_functions=128
 gdscript/warnings/enable=false
 gdscript/warnings/unsafe_property_access=1
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
-window/size/window_width_override=1280
-window/size/window_height_override=720
-window/stretch/mode="viewport"
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
 window/vsync/vsync_mode=2
+
+[editor]
+
+movie_writer/movie_file="F:/footage/godot.avi"
+movie_writer/fps=30
+naming/node_name_num_separator=2
+script/templates_search_path="res://scripts/script_templates"
+naming/default_signal_callback_name="_on_{signal_name}"
 
 [filesystem]
 
@@ -68,12 +75,12 @@ wavefront_obj={
 }
 texture={
 "compress/channel_pack": 1,
-"compress/hdr_compression": 1,
-"compress/high_quality": true,
+"compress/hdr_compression": 2,
+"compress/high_quality": false,
 "compress/lossy_quality": 1.0,
-"compress/mode": 2,
-"compress/normal_map": 0,
-"detect_3d/compress_to": 0,
+"compress/mode": 4,
+"compress/normal_map": 2,
+"detect_3d/compress_to": 2,
 "mipmaps/generate": false,
 "mipmaps/limit": -1,
 "process/fix_alpha_border": true,
@@ -81,7 +88,7 @@ texture={
 "process/hdr_clamp_exposure": false,
 "process/normal_map_invert_y": false,
 "process/premult_alpha": false,
-"process/size_limit": 0,
+"process/size_limit": 250,
 "roughness/mode": 0,
 "roughness/src_normal": ""
 }

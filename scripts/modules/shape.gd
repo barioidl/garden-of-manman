@@ -1,7 +1,7 @@
 extends CollisionShape3D
 
-@onready var root = get_parent().root
-@onready var platformer=$'../platformer'
+var root
+var platformer:Platformer
 
 @export var duration :=0.2
 @export var transition := Tween.TRANS_SINE
@@ -17,9 +17,11 @@ extends CollisionShape3D
 
 func _init() -> void:
 	name = 'shape'
-func _ready() -> void:
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
-	
+func _ready() -> void:
+	platformer = root.get_node('platformer')
 	platformer.connect(NL.on_state_changed, on_state_changed)
 
 func on_state_changed(state:StringName):

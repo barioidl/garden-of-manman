@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://nas20luej0mn" path="res://assets/Textures/key_card0005.png" id="5_wy1sp"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="6_tdtwh"]
 [ext_resource type="PackedScene" uid="uid://ckbie3oc5yqig" path="res://scenes/3d scenes/facility/office_desk.tscn" id="7_4nb74"]
-[ext_resource type="Resource" uid="uid://dr3c45bydjsnf" path="res://data/items/key purple.tres" id="7_p46bb"]
+[ext_resource type="Resource" uid="uid://dr3c45bydjsnf" path="res://data/items/key purple.tres" id="7_djgdh"]
 [ext_resource type="ArrayMesh" uid="uid://cxjo0c2kqjn2w" path="res://assets/borga map/room 11.obj" id="8_eg5pk"]
 [ext_resource type="PackedScene" uid="uid://b8w550sq1alti" path="res://scenes/3d scenes/facility/office_chair.tscn" id="8_qn0sf"]
 [ext_resource type="PackedScene" uid="uid://bqf20tqoefee4" path="res://scenes/3d scenes/facility/monitor_screen.tscn" id="9_fqjlt"]
@@ -56,13 +56,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
 enabled = true
 
 [node name="purple key" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.00588, 0.224298, 1.66501)
-modulate = Color(0.74902, 0, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55278, 1.28253, 1.66501)
+modulate = Color(1, 0, 0.866667, 1)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("5_wy1sp")
 script = ExtResource("6_tdtwh")
-item = ExtResource("7_p46bb")
+item = ExtResource("7_djgdh")
 
 [node name="Node3D" type="Node3D" parent="."]
 

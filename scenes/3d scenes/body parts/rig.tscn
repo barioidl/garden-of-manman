@@ -1,13 +1,36 @@
-[gd_scene load_steps=11 format=3 uid="uid://pq7662ttv81f"]
+[gd_scene load_steps=37 format=3 uid="uid://pq7662ttv81f"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1yqpl"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="1_4fh26"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/hip bone.gd" id="2_56iui"]
-[ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_xb40v"]
-[ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_rne0q"]
-[ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="4_3f5ew"]
+[ext_resource type="Texture2D" uid="uid://dtqkd3o2icoy4" path="res://assets/Textures/timmy hip0000.png" id="4_38nna"]
 [ext_resource type="PackedScene" uid="uid://btly3xw4dm86n" path="res://scenes/3d scenes/body parts/arm.tscn" id="5_6vgu5"]
 [ext_resource type="PackedScene" uid="uid://cokr73x1eh2bc" path="res://scenes/3d scenes/body parts/leg.tscn" id="6_2y1ec"]
+[ext_resource type="Texture2D" uid="uid://ddgdrrkybn1w4" path="res://assets/Textures/timmy hip0001.png" id="6_3ykua"]
+[ext_resource type="Texture2D" uid="uid://tj3mibor1vtl" path="res://assets/Textures/timmy hip0002.png" id="7_3lhlr"]
+[ext_resource type="Texture2D" uid="uid://2ixscbl0h4vn" path="res://assets/Textures/timmy chest0002.png" id="7_3ql3i"]
+[ext_resource type="Texture2D" uid="uid://dnpjf1rucsi1t" path="res://assets/Textures/timmy head0002.png" id="8_1bagy"]
+[ext_resource type="Texture2D" uid="uid://ce7flewx4sga2" path="res://assets/Textures/timmy hip0003.png" id="8_t85aw"]
+[ext_resource type="Texture2D" uid="uid://0monh1s4eilu" path="res://assets/Textures/timmy hip0004.png" id="9_5mcej"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="9_6jw76"]
+[ext_resource type="Texture2D" uid="uid://bssoitk5x4dfq" path="res://assets/Textures/timmy chest0000.png" id="9_rltnr"]
+[ext_resource type="Texture2D" uid="uid://54x1d4b7cgml" path="res://assets/Textures/timmy hip0005.png" id="10_hixib"]
+[ext_resource type="Texture2D" uid="uid://b76bn5ybhp2l1" path="res://assets/Textures/timmy head0000.png" id="10_rglap"]
+[ext_resource type="Texture2D" uid="uid://dybb3jmpobsv3" path="res://assets/Textures/timmy chest0001.png" id="10_vqndd"]
+[ext_resource type="Texture2D" uid="uid://c3kl2qp1ckdg5" path="res://assets/Textures/timmy chest0003.png" id="11_f3mhj"]
+[ext_resource type="Texture2D" uid="uid://dsyrwooxld3e3" path="res://assets/Textures/timmy head0001.png" id="11_fhm5h"]
+[ext_resource type="Texture2D" uid="uid://c7kgx2c4diook" path="res://assets/Textures/timmy chest0004.png" id="12_1lsbu"]
+[ext_resource type="Texture2D" uid="uid://y854dx6bsn8d" path="res://assets/Textures/timmy head0003.png" id="12_5gatr"]
+[ext_resource type="Texture2D" uid="uid://6qw1fpm6way2" path="res://assets/Textures/timmy spine0000.png" id="13_2k0p6"]
+[ext_resource type="Texture2D" uid="uid://dx5lnd5sooafa" path="res://assets/Textures/timmy head0004.png" id="13_7ifrc"]
+[ext_resource type="Texture2D" uid="uid://ceeul28pxj6be" path="res://assets/Textures/timmy chest0005.png" id="13_hh6db"]
+[ext_resource type="Texture2D" uid="uid://chx3bvy1q1ceg" path="res://assets/Textures/timmy spine0001.png" id="14_mv53n"]
+[ext_resource type="Texture2D" uid="uid://b2brofhea6sm4" path="res://assets/Textures/timmy head0005.png" id="14_xtger"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="15_ab444"]
+[ext_resource type="Texture2D" uid="uid://cmudoglfv2eiv" path="res://assets/Textures/timmy spine0002.png" id="15_gpgfk"]
+[ext_resource type="Texture2D" uid="uid://cf27d4po6rui4" path="res://assets/Textures/timmy spine0003.png" id="16_ejrgy"]
+[ext_resource type="Texture2D" uid="uid://cbiospd0f11t1" path="res://assets/Textures/timmy spine0004.png" id="17_1l7nq"]
+[ext_resource type="Texture2D" uid="uid://cqgi50hr7wjtl" path="res://assets/Textures/timmy spine0005.png" id="18_2ahr2"]
 
 [sub_resource type="GDScript" id="GDScript_urq2h"]
 script/source = "extends RayCast3D
@@ -21,13 +44,27 @@ func _process(delta: float) -> void:
 	pass
 "
 
-[sub_resource type="BoxMesh" id="BoxMesh_et74j"]
+[sub_resource type="Resource" id="Resource_upn2a"]
+script = ExtResource("15_ab444")
+frames = Array[Texture]([ExtResource("4_38nna"), ExtResource("6_3ykua"), ExtResource("7_3lhlr"), ExtResource("8_t85aw"), ExtResource("9_5mcej"), ExtResource("10_hixib")])
+
+[sub_resource type="Resource" id="Resource_8ui33"]
+script = ExtResource("15_ab444")
+frames = Array[Texture]([ExtResource("13_2k0p6"), ExtResource("14_mv53n"), ExtResource("15_gpgfk"), ExtResource("16_ejrgy"), ExtResource("17_1l7nq"), ExtResource("18_2ahr2")])
+
+[sub_resource type="Resource" id="Resource_hdgjh"]
+script = ExtResource("15_ab444")
+frames = Array[Texture]([ExtResource("9_rltnr"), ExtResource("10_vqndd"), ExtResource("7_3ql3i"), ExtResource("11_f3mhj"), ExtResource("12_1lsbu"), ExtResource("13_hh6db")])
+
+[sub_resource type="Resource" id="Resource_je7v3"]
+script = ExtResource("15_ab444")
+frames = Array[Texture]([ExtResource("10_rglap"), ExtResource("11_fhm5h"), ExtResource("8_1bagy"), ExtResource("12_5gatr"), ExtResource("13_7ifrc"), ExtResource("14_xtger")])
 
 [node name="rig" type="Node3D" node_paths=PackedStringArray("head_bone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_4fh26")
-head_bone = NodePath("hip/spine/spine/chest/neck/head")
-item_holders = Array[NodePath]([NodePath("hip/spine/spine/chest/arm2"), NodePath("hip/spine/spine/chest/arm")])
+head_bone = NodePath("hip/spine/chest/neck/head")
+item_holders = Array[NodePath]([NodePath("hip/spine/chest/arm2"), NodePath("hip/spine/chest/arm")])
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 enabled = false
@@ -47,14 +84,19 @@ script = ExtResource("1_1yqpl")
 gizmo_extents = 0.02
 script = ExtResource("2_56iui")
 bob_height = 0.025
-spine_paths = Array[NodePath]([NodePath("spine"), NodePath("spine/spine"), NodePath("spine/spine/chest")])
+spine_paths = Array[NodePath]([NodePath("spine"), NodePath("spine/chest"), NodePath("spine/chest/neck")])
 container = NodePath("..")
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="hip"]
-transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
-material_override = ExtResource("2_xb40v")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="hip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.069, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_38nna")
+script = ExtResource("9_6jw76")
+sprites = SubResource("Resource_upn2a")
 
 [node name="leg" parent="hip" node_paths=PackedStringArray("container") instance=ExtResource("6_2y1ec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
@@ -66,60 +108,60 @@ mirrored = false
 container = NodePath("../..")
 
 [node name="spine" type="Marker3D" parent="hip"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 gizmo_extents = 0.01
 
-[node name="placeholder mesh2" type="MeshInstance3D" parent="hip/spine"]
-transform = Transform3D(0.04, 0, 0, 0, 0.1, 0, 0, 0, 0.04, 0, 0.05, 0)
-material_override = ExtResource("3_rne0q")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="hip/spine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("13_2k0p6")
+script = ExtResource("9_6jw76")
+sprites = SubResource("Resource_8ui33")
 
-[node name="spine" type="Marker3D" parent="hip/spine"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+[node name="chest" type="Marker3D" parent="hip/spine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 gizmo_extents = 0.02
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="hip/spine/spine"]
-transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
-material_override = ExtResource("2_xb40v")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../../..")
-
-[node name="chest" type="Marker3D" parent="hip/spine/spine"]
+[node name="Sprite3D" type="Sprite3D" parent="hip/spine/chest"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-gizmo_extents = 0.02
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("9_rltnr")
+script = ExtResource("9_6jw76")
+sprites = SubResource("Resource_hdgjh")
 
-[node name="placeholder mesh2" type="MeshInstance3D" parent="hip/spine/spine/chest"]
-transform = Transform3D(0.04, 0, 0, 0, 0.1, 0, 0, 0, 0.04, 0, 0.05, 0)
-material_override = ExtResource("3_rne0q")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../../..")
-
-[node name="arm" parent="hip/spine/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.05, 0)
+[node name="arm" parent="hip/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.13, 0)
 mirrored = false
-container = NodePath("../../../../..")
+container = NodePath("../../../..")
 
-[node name="arm2" parent="hip/spine/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.05, 0)
-container = NodePath("../../../../..")
+[node name="arm2" parent="hip/spine/chest" node_paths=PackedStringArray("container") instance=ExtResource("5_6vgu5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.13, 0)
+container = NodePath("../../../..")
 
-[node name="neck" type="Marker3D" parent="hip/spine/spine/chest"]
+[node name="neck" type="Marker3D" parent="hip/spine/chest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+gizmo_extents = 0.02
+
+[node name="head" type="Marker3D" parent="hip/spine/chest/neck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 gizmo_extents = 0.02
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="hip/spine/spine/chest/neck"]
-transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0.05, 0)
-material_override = ExtResource("2_xb40v")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../../..")
-
-[node name="head" type="Marker3D" parent="hip/spine/spine/chest/neck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-gizmo_extents = 0.02
-
-[node name="placeholder mesh" type="MeshInstance3D" parent="hip/spine/spine/chest/neck/head"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-material_override = ExtResource("4_3f5ew")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="hip/spine/chest/neck/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("10_rglap")
+script = ExtResource("9_6jw76")
+sprites = SubResource("Resource_je7v3")
+face_camera = 2

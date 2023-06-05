@@ -9,13 +9,15 @@ var score := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if !can_process():
+		return
 	set_interface()
 	get_target()
 
 var dt :=0.0
 func _process(delta: float) -> void:
 	dt = delta
-	get_scores()
+#	get_scores()
 
 func set_interface():
 	agent.set_local_state(NL.jumpscare,self)

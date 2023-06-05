@@ -44,7 +44,7 @@ func aim_at_target(head):
 margin = 0.001
 size = Vector3(0.1, 0.3, 0.1)
 
-[node name="flash light" type="CharacterBody3D"]
+[node name="flash light" type="RigidBody3D"]
 script = SubResource("GDScript_bxoe2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -53,6 +53,7 @@ shape = SubResource("BoxShape3D_d7bm4")
 
 [node name="Sprite3D" type="Sprite3D" parent="." node_paths=PackedStringArray("reference_frame")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+cast_shadow = 2
 axis = 1
 shaded = true
 double_sided = false

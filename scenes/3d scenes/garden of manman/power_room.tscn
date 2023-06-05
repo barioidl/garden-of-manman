@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://diwb3s78ooaml"]
+[gd_scene load_steps=32 format=3 uid="uid://diwb3s78ooaml"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_1pg7p"]
 [ext_resource type="ArrayMesh" uid="uid://7mp5j0wgjtp5" path="res://assets/borga map/power manager.obj" id="2_3gwhp"]
@@ -17,6 +17,15 @@
 [ext_resource type="PackedScene" uid="uid://b8juleetenf1w" path="res://scenes/3d scenes/facility/box_2x_2.tscn" id="12_02i1j"]
 [ext_resource type="PackedScene" uid="uid://cg6fqa744ymlk" path="res://scenes/3d scenes/facility/box_2x_1.tscn" id="13_uht58"]
 [ext_resource type="PackedScene" uid="uid://dle0di617k73o" path="res://scenes/3d scenes/facility/floor_shelf.tscn" id="14_rrpv3"]
+[ext_resource type="Texture2D" uid="uid://j115pyfl2ptg" path="res://assets/ismo/untitled .png" id="18_p35jw"]
+[ext_resource type="Texture2D" uid="uid://dk20xofq4atpd" path="res://assets/ismo/untitled normal.png" id="19_17i7g"]
+[ext_resource type="Texture2D" uid="uid://3ylyo5ruvtex" path="res://assets/ismo/top.png" id="20_uwdup"]
+[ext_resource type="Texture2D" uid="uid://4pno8sbik7vu" path="res://assets/ismo/top normal.png" id="21_v1vp7"]
+[ext_resource type="Texture2D" uid="uid://uresever0qee" path="res://assets/ismo/left.png" id="22_yysad"]
+[ext_resource type="Texture2D" uid="uid://dfoo6u6cchoge" path="res://assets/ismo/left normal.png" id="23_olo0d"]
+[ext_resource type="Texture2D" uid="uid://c8kc5nrp5pyih" path="res://assets/ismo/right.png" id="24_i0dlu"]
+[ext_resource type="Texture2D" uid="uid://dyq5ih4tcj712" path="res://assets/ismo/right normal.png" id="25_dke2f"]
+[ext_resource type="Texture2D" uid="uid://c3t2q2rw7n412" path="res://assets/kenney/kenney_ui-pack/PNG/blue_boxTick.png" id="26_qunf7"]
 
 [sub_resource type="GDScript" id="GDScript_weihl"]
 script/source = "extends Node3D
@@ -59,20 +68,47 @@ func check_pass():
 	var key := '0100110011110011'
 	var buttons = get_children()
 	for i in buttons.size():
-		var bin = '1' if buttons[i].active else '0'
+		var bin = '1' if buttons[i].button_pressed else '0'
 		if bin != key[i]:
 			return
 	spawn_item()
 
 func spawn_item():
-	if item == null: 
-		push_error('item spawner with null item'+ str(get_path()))
+	OS.shell_open('https://www.youtube.com/watch?v=M1Tl2VKR874')
+#	if item == null: 
+#		push_error('item spawner with null item'+ str(get_path()))
+#		return
+#	var child = item.prefab.instantiate()
+#	child.item = item
+#	get_parent().add_child(child)
+#	child.global_transform = global_transform
+#	queue_free()
+"
+
+[sub_resource type="GDScript" id="GDScript_dvkam"]
+script/source = "extends Node3D
+
+var target :Node3D
+@onready var eye = $eye
+@export var speed :=0.5
+
+var cd := 0.0
+func _ready() -> void:
+	target = get_viewport().get_camera_3d()
+
+func _process(delta: float) -> void:
+	if cd > 0:
+		cd -= delta
 		return
-	var child = item.prefab.instantiate()
-	child.item = item
-	get_parent().add_child(child)
-	child.global_transform = global_transform
-	queue_free()
+	if target == null:
+		cd = 1
+		return
+	var pos = to_local(target.global_position)
+	pos = pos / abs(pos.y)
+	pos *= 0.5
+	var max = Vector3(0.5,0,0.4)
+	eye.position = pos.clamp(-max,max)
+	cd = pos.length_squared() * speed
 "
 
 [node name="power room" type="Node3D"]
@@ -80,11 +116,12 @@ script = ExtResource("1_1pg7p")
 areas = [NodePath("../../render bounds/camera room"), NodePath("../../render bounds/power control room")]
 
 [node name="PowerManager" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("2_3gwhp")
 skeleton = NodePath("../../../../..")
 
 [node name="lights" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 4, -35.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 4, -35.5)
 script = SubResource("GDScript_weihl")
 
 [node name="ceiling lamp" parent="lights" instance=ExtResource("3_6n4qc")]
@@ -239,5 +276,84 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.5)
 
 [node name="3d button16" parent="switches" instance=ExtResource("4_7c172")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ismo" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, -41)
+
+[node name="bottom" type="Decal" parent="ismo"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 5)
+layers = 512
+sorting_offset = 1.0
+size = Vector3(10, 0.01, 4)
+texture_albedo = ExtResource("18_p35jw")
+texture_normal = ExtResource("19_17i7g")
+modulate = Color(0, 0, 0.0392157, 1)
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1048064
+
+[node name="top" type="Decal" parent="ismo"]
+transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 0, 4, 5)
+layers = 512
+sorting_offset = 1.0
+size = Vector3(10, 0.01, 4)
+texture_albedo = ExtResource("20_uwdup")
+texture_normal = ExtResource("21_v1vp7")
+modulate = Color(0, 0, 0.0392157, 1)
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1048064
+
+[node name="left" type="Decal" parent="ismo"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 2, 0.05)
+layers = 512
+size = Vector3(4, 0.1, 4)
+texture_albedo = ExtResource("22_yysad")
+texture_normal = ExtResource("23_olo0d")
+modulate = Color(0, 0, 0.0392157, 1)
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1048064
+
+[node name="right" type="Decal" parent="ismo"]
+transform = Transform3D(-5.21253e-16, -1.19249e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, 1.19249e-08, 0, 2, 9.975)
+layers = 512
+size = Vector3(4, 0.1, 4)
+texture_albedo = ExtResource("24_i0dlu")
+texture_normal = ExtResource("25_dke2f")
+modulate = Color(0, 0, 0.0392157, 1)
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1048064
+
+[node name="eyes" type="Node3D" parent="ismo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 4, 3)
+script = SubResource("GDScript_dvkam")
+speed = 0.25
+
+[node name="eye" type="Decal" parent="ismo/eyes"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.0841188, 0, 0.0325973)
+layers = 512
+size = Vector3(4, 0.1, 4)
+texture_albedo = ExtResource("26_qunf7")
+modulate = Color(0, 0, 0, 1)
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1048064
+
+[node name="eyes_2" type="Node3D" parent="ismo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 4, 3)
+script = SubResource("GDScript_dvkam")
+speed = 0.25
+
+[node name="eye" type="Decal" parent="ismo/eyes_2"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.168884, 0, 0.0325973)
+layers = 512
+size = Vector3(4, 0.1, 4)
+texture_albedo = ExtResource("26_qunf7")
+modulate = Color(0, 0, 0, 1)
+upper_fade = 0.01
+lower_fade = 0.01
+cull_mask = 1048064
 
 [connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]

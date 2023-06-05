@@ -5,13 +5,14 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v468i"]
 points = PackedVector3Array(0.346756, 0.455143, 0.2879, -0.34685, 0, -0.286503, -0.346747, 6.79063e-05, 0.2879, -0.348537, 0.456318, -0.2879, 0.346859, 0, -0.286503, 0.348546, 0.456318, -0.2879, 0.346756, 6.79063e-05, 0.2879, -0.346747, 0.455143, 0.2879)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mbl7i"]
-albedo_color = Color(0.415686, 0.690196, 0.298039, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2pk4m"]
+resource_name = "wood.046"
+albedo_color = Color(0.896226, 0.601571, 0.393156, 1)
+metallic = 0.33
 
 [node name="Crates" type="CollisionShape3D"]
 shape = SubResource("ConvexPolygonShape3D_v468i")
 
 [node name="Crates" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_mbl7i")
+material_override = SubResource("StandardMaterial3D_2pk4m")
 mesh = ExtResource("1_ef8i5")
-skeleton = NodePath("../../../../../../..")

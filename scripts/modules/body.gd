@@ -1,11 +1,13 @@
 extends Node3D
 
-@onready var root=$".."
+var root:Node3D
 
 func _init() -> void:
 	name = 'body'
-func _ready() -> void:
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
-
-func _process(delta: float) -> void:
-	root.custom_transform = global_transform
+	
+func _ready() -> void:
+	if root is RigidCharacter:
+		root.custom_transform = self

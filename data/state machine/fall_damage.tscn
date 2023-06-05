@@ -1,36 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dgc4o234da4e8"]
 
-[sub_resource type="GDScript" id="GDScript_xyoju"]
-script/source = "extends Node
-
-@onready var root = get_parent().root
-
-func _ready() -> void:
-	return
-	root.connect(NL.body_entered,body_entered)
-
-func body_entered(body):
-	fall_damage(body)
-
-@export_category('fall damage')
-@export var has_fall_damage:=false
-@export var fall_speed_offset:=10.0
-@export var fall_speed_range:=10.0
-@export var fall_max_damage:=10.0
-func fall_damage(body):
-	if !has_fall_damage:return
-	var velocity:=Vector3.ZERO
-	if body is RigidBody3D:
-		velocity = body.linear_velocity
-	elif body is CharacterBody3D:
-		velocity = body.velocity
-	elif  body is StaticBody3D:
-		velocity = body.constant_linear_velocity
-	var velo_dist = root.linear_velocity. distance_squared_to( velocity)
-	
-	print(velo_dist)
-"
+[ext_resource type="Script" path="res://data/state machine/fall_damage.gd" id="1_p4hha"]
 
 [node name="fall_damage" type="Node"]
-process_mode = 4
-script = SubResource("GDScript_xyoju")
+script = ExtResource("1_p4hha")

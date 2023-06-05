@@ -1,0 +1,660 @@
+[gd_scene load_steps=46 format=3 uid="uid://rl1fv4l3ai0l"]
+
+[ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
+[ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="2_sgoax"]
+[ext_resource type="ArrayMesh" uid="uid://cjt7lpbfdluhy" path="res://assets/factory/mouse.obj" id="3_dn3jk"]
+[ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="3_xnssc"]
+[ext_resource type="PackedScene" uid="uid://mcxrrexffl64" path="res://scenes/3d scenes/facility/camera.tscn" id="6_d3a33"]
+[ext_resource type="Script" path="res://scenes/3d scenes/consoles/camera layer.gd" id="7_njrme"]
+[ext_resource type="Texture2D" uid="uid://bn0omgmyn3hcu" path="res://assets/minimap0004.png" id="8_5ungq"]
+[ext_resource type="Texture2D" uid="uid://2o5vl6fu5bmk" path="res://assets/kenney/kenney_ui-pack/PNG/green_button00.png" id="11_lbuse"]
+[ext_resource type="Texture2D" uid="uid://5itacy7m0cws" path="res://assets/kenney/kenney_ui-pack/PNG/green_button01.png" id="12_1xcmf"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="14_fxc52"]
+[ext_resource type="AudioStream" uid="uid://bkqogr3dw3n2l" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/1.ogg" id="15_q4ngd"]
+[ext_resource type="AudioStream" uid="uid://doan1l0uckmll" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/2.ogg" id="16_mqeuq"]
+[ext_resource type="AudioStream" uid="uid://2pbpi4vlugu3" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/3.ogg" id="17_pp58v"]
+[ext_resource type="Texture2D" uid="uid://crfddtl2yns0u" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button00.png" id="18_8kfyj"]
+[ext_resource type="AudioStream" uid="uid://dbifl2frqkd0k" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/4.ogg" id="18_q5ebp"]
+[ext_resource type="Texture2D" uid="uid://b2dmrbnjwihv7" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button01.png" id="19_yxgk1"]
+
+[sub_resource type="GDScript" id="GDScript_a87ma"]
+script/source = "extends Node3D
+
+var root = self
+
+@onready var UI = $\"UI\"
+@onready var ui_minimap = $\"UI/minimaps\"
+@onready var ui_camera = $\"UI/camera view\"
+@onready var floor_container = $floors
+@onready var body = $body
+
+signal on_state_changed(state)
+enum states{off, selecting, watching}
+@export var state:=states.off
+
+func _ready() -> void:
+	connect(NL.on_state_changed,set_mousemode)
+	connect(NL.on_state_changed,set_tabs)
+	
+	emit_signal(NL.on_state_changed,state)
+
+func change_state(new_state:states):
+	if new_state == state:
+		return
+	state = new_state
+	emit_signal(NL.on_state_changed,state)
+	_print('new state: ' + states.keys()[state])
+
+
+func set_mousemode(_state:states):
+	var mousemode := Input.MOUSE_MODE_CAPTURED
+	match _state:
+		states.off:
+			mousemode = Input.MOUSE_MODE_CAPTURED
+		states.selecting:
+			mousemode = Input.MOUSE_MODE_CONFINED
+		states.watching:
+			mousemode = Input.MOUSE_MODE_CONFINED
+	var meta = Hud.get_meta(NL.set_gameplay_mousemode)
+	meta.call(mousemode)
+
+func set_tabs(_state:states):
+	UI.visible = _state != states.off
+	ui_minimap.visible = _state == states.selecting
+	ui_camera.visible = _state == states.watching
+
+
+func use_camera(layer_id:int,cam_id:int):
+	change_state(root.states.watching)
+	_print('used camera: '+ str(layer_id)+', '+str(cam_id))
+	PlayerInputs.attach_to(root)
+	var camera :Node3D= floor_container.get_child(layer_id)
+	camera = camera.get_child(cam_id)
+	var pos = camera.global_position
+	var rot = camera.global_rotation
+	body.global_position = pos
+	body.global_rotation = rot
+
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
+[sub_resource type="GDScript" id="GDScript_vcuxi"]
+script/source = "extends StaticBody3D
+
+var root :Node3D
+var current_user:Node3D
+@export var interact_range := 5.0
+func _enter_tree() -> void:
+	root = get_parent().root
+func _ready() -> void:
+	set_interface()
+
+func _process(delta: float) -> void:
+	if current_user == null:
+		return
+	var dist_sq = current_user.global_position. distance_squared_to(global_position)
+	if dist_sq > interact_range * interact_range:
+		reject_user()
+
+
+func set_interface():
+	set_meta(NL.interact,interact)
+
+func interact(user):
+	_print('use console')
+	var _root :Node3D= user.root
+	if _root == null:
+		return
+	if !_root.is_in_group(NL.player):
+		return
+	if root.state != root.states.off:
+		return
+	root.change_state(root.states.selecting)
+	current_user = _root
+
+func reject_user():
+	if current_user == null:
+		return
+	root.change_state(root.states.off)
+	PlayerInputs.attach_to(current_user)
+	current_user = null
+	_print('rejected user')
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4gdrg"]
+points = PackedVector3Array(-0.207516, 0.0779017, -0.0239547, 0.18449, 0.290888, 0.0370769, 0.0791152, 0.00935739, 0.0570556, 0.0791152, -0.00311586, -0.0551159, -0.207516, 0.296008, 0.00719549, -0.0828224, -0.00311586, 0.0570556, -0.20069, 0.290888, 0.0370769, 0.191316, 0.296008, 0.00719549, 0.191316, 0.0405112, 0.00719549, -0.0828224, 0.00312077, -0.0551159, -0.207516, 0.0405112, 0.00719549, 0.191316, 0.0779017, -0.0239547, 0.0791152, -0.00311586, 0.0570556, -0.207516, 0.246144, 0.0383567, 0.0791152, 0.00935739, -0.0551159, 0.191316, 0.246144, 0.0383567, -0.0828224, -0.00311586, -0.0551159, -0.207516, 0.0467479, -0.0239547, 0.191316, 0.0467479, -0.0239547, -0.076576, 0.00935739, -0.0551159, -0.076576, 0.00935739, 0.0570556, -0.207516, 0.0716651, 0.0134321, 0.191316, 0.0716651, 0.0134321, -0.207516, 0.258617, 0.000969842, 0.191316, 0.258617, 0.000969842, -0.207516, 0.214961, -0.0052558, 0.191316, 0.214961, -0.0052558, -0.0828224, 0.00312077, 0.0570556)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7qgms"]
+points = PackedVector3Array(-0.1411, 0, -0.059093, -0.1411, 0, 0.059099, -0.1411, 0.00712637, -0.059093, 0.1411, 0, -0.059093, -0.1411, 0.027556, 0.059099, 0.1411, 0, 0.059099, -0.1411, 0.027556, 0.0380197, 0.1411, 0.00712637, -0.059093, 0.1411, 0.027556, 0.059099, 0.1411, 0.027556, 0.0380197)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ycesc"]
+points = PackedVector3Array(0.024852, 0.023572, -5.88633e-05, -0.024848, 0.023572, -5.88633e-05, 0.0243266, 0.023572, 0.00645556, 0.0243266, 0, 0.00645556, 0.024852, 0, -0.0367129, 0.024852, 0.0153347, -0.0367129, -0.024848, 0.0153347, -0.0367129, -0.024848, 0, -0.0367129, -0.0243275, 0, 0.00645556, -0.0243275, 0.023572, 0.00645556, 0.0220255, 0.023572, 0.0126034, 0.0220255, 0, 0.0126034, 0.012427, 0, -0.059605, -0.012423, 0, -0.059605, -0.0220263, 0, 0.0126034, -0.0220263, 0.023572, 0.0126034, 0.0181044, 0.023572, 0.0179183, 0.0181044, 0, 0.0179183, -0.0181052, 0, 0.0179183, -0.0181052, 0.023572, 0.0179183, 0.0128648, 0.023572, 0.0220252, 0.0128648, 0, 0.0220252, -0.0128657, 0, 0.0220252, -0.0128657, 0.023572, 0.0220252, 0.00667667, 0.023572, 0.0246076, 0.00667667, 0, 0.0246076, -0.00667753, 0, 0.0246076, -0.00667753, 0.023572, 0.0246076, 2.00048e-06, 0.023572, 0.025499, 2.00048e-06, 0, 0.025499)
+
+[sub_resource type="FontVariation" id="FontVariation_6a513"]
+
+[sub_resource type="Theme" id="Theme_rxedv"]
+default_font = SubResource("FontVariation_6a513")
+default_font_size = 24
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="GDScript" id="GDScript_dtqdo"]
+script/source = "extends Control
+
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_qyh21"]
+script/source = "extends Control
+
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	pass 
+
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b42on"]
+load_path = "res://.godot/imported/red_button09.png-5f4b93ef8f689c44936838f8f9985bc6.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xsonk"]
+texture = SubResource("CompressedTexture2D_b42on")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dacp0"]
+load_path = "res://.godot/imported/blue_button05.png-d5dcb657e5226d77526bd046f26ccc6a.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v5h0n"]
+texture = SubResource("CompressedTexture2D_dacp0")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3mj63"]
+load_path = "res://.godot/imported/green_panel.png-8d4102ef8dea4dd3d0065da54422f496.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqsey"]
+texture = SubResource("CompressedTexture2D_3mj63")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dugsf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oc37p"]
+load_path = "res://.godot/imported/green_button12.png-364531e9aeba81d4232b81c69313cf08.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3i026"]
+texture = SubResource("CompressedTexture2D_oc37p")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xk3vx"]
+load_path = "res://.godot/imported/green_button11.png-133fb3208deaae78fa33b80d04acacc8.bptc.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5u77q"]
+texture = SubResource("CompressedTexture2D_xk3vx")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Theme" id="Theme_5cl0h"]
+CheckButton/colors/font_color = Color(1, 1, 1, 1)
+CheckButton/colors/font_outline_color = Color(0, 0, 0, 1)
+CheckButton/constants/outline_size = 0
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_xsonk")
+HSlider/styles/slider = SubResource("StyleBoxTexture_v5h0n")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_bqsey")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxTexture_dugsf")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_3i026")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_5u77q")
+
+[sub_resource type="GDScript" id="GDScript_cvw4c"]
+script/source = "extends TabContainer
+
+var root : Node3D
+
+@export var reference_frame:Node3D
+@export var floor_container:Node3D
+var minimap_layer = preload(\"res://scenes/3d scenes/consoles/minimap_layer.tscn\")
+var camera_button = preload(\"res://scenes/3d scenes/consoles/camera_button.tscn\")
+
+func _enter_tree() -> void:
+	root = get_parent().root
+func _ready() -> void:
+	setup_minimap()
+
+func setup_minimap():
+	var floors = floor_container.get_children()
+	for floor in floors:
+		create_layer(floor)
+
+func create_layer(_floor):
+	var layer = minimap_layer.instantiate()
+	add_child(layer)
+	layer.name = _floor.name
+	layer.texture = _floor.minimap_texture
+	for camera in _floor.get_children():
+		var pos := reference_frame. to_local(camera.global_position)
+		var button :TextureButton= camera_button.instantiate()
+		layer.add_child(button)
+		button.position = Vector2(pos.x,pos.z) * layer.size
+		button.position -= button.pivot_offset
+"
+
+[sub_resource type="GDScript" id="GDScript_8pykj"]
+script/source = "extends TextureButton
+
+var root : Node3D
+@export var console:Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	connect('pressed',pressed) # Replace with function body.
+
+func pressed():
+	_print('boop')
+	console.reject_user()
+	
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
+[sub_resource type="GDScript" id="GDScript_ca8tx"]
+script/source = "extends Control
+
+var root : Node3D
+@onready var body = $\"../../body\"
+
+@export var audio_0:AudioList
+@export var audio_1:AudioList
+@export var audio_2:AudioList
+@export var audio_3:AudioList
+
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	connect_buttons()
+
+func connect_buttons():
+	$\"option 0\".connect('pressed',option_pressed.bind(0))
+	$\"option 1\".connect('pressed',option_pressed.bind(1))
+	$\"option 2\".connect('pressed',option_pressed.bind(2))
+	$\"option 3\".connect('pressed',option_pressed.bind(3))
+
+func option_pressed(id:int):
+	_print('option pressed: ' + str(id))
+	var list:AudioList
+	var volume:=0.0
+	match id:
+		0:
+			list = audio_0
+			volume = 5
+		1:
+			list = audio_1
+			volume = 8
+		2:
+			list = audio_2
+			volume = 6
+		3:
+			list = audio_3
+			volume = 4
+	var pos = body.global_position
+	var player = AudioPool.create_sound_3d(pos,list)
+	if player != null:
+		player.offset_volume = volume
+
+func _print(line:String):
+	print(line)
+"
+
+[sub_resource type="Resource" id="Resource_4eqh7"]
+script = ExtResource("14_fxc52")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("15_q4ngd")])
+
+[sub_resource type="Resource" id="Resource_r3jrp"]
+script = ExtResource("14_fxc52")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("16_mqeuq")])
+
+[sub_resource type="Resource" id="Resource_aykf0"]
+script = ExtResource("14_fxc52")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("17_pp58v")])
+
+[sub_resource type="Resource" id="Resource_vq7ff"]
+script = ExtResource("14_fxc52")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("18_q5ebp")])
+
+[sub_resource type="GDScript" id="GDScript_0r5ds"]
+script/source = "extends TextureButton
+
+var root : Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	connect('pressed',pressed) # Replace with function body.
+
+func pressed():
+	_print('boop')
+	root.change_state(root.states.selecting)
+
+func _print(line:String):
+#	return
+	print(line)
+"
+
+[node name="camera console" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -51)
+script = SubResource("GDScript_a87ma")
+
+[node name="body" type="Node3D" parent="."]
+
+[node name="head" parent="body" instance=ExtResource("3_xnssc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+enabled = false
+script = null
+
+[node name="console" type="StaticBody3D" parent="."]
+transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, 1.20151, 2, -27.1787)
+script = SubResource("GDScript_vcuxi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="console"]
+transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, -7.62939e-06, 0, -0.394623)
+shape = SubResource("ConvexPolygonShape3D_4gdrg")
+
+[node name="MonitorScreen2" type="MeshInstance3D" parent="console/CollisionShape3D"]
+mesh = ExtResource("1_gstf6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="console"]
+transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, 0.23624, 0, -0.923069)
+shape = SubResource("ConvexPolygonShape3D_7qgms")
+
+[node name="Keyboard" type="MeshInstance3D" parent="console/CollisionShape3D2"]
+mesh = ExtResource("2_sgoax")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="console"]
+transform = Transform3D(3, 0, 1.19209e-07, 0, 3, 0, -1.19209e-07, 0, 3, -0.437092, 2.38419e-07, -0.96254)
+shape = SubResource("ConvexPolygonShape3D_ycesc")
+
+[node name="Mouse" type="MeshInstance3D" parent="console/CollisionShape3D3"]
+mesh = ExtResource("3_dn3jk")
+
+[node name="floors" type="Node3D" parent="."]
+
+[node name="floor -4" type="Node3D" parent="floors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.00543e-05, 3, -4.19617e-05)
+script = ExtResource("7_njrme")
+minimap_texture = ExtResource("8_5ungq")
+
+[node name="camera" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.640857, -0.298836, -0.707107, -0.422618, 0.906308, 0, 0.640857, 0.298836, -0.707107, -2.35577, 0, -5.66117)
+
+[node name="camera2" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.640856, -0.298836, 0.707107, -0.422618, 0.906308, 0, -0.640856, -0.298836, -0.707107, -2.29783, 0, 14.326)
+
+[node name="camera3" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.6682, 0.311587, 0.67559, -0.422618, 0.906308, -1.49012e-08, -0.612293, -0.285517, 0.737278, -21.621, 0, 26)
+
+[node name="camera4" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664463, 0.241845, -0.707107, -2.35052, 0, 27.3439)
+
+[node name="camera5" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.883022, 0.321394, 0.34202, -0.34202, 0.939692, 0, -0.321394, -0.116978, 0.939693, -21.57, 0, 46)
+
+[node name="camera6" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, -0.707107, -0.34202, 0.939693, 0, 0.664463, 0.241845, 0.707107, -6.79345, 2, 50.2201)
+
+[node name="camera7" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, -0.707107, 8.63077, 2, 79.6703)
+
+[node name="camera8" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, 0.707107, 21.2444, 1.99423, 48.8077)
+
+[node name="camera9" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 30.7579, 1.99423, 19.5965)
+
+[node name="camera10" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, 0.707107, 37.127, 1.99423, 15.8077)
+
+[node name="camera11" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 86.9208, 1.99423, 6.08816)
+
+[node name="camera12" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 7.6122, 1.73571, 0.426441)
+
+[node name="camera13" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, -1.05367e-08, -0.664463, -0.241845, 0.707107, 0.46195, 1.73571, 39.4461)
+
+[node name="camera14" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-0.224144, -0.129409, -0.965926, -0.5, 0.866025, 0, 0.836516, 0.482963, -0.258819, 5.195, 1.5, -18.212)
+
+[node name="camera15" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
+transform = Transform3D(-2.50718e-08, -3.58063e-08, -1, -0.819152, 0.573576, 0, 0.573576, 0.819152, -4.37114e-08, 4, 16.4731, -38.5)
+
+[node name="reference frame" type="Marker3D" parent="."]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, -29, 0, -39.5)
+gizmo_extents = 1.0
+
+[node name="UI" type="Control" parent="."]
+z_as_relative = false
+texture_filter = 1
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_rxedv")
+script = SubResource("GDScript_dtqdo")
+
+[node name="minimaps" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+script = SubResource("GDScript_qyh21")
+
+[node name="layers container" type="TabContainer" parent="UI/minimaps" node_paths=PackedStringArray("reference_frame", "floor_container")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -520.0
+offset_top = -560.0
+offset_right = -10.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_5cl0h")
+script = SubResource("GDScript_cvw4c")
+reference_frame = NodePath("../../../reference frame")
+floor_container = NodePath("../../../floors")
+
+[node name="return button" type="TextureButton" parent="UI/minimaps" node_paths=PackedStringArray("console")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -55.0
+offset_right = -10.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("11_lbuse")
+texture_pressed = ExtResource("12_1xcmf")
+stretch_mode = 0
+script = SubResource("GDScript_8pykj")
+console = NodePath("../../../console")
+
+[node name="Label" type="Label" parent="UI/minimaps/return button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.393
+anchor_top = -2.452
+anchor_bottom = 7.266
+offset_left = 74.67
+offset_top = 120.148
+offset_right = 190.0
+offset_bottom = -307.034
+grow_horizontal = 2
+grow_vertical = 2
+text = "return"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="camera view" type="FlowContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.99
+anchor_top = 0.99
+anchor_right = 0.99
+anchor_bottom = 0.99
+offset_left = -190.0
+offset_top = -261.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(100, 260)
+alignment = 2
+script = SubResource("GDScript_ca8tx")
+audio_0 = SubResource("Resource_4eqh7")
+audio_1 = SubResource("Resource_r3jrp")
+audio_2 = SubResource("Resource_aykf0")
+audio_3 = SubResource("Resource_vq7ff")
+
+[node name="option 0" type="TextureButton" parent="UI/camera view"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/camera view/option 0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "yes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="option 1" type="TextureButton" parent="UI/camera view"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/camera view/option 1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "affirmative"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="option 2" type="TextureButton" parent="UI/camera view"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/camera view/option 2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "reluctant yes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="option 3" type="TextureButton" parent="UI/camera view"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture_normal = ExtResource("18_8kfyj")
+texture_pressed = ExtResource("19_yxgk1")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/camera view/option 3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "sarcastic no"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="return button" type="TextureButton" parent="UI/camera view"]
+layout_mode = 2
+texture_normal = ExtResource("11_lbuse")
+texture_pressed = ExtResource("12_1xcmf")
+script = SubResource("GDScript_0r5ds")
+
+[node name="Label" type="Label" parent="UI/camera view/return button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "return"
+horizontal_alignment = 1
+vertical_alignment = 1

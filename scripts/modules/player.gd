@@ -1,4 +1,4 @@
-extends RigidBody3D
+extends Node3D
 
 @onready var camera3d = $Camera3D
 var character:Node3D
@@ -23,18 +23,21 @@ func attach_to(_character:Node3D):
 		return
 	if character != null:
 		character.remove_from_group(NL.player)
+		Interface.reset_inputs(character)
 	character = _character
 	character.add_to_group(NL.player)
-	input = character.get_node('inputs')
-	head = character.get_node('body/head')
+	input = character.get_node_or_null('inputs')
+	head = character.get_node_or_null('body/head')
 
-var time:=0.0
-func _physics_process(delta):
-	time = delta
+var dt:=0.0
+func _process(delta: float) -> void:
+	dt = delta
 	copy_head_transform()
 	reset_dpad2()
 #	cursor_cast()
 #	get_keys()
+func _physics_process(delta: float) -> void:
+	pass
 
 func copy_head_transform():
 	if head == null: return
@@ -57,8 +60,9 @@ var main_keys_updated:=false
 var interact_keys_updated:=false
 var mgr_keys_updated:=false
 func key_update():
-	if !event is InputEventKey and !event is InputEventJoypadButton:
-		return
+	if !event is InputEventKey:
+		if !event is InputEventJoypadButton:
+			return
 	if event.is_echo(): return
 	main_keys_updated = true
 	interact_keys_updated = true
@@ -142,11 +146,11 @@ func crosshair_move():
 	if event is InputEventJoypadMotion:
 		if event.axis == JOY_AXIS_RIGHT_X:
 			input.dpad2.x = event.axis_value 
-			input.dpad2.x *= time * joypad_speed*invert_x
+			input.dpad2.x *= dt * joypad_speed*invert_x
 			return
 		if event.axis == JOY_AXIS_RIGHT_Y:
 			input.dpad2.y = event.axis_value 
-			input.dpad2.y *= time * joypad_speed*invert_y
+			input.dpad2.y *= dt * joypad_speed*invert_y
 			return
 
 #const RAY_LENGTH = 50.0

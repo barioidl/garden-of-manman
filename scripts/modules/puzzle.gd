@@ -8,6 +8,8 @@ var score := 0.0
 var target:Node3D
 
 func _ready() -> void:
+	if !can_process():
+		return
 	set_interface()
 	get_target()
 

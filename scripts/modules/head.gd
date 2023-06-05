@@ -1,22 +1,26 @@
 extends RayCast3D
 class_name HotbarUser
 
-@onready var hotbar:=$"../hotbar"
-@onready var root:=$'../..'
-@onready var input:Inputs=$'../../inputs'
-@onready var shape :=$"../../shape"
+var root:Node3D
+@onready var hotbar:=get_node_or_null("../hotbar")
+var inputs:Inputs
+var shape
 #@onready var platformer=$'../../platformer'
 #var body
 @export var interact_range:=2.0
 
 func _init() -> void:
 	name = 'head'
-func _ready() -> void:
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
-	add_exception(root)
-	
-	connect_hotbar()
 	set_interface()
+func _ready() -> void:
+	if root is PhysicsBody3D:
+		add_exception(root)
+	inputs = root.get_node_or_null('inputs')
+	shape = root.get_node_or_null('shape')
+	connect_hotbar()
 	get_head_bone()
 	use_shape_size()
 
@@ -25,31 +29,31 @@ func _process(delta: float) -> void:
 
 func connect_hotbar():
 	if hotbar == null: return
-	input.connect(NL.drop_pressed,drop_start)
-	input.connect(NL.drop_released,drop_stop)
+	inputs.connect(NL.drop_pressed,drop_start)
+	inputs.connect(NL.drop_released,drop_stop)
 	
-	input.connect(NL.act_pressed,act)
-	input.connect(NL.attack_pressed,attack)
-	input.connect(NL.skill_pressed,skill)
-	input.connect(NL.misc_pressed,misc)
+	inputs.connect(NL.act_pressed,act)
+	inputs.connect(NL.attack_pressed,attack)
+	inputs.connect(NL.skill_pressed,skill)
+	inputs.connect(NL.misc_pressed,misc)
 
 func set_interface():
-	root.set_meta(NL.get_target, Callable(get_target))
+	root.set_meta(NL.get_head_target, Callable(get_target))
 	root.set_meta(NL.get_head_position, Callable(get_head_position))
 	root.set_meta(NL.input_use_item, Callable(input_use_item))
 
 func input_use_item(id:int):
 	match id:
-		0:input.emit_signal(NL.attack_pressed)
-		1:input.emit_signal(NL.skill_pressed)
-		2:input.emit_signal(NL.misc_pressed)
-		_:input.emit_signal(NL.act_pressed)
+		0:inputs.emit_signal(NL.attack_pressed)
+		1:inputs.emit_signal(NL.skill_pressed)
+		2:inputs.emit_signal(NL.misc_pressed)
+		_:inputs.emit_signal(NL.act_pressed)
 
 @export var connect_to_shape:=true
 @export var head_margin:=0.2
 func use_shape_size():
 	if !connect_to_shape: return
-	if head_bone != null: return
+	if shape == null: return
 	shape.connect('on_size_changed',on_size_changed)
 
 func on_size_changed(_size:Vector3):
@@ -111,10 +115,10 @@ func default_interact():
 	var body = get_target()
 	if body == null: return
 	var dist_sq = global_position.distance_squared_to(body.global_position)
-	if dist_sq > interact_range * interact_range: return
-	if !body.has_method(NL.interact): return
-	body.interact(self)
-
+	if dist_sq > interact_range * interact_range: 
+		return
+	if !body.has_meta(NL.interact): return
+	body.get_meta(NL.interact).call(self)
 
 var drop_id:=0
 var drop_strength:=0.0:

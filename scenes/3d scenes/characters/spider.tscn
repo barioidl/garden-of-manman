@@ -22,11 +22,11 @@
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="13_decgv"]
 [ext_resource type="Resource" uid="uid://md7vpkr5xcdi" path="res://assets/bill_board_sides/moon face.tres" id="14_ga2t5"]
 [ext_resource type="Script" path="res://scripts/3d_billboard_animated.gd" id="14_iahpp"]
-[ext_resource type="Texture2D" uid="uid://csq3o2if2rgk3" path="res://assets/Textures/sun face0005.png" id="15_c1hbp"]
 [ext_resource type="Resource" uid="uid://btsyxe3lav3p0" path="res://assets/bill_board_sides/sun face.tres" id="16_450uj"]
 [ext_resource type="AudioStream" uid="uid://c2u51bnc0pxtb" path="res://assets/audio/kenney_ui-audio/Audio/switch2.ogg" id="17_r80fm"]
 [ext_resource type="AudioStream" uid="uid://cbqcmde5jwqpe" path="res://assets/audio/kenney_ui-audio/Audio/switch4.ogg" id="18_xur3e"]
 [ext_resource type="AudioStream" uid="uid://bysyj6wa0fieu" path="res://assets/audio/kenney_ui-audio/Audio/switch10.ogg" id="19_f4yt5"]
+[ext_resource type="Texture2D" uid="uid://cjlys0eaxux2e" path="res://assets/Textures/sun face0000.png" id="19_vv7ur"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot step.gd" id="21_cbu30"]
 [ext_resource type="Script" path="res://scripts/procedural animation/foot caster.gd" id="22_crgkt"]
 [ext_resource type="Script" path="res://scripts/procedural animation/leg step animation.gd" id="23_oikep"]
@@ -333,6 +333,7 @@ hunger = 10.0
 [node name="fall_damage" parent="stats" instance=ExtResource("5_tp48m")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_g0jqh")]
+process_mode = 4
 time_scale = 0.5
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
@@ -347,13 +348,16 @@ kill_sfx = ExtResource("8_dey3p")
 turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_g145v")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("11_1sjhw")
 scream_sfx = SubResource("Resource_py1ks")
 
 [node name="puzzle" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("11_dctu5")
 
 [node name="debug_display" type="Label3D" parent="."]
@@ -404,7 +408,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("15_c1hbp")
+texture = ExtResource("19_vv7ur")
 script = ExtResource("13_decgv")
 sprites = ExtResource("16_450uj")
 has_shadow = false

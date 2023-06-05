@@ -14,7 +14,7 @@ func _ready() -> void:
 	emit_signal("lock_updated",open)
 #	add_to_group('tool_tip')
 	add_to_group('lock')
-	pass
+	set_meta(NL.interact,interact)
 
 func interact(item):
 	if !accept_input:	return

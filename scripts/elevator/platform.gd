@@ -1,6 +1,7 @@
 extends AnimatableBody3D
 
 @onready var elevator = $".."
+@onready var nav_link = $"navmesh/nav link"
 @export var doors :Array[NodePath]=[]
 
 @onready var original_pos:=position
@@ -18,7 +19,7 @@ func move_platform(from,to,property)->float:
 	if is_equal_approx(from,to):
 		return 0
 	var travel_duration :float= abs(to - from)
-	travel_duration *= speed
+	travel_duration /= speed
 	var door_duration = get_node(doors[0]).duration
 	
 	tween = create_tween()
@@ -29,6 +30,7 @@ func move_platform(from,to,property)->float:
 	return travel_duration + door_duration
 
 func slide_doors(open:bool):
+	nav_link.enabled = open
 	for path in doors:
 		var door = get_node_or_null(path)
 		if door == null:

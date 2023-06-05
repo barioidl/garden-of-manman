@@ -3,12 +3,17 @@
 [sub_resource type="GDScript" id="GDScript_o54dq"]
 script/source = "extends Node
 
-@onready var root =  $\"../..\"
-@onready var stats :Stats= get_parent()
-@onready var platformer :Platformer = $\"../../platformer\"
+var root:Node3D
+var stats :Stats
+var platformer :Platformer
 
 @export var time_scale:=1.0
+func _enter_tree() -> void:
+	root =  get_parent().root
+	
 func _ready() -> void:
+	stats = get_parent()
+	platformer = root.get_node('platformer')
 	platformer.connect(NL.on_state_changed,on_state_changed)
 
 var dt:=0.0

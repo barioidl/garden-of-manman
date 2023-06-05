@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://m656m5c6naer"]
+[gd_scene load_steps=31 format=3 uid="uid://m656m5c6naer"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_etxmj"]
 [ext_resource type="PackedScene" uid="uid://bfx86i5ctbb7" path="res://scenes/3d scenes/facility/long arm.tscn" id="2_2wclx"]
@@ -10,7 +10,8 @@
 [ext_resource type="Script" path="res://scripts/conveyor belt.gd" id="8_jc62r"]
 [ext_resource type="Texture2D" uid="uid://cpfpb085plcvy" path="res://assets/Textures/key_card0004.png" id="9_k2kfi"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="9_qkm25"]
-[ext_resource type="Resource" uid="uid://b3elydd8a3xp5" path="res://data/items/key generic.tres" id="10_ylbrn"]
+[ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="11_iwstp"]
+[ext_resource type="Texture2D" uid="uid://c6h27v62pi8hm" path="res://assets/kenney/kenney_ui-pack/PNG/red_panel.png" id="12_41syx"]
 
 [sub_resource type="GDScript" id="GDScript_wlhke"]
 script/source = "extends Node3D
@@ -74,11 +75,363 @@ material = SubResource("StandardMaterial3D_qa8gy")
 size = Vector2(50, 10)
 orientation = 1
 
+[sub_resource type="Animation" id="Animation_4uohd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D_2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5708)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D_2/Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node3D_2/Node3D/Node3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node3D_2/Node3D/Node3D/Node3D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Area3D/CollisionShape3D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.5, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Area3D/CollisionShape3D:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 5, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Area3D:monitoring")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_54tol"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D_2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5708), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D_2/Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node3D_2/Node3D/Node3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node3D_2/Node3D/Node3D/Node3D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433), Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433), Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433), Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 3.05433), Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -3.05433), Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Area3D/CollisionShape3D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1, 2.5, 0), Vector3(-15.5, 1.75, 0), Vector3(-22.5, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Area3D/CollisionShape3D:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(2, 5, 10), Vector3(31, 4, 9), Vector3(45, 0.5, 8)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Area3D:monitoring")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fpib0"]
+_data = {
+"RESET": SubResource("Animation_4uohd"),
+"new_animation": SubResource("Animation_54tol")
+}
+
+[sub_resource type="GDScript" id="GDScript_xvrmj"]
+script/source = "extends AnimationPlayer
+
+var extend := false
+var cd :=0.0
+func _process(delta: float) -> void:
+	if cd >0:
+		cd -= delta
+		return
+	extend = !extend
+	if extend:
+		play(\"new_animation\",-1,2)
+		cd = 2
+	else:
+		play(\"new_animation\",-1,-0.5,true)
+		cd = 3
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsrwg"]
+albedo_color = Color(1, 0.45098, 0.45098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bn8w0"]
+material = SubResource("StandardMaterial3D_hsrwg")
+size = Vector3(5, 0.5, 10)
+
+[sub_resource type="GDScript" id="GDScript_wyege"]
+script/source = "extends Area3D
+
+@onready var shape = $CollisionShape3D
+var prev_pos:=Vector3.ZERO
+var velocity := Vector3.ZERO
+
+func _ready() -> void:
+	connect(\"body_entered\",body_entered)
+
+func _process(delta: float) -> void:
+	if !monitoring:
+		return
+	var pos = shape.global_position
+	velocity = -(pos - prev_pos)
+	prev_pos = pos
+
+func body_entered(body):
+	if body is RigidBody3D:
+		var damage = -randi_range(3,5)
+		Interface.change_health(body,damage)
+		body.linear_velocity += velocity * damage * 10
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b15m3"]
+
 [node name="forming chamber" type="Node3D"]
 script = ExtResource("1_etxmj")
 areas = [NodePath("../../render bounds/hydro forming chamber"), NodePath("../../render bounds/camera room"), NodePath("../../render bounds/conveyor room")]
 
 [node name="FormingRoom" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("3_n3sn8")
 skeleton = NodePath("../../../../..")
 
@@ -88,70 +441,78 @@ script = SubResource("GDScript_wlhke")
 [node name="long arm" parent="arm link" instance=ExtResource("2_2wclx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 44, 6, -36)
 
-[node name="long arm2" parent="arm link" instance=ExtResource("2_2wclx")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 66, 6, -36)
-
 [node name="long arm3" parent="arm link" instance=ExtResource("2_2wclx")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 52, 6, -44)
-
-[node name="long arm4" parent="arm link" instance=ExtResource("2_2wclx")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 78, 6, -44)
-
-[node name="long arm5" parent="arm link" instance=ExtResource("2_2wclx")]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 88, 6, -36)
+transform = Transform3D(-0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, -0.819152, 52, 6, -44)
 
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="assembling mob" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 85, 1, -40)
+top_level = true
 
 [node name="assembling mob3" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 80, 1, -40)
+top_level = true
 
 [node name="assembling mob4" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 75, 1, -40)
+top_level = true
 
 [node name="assembling mob5" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 70, 1, -40)
+top_level = true
 
 [node name="assembling mob6" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 65, 1, -40)
+top_level = true
 
 [node name="assembling mob7" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 60, 1, -40)
+top_level = true
 
 [node name="assembling mob8" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 55, 1, -40)
+top_level = true
 
 [node name="assembling mob9" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 50, 1, -40)
+top_level = true
 
 [node name="assembling mob10" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 45, 1, -40)
+top_level = true
 
 [node name="assembling mob11" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 1, -40)
+top_level = true
 
 [node name="assembling mob2" parent="Node3D" instance=ExtResource("4_dxd52")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 86, 1, -36)
+top_level = true
 
 [node name="fence" parent="Node3D" instance=ExtResource("5_chxup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, -44.4841)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -44.4841)
+top_level = true
 
 [node name="fence2" parent="Node3D" instance=ExtResource("5_chxup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, -43)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -43)
+top_level = true
 
 [node name="fence3" parent="Node3D" instance=ExtResource("5_chxup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, -41.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -41.5)
+top_level = true
 
 [node name="fence4" parent="Node3D" instance=ExtResource("5_chxup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, -36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -35.6)
+top_level = true
 
 [node name="fence5" parent="Node3D" instance=ExtResource("5_chxup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, -37.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -37)
+top_level = true
 
 [node name="fence6" parent="Node3D" instance=ExtResource("5_chxup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, -39)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -38.5)
+top_level = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.5, 0, -40)
@@ -170,26 +531,6 @@ shape = SubResource("BoxShape3D_yh60a")
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.5, 4.5, -40)
 script = SubResource("GDScript_vddv8")
-
-[node name="bulb4" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 15.5, 0, 4.5)
-shadow_enabled = true
-distance_fade_enabled = true
-distance_fade_begin = 30.0
-distance_fade_length = 20.0
-omni_range = 10.0
-omni_attenuation = 0.2
-script = SubResource("GDScript_h1vrp")
-
-[node name="bulb5" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 16.5, 0, -4.5)
-shadow_enabled = true
-distance_fade_enabled = true
-distance_fade_begin = 30.0
-distance_fade_length = 20.0
-omni_range = 10.0
-omni_attenuation = 0.2
-script = SubResource("GDScript_h1vrp")
 
 [node name="bulb6" type="OmniLight3D" parent="lights"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.5, 0, -4.5)
@@ -222,7 +563,7 @@ omni_attenuation = 0.2
 script = SubResource("GDScript_h1vrp")
 
 [node name="3d button" parent="." instance=ExtResource("6_i1s81")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 89.5, 1, -44.8)
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 43.5, 1, -35.2331)
 
 [node name="belts" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 0, -40)
@@ -253,12 +594,125 @@ transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 66, 12
 mesh = SubResource("QuadMesh_6n11j")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.5, 0.5, -43.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.5, 0.5, -35.5)
+modulate = Color(1, 0, 0, 1)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("9_k2kfi")
 script = ExtResource("9_qkm25")
-item = ExtResource("10_ylbrn")
+item = ExtResource("11_iwstp")
+
+[node name="tounge" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91, 0, -40)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="tounge"]
+libraries = {
+"": SubResource("AnimationLibrary_fpib0")
+}
+script = SubResource("GDScript_xvrmj")
+
+[node name="Node3D_2" type="Node3D" parent="tounge"]
+transform = Transform3D(-3.61999e-06, 1, 0, -1, -3.61999e-06, 0, 0, 0, 1, 0.5, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2"]
+transform = Transform3D(-0.996195, -0.0871518, 0, 0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2/Node3D"]
+transform = Transform3D(-0.996195, 0.0871518, 0, -0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2/Node3D/Node3D"]
+transform = Transform3D(-0.996195, -0.0871518, 0, 0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D"]
+transform = Transform3D(-0.996195, 0.0871518, 0, -0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(-0.996195, -0.0871518, 0, 0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.8, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(-0.996195, 0.0871518, 0, -0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(-0.996195, -0.0871518, 0, 0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.6, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(-0.996195, 0.0871518, 0, -0.0871518, -0.996195, 0, 0, 0, 1, -5, 1.52588e-05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tounge/Node3D_2/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -2.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_bn8w0")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="tounge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0)
+collision_layer = 0
+monitoring = false
+monitorable = false
+script = SubResource("GDScript_wyege")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tounge/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_b15m3")
+
+[node name="Decal" type="Decal" parent="tounge"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -3.82137e-15, 4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -1, 3, 0)
+layers = 512
+size = Vector3(12, 3, 10)
+texture_albedo = ExtResource("12_41syx")
+emission_energy = 0.0
+modulate = Color(0, 0, 0, 1)
+upper_fade = 1.70843e-05
+lower_fade = 1.0
+cull_mask = 1048064
 
 [connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]
 [connection signal="toggled" from="3d button" to="belts" method="button_toggled"]

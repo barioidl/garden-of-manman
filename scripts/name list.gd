@@ -11,14 +11,13 @@ var jump := &'jump'
 var fall := &'fall'
 
 func list_of_goap_states():pass
-var creativity := &'creativity'
-var curiosity := &'curiosity'
-var integrity := &'integrity'
-var compassion := &'compassion'
-var efficient := &'efficient'
-var ambitious := &'ambitious'
-var honesty := &'honesty'
-var bravery := &'bravery'
+var root :=&'root'
+var agent := &'agent'
+var proximity_tool := &'proximity_tool'
+
+var jumpscare := &'jumpscare'
+var puzzle := &'puzzle'
+var playing := &'playing'
 
 var plan_width := &'plan_width'
 var plan_depth := &'plan_depth'
@@ -27,7 +26,6 @@ var unique_steps := &'unique_steps'
 var has_food := &'has_food'
 var has_drink := &'has_drink'
 var has_key := &'has_key'
-
 
 var health := &'health'
 var max_health := &'max_health'
@@ -42,27 +40,53 @@ var max_thirst := &'max_thirst'
 var hunger := &'hunger'
 var max_hunger := &'max_hunger'
 
-var jumpscare := &'jumpscare'
-var puzzle := &'puzzle'
-var playing := &'playing'
+var allies := &'allies'
+var enemies := &'enemies'
+var predators := &'predator'
+var preys := &'prey'
 
-var player_fear := &'player_fear'
-var player_tension := &'player_tension'
+var interest := &'interest'
+var joy := &'joy'
+var surprise := &'surprise'
+var sadness := &'sadness'
+var anger := &'anger'
+var disgust := &'disgust'
+var contempt := &'contempt'
+var self_hostility := &'self_hostility'
+var fear := &'fear'
+var shame := &'shame'
+var shyness := &'shyness'
+var guilt := &'guilt'
 
-var root :=&'root'
-var agent := &'agent'
+
+#var creativity := &'creativity'
+#var curiosity := &'curiosity'
+#var integrity := &'integrity'
+#var compassion := &'compassion'
+#var efficient := &'efficient'
+#var ambitious := &'ambitious'
+#var honesty := &'honesty'
+#var bravery := &'bravery'
 
 func list_of_group_names():pass
 var player := &'player'
+var character := &'character'
+
+var human:= &'human'
+var monster := &'monster'
 
 var food := &'food'
 var drink := &'drink'
-var healing_item := &'healing_item'
 var key := &'key'
 
-var character := &'character'
-var ui_save_load := &'ui_save_load'
+var door := &'door'
+var healing_item := &'healing_item'
+
 var billboard_sprites:= &'billboard_sprites'
+
+var ui_save_load := &'ui_save_load'
+var goap_save_load := &'goap_save_load'
+var on_quit := &'on_quit'
 
 func list_of_meta():pass
 var show_dialogue:= &'show_dialogue'
@@ -70,6 +94,7 @@ var show_image:= &'show_image'
 var connect_stats_display := &'connect_stats_display'
 
 var get_inputs := &'get_inputs'
+var reset_inputs := &'reset_inputs'
 
 var delay_platformer := &'delay_platformer'
 var walk_to_target := &'walk_to_target'
@@ -77,7 +102,7 @@ var sneak_to_target := &'sneak_to_target'
 var sprint_to_target := &'sprint_to_target'
 var jump_to_target := &'jump_to_target'
 
-var get_target := &'get_target'
+var get_head_target := &'get_head_target'
 var get_head_position := &'get_head_position'
 var input_use_item := &'input_use_item'
 
@@ -90,10 +115,17 @@ var turn_head_toward:= &'turn_head_toward'
 
 var send_message:= &'send_message'
 var receive_message:= &'receive_message'
+var set_gameplay_mousemode := &'set_gameplay_mousemode'
 
 var respawn := &'respawn'
 
+var get_goap_agent := &'get_goap_agent'
 var toggle_goap_agent := &'toggle_goap_agent'
+var reward_agent := &'reward_agent'
+
+var get_closest_node3d := &'get_closest_node3d'
+var get_farest_node3d := &'get_farest_node3d'
+var get_random_position := &'get_random_position'
 
 var get_nav_agent := &'get_nav_agent'
 
@@ -135,6 +167,7 @@ var reload_released := &'reload_released'
 var flip_pressed := &'flip_pressed'
 var flip_released := &'flip_released'
 
+var on_state_changed := &'on_state_changed'
 
 var body_entered := &'body_entered'
 var body_exited := &'body_exited'
@@ -161,9 +194,6 @@ var stamina_updated := &'stamina_updated'
 var thirst_updated := &'thirst_updated'
 var hunger_updated := &'hunger_updated'
 
-
-
-var on_state_changed := &'on_state_changed'
 
 var item_equipped := &'item_equipped'
 var item_unequipped := &'item_unequipped'

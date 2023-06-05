@@ -1,10 +1,11 @@
 extends GOAPAction
 class_name ActionEatFood
-func name()->StringName:
-	return 'A eat food'
+
+func _name()->StringName:
+	return &'A eat food'
 
 func get_inputs(local_state:Dictionary)->Dictionary:
-	if local_state.has('root'):
+	if local_state.has(NL.root):
 		var root = local_state.root
 		var id =get_hotbar_food(root)
 		if id > 0:
@@ -13,14 +14,13 @@ func get_inputs(local_state:Dictionary)->Dictionary:
 
 func get_outputs(local_state:Dictionary)->Dictionary:
 	return {
-		NL.has_food:-1,
 		NL.hunger: -1
 	}
 
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root = local_state.root
 	
-	var id =get_hotbar_food(root)
+	var id = get_hotbar_food(root)
 	if id <0:
 		return true
 	

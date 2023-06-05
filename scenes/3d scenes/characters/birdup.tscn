@@ -143,11 +143,13 @@ extra_jumps = 0
 [node name="fps aim" parent="." instance=ExtResource("5_m2nsj")]
 
 [node name="brain" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_rqpy0")
 bird_up_sfx = SubResource("Resource_3csay")
 turn_speed = 200
 
 [node name="shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_la7lu")
 script = ExtResource("7_bbk8o")
 
@@ -159,6 +161,7 @@ script = ExtResource("9_g4mfk")
 [node name="hotbar" parent="body" instance=ExtResource("11_xjh4v")]
 
 [node name="body" type="Node3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Sprite3D2" type="Sprite3D" parent="body/body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.2)
@@ -167,7 +170,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("11_0k7su")
+texture = ExtResource("8_o4cw0")
 region_rect = Rect2(42, 41, 29, 31)
 script = ExtResource("9_5ceam")
 sprites = SubResource("Resource_x2w00")
@@ -188,7 +191,7 @@ offset = 5.0
 body_mid_pos = Vector3(0, -0.05, 0)
 
 [node name="left feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.999999, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984808, 0.2, -0.25, -0.2)
+transform = Transform3D(0.999999, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984808, 0.2, 0.75, -0.2)
 exclude_parent = false
 script = ExtResource("20_bqx6t")
 exception = NodePath("../../..")
@@ -200,7 +203,7 @@ script = ExtResource("21_6u5vh")
 step_distance = 0.4
 
 [node name="right feet" type="RayCast3D" parent="body/feet casters" node_paths=PackedStringArray("exception")]
-transform = Transform3D(0.999999, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984808, -0.2, -0.25, -0.2)
+transform = Transform3D(0.999999, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984808, -0.2, 0.75, -0.2)
 exclude_parent = false
 script = ExtResource("20_bqx6t")
 exception = NodePath("../../..")

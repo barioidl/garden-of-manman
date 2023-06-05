@@ -1,81 +1,35 @@
-[gd_scene load_steps=102 format=3 uid="uid://cwjjqyorvakym"]
+[gd_scene load_steps=54 format=3 uid="uid://cwjjqyorvakym"]
 
 [ext_resource type="Texture2D" uid="uid://bl824tvr05ine" path="res://assets/kenney/kenney_ui-pack/PNG/grey_button00.png" id="2_3ahfj"]
-[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_bfr04"]
 [ext_resource type="Texture2D" uid="uid://dqu8kim6qvskn" path="res://assets/kenney/kenney_ui-pack/PNG/green_button10.png" id="2_whvft"]
 [ext_resource type="Texture2D" uid="uid://dap1733rrkqyw" path="res://assets/kenney/kenney_ui-pack/PNG/grey_crossGrey.png" id="3_i7e3p"]
-[ext_resource type="AudioStream" uid="uid://dxa3kdb7d7ugm" path="res://assets/audio/kenney_ui-audio/Audio/click1.ogg" id="3_uh4a2"]
 [ext_resource type="Texture2D" uid="uid://cionnh1nd384b" path="res://assets/kenney/kenney_ui-pack/PNG/red_button01.png" id="3_y0kql"]
 [ext_resource type="Texture2D" uid="uid://cedj0ci5h3d0a" path="res://assets/kenney/kenney_ui-pack/PNG/green_panel.png" id="4_8musn"]
 [ext_resource type="Texture2D" uid="uid://dm8x6bce6cfm2" path="res://assets/kenney/kenney_ui-pack/PNG/red_button00.png" id="4_qnttq"]
-[ext_resource type="AudioStream" uid="uid://bpleif45g7nqw" path="res://assets/audio/kenney_ui-audio/Audio/click2.ogg" id="4_s6o33"]
 [ext_resource type="Texture2D" uid="uid://crfddtl2yns0u" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button00.png" id="5_5mmy2"]
 [ext_resource type="Texture2D" uid="uid://dhahnnjppku2s" path="res://assets/kenney/kenney_ui-pack/PNG/red_button07.png" id="5_7ouj8"]
-[ext_resource type="AudioStream" uid="uid://bxmjgnnwj44k6" path="res://assets/audio/kenney_ui-audio/Audio/click3.ogg" id="5_gbxee"]
-[ext_resource type="AudioStream" uid="uid://bonwo33lxday8" path="res://assets/audio/kenney_ui-audio/Audio/click4.ogg" id="6_n1leb"]
 [ext_resource type="Texture2D" uid="uid://b2dmrbnjwihv7" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button01.png" id="6_wtw1i"]
 [ext_resource type="Texture2D" uid="uid://clhpbxksikdkm" path="res://assets/kenney/kenney_ui-pack/PNG/red_button13.png" id="7_pjynr"]
-[ext_resource type="AudioStream" uid="uid://wx1kk88shqtw" path="res://assets/audio/kenney_ui-audio/Audio/click5.ogg" id="7_qclgw"]
 [ext_resource type="Texture2D" uid="uid://duacvj3v7702f" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button02.png" id="7_ylyai"]
-[ext_resource type="AudioStream" uid="uid://cowcj26nn10kk" path="res://assets/audio/kenney_ui-audio/Audio/switch1.ogg" id="8_jvp7b"]
 [ext_resource type="Texture2D" uid="uid://dgc76cx6utdtb" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button03.png" id="8_tdxnv"]
 [ext_resource type="Texture2D" uid="uid://b14x3g2cjdl" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button04.png" id="9_3n0b5"]
-[ext_resource type="AudioStream" uid="uid://c2u51bnc0pxtb" path="res://assets/audio/kenney_ui-audio/Audio/switch2.ogg" id="9_udjct"]
-[ext_resource type="AudioStream" uid="uid://dk7mjjhwjpfrc" path="res://assets/audio/kenney_ui-audio/Audio/switch3.ogg" id="10_jygyq"]
 [ext_resource type="Texture2D" uid="uid://b77dwdec5wg3q" path="res://assets/kenney/kenney_ui-pack/PNG/red_button02.png" id="10_s564t"]
 [ext_resource type="Texture2D" uid="uid://bi7nnx78xrt1j" path="res://assets/kenney/kenney_ui-pack/PNG/red_button09.png" id="10_x3v8o"]
-[ext_resource type="AudioStream" uid="uid://cbqcmde5jwqpe" path="res://assets/audio/kenney_ui-audio/Audio/switch4.ogg" id="11_8wsct"]
 [ext_resource type="Texture2D" uid="uid://dhkpae8nx4ufc" path="res://assets/kenney/kenney_ui-pack/PNG/red_button11.png" id="11_i8xw5"]
 [ext_resource type="Texture2D" uid="uid://yqet5cwa7oud" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button05.png" id="11_juupq"]
 [ext_resource type="Texture2D" uid="uid://dcyc0i6l00vjp" path="res://assets/kenney/kenney_ui-pack/PNG/red_button12.png" id="12_asujs"]
 [ext_resource type="Texture2D" uid="uid://bxla7ujm52rqv" path="res://assets/kenney/kenney_ui-pack/PNG/green_button12.png" id="12_bexpq"]
-[ext_resource type="AudioStream" uid="uid://dk2bcq87hngvw" path="res://assets/audio/kenney_ui-audio/Audio/switch5.ogg" id="12_l7rcj"]
-[ext_resource type="AudioStream" uid="uid://tmc8efse5bxq" path="res://assets/audio/kenney_ui-audio/Audio/switch6.ogg" id="13_7qo6n"]
 [ext_resource type="Texture2D" uid="uid://dy8d8kd08wf5y" path="res://assets/kenney/kenney_ui-pack/PNG/green_button11.png" id="13_hsqbb"]
-[ext_resource type="AudioStream" uid="uid://dcurhapoes262" path="res://assets/audio/kenney_ui-audio/Audio/switch7.ogg" id="14_luetl"]
-[ext_resource type="AudioStream" uid="uid://beckqidnu8r0c" path="res://assets/audio/kenney_ui-audio/Audio/switch8.ogg" id="15_ydxs8"]
-[ext_resource type="AudioStream" uid="uid://b3m2fur6ut28s" path="res://assets/audio/kenney_ui-audio/Audio/switch9.ogg" id="16_g325f"]
-[ext_resource type="AudioStream" uid="uid://bysyj6wa0fieu" path="res://assets/audio/kenney_ui-audio/Audio/switch10.ogg" id="17_tc4j1"]
-[ext_resource type="AudioStream" uid="uid://7gpoth4mw7hl" path="res://assets/audio/kenney_ui-audio/Audio/switch11.ogg" id="18_k27rk"]
-[ext_resource type="AudioStream" uid="uid://d4isnagb1ec1o" path="res://assets/audio/kenney_ui-audio/Audio/switch12.ogg" id="19_75t5p"]
-[ext_resource type="AudioStream" uid="uid://18aw316v2ekm" path="res://assets/audio/kenney_ui-audio/Audio/switch13.ogg" id="20_l78bs"]
-[ext_resource type="AudioStream" uid="uid://dd8et1lqibta" path="res://assets/audio/kenney_ui-audio/Audio/switch14.ogg" id="21_4a7qx"]
-[ext_resource type="AudioStream" uid="uid://hkrr0xbsy4r6" path="res://assets/audio/kenney_ui-audio/Audio/switch15.ogg" id="22_8qqqc"]
-[ext_resource type="AudioStream" uid="uid://dkqch65h6eokt" path="res://assets/audio/kenney_ui-audio/Audio/switch16.ogg" id="23_vj74o"]
-[ext_resource type="AudioStream" uid="uid://do34lkwp7x55r" path="res://assets/audio/kenney_ui-audio/Audio/switch17.ogg" id="24_c370f"]
-[ext_resource type="AudioStream" uid="uid://2r1o4i0g4lsj" path="res://assets/audio/kenney_ui-audio/Audio/switch18.ogg" id="25_0hl1y"]
-[ext_resource type="AudioStream" uid="uid://ck10oi5myfkur" path="res://assets/audio/kenney_ui-audio/Audio/switch19.ogg" id="26_4v6gu"]
-[ext_resource type="AudioStream" uid="uid://h5j2ol1hsyg2" path="res://assets/audio/kenney_ui-audio/Audio/switch20.ogg" id="27_5xbfe"]
-[ext_resource type="AudioStream" uid="uid://b1nudoqam3kxl" path="res://assets/audio/kenney_ui-audio/Audio/switch21.ogg" id="28_wotwd"]
-[ext_resource type="AudioStream" uid="uid://dw25cbxq735xx" path="res://assets/audio/kenney_ui-audio/Audio/switch22.ogg" id="29_jux6y"]
-[ext_resource type="AudioStream" uid="uid://c06eewodtbnje" path="res://assets/audio/kenney_ui-audio/Audio/switch23.ogg" id="30_k2da2"]
-[ext_resource type="AudioStream" uid="uid://buoi7tqsx57vx" path="res://assets/audio/kenney_ui-audio/Audio/switch24.ogg" id="31_i1r68"]
-[ext_resource type="AudioStream" uid="uid://bgo1abru0osi6" path="res://assets/audio/kenney_ui-audio/Audio/switch25.ogg" id="32_0eafr"]
-[ext_resource type="AudioStream" uid="uid://cadr270jahx8n" path="res://assets/audio/kenney_ui-audio/Audio/switch26.ogg" id="33_4mc8t"]
-[ext_resource type="AudioStream" uid="uid://c2esxvwvvdxka" path="res://assets/audio/kenney_ui-audio/Audio/switch27.ogg" id="34_hadae"]
-[ext_resource type="AudioStream" uid="uid://8uairjkwhqwu" path="res://assets/audio/kenney_ui-audio/Audio/switch28.ogg" id="35_7vus6"]
-[ext_resource type="AudioStream" uid="uid://dteskmgpnn0ca" path="res://assets/audio/kenney_ui-audio/Audio/switch29.ogg" id="36_5keqm"]
-[ext_resource type="AudioStream" uid="uid://be8imc8k1lx4v" path="res://assets/audio/kenney_ui-audio/Audio/switch30.ogg" id="37_3as28"]
-[ext_resource type="AudioStream" uid="uid://btjsl8v1vfsr5" path="res://assets/audio/kenney_ui-audio/Audio/switch31.ogg" id="38_vmj16"]
-[ext_resource type="AudioStream" uid="uid://b4vgw56vf301u" path="res://assets/audio/kenney_ui-audio/Audio/switch32.ogg" id="39_jiqi7"]
-[ext_resource type="AudioStream" uid="uid://dmfmjlinqd62i" path="res://assets/audio/kenney_ui-audio/Audio/switch33.ogg" id="40_mr8ks"]
-[ext_resource type="AudioStream" uid="uid://cwn505tgwkp0" path="res://assets/audio/kenney_ui-audio/Audio/switch34.ogg" id="41_1i2o5"]
-[ext_resource type="AudioStream" uid="uid://dsx6edlpclscg" path="res://assets/audio/kenney_ui-audio/Audio/switch35.ogg" id="42_5bphs"]
-[ext_resource type="AudioStream" uid="uid://btbuhftrvtspa" path="res://assets/audio/kenney_ui-audio/Audio/switch36.ogg" id="43_nsshm"]
-[ext_resource type="AudioStream" uid="uid://dhsaknua30l6" path="res://assets/audio/kenney_ui-audio/Audio/switch37.ogg" id="44_udgke"]
-[ext_resource type="AudioStream" uid="uid://c3nwvwcgmuob7" path="res://assets/audio/kenney_ui-audio/Audio/switch38.ogg" id="45_nsyay"]
-[ext_resource type="AudioStream" uid="uid://dw4liyuhepn4g" path="res://assets/audio/kenney_ui-audio/Audio/rollover1.ogg" id="46_60wcd"]
-[ext_resource type="AudioStream" uid="uid://dghcgjir7h5dm" path="res://assets/audio/kenney_ui-audio/Audio/rollover2.ogg" id="47_d4qvq"]
-[ext_resource type="AudioStream" uid="uid://qk6bnu84ewy8" path="res://assets/audio/kenney_ui-audio/Audio/rollover3.ogg" id="48_m7ufg"]
-[ext_resource type="AudioStream" uid="uid://bdtd2bd2sbb3d" path="res://assets/audio/kenney_ui-audio/Audio/rollover4.ogg" id="49_7bn0o"]
-[ext_resource type="AudioStream" uid="uid://s208c2rwcb20" path="res://assets/audio/kenney_ui-audio/Audio/rollover5.ogg" id="50_1y8jn"]
-[ext_resource type="AudioStream" uid="uid://07k2diroxtl1" path="res://assets/audio/kenney_ui-audio/Audio/rollover6.ogg" id="51_48odo"]
+[ext_resource type="Texture2D" uid="uid://tklgf0b20ggn" path="res://assets/Textures/birdup leg0001.png" id="15_gp7rv"]
+[ext_resource type="Resource" uid="uid://bws6ypv636q81" path="res://data/audio/button click.tres" id="22_sdrfh"]
+[ext_resource type="Resource" uid="uid://bxucddp07vxk3" path="res://data/audio/button switch.tres" id="23_l55x2"]
+[ext_resource type="Resource" uid="uid://bndclbdf5ooje" path="res://data/audio/button roll.tres" id="24_xapgb"]
 
 [sub_resource type="FontVariation" id="FontVariation_6xpj3"]
 
 [sub_resource type="Theme" id="Theme_7t2kr"]
 default_font = SubResource("FontVariation_6xpj3")
-default_font_size = 20
+default_font_size = 24
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="GDScript" id="GDScript_5kh0j"]
@@ -90,27 +44,15 @@ enum states{
 	exit
 }
 
-@export var ui_start_page:Control
-@export var ui_game:Control
-@export var ui_over:Control
-@export var ui_pause:Control
-@export var ui_settings:Control
-@export var ui_exit:Control
-
 @export var state := states.gameplay
 var prev_states:Array[states]=[]
 
-var sfx_cd:=1.0
-@export var button_sounds:AudioList
-@export var switch_sounds:AudioList
-@export var roll_sounds:AudioList
-
+signal  state_changed(old_state, state)
 func _ready():
-	update_ui()
+	emit_signal('state_changed',state,state)
 
 func _process(delta: float) -> void:
-	if sfx_cd >0:
-		sfx_cd -= delta
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_echo(): return
@@ -122,79 +64,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		if prev != null:
 			change_state(prev,false)
 
+
 func change_state(new_state,add_to_stack:=true):
 	if state == new_state: return
 	if add_to_stack:
 		prev_states.push_back(state)
-	save_file(state,new_state)
+	emit_signal('state_changed',state,new_state)
 	state=new_state
-	update_ui()
 	
-	play_roll_sfx()
-
-func save_file(old_state,new_state):
-	if old_state != states.settings:return
-	$save_loader.save.call()
-
-func update_ui():
-	show_UI()
-	toggle_mouse_lock()
-	pause_world()
-
-func show_UI():
-	ui_start_page.visible = state == states.start_page
-	ui_game.visible = state == states.gameplay
-	ui_over.visible = state == states.gameover
-	ui_pause.visible = state == states.pause
-	ui_settings.visible = state == states.settings
-	ui_exit.visible = state == states.exit
-
-func toggle_mouse_lock():
-	var is_in_game = state == states.gameplay
-	if is_in_game:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
-func pause_world():
-	var is_in_game = state == states.gameplay or state == states.start_page
-	get_tree().paused = !is_in_game
-
-
-
-func play_button_sfx():
-	if sfx_cd >0: return
-	sfx_cd = 0.1
-	AudioPool.create_sound(button_sounds)
-
-func play_switch_sfx():
-	if sfx_cd >0: return
-	sfx_cd = 0.1
-	AudioPool.create_sound(button_sounds)
-
-func play_roll_sfx():
-	if sfx_cd >0: return
-	sfx_cd = 0.1
-	AudioPool.create_sound(button_sounds)
 "
-
-[sub_resource type="Resource" id="Resource_d7d2p"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("3_uh4a2"), ExtResource("4_s6o33"), ExtResource("5_gbxee"), ExtResource("6_n1leb"), ExtResource("7_qclgw")])
-
-[sub_resource type="Resource" id="Resource_pi23o"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("8_jvp7b"), ExtResource("9_udjct"), ExtResource("10_jygyq"), ExtResource("11_8wsct"), ExtResource("12_l7rcj"), ExtResource("13_7qo6n"), ExtResource("14_luetl"), ExtResource("15_ydxs8"), ExtResource("16_g325f"), ExtResource("17_tc4j1"), ExtResource("18_k27rk"), ExtResource("19_75t5p"), ExtResource("20_l78bs"), ExtResource("21_4a7qx"), ExtResource("22_8qqqc"), ExtResource("23_vj74o"), ExtResource("24_c370f"), ExtResource("25_0hl1y"), ExtResource("26_4v6gu"), ExtResource("27_5xbfe"), ExtResource("28_wotwd"), ExtResource("29_jux6y"), ExtResource("30_k2da2"), ExtResource("31_i1r68"), ExtResource("32_0eafr"), ExtResource("33_4mc8t"), ExtResource("34_hadae"), ExtResource("35_7vus6"), ExtResource("36_5keqm"), ExtResource("37_3as28"), ExtResource("38_vmj16"), ExtResource("39_jiqi7"), ExtResource("40_mr8ks"), ExtResource("41_1i2o5"), ExtResource("42_5bphs"), ExtResource("43_nsshm"), ExtResource("44_udgke"), ExtResource("45_nsyay")])
-
-[sub_resource type="Resource" id="Resource_4vadk"]
-script = ExtResource("2_bfr04")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("46_60wcd"), ExtResource("47_d4qvq"), ExtResource("48_m7ufg"), ExtResource("49_7bn0o"), ExtResource("50_1y8jn"), ExtResource("51_48odo")])
 
 [sub_resource type="GDScript" id="GDScript_xypeh"]
 script/source = "extends TextureButton
@@ -207,30 +85,17 @@ func start():
 	get_tree().change_scene_to_file(\"res://scenes/3d scenes/main_scene.tscn\")
 "
 
-[sub_resource type="GDScript" id="GDScript_rcm42"]
-script/source = "extends TextureButton
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	connect('pressed',_open_page) # Replace with function body.
-
-func _open_page():
-	$\"../../../..\".play_button_sfx()
-	OS.shell_open(\"https://youtu.be/gN24W_psMpE\")
-"
-
 [sub_resource type="GDScript" id="GDScript_xeehh"]
 script/source = "extends TextureButton
 
-
+@export var link:String=\"https://www.youtube.com/channel/UCq5n-U_6j3Y1CQBTotLkSKQ\"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	connect('pressed',_open_page) # Replace with function body.
 
 func _open_page():
 	$\"../../../..\".play_button_sfx()
-	OS.shell_open(\"https://www.youtube.com/channel/UCq5n-U_6j3Y1CQBTotLkSKQ\")
+	OS.shell_open(link)
 "
 
 [sub_resource type="GDScript" id="GDScript_qvros"]
@@ -458,16 +323,17 @@ func show_image(image):
 [sub_resource type="GDScript" id="GDScript_elmo7"]
 script/source = "extends Control
 @onready var root = $'..'
+@onready var sfx = $\"../sound effects\"
 func play() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.gameplay)
 
 func settings() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.settings)
 
 func exit() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.exit)
 "
 
@@ -528,6 +394,7 @@ TabContainer/styles/tabbar_background = null
 script/source = "extends BoxContainer
 @onready var player = PlayerInputs
 @onready var root = $\"../../..\"
+@onready var sfx = $\"../../../sound effects\"
 
 @onready var mouse_slider = $\"mouse slider\"
 @onready var gamepad_slider = $\"gamepad slider\"
@@ -547,7 +414,7 @@ func _ready() -> void:
 	tween.tween_callback(update_all)
 
 func play_sfx(val=0):
-	root.play_switch_sfx()
+	sfx.play_switch_sfx()
 
 func update_all():
 	if player == null: return
@@ -557,7 +424,7 @@ func update_all():
 	invert_y_toggled()
 
 func mouse_changed(changed:bool):
-	root.play_roll_sfx()
+	sfx.play_roll_sfx()
 	if changed: return
 	var value = mouse_slider.value/mouse_slider.max_value
 	value = lerpf(1,9,value)
@@ -565,7 +432,7 @@ func mouse_changed(changed:bool):
 #	print(player.mouse_speed)
 
 func gamepad_changed(changed:bool):
-	root.play_roll_sfx()
+	sfx.play_roll_sfx()
 	if changed: return
 	var value = gamepad_slider.value/gamepad_slider.max_value
 	value = lerpf(1,9,value)
@@ -573,11 +440,11 @@ func gamepad_changed(changed:bool):
 #	print(player.joypad_speed)
 
 func invert_x_toggled():
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	player.invert_x = -1 if invert_x.button_pressed else 1
 
 func invert_y_toggled():
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	player.invert_y = -1 if invert_y.button_pressed else 1
 
 func _save():
@@ -603,6 +470,7 @@ script/source = "extends VBoxContainer
 
 @onready var base_button = $key
 @onready var root = $\"../../../..\"
+@onready var sfx = $\"../../../../sound effects\"
 
 func _ready() -> void:
 	add_to_group('ui_save_load')
@@ -618,7 +486,7 @@ func create_reset_button():
 	set_text(base_button,'Reset all buttons')
 	base_button.connect('pressed',reset_keymap)
 func reset_keymap():
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	InputMap.load_from_project_settings()
 	update_all_buttons()
 
@@ -683,7 +551,7 @@ func update_button_keybinds(button, action):
 	set_text(button,button.name + ': '+keys)
 
 func button_changed(button,action):
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	if assigning_button != null: return
 	if assigning_action != '': return
 	set_text(button,button.name+ ': ')
@@ -757,6 +625,8 @@ func _load(save_dict:Dictionary):
 [sub_resource type="GDScript" id="GDScript_j6o1j"]
 script/source = "extends Control
 
+@onready var sound_effects = $\"../../../sound effects\"
+
 @onready var master_slider = $Master
 
 @onready var music_slider = $Music
@@ -826,19 +696,23 @@ func update_all_settings():
 
 func adjust_bus(changed:bool,slider,bus:int):
 	if changed: return
+	sound_effects.play_switch_sfx()
 	var value = slider.value
 	AudioServer.set_bus_volume_db(bus,value)
 
 func toggle_music(pressed:bool):
-	pass
+	sound_effects.play_button_sfx()
 
 func toggle_sfx(pressed:bool):
+	sound_effects.play_button_sfx()
 	AudioPool.disable_sfx = !pressed
 
 func toggle_sfx_2d(pressed:bool):
+	sound_effects.play_button_sfx()
 	AudioPool.disable_sfx_2d = !pressed
 
 func toggle_sfx_3d(pressed:bool):
+	sound_effects.play_button_sfx()
 	AudioPool.disable_sfx_3d = !pressed
 
 func _save():
@@ -873,6 +747,8 @@ func _load(data:Dictionary):
 
 [sub_resource type="GDScript" id="GDScript_yc5g0"]
 script/source = "extends BoxContainer
+
+@onready var sfx = $\"../../../sound effects\"
 
 @onready var vsync_button = $vsync
 @onready var slider_brightness =$brightness
@@ -909,6 +785,7 @@ func update_all_settings():
 	set_saturation(false)
 
 func set_vsync(value):
+	sfx.play_button_sfx()
 	var mode = DisplayServer.VSYNC_DISABLED 
 	if value:
 		mode = DisplayServer.VSYNC_ENABLED
@@ -916,18 +793,21 @@ func set_vsync(value):
 
 func set_contrast(changed:bool):
 	if changed: return
+	sfx.play_button_sfx()
 	var value = slider_contrast.value
 	if environment == null: return
 	environment.adjustment_contrast = value
 
 func set_brightness(changed:bool):
 	if changed: return
+	sfx.play_button_sfx()
 	var value = slider_brightness.value
 	if environment == null: return
 	environment.adjustment_brightness = value
 
 func set_saturation(changed:bool):
 	if changed: return
+	sfx.play_button_sfx()
 	var value = slider_saturation.value
 	if environment == null: return
 	environment.adjustment_saturation = value
@@ -952,19 +832,21 @@ func _load(data:Dictionary):
 [sub_resource type="GDScript" id="GDScript_a2aip"]
 script/source = "extends Control
 @onready var root = $'..'
+@onready var sfx = $\"../sound effects\"
 
 func restart() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.gameplay) 
 
 func exit() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.exit)
 "
 
 [sub_resource type="GDScript" id="GDScript_ulijc"]
 script/source = "extends Control
 @onready var root = $'..'
+@onready var sfx = $\"../sound effects\"
 
 func _ready() -> void:
 	connect('visibility_changed',toggled.bind())
@@ -985,32 +867,126 @@ func add_word():
 	no_text.text += 'no ' 
 
 func no() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
 	root.change_state(root.states.pause)
 
 func yes() -> void:
-	root.play_button_sfx()
+	sfx.play_button_sfx()
+	notify_group()
 	get_tree().quit()# Replace with function body.
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		notify_group()
+
+func notify_group():
+	for node in get_tree().get_nodes_in_group(NL.on_quit):
+		if !node.has_method(NL.on_quit):
+			return
+		node.call(NL.on_quit)
+"
+
+[sub_resource type="GDScript" id="GDScript_jqpvn"]
+script/source = "extends Node
+
+@onready var root = $\"..\"
+
+@onready var ui_start_page:=$\"../main page\"
+@onready var ui_game:=$\"../Gameplay\"
+@onready var ui_over:=$\"../Game over\"
+@onready var ui_pause:=$\"../Pause\"
+@onready var ui_settings:=$\"../Settings\"
+@onready var ui_exit:=$\"../Exit\"
+
+func _ready() -> void:
+	set_interface()
+	root.connect('state_changed',switch_panel)
+	root.connect('state_changed',switch_mousemode)
+	root.connect('state_changed',pause_tree)
+
+func set_interface():
+	root.set_meta(NL.set_gameplay_mousemode, set_gameplay_mousemode)
+
+
+func switch_panel(old_state,state):
+	ui_start_page.visible = state == root.states.start_page
+	ui_game.visible = state == root.states.gameplay
+	ui_over.visible = state == root.states.gameover
+	ui_pause.visible = state == root.states.pause
+	ui_settings.visible = state == root.states.settings
+	ui_exit.visible = state == root.states.exit
+
+func set_gameplay_mousemode(_mode):
+	mousemode_gameplay = _mode
+	if root.state == root.states.gameplay:
+		Input.set_mouse_mode(mousemode_gameplay)
+
+@export var mousemode_gameplay = Input.MOUSE_MODE_CAPTURED
+@export var mousemode_default = Input.MOUSE_MODE_VISIBLE
+func switch_mousemode(old_state,state):
+	match state:
+		root.states.gameplay:
+			Input.set_mouse_mode(mousemode_gameplay)
+		_:
+			Input.set_mouse_mode(mousemode_default)
+
+func pause_tree(old_state,state):
+	var pause = state == root.states.gameplay or state == root.states.start_page
+	get_tree().paused = !pause
+"
+
+[sub_resource type="GDScript" id="GDScript_0usqr"]
+script/source = "extends Node
+
+var sfx_cd:=1.0
+@export var button_sounds:AudioList
+@export var switch_sounds:AudioList
+@export var roll_sounds:AudioList
+
+func _ready() -> void:
+	get_parent().connect('state_changed',state_changed)
+
+func _process(delta: float) -> void:
+	if sfx_cd >0:
+		sfx_cd -= delta
+
+
+func state_changed(old_state,state):
+	play_roll_sfx()
+
+func play_button_sfx():
+	if sfx_cd >0: return
+	sfx_cd = 0.1
+	AudioPool.create_sound(button_sounds)
+
+func play_switch_sfx():
+	if sfx_cd >0: return
+	sfx_cd = 0.1
+	AudioPool.create_sound(button_sounds)
+
+func play_roll_sfx():
+	if sfx_cd >0: return
+	sfx_cd = 0.1
+	AudioPool.create_sound(button_sounds)
 "
 
 [sub_resource type="GDScript" id="GDScript_akyhh"]
 script/source = "extends Node
-
+@onready var root = get_parent()
 @export var disable_when_debug:=false
 
-var save:=Callable(save_game)
-
 func _ready() -> void:
-	if disable_when_debug:
-		if OS.is_debug_build():
-			save=Callable(dud)
-			return
-	load_game()
+	add_to_group(NL.on_quit)
+	load_ui()
 
-func dud():pass
+func on_quit():
+	save_ui()
 
 var file_path := \"user://ui_save.save\"
-func save_game():
+func save_ui():
+	if disable_when_debug:
+		if OS.is_debug_build():
+			return
 	var save_game = FileAccess.open(file_path, FileAccess.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group(NL.ui_save_load)
 	for node in save_nodes:
@@ -1021,7 +997,10 @@ func save_game():
 		var json_string = JSON.stringify(node_data)
 		save_game.store_line(json_string)
 
-func load_game():
+func load_ui():
+	if disable_when_debug:
+		if OS.is_debug_build():
+			return
 	if not FileAccess.file_exists(file_path):
 			return 
 	var save_game = FileAccess.open(file_path, FileAccess.READ)
@@ -1043,45 +1022,32 @@ func load_game():
 		target_node._load(node_data)
 "
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("ui_start_page", "ui_game", "ui_over", "ui_pause", "ui_settings", "ui_exit")]
+[node name="HUD" type="Control"]
 process_mode = 3
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7t2kr")
 script = SubResource("GDScript_5kh0j")
-ui_start_page = NodePath("main page")
-ui_game = NodePath("Gameplay")
-ui_over = NodePath("Game over")
-ui_pause = NodePath("Pause")
-ui_settings = NodePath("Settings")
-ui_exit = NodePath("Exit")
-state = null
-button_sounds = SubResource("Resource_d7d2p")
-switch_sounds = SubResource("Resource_pi23o")
-roll_sounds = SubResource("Resource_4vadk")
 
 [node name="main page" type="BoxContainer" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 100.0
-offset_right = 94.0
-offset_bottom = 240.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.3
+anchor_right = 0.6
+anchor_bottom = 0.99
 
 [node name="NinePatchRect" type="NinePatchRect" parent="main page"]
-custom_minimum_size = Vector2(220, 500)
+custom_minimum_size = Vector2(200, 500)
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("2_whvft")
 patch_margin_left = 20
 patch_margin_top = 20
@@ -1092,18 +1058,12 @@ axis_stretch_vertical = 1
 
 [node name="VBoxContainer" type="BoxContainer" parent="main page/NinePatchRect"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -95.0
-offset_top = -77.5
-offset_right = 95.0
-offset_bottom = 77.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 2
+alignment = 1
 vertical = true
 
 [node name="start" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
@@ -1138,7 +1098,8 @@ texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-script = SubResource("GDScript_rcm42")
+script = SubResource("GDScript_xeehh")
+link = "https://youtu.be/_b_bUNSM3Vo"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/merch"]
 layout_mode = 1
@@ -1162,6 +1123,7 @@ texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
 script = SubResource("GDScript_xeehh")
+link = "https://ninelies.itch.io/"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/wishlist"]
 layout_mode = 1
@@ -1185,6 +1147,7 @@ texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
 script = SubResource("GDScript_xeehh")
+link = "https://ninelies.itch.io/"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/wishlist2"]
 layout_mode = 1
@@ -1231,6 +1194,7 @@ texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
 script = SubResource("GDScript_xeehh")
+link = "https://twitter.com/Ninelie20340672"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/twitter"]
 layout_mode = 1
@@ -1314,8 +1278,10 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="asset list" type="NinePatchRect" parent="main page"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
 texture = ExtResource("5_7ouj8")
 patch_margin_left = 10
 patch_margin_top = 10
@@ -1336,6 +1302,9 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Textures:
 UI pack by Kenney Vleugels (www.kenney.nl)
+
+Shaders:
+Outline shader by embyr
 
 Models:
 Conveyor Kit (1.0)  by Kenney (www.kenney.nl)
@@ -1364,12 +1333,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Display stats" type="BoxContainer" parent="Gameplay"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 205.0
-offset_bottom = 25.0
-scale = Vector2(0.5, 0.5)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.2
+anchor_bottom = 0.2
+offset_left = 5.2
+offset_top = 4.8
 vertical = true
 script = SubResource("GDScript_moe80")
 duration = 5.0
@@ -1474,6 +1446,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="thirst" type="TextureProgressBar" parent="Gameplay/Display stats"]
+visible = false
 layout_mode = 2
 step = 0.1
 value = 50.0
@@ -1525,53 +1498,41 @@ vertical_alignment = 1
 
 [node name="cursor" type="TextureRect" parent="Gameplay"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -36.0
-offset_right = 36.0
-offset_bottom = 36.0
+anchors_preset = -1
+anchor_left = 0.49
+anchor_top = 0.49
+anchor_right = 0.51
+anchor_bottom = 0.51
+offset_left = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(36, 36)
 texture = ExtResource("3_i7e3p")
+stretch_mode = 5
 
 [node name="chat_box" type="BoxContainer" parent="Gameplay"]
-custom_minimum_size = Vector2(400, 250)
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -260.0
-offset_right = 410.0
-offset_bottom = -10.0
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.5
+anchor_right = 0.3
+anchor_bottom = 0.99
 grow_vertical = 0
-scale = Vector2(0.6, 0.6)
-pivot_offset = Vector2(0, 250)
 alignment = 2
 vertical = true
 script = SubResource("GDScript_s874g")
 
 [node name="image content" type="TextureRect" parent="Gameplay"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.1
+anchor_right = 0.7
+anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(150, 150)
-texture = ExtResource("5_5mmy2")
+texture = ExtResource("15_gp7rv")
 stretch_mode = 5
 script = SubResource("GDScript_nevrt")
 
@@ -1579,13 +1540,15 @@ script = SubResource("GDScript_nevrt")
 visible = false
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -100.0
-offset_right = 210.0
-offset_bottom = 100.0
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.4
+anchor_right = 0.2
+anchor_bottom = 0.7
+offset_left = 0.200001
+offset_top = -25.0
+offset_right = 81.0
+offset_bottom = 47.0
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
 pivot_offset = Vector2(0, 100)
@@ -1598,10 +1561,11 @@ script = SubResource("GDScript_elmo7")
 
 [node name="List" type="BoxContainer" parent="Pause"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -16.0
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.03
+anchor_right = 0.97
+anchor_bottom = 0.97
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
@@ -1609,20 +1573,20 @@ vertical = true
 
 [node name="Paused" type="Label" parent="Pause/List"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Paused"
 horizontal_alignment = 1
-vertical_alignment = 2
+vertical_alignment = 1
 
 [node name="continue" type="TextureButton" parent="Pause/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-stretch_mode = 4
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Pause/List/continue"]
 layout_mode = 1
@@ -1637,14 +1601,13 @@ vertical_alignment = 1
 
 [node name="settings" type="TextureButton" parent="Pause/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-stretch_mode = 4
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Pause/List/settings"]
 layout_mode = 1
@@ -1659,14 +1622,13 @@ vertical_alignment = 1
 
 [node name="exit" type="TextureButton" parent="Pause/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
-stretch_mode = 4
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Pause/List/exit"]
 layout_mode = 1
@@ -1682,25 +1644,25 @@ vertical_alignment = 1
 [node name="Settings" type="Control" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -20.0
-offset_right = 10.0
-offset_bottom = -20.0
+anchor_left = 0.02
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_bottom = -3.05176e-05
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="TabContainer" type="TabContainer" parent="Settings"]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -184.0
-offset_right = 313.0
-offset_bottom = 186.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.00003
+offset_right = -24.2
+offset_bottom = 3.00003
+grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(0, 185)
 theme = SubResource("Theme_njgrs")
 
@@ -1743,22 +1705,22 @@ text = "Invert Y:"
 
 [node name="keybind" type="ScrollContainer" parent="Settings/TabContainer"]
 visible = false
-custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/TabContainer/keybind"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = SubResource("GDScript_6c6nf")
 
 [node name="key" type="TextureButton" parent="Settings/TabContainer/keybind/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Settings/TabContainer/keybind/VBoxContainer/key"]
 layout_mode = 1
@@ -1798,7 +1760,6 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "Music"
 
 [node name="Music" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1813,7 +1774,6 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "Sound effects"
 
 [node name="SFX" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1827,7 +1787,6 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "2d sound effects"
 
 [node name="SFX2d" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1841,7 +1800,6 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-button_pressed = true
 text = "3d sound effects"
 
 [node name="SFX3d" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1911,12 +1869,11 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = -80.0
+offset_top = -75.0
 offset_right = 100.0
-offset_bottom = 70.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(100, 75)
 texture = ExtResource("4_8musn")
 patch_margin_left = 20
@@ -1930,6 +1887,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -1937,13 +1898,14 @@ vertical = true
 
 [node name="texr" type="Label" parent="Game over/List"]
 layout_mode = 2
+size_flags_vertical = 2
 text = "Game over"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="restart" type="TextureButton" parent="Game over/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 2
 toggle_mode = true
 texture_normal = ExtResource("10_s564t")
 texture_pressed = ExtResource("11_i8xw5")
@@ -1962,8 +1924,7 @@ vertical_alignment = 1
 
 [node name="exit" type="TextureButton" parent="Game over/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 2
 toggle_mode = true
 texture_normal = ExtResource("10_s564t")
 texture_pressed = ExtResource("11_i8xw5")
@@ -1982,62 +1943,59 @@ vertical_alignment = 1
 
 [node name="Exit" type="NinePatchRect" parent="."]
 visible = false
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -80.0
-offset_right = 210.0
-offset_bottom = 70.0
+anchors_preset = -1
+anchor_left = 0.0078125
+anchor_top = 0.4
+anchor_right = 0.2
+anchor_bottom = 0.65
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(0, 75)
 texture = ExtResource("4_8musn")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
 patch_margin_bottom = 20
 script = SubResource("GDScript_ulijc")
+metadata/_edit_use_anchors_ = true
 
 [node name="List" type="BoxContainer" parent="Exit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 vertical = true
 
 [node name="continue" type="Label" parent="Exit/List"]
-custom_minimum_size = Vector2(200, 25)
 layout_mode = 2
+size_flags_vertical = 3
 text = "Exit game?"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="no" type="TextureButton" parent="Exit/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Exit/List/no"]
 layout_direction = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -11.5
-offset_top = -10.5
-offset_right = 11.5
-offset_bottom = 10.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "no"
@@ -2046,30 +2004,33 @@ vertical_alignment = 1
 
 [node name="yes" type="TextureButton" parent="Exit/List"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Exit/List/yes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.0
-offset_top = -10.5
-offset_right = 17.0
-offset_bottom = 10.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "yes"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="show panels" type="Node" parent="."]
+script = SubResource("GDScript_jqpvn")
+
+[node name="sound effects" type="Node" parent="."]
+script = SubResource("GDScript_0usqr")
+button_sounds = ExtResource("22_sdrfh")
+switch_sounds = ExtResource("23_l55x2")
+roll_sounds = ExtResource("24_xapgb")
 
 [node name="save_loader" type="Node" parent="."]
 script = SubResource("GDScript_akyhh")

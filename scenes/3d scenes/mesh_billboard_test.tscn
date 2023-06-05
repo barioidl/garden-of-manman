@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://60wyod2ys400"]
+
+[ext_resource type="Texture2D" uid="uid://7jpisfd3qiwa" path="res://assets/Textures/birdup0001.png" id="1_ee3pp"]
+[ext_resource type="Script" path="res://scripts/visual/billboard_mesh.gd" id="2_5ta1s"]
+
+[sub_resource type="GDScript" id="GDScript_xhf60"]
+script/source = "@tool
+extends Node3D
+
+@export var speed :=1.0
+func _process(delta: float) -> void:
+	if speed== 0:
+		return
+	rotate_z(delta*speed)
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wi8hf"]
+transparency = 1
+albedo_texture = ExtResource("1_ee3pp")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_offset = Vector3(0.00265479, -0.500013, -4.53606)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_repeat = false
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_w3knc"]
+
+[node name="mesh billboard test" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-0.925347, 0, -0.372988, 0, 0.997317, 0, 0.371987, 0, -0.927836, 0, 0, 10)
+script = SubResource("GDScript_xhf60")
+speed = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.999698, -0.000182395, 0.0722618, 0.0593616, 0.576131, -0.816605, -0.0414523, 0.820647, 0.57331, 1, 0, 0)
+material_override = SubResource("StandardMaterial3D_wi8hf")
+mesh = SubResource("QuadMesh_w3knc")
+skeleton = NodePath("../..")
+script = ExtResource("2_5ta1s")
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+shaded = true
+texture = ExtResource("1_ee3pp")
+
+[node name="pseudo camera" type="Node3D" parent="."]
+transform = Transform3D(0.48786, -0.872922, 0, 0.872922, 0.48786, 0, 0, 0, 1, 0, 0, 0)

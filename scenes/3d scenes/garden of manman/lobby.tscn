@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bv1bvetxrnpaq"]
+[gd_scene load_steps=25 format=3 uid="uid://bv1bvetxrnpaq"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_io2ph"]
 [ext_resource type="ArrayMesh" uid="uid://byg6vqifq8ita" path="res://assets/borga map/room 2.obj" id="2_1iax0"]
@@ -7,6 +7,19 @@
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="4_e5qnn"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="5_8bx4v"]
 [ext_resource type="Texture2D" uid="uid://cio8fb5yitscg" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownMid.png" id="7_d0qp0"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="8_t4yr8"]
+[ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="9_6b4dp"]
+[ext_resource type="ArrayMesh" uid="uid://c78umtmw64emt" path="res://assets/sloyd/Cubicals L.obj" id="10_dy8uv"]
+[ext_resource type="PackedScene" uid="uid://b8w550sq1alti" path="res://scenes/3d scenes/facility/office_chair.tscn" id="11_v5lik"]
+[ext_resource type="PackedScene" uid="uid://dhmf723t00pxw" path="res://scenes/3d scenes/facility/simple_benches.tscn" id="12_1liiw"]
+[ext_resource type="PackedScene" uid="uid://bvblfg4p6toqu" path="res://scenes/3d scenes/facility/couch_set_1.tscn" id="12_khmkx"]
+[ext_resource type="PackedScene" uid="uid://bca7k6hv73vxi" path="res://scenes/3d scenes/facility/table_red_wood.tscn" id="13_knv44"]
+[ext_resource type="PackedScene" uid="uid://btebnhvtt4x02" path="res://scenes/3d scenes/facility/high_lamp.tscn" id="14_y4i05"]
+[ext_resource type="PackedScene" uid="uid://bqf20tqoefee4" path="res://scenes/3d scenes/facility/monitor_screen.tscn" id="15_p7022"]
+[ext_resource type="PackedScene" uid="uid://bshnunhokr00h" path="res://scenes/3d scenes/facility/keyboard.tscn" id="16_geygq"]
+[ext_resource type="PackedScene" uid="uid://56nemwotri3g" path="res://scenes/3d scenes/facility/mouse.tscn" id="17_rs4dg"]
+[ext_resource type="ArrayMesh" uid="uid://b2scsll1j3q8n" path="res://assets/factory/pot plant.obj" id="18_cfj2v"]
+[ext_resource type="PackedScene" uid="uid://b3yvmdboc34qn" path="res://scenes/3d scenes/facility/standing_desk.tscn" id="19_db57g"]
 
 [sub_resource type="GDScript" id="GDScript_sh4ht"]
 script/source = "extends Decal
@@ -17,16 +30,31 @@ func _ready() -> void:
 	queue_free() # Replace with function body.
 "
 
+[sub_resource type="GDScript" id="GDScript_bwksu"]
+script/source = "extends Node3D
+
+func _on_3d_button_toggled(button_pressed) -> void:
+	for light in get_children():
+		light.switch(button_pressed)
+"
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0tmmx"]
+data = PackedVector3Array(1.865, 0, -0.01, 1.865, 0.93, 0.032, 1.865, 0.93, -0.01, 1.865, 0, 0.032, 1.865, 0.93, 0.032, 1.865, 0, -0.01, -1.4, 0, 0.032, -1.4, 0.93, -0.01, -1.4, 0.93, 0.032, -1.4, 0, -0.01, -1.4, 0.93, -0.01, -1.4, 0, 0.032, -1.4, 0.93, -0.01, 1.865, 0, -0.01, 1.865, 0.93, -0.01, -1.4, 0, -0.01, 1.865, 0, -0.01, -1.4, 0.93, -0.01, -1.4, 0, -0.01, 1.865, 0, 0.032, 1.865, 0, -0.01, -1.4, 0, 0.032, 1.865, 0, 0.032, -1.4, 0, -0.01, -1.4, 0, 0.032, 1.865, 0.93, 0.032, 1.865, 0, 0.032, -1.4, 0.93, 0.032, 1.865, 0.93, 0.032, -1.4, 0, 0.032, -1.4, 0.93, 0.032, 1.865, 0.93, -0.01, 1.865, 0.93, 0.032, -1.4, 0.93, -0.01, 1.865, 0.93, -0.01, -1.4, 0.93, 0.032, -1.4, 0, -0.61, -1.442, 0, -2.927, -1.442, 0, -0.61, -1.4, 0, -2.927, -1.442, 0, -2.927, -1.4, 0, -0.61, -1.4, 0.93, -2.927, -1.442, 0.93, -0.61, -1.442, 0.93, -2.927, -1.4, 0.93, -0.61, -1.442, 0.93, -0.61, -1.4, 0.93, -2.927, -1.442, 0.93, -0.61, -1.4, 0, -0.61, -1.442, 0, -0.61, -1.4, 0.93, -0.61, -1.4, 0, -0.61, -1.442, 0.93, -0.61, -1.4, 0.93, -0.61, -1.4, 0, -2.927, -1.4, 0, -0.61, -1.4, 0.93, -2.927, -1.4, 0, -2.927, -1.4, 0.93, -0.61, -1.4, 0.93, -2.927, -1.442, 0, -2.927, -1.4, 0, -2.927, -1.442, 0.93, -2.927, -1.442, 0, -2.927, -1.4, 0.93, -2.927, -1.442, 0.93, -2.927, -1.442, 0, -0.61, -1.442, 0, -2.927, -1.442, 0.93, -0.61, -1.442, 0, -0.61, -1.442, 0.93, -2.927, -1.4, 0, 0.032, -1.442, 0, -0.61, -1.442, 0, 0.032, -1.4, 0, -0.61, -1.442, 0, -0.61, -1.4, 0, 0.032, -1.4, 0.93, -0.61, -1.442, 0.93, 0.032, -1.442, 0.93, -0.61, -1.4, 0.93, 0.032, -1.442, 0.93, 0.032, -1.4, 0.93, -0.61, -1.442, 0.93, 0.032, -1.4, 0, 0.032, -1.442, 0, 0.032, -1.4, 0.93, 0.032, -1.4, 0, 0.032, -1.442, 0.93, 0.032, -1.4, 0.93, 0.032, -1.4, 0, -0.61, -1.4, 0, 0.032, -1.4, 0.93, -0.61, -1.4, 0, -0.61, -1.4, 0.93, 0.032, -1.4, 0.93, -0.61, -1.442, 0, -0.61, -1.4, 0, -0.61, -1.442, 0.93, -0.61, -1.442, 0, -0.61, -1.4, 0.93, -0.61, -1.442, 0.93, -0.61, -1.442, 0, 0.032, -1.442, 0, -0.61, -1.442, 0.93, 0.032, -1.442, 0, 0.032, -1.442, 0.93, -0.61, -0.8, 0, -2.885, -1.4, 0, -2.927, -1.4, 0, -2.885, -0.8, 0, -2.927, -1.4, 0, -2.927, -0.8, 0, -2.885, -0.8, 0.93, -2.927, -1.4, 0.93, -2.885, -1.4, 0.93, -2.927, -0.8, 0.93, -2.885, -1.4, 0.93, -2.885, -0.8, 0.93, -2.927, -1.4, 0.93, -2.885, -0.8, 0, -2.885, -1.4, 0, -2.885, -0.8, 0.93, -2.885, -0.8, 0, -2.885, -1.4, 0.93, -2.885, -0.8, 0.93, -2.885, -0.8, 0, -2.927, -0.8, 0, -2.885, -0.8, 0.93, -2.927, -0.8, 0, -2.927, -0.8, 0.93, -2.885, -0.8, 0.93, -2.927, -1.4, 0, -2.927, -0.8, 0, -2.927, -1.4, 0.93, -2.927, -1.4, 0, -2.927, -0.8, 0.93, -2.927, -1.4, 0.93, -2.927, -1.4, 0, -2.885, -1.4, 0, -2.927, -1.4, 0.93, -2.885, -1.4, 0, -2.885, -1.4, 0.93, -2.927, -1.4, 0.689, -0.01, -1.4, 0.731, -0.61, -1.4, 0.731, -0.01, -1.4, 0.689, -0.61, -1.4, 0.731, -0.61, -1.4, 0.689, -0.01, 1.865, 0.689, -0.61, 1.865, 0.731, -0.01, 1.865, 0.731, -0.61, 1.865, 0.689, -0.01, 1.865, 0.731, -0.01, 1.865, 0.689, -0.61, 1.865, 0.731, -0.01, -1.4, 0.689, -0.01, -1.4, 0.731, -0.01, 1.865, 0.689, -0.01, -1.4, 0.689, -0.01, 1.865, 0.731, -0.01, 1.865, 0.689, -0.01, -1.4, 0.689, -0.61, -1.4, 0.689, -0.01, 1.865, 0.689, -0.61, -1.4, 0.689, -0.61, 1.865, 0.689, -0.01, 1.865, 0.689, -0.61, -1.4, 0.731, -0.61, -1.4, 0.689, -0.61, 1.865, 0.731, -0.61, -1.4, 0.731, -0.61, 1.865, 0.689, -0.61, 1.865, 0.731, -0.61, -1.4, 0.731, -0.01, -1.4, 0.731, -0.61, 1.865, 0.731, -0.01, -1.4, 0.731, -0.01, 1.865, 0.731, -0.61, -0.8, 0.689, -0.61, -1.4, 0.689, -2.885, -1.4, 0.689, -0.61, -0.8, 0.689, -2.885, -1.4, 0.689, -2.885, -0.8, 0.689, -0.61, -0.8, 0.731, -2.885, -1.4, 0.731, -0.61, -1.4, 0.731, -2.885, -0.8, 0.731, -0.61, -1.4, 0.731, -0.61, -0.8, 0.731, -2.885, -1.4, 0.731, -0.61, -0.8, 0.689, -0.61, -1.4, 0.689, -0.61, -0.8, 0.731, -0.61, -0.8, 0.689, -0.61, -1.4, 0.731, -0.61, -0.8, 0.731, -0.61, -0.8, 0.689, -2.885, -0.8, 0.689, -0.61, -0.8, 0.731, -2.885, -0.8, 0.689, -2.885, -0.8, 0.731, -0.61, -0.8, 0.731, -2.885, -1.4, 0.689, -2.885, -0.8, 0.689, -2.885, -1.4, 0.731, -2.885, -1.4, 0.689, -2.885, -0.8, 0.731, -2.885, -1.4, 0.731, -2.885, -1.4, 0.689, -0.61, -1.4, 0.689, -2.885, -1.4, 0.731, -0.61, -1.4, 0.689, -0.61, -1.4, 0.731, -2.885)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2oomp"]
+resource_name = "fur"
+albedo_color = Color(0.59375, 0.5625, 0.75, 1)
+metallic = 0.33
+
 [node name="lobby" type="Node3D"]
 script = ExtResource("1_io2ph")
 areas = [NodePath("../../-4 areas/Lobby"), NodePath("../../-4 areas/elevator"), NodePath("../../-4 areas/storage room"), NodePath("../../-4 areas/CNC room"), NodePath("../../-4 areas/camera room")]
 
 [node name="Room2" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_1iax0")
-skeleton = NodePath("../../../../..")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 1.5, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.93172, 1.07645, -16)
 modulate = Color(0, 1, 0, 1)
 billboard = 1
 texture_filter = 0
@@ -34,23 +62,108 @@ texture = ExtResource("3_vmam2")
 script = ExtResource("3_mf2v4")
 item = ExtResource("4_e5qnn")
 
-[node name="Marker3D" type="Marker3D" parent="ItemSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-
 [node name="door" parent="." instance=ExtResource("5_8bx4v")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -24.2919)
+password = 2
 
 [node name="door2" parent="." instance=ExtResource("5_8bx4v")]
 transform = Transform3D(-2.62268e-08, 0, -1, 0, 1, 0, 0.6, 0, -4.37114e-08, -12, 0, -13.0819)
+password = 2
 
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.5, -24)
 texture_albedo = ExtResource("7_d0qp0")
-modulate = Color(0, 1, 0, 1)
+modulate = Color(1, 0, 0.0156863, 1)
 script = SubResource("GDScript_sh4ht")
 
 [node name="Decal2" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.5, -13)
 texture_albedo = ExtResource("7_d0qp0")
-modulate = Color(0, 1, 0, 1)
+modulate = Color(1, 0, 0.0156863, 1)
 script = SubResource("GDScript_sh4ht")
+
+[node name="3d button" parent="." instance=ExtResource("8_t4yr8")]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 1.7122, 1.5, -19.6444)
+
+[node name="lamps" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -23.5)
+script = SubResource("GDScript_bwksu")
+
+[node name="ceiling lamp" parent="lamps" instance=ExtResource("9_6b4dp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3.35, 4.75)
+skeleton = NodePath("../..")
+
+[node name="ceiling lamp2" parent="lamps" instance=ExtResource("9_6b4dp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.35, 4.75)
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -24)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.8114, 4.76837e-07, 8.98323)
+shape = SubResource("ConcavePolygonShape3D_0tmmx")
+
+[node name="CubicalsL" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_2oomp")
+mesh = ExtResource("10_dy8uv")
+skeleton = NodePath("../../..")
+
+[node name="StandingDesk" parent="StaticBody3D" instance=ExtResource("19_db57g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+
+[node name="SimpleBenches" parent="StaticBody3D" instance=ExtResource("12_1liiw")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 6)
+
+[node name="SimpleBenches2" parent="StaticBody3D" instance=ExtResource("12_1liiw")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 5, 0, 4)
+
+[node name="StandingDesk2" parent="StaticBody3D" instance=ExtResource("19_db57g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 5)
+
+[node name="SimpleBenches3" parent="StaticBody3D" instance=ExtResource("12_1liiw")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 6)
+
+[node name="SimpleBenches4" parent="StaticBody3D" instance=ExtResource("12_1liiw")]
+transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 10, 0, 4)
+
+[node name="OfficeChair" parent="." instance=ExtResource("11_v5lik")]
+transform = Transform3D(0.5, 0, 0.866026, 0, 1, 0, -0.866026, 0, 0.5, -0.635179, 0, -14.4763)
+
+[node name="CouchSet1" parent="." instance=ExtResource("12_khmkx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.48189, 0, -22.0689)
+
+[node name="CouchSet3" parent="." instance=ExtResource("12_khmkx")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.33205, 0, -23.4403)
+
+[node name="CouchSet2" parent="." instance=ExtResource("12_khmkx")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.120402, 0, -23.465)
+
+[node name="TableRedWood" parent="." instance=ExtResource("13_knv44")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 0, -21.75)
+
+[node name="HighLamp" parent="." instance=ExtResource("14_y4i05")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43839, -2.38419e-07, -23.3898)
+
+[node name="HighLamp" parent="HighLamp" index="0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="HighLamp" index="1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="MonitorScreen" parent="." instance=ExtResource("15_p7022")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.91234, 0.731, -14.7104)
+
+[node name="Keyboard" parent="." instance=ExtResource("16_geygq")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -1.71108, 0.731001, -14.5922)
+
+[node name="Mouse" parent="." instance=ExtResource("17_rs4dg")]
+transform = Transform3D(0.0880772, 0, 0.996114, 0, 1, 0, -0.996114, 0, 0.0880772, -1.71615, 0.731001, -14.8922)
+
+[node name="PotPlant" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.56951, 0, -13.5351)
+mesh = ExtResource("18_cfj2v")
+
+[connection signal="toggled" from="3d button" to="lamps" method="_on_3d_button_toggled"]
+
+[editable path="HighLamp"]

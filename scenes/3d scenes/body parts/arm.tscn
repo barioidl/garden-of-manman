@@ -1,15 +1,43 @@
-[gd_scene load_steps=10 format=3 uid="uid://btly3xw4dm86n"]
+[gd_scene load_steps=30 format=3 uid="uid://btly3xw4dm86n"]
 
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="1_cqla2"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_j5t3a"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_q00xy"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_sn8ug"]
-[ext_resource type="Material" uid="uid://bban288eqonot" path="res://materials/blue.tres" id="2_fiqg5"]
 [ext_resource type="PackedScene" uid="uid://chk37jh0ixlfc" path="res://scenes/3d scenes/body parts/arm animation.tscn" id="2_k3b7s"]
-[ext_resource type="Material" uid="uid://c73hexgml8bkv" path="res://materials/red.tres" id="3_o88tj"]
-[ext_resource type="Material" uid="uid://beghkxqx37vub" path="res://materials/green.tres" id="5_vp57n"]
+[ext_resource type="Texture2D" uid="uid://d0g550yyhbigm" path="res://assets/Textures/timmy top arm0006.png" id="5_tajvf"]
+[ext_resource type="Texture2D" uid="uid://dpim4x0uvxfch" path="res://assets/Textures/timmy top arm0000.png" id="7_h1fr8"]
+[ext_resource type="Texture2D" uid="uid://dffujpe45xaho" path="res://assets/Textures/timmy top arm0001.png" id="8_1fv7w"]
+[ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="8_di53v"]
+[ext_resource type="Texture2D" uid="uid://co8q3o6oiuwp3" path="res://assets/Textures/timmy bottom arm0000.png" id="9_bjlug"]
+[ext_resource type="Texture2D" uid="uid://bmdvi8dd72ju5" path="res://assets/Textures/timmy top arm0002.png" id="9_hdpnf"]
+[ext_resource type="Texture2D" uid="uid://blgosqbmfr75f" path="res://assets/Textures/timmy top arm0003.png" id="10_63k57"]
+[ext_resource type="Texture2D" uid="uid://hjkciathg50c" path="res://assets/Textures/timmy bottom arm0001.png" id="10_mgami"]
+[ext_resource type="Texture2D" uid="uid://dbep6xqyhmnga" path="res://assets/Textures/timmy top arm0004.png" id="11_5a0kc"]
+[ext_resource type="Texture2D" uid="uid://ckafirxw7x63l" path="res://assets/Textures/timmy bottom arm0002.png" id="11_eevf5"]
+[ext_resource type="Texture2D" uid="uid://bsndmdj8v4ykc" path="res://assets/Textures/timmy top arm0005.png" id="12_r3ef4"]
+[ext_resource type="Texture2D" uid="uid://b0mboxkf658lp" path="res://assets/Textures/timmy bottom arm0003.png" id="12_sygjg"]
+[ext_resource type="Texture2D" uid="uid://bt3u0vxm1w6qm" path="res://assets/Textures/timmy bottom arm0004.png" id="13_ev8vk"]
+[ext_resource type="Texture2D" uid="uid://caxfw1usy10ko" path="res://assets/Textures/timmy bottom arm0005.png" id="14_u3nl7"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="15_dbsts"]
+[ext_resource type="Texture2D" uid="uid://350ljci6jji" path="res://assets/Textures/timmy hand0001.png" id="21_s6xi0"]
+[ext_resource type="Texture2D" uid="uid://ddshnunh6sxeb" path="res://assets/Textures/timmy hand0000.png" id="22_coaj3"]
+[ext_resource type="Texture2D" uid="uid://e81ahu6vcxyv" path="res://assets/Textures/timmy hand0002.png" id="23_3dm2t"]
+[ext_resource type="Texture2D" uid="uid://di3khegg4ogya" path="res://assets/Textures/timmy hand0003.png" id="24_00l2s"]
+[ext_resource type="Texture2D" uid="uid://dgwecwqxqucxf" path="res://assets/Textures/timmy hand0004.png" id="25_vva4w"]
+[ext_resource type="Texture2D" uid="uid://34wqlfo83oop" path="res://assets/Textures/timmy hand0005.png" id="26_ffbbv"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_et74j"]
+[sub_resource type="Resource" id="Resource_dcbvk"]
+script = ExtResource("15_dbsts")
+frames = Array[Texture]([ExtResource("7_h1fr8"), ExtResource("8_1fv7w"), ExtResource("9_hdpnf"), ExtResource("10_63k57"), ExtResource("11_5a0kc"), ExtResource("12_r3ef4")])
+
+[sub_resource type="Resource" id="Resource_dl16l"]
+script = ExtResource("15_dbsts")
+frames = Array[Texture]([ExtResource("9_bjlug"), ExtResource("10_mgami"), ExtResource("11_eevf5"), ExtResource("12_sygjg"), ExtResource("13_ev8vk"), ExtResource("14_u3nl7")])
+
+[sub_resource type="Resource" id="Resource_rkqkw"]
+script = ExtResource("15_dbsts")
+frames = Array[Texture]([ExtResource("22_coaj3"), ExtResource("21_s6xi0"), ExtResource("23_3dm2t"), ExtResource("24_00l2s"), ExtResource("25_vva4w"), ExtResource("26_ffbbv")])
 
 [node name="arm" type="Node3D" node_paths=PackedStringArray("raycast", "target", "hand")]
 script = ExtResource("1_q00xy")
@@ -36,11 +64,16 @@ script = ExtResource("1_sn8ug")
 min_angles = Vector3(-150, -150, -150)
 max_angles = Vector3(150, 150, 150)
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="arm"]
-transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.02, 0, -0.1, 0)
-material_override = ExtResource("2_fiqg5")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="arm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("5_tajvf")
+script = ExtResource("8_di53v")
+sprites = SubResource("Resource_dcbvk")
 
 [node name="elbow" type="Marker3D" parent="arm" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
@@ -57,11 +90,16 @@ script = ExtResource("1_sn8ug")
 min_angles = Vector3(-150, 0, 0)
 max_angles = Vector3(0, 0, 0)
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="arm/elbow"]
-transform = Transform3D(0.04, 0, 0, 0, 0.2, 0, 0, 0, 0.04, 0, -0.1, 0)
-material_override = ExtResource("3_o88tj")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="arm/elbow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11, 0)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("12_sygjg")
+script = ExtResource("8_di53v")
+sprites = SubResource("Resource_dl16l")
 
 [node name="wrist" type="Marker3D" parent="arm/elbow"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77636e-15, -0.2, 0)
@@ -72,11 +110,16 @@ script = ExtResource("1_sn8ug")
 min_angles = Vector3(-30, -30, -30)
 max_angles = Vector3(30, 30, 30)
 
-[node name="placeholder mesh" type="MeshInstance3D" parent="arm/elbow/wrist"]
-transform = Transform3D(0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, -0.05, 0)
-material_override = ExtResource("2_fiqg5")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
+[node name="Sprite3D" type="Sprite3D" parent="arm/elbow/wrist"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.0583134, 0.0201005)
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("24_00l2s")
+script = ExtResource("8_di53v")
+sprites = SubResource("Resource_rkqkw")
 
 [node name="hand" type="Marker3D" parent="arm/elbow/wrist" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
@@ -86,14 +129,3 @@ target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
 accuracy = 0.005
-
-[node name="placeholder mesh" type="MeshInstance3D" parent="arm/elbow/wrist/hand"]
-transform = Transform3D(0.025, 0, 0, 0, 0.1, 0, 0, 0, 0.075, 0, 0, 0)
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")
-
-[node name="placeholder mesh2" type="MeshInstance3D" parent="arm/elbow/wrist/hand"]
-transform = Transform3D(0.025, 0, 0, 0, 0.1, 0, 0, 0, 0.075, 0, 0, 0)
-material_override = ExtResource("5_vp57n")
-mesh = SubResource("BoxMesh_et74j")
-skeleton = NodePath("../../../..")

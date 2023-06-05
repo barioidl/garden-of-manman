@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d1v6jou48u5ce"]
+[gd_scene load_steps=19 format=3 uid="uid://d1v6jou48u5ce"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_imxu2"]
 [ext_resource type="ArrayMesh" uid="uid://b0xobjqwv44uv" path="res://assets/borga map/room 4.obj" id="2_ne88e"]
@@ -7,15 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://cl6xguxpm3f3y" path="res://scenes/3d scenes/facility/coffee_shelf.tscn" id="5_0fidu"]
 [ext_resource type="PackedScene" uid="uid://cfppajnyvxilj" path="res://scenes/3d scenes/facility/couch_set_0.tscn" id="6_dymj0"]
 [ext_resource type="PackedScene" uid="uid://btebnhvtt4x02" path="res://scenes/3d scenes/facility/high_lamp.tscn" id="7_xo8rv"]
-[ext_resource type="PackedScene" uid="uid://bjyc0exh2hp4w" path="res://scenes/3d scenes/facility/bath_tub.tscn" id="8_hlrut"]
-[ext_resource type="ArrayMesh" uid="uid://dw2n4y8hbqvv0" path="res://assets/factory/bear face.obj" id="9_s2v6b"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="9_spnr3"]
 [ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="11_fnib8"]
 [ext_resource type="Texture2D" uid="uid://cio8fb5yitscg" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownMid.png" id="12_3gxkd"]
-[ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="13_575fy"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u448k"]
-points = PackedVector3Array(0.0832059, 0.176926, -1.38778e-17, -0.198432, -0.121401, -0.0296673, -0.0555975, 0, -0.243899, 0.201489, -0.114241, -0.0296673, -0.198432, 0.121401, -0.0296673, -0.0120532, -0.21782, 1.38778e-17, 0.0514894, 0, -0.251046, -0.0127236, 0.228571, -0.0296673, 0.165781, 0.107126, -0.101094, -0.189027, 0.11569, 0, 0.00865464, -0.228571, -0.0296673, 0.192084, 0.108868, -1.38778e-17, -0.0245596, 0.045621, -0.239828, -0.162724, 0.114286, -0.101094, -0.0239918, -0.0510207, -0.230892, 0.192084, -0.108868, -1.38778e-17, -0.189027, -0.11569, 0, 0.137198, 0.135675, -0.101094, 0.201489, 0.114241, -0.0296673, 0.0259072, -0.048805, -0.226185, -0.16985, 0.0571429, -0.101094, 0.172946, 0.0570981, -0.101094, -0.141306, 0.135675, -0.101094, -0.0127236, -0.228571, -0.0296673, -0.0120532, 0.21782, 1.38778e-17, 0.00865464, 0.228571, -0.0296673, 0.0264937, 0.0437171, -0.234931, 0.172946, -0.135675, -0.0296673, 0.0355204, -0.204175, 2.77556e-17, 0.172946, 0.135675, -0.0296673, -0.0484714, 0, -0.251046, 0.0371981, -0.214252, -0.0296673)
+[ext_resource type="PackedScene" uid="uid://bjyc0exh2hp4w" path="res://scenes/3d scenes/facility/bath_tub.tscn" id="12_qe4fj"]
+[ext_resource type="Texture2D" uid="uid://c31wdmh7jp5u6" path="res://assets/Textures/key_card0003.png" id="13_l7u4w"]
+[ext_resource type="PackedScene" uid="uid://gk67ml5mffkw" path="res://scenes/3d scenes/cnc/cnc_frame.tscn" id="14_46b6h"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="14_qf03n"]
+[ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="15_s3mrn"]
 
 [sub_resource type="GDScript" id="GDScript_4cn4m"]
 script/source = "extends Node3D
@@ -30,6 +29,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 "
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyg1k"]
+albedo_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ul6pw"]
+size = Vector3(0.4, 1, 0.4)
 
 [node name="plasma room" type="Node3D"]
 script = ExtResource("1_imxu2")
@@ -66,35 +71,24 @@ transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -13, 0, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0.123801, -40)
 
 [node name="HighLamp" parent="Node3D" instance=ExtResource("7_xo8rv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -45.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -44.5)
 
 [node name="HighLamp2" parent="Node3D" instance=ExtResource("7_xo8rv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -36.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -37.5)
 
 [node name="HighLamp3" parent="Node3D" instance=ExtResource("7_xo8rv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -36.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -37.5)
 
 [node name="HighLamp4" parent="Node3D" instance=ExtResource("7_xo8rv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -45.5)
-
-[node name="BathTub" parent="Node3D" instance=ExtResource("8_hlrut")]
-
-[node name="BearFace" type="MeshInstance3D" parent="Node3D/BathTub"]
-transform = Transform3D(3.89415e-07, 0, -2, 0, 2, 0, 2, 0, 3.89415e-07, -8.25, 1, 2)
-mesh = ExtResource("9_s2v6b")
-skeleton = NodePath("../../..")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/BathTub"]
-transform = Transform3D(3.89415e-07, 0, -2, 0, 2, 0, 2, 0, 3.89415e-07, -8.25, 1, 2)
-shape = SubResource("ConvexPolygonShape3D_u448k")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -44.5)
 
 [node name="door" parent="." instance=ExtResource("9_spnr3")]
 transform = Transform3D(-4.37114e-08, 0, -2, 0, 1, 0, 1, 0, -8.74228e-08, -15, 0.2, -46.5)
-password = 4
+password = 2
 
 [node name="door2" parent="." instance=ExtResource("9_spnr3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4, 0, -35.5)
-password = 4
+password = 2
 
 [node name="door mark" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -44)
@@ -104,14 +98,47 @@ script = SubResource("GDScript_4cn4m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02045, 1.5, -2.5)
 size = Vector3(4, 3, 2)
 texture_albedo = ExtResource("11_fnib8")
-modulate = Color(0, 0.164706, 1, 1)
+modulate = Color(1, 0, 0.0166664, 1)
 
 [node name="Decal6" type="Decal" parent="door mark"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.97955, 1.5, 8.5)
 size = Vector3(2, 3, 2)
 texture_albedo = ExtResource("12_3gxkd")
-modulate = Color(0, 0.164706, 1, 1)
+modulate = Color(1, 0, 0.0166664, 1)
 
-[node name="ceiling lamp" parent="." instance=ExtResource("13_575fy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 3.4, -40)
-enabled = true
+[node name="CNC machine" parent="." instance=ExtResource("14_46b6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 2.8, -45.5)
+
+[node name="LinearRail2" parent="CNC machine" index="1"]
+transform = Transform3D(3.82137e-15, 4.37114e-08, -20, 1, -4.37114e-08, 3.82137e-14, -4.37114e-08, -1, -8.74228e-07, -0.46, 0, 9.45)
+
+[node name="x slider" parent="CNC machine" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.95, 11, 0, 4.5)
+
+[node name="y slider" parent="CNC machine" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 0, 8)
+
+[node name="laser head" type="MeshInstance3D" parent="CNC machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5493, 0, 8)
+material_override = SubResource("StandardMaterial3D_xyg1k")
+mesh = SubResource("BoxMesh_ul6pw")
+skeleton = NodePath("../..")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CNC machine/laser head"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+spot_range = 3.0
+spot_angle = 1.0
+
+[node name="BathTub" parent="." instance=ExtResource("12_qe4fj")]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -0.448146, 0, -36.0757)
+
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, -40)
+modulate = Color(0, 1, 0, 1)
+texture = ExtResource("13_l7u4w")
+script = ExtResource("14_qf03n")
+item = ExtResource("15_s3mrn")
+
+[editable path="CNC machine"]

@@ -7,6 +7,7 @@ extends Node3D
 var character:Node3D
 var target:Node3D
 var target_pos:=Vector3.ZERO
+var target_reached :=false
 
 var agent_radius:=1.0
 var agent_height:=1.0
@@ -24,10 +25,11 @@ func _physics_process(delta: float) -> void:
 	offset_height()
 	
 	var pos = get_next_pos()
-	pos.y = global_position.y
-	
-	Interface.walk_to(character,pos)
-	Interface.turn_head(character,pos)
+	if target_reached:
+		Interface.turn_head(character,target_pos)
+	else:
+		Interface.walk_to(character,pos)
+		Interface.turn_head(character,pos)
 	
 	if character == null: return
 	var mid_pos = Vector3(0,agent_height * 0.5,0)
@@ -36,15 +38,17 @@ func _physics_process(delta: float) -> void:
 
 func get_next_pos()->Vector3:
 	return nav_agent.get_next_path_position()
+	nav_agent.target_position
 
 var update_target_cd := 0.0
 func update_target():
 	if target == null: return
-	update_target_cd -=dt
-	if update_target_cd >0:return
+	if update_target_cd > 0: 
+		update_target_cd -=dt
+		return
 	update_target_cd = 0.5
 	if target_pos == target.global_position:
-		update_target_cd = 1
+		update_target_cd *= 2
 	target_pos = target.global_position
 	nav_agent.target_position = target_pos
 
@@ -68,7 +72,7 @@ func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
 	character = _character
 	cast_floor.add_exception(character)
 	global_position = character.global_position
-	
+	target_reached = false
 	var callable = Callable(get_nav_agent)
 	character.set_meta(NL.get_nav_agent, callable)
 	
@@ -111,10 +115,8 @@ func get_nav_agent()->Node3D:
 func set_agent_size(_size:Vector2):
 	agent_radius = _size.x
 	agent_height = _size.y
-#	nav_agent.path_desired_distance = agent_radius
-#	nav_agent.target_desired_distance = agent_radius
+	nav_agent.path_desired_distance = agent_radius
+	nav_agent.target_desired_distance = agent_radius
 
 func _target_reached() -> void:
-	return
-	print('reached')
-	detach()
+	target_reached = true

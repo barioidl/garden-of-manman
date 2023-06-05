@@ -1,9 +1,8 @@
 extends Node
 class_name Platformer
 
-@onready var root = get_parent().root
-@onready var input = $'../inputs'
-
+var root :Node3D
+var input : Inputs
 
 @export var horizontal_speed:=5.0
 
@@ -32,10 +31,14 @@ var old_state := state
 signal on_state_changed(state:states)
 func _init() -> void:
 	name = 'platformer'
-func _ready():
+func _enter_tree() -> void:
+	root = get_parent().root
 	owner = root
-	input.connect( "jump_pressed", trigger_jump.bind())
 	set_interface()
+func _ready() -> void:
+	input = Interface.get_input(root)
+	input.connect( "jump_pressed", trigger_jump.bind())
+
 
 var cool_down :=0.0
 var dt:=0.0
@@ -170,35 +173,41 @@ func set_interface():
 func delay_platformer(duration):
 	cool_down = duration
 
-func walk_to_target(target:Vector3):
-	dpad_from_position(target)
+func walk_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = false
 	input.ctrl = false
 	input.jump = false
-func sneak_to_target(target:Vector3):
-	dpad_from_position(target)
+	return reached
+func sneak_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = true
 	input.ctrl = false
 	input.jump = false
-func sprint_to_target(target:Vector3):
-	dpad_from_position(target)
+	return reached
+func sprint_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = false
 	input.ctrl = true
 	input.jump = false
-func jump_to_target(target:Vector3):
-	dpad_from_position(target)
+	return reached
+func jump_to_target(target:Vector3)-> bool:
+	var reached = dpad_from_position(target)
 	input.shift = false
 	input.ctrl = false
 	input.jump = true
 	input.emit_signal('jump_pressed')
+	return reached
 
-func dpad_from_position(target:Vector3):
+func dpad_from_position(target:Vector3)->bool:
 	var trans = root.custom_transform.inverse()
 	var target_local = trans * target
 #	body.to_local(target)
 	var dpad1 := Vector2(target_local.x,target_local.z)
 	if dpad1 != Vector2.ZERO:
 		input.dpad1 = dpad1.limit_length(1)
+		return false
+	return true
 
 
 

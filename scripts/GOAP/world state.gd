@@ -18,30 +18,30 @@ func reset_():
 	states = {}
 
 
-var group_lifetime := {}
+var groups_lifetime := {}
 func cleanup_groups():
-	var keys = group_lifetime.keys()
-	for i in group_lifetime.size():
+	var keys = groups_lifetime.keys()
+	for i in groups_lifetime.size():
 		var key = keys[i]
-		var lifetime = group_lifetime[key]
+		var lifetime = groups_lifetime[key]
 		lifetime -= dt
-		group_lifetime[key] = lifetime
+		groups_lifetime[key] = lifetime
 		if lifetime > 0: continue
-		group_lifetime.erase(key)
-		saved_groups.erase(key)
+		groups_lifetime.erase(key)
+		groups_buffer.erase(key)
 
 
-var saved_groups := {}
+var groups_buffer := {}
 func get_nodes(group:StringName)->Array:
-	if saved_groups.has(group):
-		return saved_groups[group]
+	if groups_buffer.has(group):
+		return groups_buffer[group]
 	
-	group_lifetime[group] = 1.0
+	groups_lifetime[group] = 1.0
 	var nodes = get_tree().get_nodes_in_group(group)
-	saved_groups[group] = nodes
+	groups_buffer[group] = nodes
 	return nodes
 
-func get_closest_node_3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
+func get_closest_node3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
 	var nodes := get_nodes(group)
 	var closest_node :Node3D= null
 	var min_distance_sq := max_distance * max_distance
@@ -56,7 +56,7 @@ func get_closest_node_3d(group:StringName, position:Vector3, max_distance:=100.0
 		closest_node = node
 	return closest_node
 
-func get_farest_node_3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
+func get_farest_node3d(group:StringName, position:Vector3, max_distance:=100.0)->Node3D:
 	var nodes := get_nodes(group)
 	var farest_node :Node3D= null
 	max_distance *= max_distance

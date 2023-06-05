@@ -1,148 +1,127 @@
 @tool
-extends SpriteBase3D
+extends Node3D
 class_name Billboard3d
 
-@export_category('material settings')
-@export var use_shade:=true
-@export var has_shadow:= true
-@export var alphacut:=SpriteBase3D.ALPHA_CUT_DISCARD
-@export var disable_dist:=30.0
-
-@export_category('billboard settings')
-enum bill_board_modes{bill_board,lock_y_axis,six_sides}
+enum bill_board_modes{bill_board, lock_y_axis, six_sides}
 @export var face_camera:=bill_board_modes.bill_board:
 	get:
 		return face_camera
 	set(value):
 		face_camera = value
-		set_face_axis()
 
+@export var disable_dist:=30.0
 @export var reference_frame:Node3D
-@onready var camera := get_viewport().get_camera_3d()
+var camera :Camera3D
 
-@export var select_cd_range:=Vector2(0.3,1)
-@export var rotate_cd_range:=Vector2(0.1,0.5)
-var select_cd:=0.0
-var rotate_cd:=0.1
+@export var cd_range:=Vector2(0.02,0.5)
+var cooldown:=0.2
 
 @export var axis_ratio:=Vector3.ONE
 
 signal rotation_changed()
 signal sprite_changed()
 
-var current_side:=-1
+var current_side:=0
 enum axises{x,_x,y,_y,z,_z,local}
 var axis_forward:=axises.z
-var axis_up:=axises.y
+var axis_up:=axises.x
 
 var forward := Vector3.ONE 
+var prev_dir:=Vector3.ZERO
 
 func _ready() -> void:
 	if NL.is_inside_tree():
 		add_to_group(NL.billboard_sprites)
-	set_up_sprite()
-	set_face_axis()
 
 func _enter_tree() -> void:
 	camera = get_viewport().get_camera_3d()
 	if reference_frame == null:
 		reference_frame = get_parent()
 
-func set_up_sprite():
-	set_draw_flag(SpriteBase3D.FLAG_DOUBLE_SIDED, false)
-	texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-	shaded = use_shade
-	alpha_cut = alphacut
-	transparent = true
-	
-	if has_shadow:
-		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED
-	else:
-		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-
-func set_face_axis():
-	match face_camera:
-		bill_board_modes.bill_board:
-			axis = Vector3.AXIS_Z
-		bill_board_modes.lock_y_axis:
-			axis = Vector3.AXIS_Y
-		bill_board_modes.six_sides:
-			axis = Vector3.AXIS_Z
-
 func _process(delta: float) -> void:
 	if reference_frame == null: return
 	if camera == null:return
-	if !visible:return
+	
+	if cooldown > 0:
+		cooldown -= delta
+		return
+	if !PerformanceCap.allow_billboard():	return
 	
 	var dir = camera.global_position - global_position
-	var dist_ratio = dir.length_squared() / (disable_dist*disable_dist)
+	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
 	if dist_ratio > 1: return
-	forward = dir.normalized()
+	if dir.distance_squared_to(prev_dir) < 0.1 * dist_ratio:
+		return
+	prev_dir = dir
 	
-	select_cd -= delta
-	if select_cd < 0 and PerformanceCap.allow_billboard_select():
-		select_cd = lerpf(select_cd_range.x, select_cd_range.y, dist_ratio)
-		rotate_cd = 0
-#		camera = get_viewport().get_camera_3d()
-		choose_side()
-		
-	rotate_cd -=delta
-	if rotate_cd < 0 and PerformanceCap.allow_billboard_rotate():
-		rotate_cd = lerpf(rotate_cd_range.x, rotate_cd_range.y, dist_ratio)
-		match face_camera:
-			bill_board_modes.bill_board:
-				billboard_forward()
-			bill_board_modes.lock_y_axis:
-				billboard_up()
-			bill_board_modes.six_sides:
-				axis_rotate()
+	forward = dir.normalized()
+	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
+	select_sprite(delta)
+	rotate_sprite(delta)
+
+var select_counter := 1
+func select_sprite(delta):
+	if select_counter > 0:
+		select_counter -= 1
+		return
+	select_counter = 3
+	choose_side()
+
+func rotate_sprite(delta):
+	match face_camera:
+		bill_board_modes.bill_board:
+			billboard_forward()
+		bill_board_modes.lock_y_axis:
+			billboard_up()
+		bill_board_modes.six_sides:
+			axis_rotate()
 
 func choose_side():
-	var ref = reference_frame.global_transform.basis
-	
-	var dist_axis:=Vector3.ZERO
-	dist_axis.x = -forward.dot(ref.x)
-	dist_axis.y = -forward.dot(ref.y)
-	dist_axis.z = -forward.dot(ref.z)
+	var dist_axis := reference_frame.to_local(camera.global_position)
 	if axis_ratio != Vector3.ONE:
-		dist_axis *= axis_ratio
-	
+		dist_axis = dist_axis * axis_ratio
 	var max_axis = dist_axis.abs().max_axis_index()
 	match max_axis:
 		Vector3.AXIS_X:
-			if dist_axis.x <0:
-				select(3)
-				axis_forward = axises._x
-				axis_up = axises.y
-				return
-			else:
-				select(1)
-				axis_forward = axises.x
-				axis_up=axises.y
-				return
+			select_x(dist_axis.x)
+			return
 		Vector3.AXIS_Y:
-			if dist_axis.y <0:
-				select(4)
-				axis_forward = axises._y
-				axis_up=axises._z
-				return
-			else:
-				select(5)
-				axis_forward = axises.y
-				axis_up=axises.z
-				return
+			select_y(dist_axis.y)
+			return
 		Vector3.AXIS_Z:
-			if dist_axis.z <0:
-				select(0)
-				axis_forward = axises._z
-				axis_up=axises.y
-				return
-			else:
-				select(2)
-				axis_forward = axises.z
-				axis_up=axises.y
-				return
+			select_z(dist_axis.z)
+			return
 	axis_up=axises.local
+
+func select_x(dist_axis:float):
+	if dist_axis > 0:
+		select(3)
+		axis_forward = axises._x
+		axis_up = axises.y
+	else:
+		select(1)
+		axis_forward = axises.x
+		axis_up=axises.y
+func select_y(dist_axis:float):
+	if dist_axis > 0:
+		select(4)
+		axis_forward = axises._y
+		axis_up=axises._z
+	else:
+		select(5)
+		axis_forward = axises.y
+		axis_up=axises.z
+func select_z(dist_axis:float):
+	if dist_axis > 0:
+		select(0)
+		axis_forward = axises._z
+		axis_up=axises.y
+	else:
+		select(2)
+		axis_forward = axises.z
+		axis_up=axises.y
+
+
 
 func select(side):
 	current_side = side
@@ -191,6 +170,4 @@ func convert_to_axis(_axis)->Vector3:
 			return ref_basis.z
 		axises._z:
 			return -ref_basis.z
-		axises.local:
-			return basis.y
 	return basis.y

@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxs5i3sue04kc"]
+[gd_scene load_steps=3 format=3 uid="uid://cxs5i3sue04kc"]
 
 [ext_resource type="PackedScene" uid="uid://cbi4o4f457egt" path="res://scenes/3d scenes/items/key cards/generic_key_overworld.tscn" id="1_0s3bx"]
+[ext_resource type="Texture2D" uid="uid://nas20luej0mn" path="res://assets/Textures/key_card0005.png" id="2_rjgww"]
 
 [node name="generic_key_overworld" instance=ExtResource("1_0s3bx")]
 password = 3
+
+[node name="Sprite3D" parent="." index="1"]
+cast_shadow = 2
+texture = ExtResource("2_rjgww")
