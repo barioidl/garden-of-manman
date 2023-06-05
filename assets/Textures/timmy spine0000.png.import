@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6qw1fpm6way2"
-path="res://.godot/imported/timmy spine0000.png-481226df1c2dc7dce578b8387908ff42.ctex"
+path.s3tc="res://.godot/imported/timmy spine0000.png-481226df1c2dc7dce578b8387908ff42.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Textures/timmy spine0000.png"
-dest_files=["res://.godot/imported/timmy spine0000.png-481226df1c2dc7dce578b8387908ff42.ctex"]
+dest_files=["res://.godot/imported/timmy spine0000.png-481226df1c2dc7dce578b8387908ff42.s3tc.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=2

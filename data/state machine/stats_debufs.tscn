@@ -8,6 +8,10 @@ var stats :Stats
 var platformer :Platformer
 
 @export var time_scale:=1.0
+
+@export var heal_amount := 1.0
+@export var heal_cost := 0.5
+
 func _enter_tree() -> void:
 	root =  get_parent().root
 	
@@ -41,12 +45,10 @@ func on_state_changed(_state:StringName):
 var hunger_cd:=0.0
 var hunger_speed:=1.0
 func increase_hunger():
-	if hunger_speed == 0:
-		return
 	if hunger_cd >0: 
-		hunger_cd -= dt * hunger_speed
+		hunger_cd -= dt * time_scale
 		return
-	hunger_cd = time_scale * 20
+	hunger_cd = 20 / hunger_speed
 	
 	if stats.hunger < stats.max_hunger:
 		stats.change_hunger(1)
@@ -59,28 +61,30 @@ func increase_hunger():
 var thirst_cd:=0.1
 func increase_thirst():
 	if thirst_cd >0:
-		thirst_cd -= dt
+		thirst_cd -= dt * time_scale
 		return
-	thirst_cd = time_scale * 10
+	thirst_cd = 10
 	
 	if stats.thirst < stats.max_thirst:
 		stats.change_thirst(1)
 	else:
 		stats.change_health(-1)
-		thirst_cd = time_scale * 1
+		thirst_cd = 1
 
 var heal_cd :=0.5
 func heal():
 	if heal_cd >0:
-		heal_cd -= dt
+		heal_cd -= dt * time_scale
 		return
-	heal_cd = time_scale * 5
+	heal_cd = 5
 	if stats.health >= stats.max_health:
+		heal_cd *= 2
 		return
 	if stats.hunger >= stats.max_hunger:
+		heal_cd *= 2
 		return
-	stats.change_health(1)
-	stats.change_hunger(1)
+	stats.change_health(heal_amount)
+	stats.change_hunger(heal_cost)
 "
 
 [node name="stats_debufs" type="Node"]

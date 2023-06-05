@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bssoitk5x4dfq"
-path="res://.godot/imported/timmy chest0000.png-18528196520a648527ff1750a712ca87.ctex"
+path.s3tc="res://.godot/imported/timmy chest0000.png-18528196520a648527ff1750a712ca87.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Textures/timmy chest0000.png"
-dest_files=["res://.godot/imported/timmy chest0000.png-18528196520a648527ff1750a712ca87.ctex"]
+dest_files=["res://.godot/imported/timmy chest0000.png-18528196520a648527ff1750a712ca87.s3tc.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=2

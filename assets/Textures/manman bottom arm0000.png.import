@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu0nyleasluu0"
-path="res://.godot/imported/manman bottom arm0000.png-928169853fa0e0e6c985bbc09af1f2d3.ctex"
+path.s3tc="res://.godot/imported/manman bottom arm0000.png-928169853fa0e0e6c985bbc09af1f2d3.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Textures/manman bottom arm0000.png"
-dest_files=["res://.godot/imported/manman bottom arm0000.png-928169853fa0e0e6c985bbc09af1f2d3.ctex"]
+dest_files=["res://.godot/imported/manman bottom arm0000.png-928169853fa0e0e6c985bbc09af1f2d3.s3tc.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=2

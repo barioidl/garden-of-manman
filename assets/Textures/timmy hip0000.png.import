@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtqkd3o2icoy4"
-path="res://.godot/imported/timmy hip0000.png-62c9560640a9a31f8ad0801465c9f374.ctex"
+path.s3tc="res://.godot/imported/timmy hip0000.png-62c9560640a9a31f8ad0801465c9f374.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Textures/timmy hip0000.png"
-dest_files=["res://.godot/imported/timmy hip0000.png-62c9560640a9a31f8ad0801465c9f374.ctex"]
+dest_files=["res://.godot/imported/timmy hip0000.png-62c9560640a9a31f8ad0801465c9f374.s3tc.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=2

@@ -7,7 +7,6 @@ extends Node3D
 var character:Node3D
 var target:Node3D
 var target_pos:=Vector3.ZERO
-var target_reached :=false
 
 var agent_radius:=1.0
 var agent_height:=1.0
@@ -25,11 +24,9 @@ func _physics_process(delta: float) -> void:
 	offset_height()
 	
 	var pos = get_next_pos()
-	if target_reached:
-		Interface.turn_head(character,target_pos)
-	else:
-		Interface.walk_to(character,pos)
-		Interface.turn_head(character,pos)
+	
+	Interface.walk_to(character,pos)
+	Interface.turn_head(character,pos)
 	
 	if character == null: return
 	var mid_pos = Vector3(0,agent_height * 0.5,0)
@@ -72,7 +69,7 @@ func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
 	character = _character
 	cast_floor.add_exception(character)
 	global_position = character.global_position
-	target_reached = false
+	
 	var callable = Callable(get_nav_agent)
 	character.set_meta(NL.get_nav_agent, callable)
 	
@@ -119,4 +116,4 @@ func set_agent_size(_size:Vector2):
 	nav_agent.target_desired_distance = agent_radius
 
 func _target_reached() -> void:
-	target_reached = true
+	pass

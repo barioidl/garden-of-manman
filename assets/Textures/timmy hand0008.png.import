@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dp0df0s65xwk5"
-path="res://.godot/imported/timmy hand0008.png-96ac717d7220231e26e1202176ee7c98.ctex"
+path.s3tc="res://.godot/imported/timmy hand0008.png-96ac717d7220231e26e1202176ee7c98.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Textures/timmy hand0008.png"
-dest_files=["res://.godot/imported/timmy hand0008.png-96ac717d7220231e26e1202176ee7c98.ctex"]
+dest_files=["res://.godot/imported/timmy hand0008.png-96ac717d7220231e26e1202176ee7c98.s3tc.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=2
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=250
-detect_3d/compress_to=2
+detect_3d/compress_to=1

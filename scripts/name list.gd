@@ -103,6 +103,7 @@ var sprint_to_target := &'sprint_to_target'
 var jump_to_target := &'jump_to_target'
 
 var get_head_target := &'get_head_target'
+var head_interact_with := &'head_interact_with'
 var get_head_position := &'get_head_position'
 var input_use_item := &'input_use_item'
 

@@ -5,6 +5,11 @@ class_name Hip
 @export var spine_paths:Array[NodePath]=[]
 var spine_nodes:Array[Node3D]=[]
 
+var root :Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
+
 func _ready() -> void:
 	super._ready()
 	setup_spine()
