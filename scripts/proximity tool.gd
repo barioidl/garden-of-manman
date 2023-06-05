@@ -31,7 +31,7 @@ func get_random_position(center:Vector3, min_range:=Vector3.ONE, max_range:=Vect
 		range.y = randf_range(min_range.y, max_range.y)
 	if min_range.z != max_range.z:
 		range.z = randf_range(min_range.z, max_range.z)
-	
+	closest_buffer.size()
 	if randi()%20 <10:range.x *= -1
 	if randi()%20 <10:range.y *= -1
 	if randi()%20 <10:range.z *= -1

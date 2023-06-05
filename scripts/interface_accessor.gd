@@ -29,11 +29,11 @@ func walk_to(body:Node3D,target:Vector3)->bool:
 	var walk_to = body.get_meta(NL.walk_to_target)
 	return walk_to.call(target)
 
-func turn_head(body:Node3D, target:Vector3, speed:=1.0) -> bool:
+func turn_head(body:Node3D, target:Vector3, x_speed := 1.0, y_speed := 1.0) -> bool:
 	if !body.has_meta(NL.turn_head_toward):
 		return false
 	var turn_head = body.get_meta(NL.turn_head_toward)
-	return turn_head.call(target,speed)
+	return turn_head.call(target,x_speed,y_speed)
 
 
 
@@ -59,14 +59,14 @@ func get_head_position(body:Node3D)->Vector3:
 	var meta = body.get_meta(NL.get_head_position)
 	return meta.call()
 
-func attach_nav_agent(body:Node3D,target):
-	if body.has_meta(NL.get_nav_agent):
-		var agent = body.get_meta(NL.get_nav_agent).call()
-		agent.set_target(target)
-		return
-	var agent = NavAgentPool.get_agent_3d()
-	agent.attach_to(body,target)
-	return
+func attach_nav_agent(body:Node3D,target) -> Node3D:
+	if !body.has_meta(NL.get_nav_agent):
+		var agent = NavAgentPool.get_agent_3d()
+		agent.attach_to(body,target)
+		return agent
+	var agent = body.get_meta(NL.get_nav_agent).call()
+	agent.set_target(target)
+	return agent
 
 func get_nav_agent(body:Node3D) -> Node3D:
 	if !body.has_meta(NL.get_nav_agent):

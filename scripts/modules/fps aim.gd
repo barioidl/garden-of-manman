@@ -50,15 +50,22 @@ func set_interface():
 	var turn_head = Callable(turn_head_toward)
 	root.set_meta(NL.turn_head_toward, turn_head)
 
-func turn_head_toward(target:Vector3, turn_speed:=1.0)-> bool:
+func turn_head_toward(target:Vector3, x_speed:= 1.0, y_speed := 1.0)-> bool:
 	var local:Vector3=head.to_local(target)
 	var x = atan2(local.x, local.z)
 	var y = atan2(local.y, local.z)
 	
-	if is_equal_approx(x,0) and is_equal_approx(y,0):
-		inputs.dpad2 = Vector2.ZERO
-		return true
+	var matched := true
+	if is_equal_approx(x,0):
+		inputs.dpad2.x = 0
+	else:
+		inputs.dpad2.x = rad_to_deg(x) * x_speed * 5
+		matched = false
 	
-	inputs.dpad2.x = rad_to_deg(x) * turn_speed * 10
-	inputs.dpad2.y = -rad_to_deg(y) * turn_speed * 10
-	return false
+	if is_equal_approx(y,0):
+		inputs.dpad2.y = 0
+	else:
+		inputs.dpad2.y = -rad_to_deg(y) * y_speed * 5
+		matched = false
+	
+	return matched

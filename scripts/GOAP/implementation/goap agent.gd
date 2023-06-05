@@ -24,9 +24,10 @@ var goal_size:=0
 var plan_size:=0
 var current_step:=0
 
-@export var show_local_state := false
 @export var planner_limits:=Vector2(3,6)
 var loop_plan:= false
+
+@export var show_local_state := false
 @onready var debug_display = get_node_or_null('../debug_display')
 
 func _init() -> void:

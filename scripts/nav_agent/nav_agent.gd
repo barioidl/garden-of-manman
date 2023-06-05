@@ -1,7 +1,7 @@
 extends Node3D
+class_name NavAgent
 
 @onready var nav_agent = $NavigationAgent3D
-
 @onready var cast_floor = $"cast floor"
 
 var character:Node3D
@@ -22,20 +22,45 @@ func _physics_process(delta: float) -> void:
 		return
 	update_target()
 	offset_height()
+
+
+func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
+	if _character == null: return
+	process_mode = Node.PROCESS_MODE_INHERIT
+	visible = true
 	
-	var pos = get_next_pos()
+	character = _character
+	cast_floor.add_exception(character)
+	global_position = character.global_position
 	
-	Interface.walk_to(character,pos)
-	Interface.turn_head(character,pos)
+	var callable = Callable(get_nav_agent)
+	character.set_meta(NL.get_nav_agent, callable)
 	
+	set_agent_size(size)
+	set_target(_target)
+
+func detach():
 	if character == null: return
-	var mid_pos = Vector3(0,agent_height * 0.5,0)
-	global_position = character.to_global(mid_pos)
+	process_mode = Node.PROCESS_MODE_DISABLED
+	visible = false
+	
+	character.remove_meta(NL.get_nav_agent)
+	cast_floor.remove_exception(character)
+	
+	NavAgentPool.push_agent_3d(self)
+	
+	var input = Interface.get_input(character)
+	if input != null:
+		input.dpad1 = Vector2.ZERO
+		input.dpad2 = Vector2.ZERO
+	
+	character = null
+	target = null
+	target_pos = Vector3.ZERO
 
 
-func get_next_pos()->Vector3:
+func get_next_path_pos()->Vector3:
 	return nav_agent.get_next_path_position()
-	nav_agent.target_position
 
 var update_target_cd := 0.0
 func update_target():
@@ -63,19 +88,6 @@ func offset_height():
 	var floor_dist = global_position.distance_to(floor_point)
 	nav_agent.agent_height_offset = -floor_dist
 
-
-func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
-	if _character == null: return
-	character = _character
-	cast_floor.add_exception(character)
-	global_position = character.global_position
-	
-	var callable = Callable(get_nav_agent)
-	character.set_meta(NL.get_nav_agent, callable)
-	
-	set_agent_size(size)
-	set_target(_target)
-
 func set_target(_target):
 	if _target == null: return
 	if _target is Vector3:
@@ -90,21 +102,6 @@ func set_target(_target):
 		nav_agent.target_position = target_pos
 		return
 
-func detach():
-	if character == null: return
-	character.remove_meta(NL.get_nav_agent)
-	cast_floor.remove_exception(character)
-	
-	NavAgentPool.push_agent_3d(self)
-	
-	var input = Interface.get_input(character)
-	if input != null:
-		input.dpad1 = Vector2.ZERO
-		input.dpad2 = Vector2.ZERO
-	
-	character = null
-	target = null
-	target_pos = Vector3.ZERO
 
 func get_nav_agent()->Node3D:
 	return self

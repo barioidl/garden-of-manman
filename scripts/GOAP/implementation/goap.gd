@@ -22,7 +22,7 @@ func init_action_planner():
 		ActionFindFood.new(),
 		ActionEatFood.new(),
 		
-#		ActionFlee.new(),
+		ActionFlee.new(),
 		
 #		ActionFindKey.new(),
 #		ActionOpenDoor.new(),

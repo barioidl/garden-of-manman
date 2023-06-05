@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bi85pq8ys3rxq"]
+[gd_scene load_steps=41 format=3 uid="uid://bi85pq8ys3rxq"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://be0ykq12fij2y" path="res://data/state machine/debug_display.tscn" id="15_hcd4e"]
 [ext_resource type="Texture2D" uid="uid://liruub56ame2" path="res://assets/Textures/manman face0001.png" id="15_l1jl5"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="15_mi7sy"]
+[ext_resource type="Script" path="res://scripts/monster.gd" id="16_0x1n3"]
 [ext_resource type="Texture2D" uid="uid://c0jdnyte7aqxr" path="res://assets/Textures/manman face0002.png" id="16_kopr6"]
 [ext_resource type="Texture2D" uid="uid://dhswlhhs6ln0k" path="res://assets/Textures/manman face0003.png" id="17_ip7pj"]
 [ext_resource type="Texture2D" uid="uid://ckss1y6pp30ik" path="res://assets/Textures/manman face0004.png" id="18_k6co4"]
@@ -316,6 +317,9 @@ scream_sfx = SubResource("Resource_re18v")
 process_mode = 4
 script = ExtResource("13_boe7p")
 
+[node name="monster" type="Node" parent="goap_agent"]
+script = ExtResource("16_0x1n3")
+
 [node name="monster" type="Node" parent="."]
 script = SubResource("GDScript_hy5xe")
 
@@ -338,7 +342,6 @@ target_position = Vector3(0, 0, 2)
 debug_shape_thickness = 2
 interact_range = 2.5
 head_margin = 1.0
-connect_to_bone = true
 
 [node name="hotbar" parent="body" instance=ExtResource("12_m7c2m")]
 
@@ -362,7 +365,6 @@ texture = ExtResource("13_62xdx")
 script = ExtResource("14_o6648")
 has_shadow = false
 sprites = SubResource("Resource_hd1to")
-cd_range = null
 
 [node name="hip" type="Node3D" parent="body/rig/body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

@@ -200,7 +200,7 @@ gizmo_extents = 0.02
 script = SubResource("GDScript_y00er")
 
 [node name="Sprite3D" type="Sprite3D" parent="hip/spine/chest/neck/head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.025)
 cast_shadow = 2
 shaded = true
 double_sided = false
@@ -209,4 +209,4 @@ texture_filter = 0
 texture = ExtResource("10_rglap")
 script = ExtResource("9_6jw76")
 sprites = SubResource("Resource_je7v3")
-face_camera = 2
+face_camera = 1

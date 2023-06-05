@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
 [ext_resource type="Script" path="res://scripts/proximity tool.gd" id="11_0qbtp"]
+[ext_resource type="Script" path="res://scripts/human.gd" id="12_1k2w5"]
 [ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
 [ext_resource type="Script" path="res://scripts/modules/hotbar.gd" id="14_ofs36"]
 
@@ -24,7 +25,7 @@ script/source = "extends GOAPAgent
 func _ready() -> void:
 	super._ready()
 	goals = [
-#		GoalFlee.new(),
+		GoalFlee.new(),
 #		GoalEatFood.new(),
 #		GoalOpenDoor.new(),
 #		GoalFindItems.new(),
@@ -32,22 +33,6 @@ func _ready() -> void:
 	]
 	
 
-"
-
-[sub_resource type="GDScript" id="GDScript_se6fn"]
-script/source = "extends Node
-
-var root:Node3D
-func _enter_tree() -> void:
-	root = get_parent().root
-
-func _ready() -> void:
-	root.add_to_group(NL.human)
-	
-	var agent = Interface.get_goap_agent(root)
-	agent.set_local_state(NL.predators,[NL.monster])
-	
-	queue_free()
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
@@ -94,7 +79,7 @@ slots = [null, null]
 script = SubResource("GDScript_j6qpi")
 
 [node name="human" type="Node" parent="goap_agent"]
-script = SubResource("GDScript_se6fn")
+script = ExtResource("12_1k2w5")
 
 [node name="proximity_tool" type="Node" parent="goap_agent"]
 script = ExtResource("11_0qbtp")
