@@ -60,12 +60,8 @@ func use_item(head:HotbarUser)->bool:
 	if head == null:
 		return false
 	var body = head.get_target(interact_range)
-	if body == null: 
-		return false
-	if !body.has_meta(NL.interact): 
-		return false
-	body.get_meta(NL.interact).call(self)
-	return true
+	return head.interact_with(body,self)
+	
 
 func interact(user):
 	if !is_in_overworld:

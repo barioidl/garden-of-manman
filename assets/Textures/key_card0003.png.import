@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c31wdmh7jp5u6"
-path="res://.godot/imported/key_card0003.png-179ff114c3b759d8c0c0eae5b1f21e3e.ctex"
+path.s3tc="res://.godot/imported/key_card0003.png-179ff114c3b759d8c0c0eae5b1f21e3e.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Textures/key_card0003.png"
-dest_files=["res://.godot/imported/key_card0003.png-179ff114c3b759d8c0c0eae5b1f21e3e.ctex"]
+dest_files=["res://.godot/imported/key_card0003.png-179ff114c3b759d8c0c0eae5b1f21e3e.s3tc.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=2
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=250
-detect_3d/compress_to=0
+detect_3d/compress_to=1

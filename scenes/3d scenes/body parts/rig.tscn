@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://pq7662ttv81f"]
+[gd_scene load_steps=41 format=3 uid="uid://pq7662ttv81f"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1yqpl"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="1_4fh26"]
@@ -48,13 +48,54 @@ func _process(delta: float) -> void:
 script = ExtResource("15_ab444")
 frames = Array[Texture]([ExtResource("4_38nna"), ExtResource("6_3ykua"), ExtResource("7_3lhlr"), ExtResource("8_t85aw"), ExtResource("9_5mcej"), ExtResource("10_hixib")])
 
+[sub_resource type="GDScript" id="GDScript_8rkwo"]
+script/source = "extends Marker3D
+
+var root :Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
+"
+
 [sub_resource type="Resource" id="Resource_8ui33"]
 script = ExtResource("15_ab444")
 frames = Array[Texture]([ExtResource("13_2k0p6"), ExtResource("14_mv53n"), ExtResource("15_gpgfk"), ExtResource("16_ejrgy"), ExtResource("17_1l7nq"), ExtResource("18_2ahr2")])
 
+[sub_resource type="GDScript" id="GDScript_8ca27"]
+script/source = "extends Marker3D
+
+var root :Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
+"
+
 [sub_resource type="Resource" id="Resource_hdgjh"]
 script = ExtResource("15_ab444")
 frames = Array[Texture]([ExtResource("9_rltnr"), ExtResource("10_vqndd"), ExtResource("7_3ql3i"), ExtResource("11_f3mhj"), ExtResource("12_1lsbu"), ExtResource("13_hh6db")])
+
+[sub_resource type="GDScript" id="GDScript_eclj8"]
+script/source = "extends Marker3D
+
+var root :Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
+"
+
+[sub_resource type="GDScript" id="GDScript_y00er"]
+script/source = "extends Marker3D
+
+var root :Node3D
+var head :Node3D
+func _enter_tree() -> void:
+	root = get_parent().root
+	owner = root
+func _ready() -> void:
+	head = root.get_node('body/head')
+func _process(delta: float) -> void:
+	head.global_position = global_position
+"
 
 [sub_resource type="Resource" id="Resource_je7v3"]
 script = ExtResource("15_ab444")
@@ -110,6 +151,7 @@ container = NodePath("../..")
 [node name="spine" type="Marker3D" parent="hip"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 gizmo_extents = 0.01
+script = SubResource("GDScript_8rkwo")
 
 [node name="Sprite3D" type="Sprite3D" parent="hip/spine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
@@ -125,6 +167,7 @@ sprites = SubResource("Resource_8ui33")
 [node name="chest" type="Marker3D" parent="hip/spine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 gizmo_extents = 0.02
+script = SubResource("GDScript_8ca27")
 
 [node name="Sprite3D" type="Sprite3D" parent="hip/spine/chest"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -149,10 +192,12 @@ container = NodePath("../../../..")
 [node name="neck" type="Marker3D" parent="hip/spine/chest"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 gizmo_extents = 0.02
+script = SubResource("GDScript_eclj8")
 
 [node name="head" type="Marker3D" parent="hip/spine/chest/neck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 gizmo_extents = 0.02
+script = SubResource("GDScript_y00er")
 
 [node name="Sprite3D" type="Sprite3D" parent="hip/spine/chest/neck/head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)

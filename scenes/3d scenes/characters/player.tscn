@@ -25,7 +25,7 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 #		GoalFlee.new(),
-		GoalEatFood.new(),
+#		GoalEatFood.new(),
 #		GoalOpenDoor.new(),
 #		GoalFindItems.new(),
 #		GoalUseElevator.new(),
@@ -46,6 +46,8 @@ func _ready() -> void:
 	
 	var agent = Interface.get_goap_agent(root)
 	agent.set_local_state(NL.predators,[NL.monster])
+	
+	queue_free()
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh8a4"]
@@ -89,7 +91,6 @@ time_scale = 0.5
 slots = [null, null]
 
 [node name="goap_agent" type="Node" parent="."]
-process_mode = 4
 script = SubResource("GDScript_j6qpi")
 
 [node name="human" type="Node" parent="goap_agent"]
@@ -111,11 +112,8 @@ script = ExtResource("9_xmcsr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 connect_to_shape = false
 head_margin = 0.15
-connect_to_bone = true
 
 [node name="hotbar" type="Node3D" parent="body"]
 script = ExtResource("14_ofs36")
 
 [node name="rig" parent="body" instance=ExtResource("12_tmh3y")]
-process_mode = 4
-visible = false

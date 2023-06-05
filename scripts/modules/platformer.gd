@@ -200,7 +200,7 @@ func jump_to_target(target:Vector3)-> bool:
 	return reached
 
 func dpad_from_position(target:Vector3)->bool:
-	var trans = root.custom_transform.inverse()
+	var trans = root.custom_transform.global_transform.inverse()
 	var target_local = trans * target
 #	body.to_local(target)
 	var dpad1 := Vector2(target_local.x,target_local.z)

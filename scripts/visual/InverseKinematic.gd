@@ -7,8 +7,8 @@ class_name CCDIK
 @export var copy_rotation:=false
 @export var joints_per_frame:= 3
 @export var solve_backward:= true
-@export var average_weight:=0.9
-@export var accuracy:=0.01
+@export var average_weight:=0.8
+@export var accuracy:=0.05
 
 var chain_nodes:=Array()
 var constraints:=Array()

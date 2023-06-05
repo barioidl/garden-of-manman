@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://data/state machine/fall_damage.gd" id="1_p4hha"]
 
 [node name="fall_damage" type="Node"]
+process_mode = 4
 script = ExtResource("1_p4hha")

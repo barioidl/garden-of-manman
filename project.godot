@@ -78,9 +78,9 @@ texture={
 "compress/hdr_compression": 2,
 "compress/high_quality": false,
 "compress/lossy_quality": 1.0,
-"compress/mode": 4,
+"compress/mode": 2,
 "compress/normal_map": 2,
-"detect_3d/compress_to": 2,
+"detect_3d/compress_to": 1,
 "mipmaps/generate": false,
 "mipmaps/limit": -1,
 "process/fix_alpha_border": true,
@@ -88,7 +88,7 @@ texture={
 "process/hdr_clamp_exposure": false,
 "process/normal_map_invert_y": false,
 "process/premult_alpha": false,
-"process/size_limit": 250,
+"process/size_limit": 320,
 "roughness/mode": 0,
 "roughness/src_normal": ""
 }

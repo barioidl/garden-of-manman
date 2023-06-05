@@ -1,10 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=13 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
-[ext_resource type="Script" path="res://data/state machine/fall_damage.gd" id="7_my1vt"]
 [ext_resource type="Script" path="res://scripts/dispay tutorial.gd" id="14_ftg3b"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
@@ -32,38 +31,7 @@ polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Arr
 [sub_resource type="SphereShape3D" id="SphereShape3D_m1yvh"]
 radius = 2.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nmswg"]
-size = Vector3(100, 1, 100)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu143"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_r8e7e"]
-size = Vector3(100, 1, 100)
-
-[sub_resource type="GDScript" id="GDScript_f6o46"]
-script/source = "extends RigidBody3D
-
-var root = self
-func change_health(amount):
-	$Label3D._on_accel_changed(-amount)
-"
-
-[sub_resource type="GDScript" id="GDScript_i5bxe"]
-script/source = "extends Label3D
-
-var max_accel:=0.0
-func _on_accel_changed(accel) -> void:
-	if accel < max_accel:
-		return
-	max_accel = accel
-	text = str(max_accel).left(6)
-
-"
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hadut"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_j72eg"]
+[sub_resource type="SphereMesh" id="SphereMesh_60nrm"]
 
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_gvegq")
@@ -72,8 +40,6 @@ script = SubResource("GDScript_gvegq")
 environment = SubResource("Environment_pjwlt")
 
 [node name="map collision" type="StaticBody3D" parent="."]
-process_mode = 4
-visible = false
 
 [node name="TotalMap" type="MeshInstance3D" parent="map collision"]
 layers = 16
@@ -88,7 +54,7 @@ navigation_mesh = SubResource("NavigationMesh_r78ed")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
 process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7504, 0, -40.5965)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -80)
 visible = false
 
 [node name="tutorials" type="Node3D" parent="."]
@@ -142,234 +108,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -76)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -11.908, 1, -10.2031)
+mesh = SubResource("SphereMesh_60nrm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_nmswg")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-material_override = SubResource("StandardMaterial3D_cu143")
-mesh = SubResource("BoxMesh_r8e7e")
-
-[node name="MeshInstance3D_2" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 50, 10)
-material_override = SubResource("StandardMaterial3D_cu143")
-mesh = SubResource("BoxMesh_r8e7e")
-
-[node name="Node3D" type="Node3D" parent="."]
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_2" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 10, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_2"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_2"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_2"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_3" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 15, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_3"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_3"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_3"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_4" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 20, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_4"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_4"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_4"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_5" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 25, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_5"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_5"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_5"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_6" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 30, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_6"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_6"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_6"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_7" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 35, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_7"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_7"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_7"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_8" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 40, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_8"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_8"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_8"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_9" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 45, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_9"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_9"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_9"]
-mesh = SubResource("BoxMesh_j72eg")
-
-[node name="RigidBody3D_10" type="RigidBody3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 50, 0)
-script = SubResource("GDScript_f6o46")
-
-[node name="fall damage" type="Node" parent="Node3D/RigidBody3D_10"]
-script = ExtResource("7_my1vt")
-
-[node name="Label3D" type="Label3D" parent="Node3D/RigidBody3D_10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.984597)
-billboard = 1
-no_depth_test = true
-text = "dfgdnfgd"
-font_size = 48
-script = SubResource("GDScript_i5bxe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D_10"]
-shape = SubResource("BoxShape3D_hadut")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D_10"]
-mesh = SubResource("BoxMesh_j72eg")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819, -0.482963, 0.836516, 0, 0, 0)

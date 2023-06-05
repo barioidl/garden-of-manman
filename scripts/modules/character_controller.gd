@@ -32,7 +32,7 @@ func setup_body():
 	physics_material_override = load("res://materials/default_physics_material.tres")
 
 func set_damp():
-	var damp := 0
+	var damp := 1
 	if on_floor:
 		damp += 4
 	if on_wall:

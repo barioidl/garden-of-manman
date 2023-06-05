@@ -15,39 +15,18 @@ func _enter_tree() -> void:
 	root = get_parent().root
 	owner = root
 	set_interface()
+
 func _ready() -> void:
 	if root is PhysicsBody3D:
 		add_exception(root)
 	inputs = root.get_node_or_null('inputs')
 	shape = root.get_node_or_null('shape')
 	connect_hotbar()
-	get_head_bone()
 	use_shape_size()
 
 func _process(delta: float) -> void:
-	copy_bone_position()
+	pass
 
-func connect_hotbar():
-	if hotbar == null: return
-	inputs.connect(NL.drop_pressed,drop_start)
-	inputs.connect(NL.drop_released,drop_stop)
-	
-	inputs.connect(NL.act_pressed,act)
-	inputs.connect(NL.attack_pressed,attack)
-	inputs.connect(NL.skill_pressed,skill)
-	inputs.connect(NL.misc_pressed,misc)
-
-func set_interface():
-	root.set_meta(NL.get_head_target, Callable(get_target))
-	root.set_meta(NL.get_head_position, Callable(get_head_position))
-	root.set_meta(NL.input_use_item, Callable(input_use_item))
-
-func input_use_item(id:int):
-	match id:
-		0:inputs.emit_signal(NL.attack_pressed)
-		1:inputs.emit_signal(NL.skill_pressed)
-		2:inputs.emit_signal(NL.misc_pressed)
-		_:inputs.emit_signal(NL.act_pressed)
 
 @export var connect_to_shape:=true
 @export var head_margin:=0.2
@@ -59,21 +38,27 @@ func use_shape_size():
 func on_size_changed(_size:Vector3):
 	position = Vector3(0,_size.y - head_margin,0)
 
-func get_head_bone():
-	if !connect_to_bone: return
-	head_bone = $"../rig".get_head_bone()
+func connect_hotbar():
+	if hotbar == null: return
+	inputs.connect(NL.drop_pressed,drop_start)
+	inputs.connect(NL.drop_released,drop_stop)
+	
+	inputs.connect(NL.act_pressed,act)
+	inputs.connect(NL.attack_pressed,attack)
+	inputs.connect(NL.skill_pressed,skill)
+	inputs.connect(NL.misc_pressed,misc)
 
-@export var connect_to_bone:=false
-var head_bone:Node3D
-func copy_bone_position():
-	if head_bone == null: return
-	var pos = head_bone.global_position
-	global_position = pos
+
+func set_interface():
+	root.set_meta(NL.get_head_position, get_head_position)
+	root.set_meta(NL.get_head_target, get_target)
+	root.set_meta(NL.head_interact_with, interact_with)
+	root.set_meta(NL.input_use_item, input_use_item)
 
 func get_head_position()->Vector3:
 	return global_position
 
-func get_target(_range:=interact_range)->PhysicsBody3D:
+func get_target(_range := interact_range)-> PhysicsBody3D:
 	if _range > target_position.z:
 		target_position.z = _range
 	var target = get_collider()
@@ -83,6 +68,22 @@ func get_target(_range:=interact_range)->PhysicsBody3D:
 	if dist_sq > _range * _range:
 		return null
 	return target
+
+func interact_with(body:Node, user :Node= self):
+	if body == null: 
+		return false
+	if !body.has_meta(NL.interact): 
+		return false
+	body.get_meta(NL.interact).call(user)
+	return true
+
+func input_use_item(id:int):
+	match id:
+		0:inputs.emit_signal(NL.attack_pressed)
+		1:inputs.emit_signal(NL.skill_pressed)
+		2:inputs.emit_signal(NL.misc_pressed)
+		_:inputs.emit_signal(NL.act_pressed)
+
 
 func get_contact()->Vector3:
 	if is_colliding():

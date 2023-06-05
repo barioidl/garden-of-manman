@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpim4x0uvxfch"
-path="res://.godot/imported/timmy top arm0000.png-56f27742972ac0193a2015ce48168c24.ctex"
+path.s3tc="res://.godot/imported/timmy top arm0000.png-56f27742972ac0193a2015ce48168c24.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Textures/timmy top arm0000.png"
-dest_files=["res://.godot/imported/timmy top arm0000.png-56f27742972ac0193a2015ce48168c24.ctex"]
+dest_files=["res://.godot/imported/timmy top arm0000.png-56f27742972ac0193a2015ce48168c24.s3tc.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=2

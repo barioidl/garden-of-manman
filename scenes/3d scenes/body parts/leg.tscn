@@ -69,7 +69,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("5_7v8av")
+texture = ExtResource("7_dg5dq")
 script = ExtResource("9_beo2n")
 sprites = SubResource("Resource_sjuck")
 
@@ -81,7 +81,6 @@ target = NodePath("../../ik target/ik pole")
 chain_length = 1
 joints_per_frame = 1
 average_weight = 0.1
-accuracy = 0.1
 
 [node name="ik_constraint" type="Node" parent="leg/knee"]
 script = ExtResource("1_bd7cy")
@@ -95,7 +94,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("11_a8dj6")
+texture = ExtResource("10_x74pj")
 script = ExtResource("9_beo2n")
 sprites = SubResource("Resource_hr1j5")
 
@@ -115,7 +114,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("12_2fjfm")
+texture = ExtResource("10_ac61s")
 script = ExtResource("9_beo2n")
 sprites = SubResource("Resource_pbbro")
 
@@ -126,4 +125,3 @@ script = ExtResource("2_o0xlv")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
-accuracy = 0.005

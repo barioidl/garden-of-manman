@@ -1,11 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://btly3xw4dm86n"]
+[gd_scene load_steps=29 format=3 uid="uid://btly3xw4dm86n"]
 
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="1_cqla2"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_j5t3a"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_q00xy"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_sn8ug"]
 [ext_resource type="PackedScene" uid="uid://chk37jh0ixlfc" path="res://scenes/3d scenes/body parts/arm animation.tscn" id="2_k3b7s"]
-[ext_resource type="Texture2D" uid="uid://d0g550yyhbigm" path="res://assets/Textures/timmy top arm0006.png" id="5_tajvf"]
 [ext_resource type="Texture2D" uid="uid://dpim4x0uvxfch" path="res://assets/Textures/timmy top arm0000.png" id="7_h1fr8"]
 [ext_resource type="Texture2D" uid="uid://dffujpe45xaho" path="res://assets/Textures/timmy top arm0001.png" id="8_1fv7w"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="8_di53v"]
@@ -71,7 +70,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("5_tajvf")
+texture = ExtResource("7_h1fr8")
 script = ExtResource("8_di53v")
 sprites = SubResource("Resource_dcbvk")
 
@@ -83,7 +82,6 @@ target = NodePath("../../ik target/ik pole")
 chain_length = 1
 joints_per_frame = 1
 average_weight = 0.1
-accuracy = 0.1
 
 [node name="ik_constraint" type="Node" parent="arm/elbow"]
 script = ExtResource("1_sn8ug")
@@ -97,7 +95,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("12_sygjg")
+texture = ExtResource("9_bjlug")
 script = ExtResource("8_di53v")
 sprites = SubResource("Resource_dl16l")
 
@@ -117,7 +115,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("24_00l2s")
+texture = ExtResource("22_coaj3")
 script = ExtResource("8_di53v")
 sprites = SubResource("Resource_rkqkw")
 
@@ -128,4 +126,3 @@ script = ExtResource("1_cqla2")
 target = NodePath("../../../../ik target")
 chain_length = 3
 copy_rotation = true
-accuracy = 0.005
