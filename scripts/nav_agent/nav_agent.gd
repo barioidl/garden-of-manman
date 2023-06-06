@@ -20,14 +20,13 @@ func _physics_process(delta: float) -> void:
 	if character == null: return
 	if !character.can_process(): 
 		return
+	global_position = character.global_position
 	update_target()
 	offset_height()
 
 
 func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
 	if _character == null: return
-	process_mode = Node.PROCESS_MODE_INHERIT
-	visible = true
 	
 	character = _character
 	cast_floor.add_exception(character)
@@ -41,8 +40,6 @@ func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
 
 func detach():
 	if character == null: return
-	process_mode = Node.PROCESS_MODE_DISABLED
-	visible = false
 	
 	character.remove_meta(NL.get_nav_agent)
 	cast_floor.remove_exception(character)

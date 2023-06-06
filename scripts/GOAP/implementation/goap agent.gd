@@ -94,8 +94,6 @@ func set_local_state(key,value):
 
 func follow_plan():
 	if current_step >= plan_size:
-		if loop_plan:
-			current_step=0
 		return
 	var action :GOAPAction= current_plan[current_step]
 	var completed = action.perform(local_state, dt)
@@ -115,7 +113,9 @@ func generate_plan():
 	var best_goal = select_goal()
 	if best_goal == null: return
 	if best_goal == current_goal: 
-		if current_step < plan_size:
+		if !loop_plan:
+			return
+		elif current_step < plan_size:
 			return
 	current_goal = best_goal
 	current_step = 0

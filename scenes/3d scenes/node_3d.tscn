@@ -109,7 +109,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 7.25081, 0, -76.1269)
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 11.9192, 0, -83.7799)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
