@@ -15,6 +15,7 @@ script/source = "extends ItemOverworld
 func _ready() -> void:
 	super._ready()
 	add_to_group(NL.meat)
+	add_to_group(NL.foods)
 	connect(NL.item_used,used)
 
 func used():

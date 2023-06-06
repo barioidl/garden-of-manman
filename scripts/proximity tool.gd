@@ -19,11 +19,10 @@ func _process(delta: float) -> void:
 	cleanup_closest(0.2)
 	cleanup_farest(0.2)
 
-func set_interface():
-	set_meta(NL.get_closest_node3d,get_closest_node3d)
-	set_meta(NL.get_farest_node3d,get_farest_node3d)
-	set_meta(NL.get_random_position,get_random_position)
-
+#func set_interface():
+#	set_meta(NL.get_closest_node3d,get_closest_node3d)
+#	set_meta(NL.get_farest_node3d,get_farest_node3d)
+#	set_meta(NL.get_random_position,get_random_position)
 
 
 func get_random_position(center:Vector3, min_range:=Vector3.ONE, max_range:=Vector3.ONE):
@@ -187,48 +186,50 @@ func farest_node3d(group:StringName, position:Vector3, max_distance:=def_range)-
 
 func get_nodes(group:StringName)->Array:
 	if groups_buffer.has(group):
-		return groups_buffer[group]
+		var result :Array= groups_buffer[group]
+		if !result.is_empty():
+			return result
 	var nodes = scene_tree.get_nodes_in_group(group)
 	groups_buffer[group] = nodes
 	groups_lifetime[group] = def_lifetime
 	return nodes
 
+
 var groups_buffer := {}
 var groups_lifetime := {}
 func cleanup_groups(delta):
+	var iterations = groups_lifetime.size()
+	if iterations <=0: return
 	var keys = groups_lifetime.keys()
-	for i in groups_lifetime.size():
+	for i in iterations:
 		var key = keys[i]
-		var lifetime = groups_lifetime[key]
-		lifetime -= delta
-		groups_lifetime[key] = lifetime
-		if lifetime > 0: continue
+		groups_lifetime[key] -= delta
+		if groups_lifetime[key] > 0: continue
 		groups_lifetime.erase(key)
 		groups_buffer.erase(key)
-
 
 var closest_buffer := {}
 var closest_lifetime := {}
 func cleanup_closest(delta):
+	var iterations = closest_lifetime.size()
+	if iterations <=0: return
 	var keys = closest_lifetime.keys()
-	for i in closest_lifetime.size():
+	for i in iterations:
 		var key = keys[i]
-		var lifetime = closest_lifetime[key]
-		lifetime -= delta
-		closest_lifetime[key] = lifetime
-		if lifetime > 0: continue
+		closest_lifetime[key] -= delta
+		if closest_lifetime[key] > 0: continue
 		closest_lifetime.erase(key)
 		closest_buffer.erase(key)
 
 var farest_buffer := {}
 var farest_lifetime := {}
 func cleanup_farest(delta):
+	var iterations = farest_lifetime.size()
+	if iterations <=0: return
 	var keys = farest_lifetime.keys()
-	for i in farest_lifetime.size():
+	for i in iterations:
 		var key = keys[i]
-		var lifetime = farest_lifetime[key]
-		lifetime -= delta
-		farest_lifetime[key] = lifetime
-		if lifetime > 0: continue
+		farest_lifetime[key] -= delta
+		if farest_lifetime[key] > 0: continue
 		farest_lifetime.erase(key)
 		farest_buffer.erase(key)

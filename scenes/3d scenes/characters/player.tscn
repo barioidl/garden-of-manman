@@ -79,6 +79,9 @@ script = SubResource("GDScript_j6qpi")
 [node name="human" type="Node" parent="goap_agent"]
 script = ExtResource("12_1k2w5")
 
+[node name="debug_display" parent="." instance=ExtResource("18_tnk7y")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1, 2)
+
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_uh8a4")
@@ -97,6 +100,3 @@ head_margin = 0.15
 script = ExtResource("14_ofs36")
 
 [node name="rig" parent="body" instance=ExtResource("12_tmh3y")]
-
-[node name="debug_display" parent="." instance=ExtResource("18_tnk7y")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1, 5)

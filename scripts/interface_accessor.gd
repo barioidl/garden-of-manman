@@ -53,9 +53,9 @@ func get_head_target(body:Node3D)->Node3D:
 		return null
 	return body.get_meta(NL.get_head_target).call()
 
-func interact_with(body:Node3D, target:Node)->Node3D:
+func interact_with(body:Node3D, target:Node)-> bool:
 	if !body.has_meta(NL.interact_with):
-		return null
+		return false
 	return body.get_meta(NL.interact_with).call(target,body)
 
 

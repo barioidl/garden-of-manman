@@ -114,7 +114,9 @@ func generate_plan():
 	
 	var best_goal = select_goal()
 	if best_goal == null: return
-	if best_goal == current_goal: return
+	if best_goal == current_goal: 
+		if current_step < plan_size:
+			return
 	current_goal = best_goal
 	current_step = 0
 	
