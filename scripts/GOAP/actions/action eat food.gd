@@ -10,7 +10,9 @@ func get_inputs(local_state:Dictionary)->Dictionary:
 		var id =get_hotbar_food(root)
 		if id > 0:
 			return {}
-	return{NL.has_food:1}
+	return{
+		NL.has_food:1
+		}
 
 func get_outputs(local_state:Dictionary)->Dictionary:
 	return {

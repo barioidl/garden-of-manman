@@ -88,13 +88,17 @@ script/source = "extends Marker3D
 
 var root :Node3D
 var head :Node3D
+@export var offset_pos:= Vector3(0,0,0.05)
+
 func _enter_tree() -> void:
 	root = get_parent().root
 	owner = root
+
 func _ready() -> void:
 	head = root.get_node('body/head')
+
 func _process(delta: float) -> void:
-	head.global_position = global_position
+	head.global_position = to_global(offset_pos)
 "
 
 [sub_resource type="Resource" id="Resource_je7v3"]
@@ -200,8 +204,9 @@ gizmo_extents = 0.02
 script = SubResource("GDScript_y00er")
 
 [node name="Sprite3D" type="Sprite3D" parent="hip/spine/chest/neck/head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.025)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 cast_shadow = 2
+axis = 1
 shaded = true
 double_sided = false
 alpha_cut = 1
@@ -209,4 +214,3 @@ texture_filter = 0
 texture = ExtResource("10_rglap")
 script = ExtResource("9_6jw76")
 sprites = SubResource("Resource_je7v3")
-face_camera = 1

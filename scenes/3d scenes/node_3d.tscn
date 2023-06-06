@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=15 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
 [ext_resource type="Script" path="res://scripts/assign character as player .gd" id="3_65qyn"]
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="4_t373y"]
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
+[ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="6_jagio"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_ohcow"]
+[ext_resource type="Resource" uid="uid://blyxj3d3wn6vs" path="res://data/items/food generic.tres" id="8_5lbay"]
 [ext_resource type="Script" path="res://scripts/dispay tutorial.gd" id="14_ftg3b"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
@@ -30,8 +33,6 @@ polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Arr
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_m1yvh"]
 radius = 2.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_60nrm"]
 
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_gvegq")
@@ -106,15 +107,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -76)
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 7.25081, 0, -76.1269)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
 disable_goap = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -11.908, 1, -10.2031)
-mesh = SubResource("SphereMesh_60nrm")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819, -0.482963, 0.836516, 0, 0, 0)
+
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3248, 0.70977, -76.0296)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("6_jagio")
+script = ExtResource("7_ohcow")
+item = ExtResource("8_5lbay")

@@ -4,6 +4,7 @@ extends Node
 func list_of_states():pass
 var die := &'die'
 var idle:= &'idle'
+
 var walk:= &'walk'
 var sneak := &'sneak'
 var sprint := &'sprint'
@@ -45,6 +46,8 @@ var enemies := &'enemies'
 var predators := &'predator'
 var preys := &'prey'
 
+
+
 var interest := &'interest'
 var joy := &'joy'
 var surprise := &'surprise'
@@ -75,12 +78,12 @@ var character := &'character'
 var human:= &'human'
 var monster := &'monster'
 
-var food := &'food'
-var drink := &'drink'
-var key := &'key'
+var foods := &'foods'
+var drinks := &'drinks'
+var keys := &'keys'
 
-var door := &'door'
-var healing_item := &'healing_item'
+var doors := &'doors'
+var healing_items := &'healing_items'
 
 var billboard_sprites:= &'billboard_sprites'
 

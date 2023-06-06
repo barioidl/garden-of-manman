@@ -23,7 +23,7 @@ func priority(local_state:Dictionary)->float:
 	
 	var dist = root_pos.distance_to(target.global_position)
 	dist = 1 - clampf(dist/_range,0,1)
-	var priority = Curves.sample(4,4,dist)
+	var priority = Curves.sample(5,7,dist)
 	return priority * get_weight(1)
 
 func get_result(local_state:Dictionary)->Dictionary:
@@ -37,6 +37,6 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	agent.set_local_state(NL.unique_steps,false)
 	return true
 
-#func _print(line:String):
-#	return
-#	print(line)
+func _print(line:String):
+	return
+	print(line)

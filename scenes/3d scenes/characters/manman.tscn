@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bi85pq8ys3rxq"]
+[gd_scene load_steps=40 format=3 uid="uid://bi85pq8ys3rxq"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -251,18 +251,6 @@ pitch_range = Vector2(0.75, 1.25)
 volume_range = Vector2(-1, 1)
 streams = Array[AudioStream]([ExtResource("12_hqwsp")])
 
-[sub_resource type="GDScript" id="GDScript_hy5xe"]
-script/source = "extends Node
-
-
-var root:Node3D
-func _enter_tree() -> void:
-	root = get_parent().root
-
-func _ready() -> void:
-	root.add_to_group(NL.monster)
-"
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
 height = 2.4
 
@@ -317,11 +305,8 @@ scream_sfx = SubResource("Resource_re18v")
 process_mode = 4
 script = ExtResource("13_boe7p")
 
-[node name="monster" type="Node" parent="goap_agent"]
-script = ExtResource("16_0x1n3")
-
 [node name="monster" type="Node" parent="."]
-script = SubResource("GDScript_hy5xe")
+script = ExtResource("16_0x1n3")
 
 [node name="debug_display" parent="." instance=ExtResource("15_hcd4e")]
 
