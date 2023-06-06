@@ -53,6 +53,12 @@ func get_head_target(body:Node3D)->Node3D:
 		return null
 	return body.get_meta(NL.get_head_target).call()
 
+func interact_with(body:Node3D, target:Node)->Node3D:
+	if !body.has_meta(NL.interact_with):
+		return null
+	return body.get_meta(NL.interact_with).call(target,body)
+
+
 func get_head_position(body:Node3D)->Vector3:
 	if !body.has_meta(NL.get_head_position):
 		return Vector3.ZERO
@@ -97,17 +103,17 @@ func reward_agent(body:Node3D,amount:=0.0):
 	var meta = body.get_meta(NL.reward_agent)
 	return meta.call(amount)
 
-func get_closest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0)-> Node3D:
-	if !body.has_meta(NL.get_closest_node3d):
-		return null
-	var meta = body.get_meta(NL.get_closest_node3d)
-	return meta.call(group,pos,_range)
-
-func get_farest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0)-> Node3D:
-	if !body.has_meta(NL.get_farest_node3d):
-		return null
-	var meta = body.get_meta(NL.get_farest_node3d)
-	return meta.call(group,pos,_range)
+#func get_closest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0)-> Node3D:
+#	if !body.has_meta(NL.get_closest_node3d):
+#		return null
+#	var meta = body.get_meta(NL.get_closest_node3d)
+#	return meta.call(group,pos,_range)
+#
+#func get_farest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0)-> Node3D:
+#	if !body.has_meta(NL.get_farest_node3d):
+#		return null
+#	var meta = body.get_meta(NL.get_farest_node3d)
+#	return meta.call(group,pos,_range)
 
 func get_position_around(body:Node3D, min_range:=Vector3.ONE, max_range:=Vector3.ONE)-> Vector3:
 	if !body.has_meta(NL.get_random_position):

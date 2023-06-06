@@ -1,5 +1,4 @@
 extends Node
-#class_name WorldState
 
 var states:={}
 func get_(key,default = 0):

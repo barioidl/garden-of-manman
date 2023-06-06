@@ -14,9 +14,9 @@ script/source = "extends ItemOverworld
 
 func _ready() -> void:
 	super._ready()
-	add_to_group(NL.foods)
+	add_to_group(NL.meat)
 	connect(NL.item_used,used)
-	
+
 func used():
 	print('food used')
 	Interface.change_hunger(root,-5)

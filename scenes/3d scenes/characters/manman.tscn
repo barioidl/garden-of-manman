@@ -305,7 +305,8 @@ scream_sfx = SubResource("Resource_re18v")
 process_mode = 4
 script = ExtResource("13_boe7p")
 
-[node name="monster" type="Node" parent="."]
+[node name="monster" type="Node" parent="goap_agent"]
+process_mode = 3
 script = ExtResource("16_0x1n3")
 
 [node name="debug_display" parent="." instance=ExtResource("15_hcd4e")]

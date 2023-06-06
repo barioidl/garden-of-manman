@@ -8,17 +8,18 @@ func _name()->StringName:
 
 func is_valid(local_state:Dictionary)->bool:
 	var root = local_state.root
-	var id = get_hotbar_food(root)
-	if id >= 0:
-		return false
 	var pos = root.global_position
-	var food = Interface.get_closest_node3d(root,NL.food,pos,range)
-	return food != null
+	var foods = local_state[NL.foods]
+	var food = ProximityTool.get_closest_node3d(foods, pos)
+	var valid = food != null
+	_print('food available: ' + str(valid))
+	return valid
 
 func get_cost(local_state:Dictionary)->float:
 	var root = local_state.root
 	var pos = root.global_position
-	var food = Interface.get_closest_node3d(root,NL.food,pos,range)
+	var foods = local_state[NL.foods]
+	var food = ProximityTool.get_closest_node3d(foods, pos)
 	if food == null:
 		return 1
 	var dist :Vector3= food.global_position - root.global_position
@@ -38,11 +39,12 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root
 	var pos = root.global_position
-	var food = Interface.get_closest_node3d(root,NL.food,pos,range)
+	var foods = local_state[NL.foods]
+	var food = ProximityTool.get_closest_node3d(foods, pos)
 	if food == null:
 		return true
 	
-	if !reached_food(root):
+	if !Interface.interact_with(root,food):
 		Interface.attach_nav_agent(root,food)
 		return false
 	
@@ -60,22 +62,6 @@ func perform(local_state:Dictionary,time:float)-> bool:
 		local_state.erase(NL.food)
 	return true
 
-func get_hotbar_food(root) -> int:
-	var get_items = root.get_meta(NL.get_hotbar_items)
-	var hotbar_items :Array= get_items.call()
-	for id in hotbar_items.size():
-		var food = hotbar_items[id]
-		if food == null:
-			continue
-		if !food.is_in_group(NL.food):
-			continue
-		return id
-	return -1
-
-func reached_food(root)->bool:
-	var target = Interface.get_head_target(root)
-	if target == null:
-		return false
-	if !target.is_in_group(NL.food):
-		return false
-	return true
+func _print(line:String):
+#	return
+	print(line)

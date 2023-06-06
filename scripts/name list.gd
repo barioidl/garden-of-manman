@@ -14,7 +14,7 @@ var fall := &'fall'
 func list_of_goap_states():pass
 var root :=&'root'
 var agent := &'agent'
-var proximity_tool := &'proximity_tool'
+#var proximity_tool := &'proximity_tool'
 
 var jumpscare := &'jumpscare'
 var puzzle := &'puzzle'
@@ -23,10 +23,6 @@ var playing := &'playing'
 var plan_width := &'plan_width'
 var plan_depth := &'plan_depth'
 var unique_steps := &'unique_steps'
-
-var has_food := &'has_food'
-var has_drink := &'has_drink'
-var has_key := &'has_key'
 
 var health := &'health'
 var max_health := &'max_health'
@@ -46,7 +42,13 @@ var enemies := &'enemies'
 var predators := &'predator'
 var preys := &'prey'
 
+var foods := &'foods'
+var drinks := &'drinks'
+var keys := &'keys'
 
+var has_food := &'has_food'
+var has_drink := &'has_drink'
+var has_key := &'has_key'
 
 var interest := &'interest'
 var joy := &'joy'
@@ -78,12 +80,12 @@ var character := &'character'
 var human:= &'human'
 var monster := &'monster'
 
-var foods := &'foods'
-var drinks := &'drinks'
-var keys := &'keys'
+var key := &'key'
+
+var meat := &'meat'
 
 var doors := &'doors'
-var healing_items := &'healing_items'
+
 
 var billboard_sprites:= &'billboard_sprites'
 
@@ -106,7 +108,7 @@ var sprint_to_target := &'sprint_to_target'
 var jump_to_target := &'jump_to_target'
 
 var get_head_target := &'get_head_target'
-var head_interact_with := &'head_interact_with'
+var interact_with := &'interact_with'
 var get_head_position := &'get_head_position'
 var input_use_item := &'input_use_item'
 

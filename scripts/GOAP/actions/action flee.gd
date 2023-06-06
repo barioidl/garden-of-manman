@@ -24,7 +24,6 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	var root = local_state.root
 	var pos :Vector3= Interface.get_head_position(root)
 	var predators = local_state[NL.predators]
-	
 	var _range := 5.0 * get_weight(0)
 	var predator = ProximityTool.get_closest_node3d(predators, pos, _range)
 	if predator == null:
@@ -51,4 +50,5 @@ func perform(local_state: Dictionary, dt: float)->bool:
 
 
 func _print(line:String):
+	return
 	print(line)

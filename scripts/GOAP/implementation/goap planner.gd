@@ -12,8 +12,9 @@ var actions:Array=[]:
 		bake_outputs()
 
 func bake_inputs():
+	var self_state := {}
 	for act in actions:
-		for input in act.get_inputs({}):
+		for input in act.get_inputs(self_state):
 			if !group_inputs.has(input):
 				group_inputs[input] = [act]
 			else:
@@ -22,8 +23,9 @@ func bake_inputs():
 					action_list.append(act)
 				group_inputs[input] = action_list
 func bake_outputs():
+	var self_state := {}
 	for act in actions:
-		for input in act.get_outputs({}):
+		for input in act.get_outputs(self_state):
 			if !group_outputs.has(input):
 				group_outputs[input] = [act]
 			else:

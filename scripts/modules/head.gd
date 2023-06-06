@@ -9,6 +9,10 @@ var shape
 #var body
 @export var interact_range:=2.0
 
+func _print(line:String):
+	return
+	print(line)
+
 func _init() -> void:
 	name = 'head'
 func _enter_tree() -> void:
@@ -52,7 +56,7 @@ func connect_hotbar():
 func set_interface():
 	root.set_meta(NL.get_head_position, get_head_position)
 	root.set_meta(NL.get_head_target, get_target)
-	root.set_meta(NL.head_interact_with, interact_with)
+	root.set_meta(NL.interact_with, interact_with)
 	root.set_meta(NL.input_use_item, input_use_item)
 
 func get_head_position()->Vector3:
@@ -69,12 +73,20 @@ func get_target(_range := interact_range)-> PhysicsBody3D:
 		return null
 	return target
 
-func interact_with(body:Node, user :Node= self):
-	if body == null: 
+func interact_with(target:Node, user :Node= self, _range := interact_range)->bool:
+	if target == null: 
+		_print('what target?')
 		return false
-	if !body.has_meta(NL.interact): 
+	if _range > 0:
+		var pos = global_position
+		var target_pos = target.global_position
+		if pos.distance_squared_to(target_pos) > _range*_range:
+			_print('target out of range')
+			return false
+	if !target.has_meta(NL.interact): 
+		_print('target missed interface')
 		return false
-	body.get_meta(NL.interact).call(user)
+	target.get_meta(NL.interact).call(user)
 	return true
 
 func input_use_item(id:int):
