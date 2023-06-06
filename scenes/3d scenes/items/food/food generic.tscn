@@ -14,7 +14,7 @@ script/source = "extends ItemOverworld
 
 func _ready() -> void:
 	super._ready()
-	add_to_group(NL.food)
+	add_to_group(NL.foods)
 	connect(NL.item_used,used)
 	
 func used():
@@ -44,7 +44,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("7_n2pu1")
+texture = ExtResource("2_js5c2")
 script = ExtResource("26_qywtn")
 sprites = SubResource("Resource_lk5vw")
 face_camera = 1
