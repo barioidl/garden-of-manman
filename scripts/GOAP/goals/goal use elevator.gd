@@ -5,10 +5,10 @@ func _name() -> StringName:
 	return &'G use elevator'
 
 func is_valid(self_state:Dictionary)->bool:
-
 	return true
 
 func priority(self_state:Dictionary)-> float:
+	
 	return 1
 
 func get_result(self_state:Dictionary)->Dictionary:

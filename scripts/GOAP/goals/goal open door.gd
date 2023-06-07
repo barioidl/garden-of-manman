@@ -14,5 +14,5 @@ func priority(self_state:Dictionary)->float:
 
 func get_result(self_state:Dictionary)->Dictionary:
 	return{
-		NL.exploration:1
+		NL.interest:1
 	}

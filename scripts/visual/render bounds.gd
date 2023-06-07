@@ -1,12 +1,17 @@
 extends Node3D
 
 @export var areas:Array
+@export var enable_on_load:= false
 signal toggle_visibility(active)
 
 func _ready() -> void:
 	visible = true
-	disable()
+	
 	connect_areas()
+	if enable_on_load:
+		enable()
+	else:
+		disable()
 
 func connect_areas():
 	for path in areas:

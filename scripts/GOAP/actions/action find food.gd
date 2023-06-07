@@ -1,7 +1,7 @@
 extends GOAPAction
 class_name ActionFindFood
 
-var range:=50.0
+var _range := 20.0
 
 func _name()->StringName:
 	return &'A find food'
@@ -22,7 +22,7 @@ func get_cost(local_state:Dictionary)->float:
 	if food == null:
 		return 1
 	var dist :Vector3= food.global_position - root.global_position
-	var cost = dist.length_squared() / (range*range)
+	var cost = dist.length_squared() / (_range*_range)
 	cost *= get_weight(0)
 	return cost
 

@@ -27,9 +27,9 @@ func _ready() -> void:
 	goals = [
 		GoalFlee.new(),
 		GoalEatFood.new(),
+		GoalUseElevator.new(),
 #		GoalOpenDoor.new(),
 #		GoalFindItems.new(),
-#		GoalUseElevator.new(),
 	]
 "
 

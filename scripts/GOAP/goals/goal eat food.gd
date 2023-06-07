@@ -16,7 +16,6 @@ func priority(self_state:Dictionary)-> float:
 	var hunger = self_state[NL.hunger]
 	var max_hunger = self_state[NL.max_hunger]
 	var score = Curves.sample(1,3,hunger/max_hunger)
-	_print(str(score))
 	return score * get_weight(0)
 
 func get_result(self_state:Dictionary)->Dictionary:

@@ -40,28 +40,30 @@ func get_random_position(center:Vector3, min_range:=Vector3.ONE, max_range:=Vect
 	return center + range
 
 
-func get_closest_node3d(groups, pos:Vector3, _range:=def_range)-> Node3D:
+func get_closest_node3d(groups, pos:Vector3, _range:=1.0, custom_conds:=def_conds)-> Node3D:
+	_range = _range * def_range
 	if groups is String or groups is StringName:
-		return nearest_node3d_in_group(groups,pos,_range)
+		return nearest_node3d_in_group(groups, pos, _range, custom_conds)
 	if groups is Array:
-		return nearest_node3d_in_groups(groups,pos,_range)
+		return nearest_node3d_in_groups(groups, pos, _range, custom_conds)
 	return null
 
 
-func get_farest_node3d(groups, pos:Vector3, _range:=def_range)-> Node3D:
+func get_farest_node3d(groups, pos:Vector3, _range:=1.0, custom_conds:=def_conds)-> Node3D:
+	_range = _range * def_range
 	if groups is String or groups is StringName:
-		return farest_node3d_in_group(groups,pos,_range)
+		return farest_node3d_in_group(groups, pos, _range, custom_conds)
 	if groups is Array:
-		return farest_node3d_in_groups(groups,pos,_range)
+		return farest_node3d_in_groups(groups, pos, _range, custom_conds)
 	return null
 
 
-func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float)-> Node3D:
+func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
 	var groups_size:= groups.size()
 	if groups_size <= 0:
 		return null
 	if groups_size == 1:
-		return nearest_node3d_in_group(groups[0],pos,_range)
+		return nearest_node3d_in_group(groups[0], pos, _range, custom_conds)
 	
 	var groups_name := str(pos.floor())
 	for group in groups:
@@ -76,8 +78,10 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float)-> Node3D:
 	var closest_node:Node3D
 	var nearest_distance:= _range * _range
 	for group in groups:
-		var node = closest_node3d(group, pos, _range)
+		var node = closest_node3d(group, pos, _range, custom_conds)
 		if node == null:
+			continue
+		if !custom_conds.call(node):
 			continue
 		var dist = pos.distance_squared_to(node.global_position)
 		if dist >= nearest_distance:
@@ -89,12 +93,12 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float)-> Node3D:
 	closest_lifetime[groups_name] = def_lifetime
 	return closest_node
 
-func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float)-> Node3D:
+func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
 	var groups_size:= groups.size()
 	if groups_size <= 0:
 		return null
 	if groups_size == 1:
-		return farest_node3d_in_group(groups[0],pos,_range)
+		return farest_node3d_in_group(groups[0], pos, _range, custom_conds)
 	
 	var groups_name := str(pos.floor())
 	for group in groups:
@@ -103,27 +107,29 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float)-> Node3D:
 	if farest_buffer.has(groups_name):
 		var node = farest_buffer[groups_name]
 		if node != null:
-			_print('use existing closest 3d node')
+			_print('use existing farest 3d node')
 			return node 
 	
 	var farest_node:Node3D
 	var farest_distance:= _range * _range
 	for group in groups:
-		var node = closest_node3d(group, pos, _range)
+		var node = closest_node3d(group, pos, _range, custom_conds)
 		if node == null:
+			continue
+		if !custom_conds.call(node):
 			continue
 		var dist = pos.distance_squared_to(node.global_position)
 		if dist >= farest_distance:
 			continue
 		farest_distance = dist
 		farest_node = node
-	_print('use new closest 3d node')
+	_print('use new farest 3d node')
 	farest_buffer[groups_name] = farest_node
 	farest_lifetime[groups_name] = def_lifetime
 	return farest_node
 
 
-func nearest_node3d_in_group(group:String, pos:Vector3, _range:float)-> Node3D:
+func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_conds:Callable)-> Node3D:
 	var group_name := str(pos.floor()) + group
 	if closest_buffer.has(group_name):
 		var node = closest_buffer[group_name]
@@ -131,31 +137,33 @@ func nearest_node3d_in_group(group:String, pos:Vector3, _range:float)-> Node3D:
 			_print('use existing closest 3d node')
 			return node 
 	_print('use new closest 3d node')
-	var node = closest_node3d(group, pos, _range)
+	var node = closest_node3d(group, pos, _range, custom_conds)
 	closest_buffer[group_name] = node
 	closest_lifetime[group_name] = def_lifetime
 	return node
 
-func farest_node3d_in_group(group:String, pos:Vector3, _range:float)-> Node3D:
+func farest_node3d_in_group(group:String, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
 	var group_name := str(pos.floor()) + group
 	if farest_buffer.has(group_name):
 		var node = farest_buffer[group_name]
 		if node != null:
-			_print('use existing farthest 3d node')
+			_print('use existing farest 3d node')
 			return node
-	_print('use new farthest 3d node')
-	var node = farest_node3d(group, pos, _range)
+	_print('use new farest 3d node')
+	var node = farest_node3d(group, pos, _range, custom_conds)
 	farest_buffer[group_name] = node
 	farest_lifetime[group_name] = def_lifetime
 	return node
 
 
-func closest_node3d(group:StringName, position:Vector3, max_distance:=def_range)->Node3D:
+func closest_node3d(group:StringName, position:Vector3, max_distance:float, custom_conds:Callable)->Node3D:
 	var nodes := get_nodes(group)
 	var closest_node :Node3D= null
 	var min_distance_sq := max_distance * max_distance
 	for node in nodes:
 		if node == null:
+			continue
+		if !custom_conds.call(node):
 			continue
 		var pos = node.global_position
 		var dist_sq = position.distance_squared_to(pos)
@@ -165,13 +173,15 @@ func closest_node3d(group:StringName, position:Vector3, max_distance:=def_range)
 		closest_node = node
 	return closest_node
 
-func farest_node3d(group:StringName, position:Vector3, max_distance:=def_range)->Node3D:
+func farest_node3d(group:StringName, position:Vector3, max_distance:float, custom_conds:Callable)->Node3D:
 	var nodes := get_nodes(group)
 	var farest_node :Node3D= null
 	max_distance *= max_distance
 	var max_dist := 0.0
 	for node in nodes:
 		if node == null:
+			continue
+		if !custom_conds.call(node):
 			continue
 		var pos = node.global_position
 		var dist_sq = position.distance_squared_to(pos)
@@ -183,6 +193,8 @@ func farest_node3d(group:StringName, position:Vector3, max_distance:=def_range)-
 		farest_node = node
 	return farest_node
 
+func def_conds(node:Node3D)->bool:
+	return true
 
 func get_nodes(group:StringName)->Array:
 	if groups_buffer.has(group):

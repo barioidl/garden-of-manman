@@ -99,8 +99,9 @@ func follow_plan():
 	var completed = action.perform(local_state, dt)
 	_print('performed ' + action._name())
 	if completed:
-		action.score += 0.5
 		current_step += 1
+		action.score += 0.1
+		current_goal.score += 0.1
 
 var generate_cd :=0.0
 func generate_plan():
