@@ -59,6 +59,11 @@ func detach():
 func get_next_path_pos()->Vector3:
 	return nav_agent.get_next_path_position()
 
+func can_reach_target()->bool:
+	var final_pos :Vector3= nav_agent.get_final_position()
+	var dist := final_pos.distance_squared_to(target_pos)
+	return dist < agent_radius * agent_radius
+
 var update_target_cd := 0.0
 func update_target():
 	if target == null: return

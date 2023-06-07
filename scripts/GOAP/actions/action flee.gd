@@ -10,7 +10,7 @@ func is_valid(local_state:Dictionary)->bool:
 	return true
 
 func get_cost(local_state:Dictionary)->float:
-	return 0.5
+	return get_weight(0)
  
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{}
@@ -24,7 +24,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	var root = local_state.root
 	var pos :Vector3= Interface.get_head_position(root)
 	var predators = local_state[NL.predators]
-	var _range := 5.0 * get_weight(0)
+	var _range := 10.0 * get_weight(1)
 	var predator = ProximityTool.get_closest_node3d(predators, pos, _range)
 	if predator == null:
 		return true

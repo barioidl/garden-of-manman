@@ -54,15 +54,6 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	Interface.turn_head(root,food.global_position)
 	_print('walking toward food')
 	return false
-	
-	
-#	var input = Interface.get_input(root)
-#	if Interface.is_hotbar_full(root):
-#		input.emit_signal(NL.drop_pressed)
-#		return false
-#	input.emit_signal(NL.act_pressed)
-
-	
 
 func _print(line:String):
 #	return

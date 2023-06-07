@@ -15,7 +15,7 @@ func priority(local_state:Dictionary)->float:
 	var root_pos :Vector3= root.global_position
 	var predators = local_state[NL.predators]
 	_print('flee ')
-	var _range := 5.0 * get_weight(0)
+	var _range := 10.0 * get_weight(0)
 	var target = ProximityTool.get_closest_node3d(predators, root_pos, _range)
 	if target == null: 
 		_print('no predators?')

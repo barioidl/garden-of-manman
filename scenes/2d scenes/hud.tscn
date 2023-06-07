@@ -1760,6 +1760,7 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+button_pressed = true
 text = "Music"
 
 [node name="Music" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1774,6 +1775,7 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+button_pressed = true
 text = "Sound effects"
 
 [node name="SFX" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1787,6 +1789,7 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+button_pressed = true
 text = "2d sound effects"
 
 [node name="SFX2d" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1800,6 +1803,7 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+button_pressed = true
 text = "3d sound effects"
 
 [node name="SFX3d" type="HSlider" parent="Settings/TabContainer/Audio"]
@@ -1858,6 +1862,7 @@ ticks_on_borders = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+button_pressed = true
 text = "Vsync"
 
 [node name="Game over" type="NinePatchRect" parent="."]

@@ -4,6 +4,9 @@ class_name ActionEatFood
 func _name()->StringName:
 	return &'A eat food'
 
+func get_cost(local_state:Dictionary)->float:
+	return get_weight(0)
+
 func get_inputs(local_state:Dictionary)->Dictionary:
 	if local_state.is_empty():#for baking
 		return{NL.has_food:1}
