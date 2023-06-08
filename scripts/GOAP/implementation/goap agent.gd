@@ -23,6 +23,8 @@ var current_plan:Array:
 var goal_size:=0
 var plan_size:=0
 var current_step:=0
+enum a_states{start,perform,end}
+var action_state:= a_states.start
 
 @export var planner_limits:=Vector2(3,6)
 var loop_plan:= false
@@ -93,15 +95,23 @@ func set_local_state(key,value):
 	debug_local_state()
 
 func follow_plan():
-	if current_step >= plan_size:
-		return
+	if current_step >= plan_size:	return
 	var action :GOAPAction= current_plan[current_step]
-	var completed = action.perform(local_state, dt)
-	_print('performed ' + action._name())
-	if completed:
-		current_step += 1
-		action.score += 0.1
-		current_goal.score += 0.1
+	match action_state:
+		a_states.start:
+			action.start(local_state)
+			action_state = a_states.perform
+		a_states.perform:
+			if !action.perform(local_state, dt):
+				return
+			action_state = a_states.end
+		a_states.end:
+			action.end(local_state)
+			action_state = a_states.start
+			current_step += 1
+			action.score += 0.1
+			current_goal.score += 0.1
+
 
 var generate_cd :=0.0
 func generate_plan():
@@ -120,6 +130,7 @@ func generate_plan():
 			return
 	current_goal = best_goal
 	current_step = 0
+	action_state = a_states.start
 	
 	current_goal.perform(local_state,dt)
 	current_plan = planner.get_plan(current_goal, local_state)
