@@ -23,6 +23,8 @@ func init_action_planner():
 		
 		ActionFlee.new(),
 		ActionUseElevator.new(),
+		ActionGetInElevator.new(),
+		ActionCallElevator.new(),
 		
 #		ActionFindKey.new(),
 		ActionOpenDoor.new(),
