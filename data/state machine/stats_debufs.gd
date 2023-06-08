@@ -1,7 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://6ga8ja8d5ot1"]
-
-[sub_resource type="GDScript" id="GDScript_o54dq"]
-script/source = "extends Node
+extends Node
 
 var root:Node3D
 var stats :Stats
@@ -88,7 +85,3 @@ func heal():
 		return
 	stats.change_health(heal_amount)
 	stats.change_hunger(heal_cost)
-"
-
-[node name="stats_debufs" type="Node"]
-script = SubResource("GDScript_o54dq")

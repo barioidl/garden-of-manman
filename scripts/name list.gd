@@ -63,6 +63,9 @@ var shame := &'shame'
 var shyness := &'shyness'
 var guilt := &'guilt'
 
+var destination := &'destination'
+var exploration := &'exploration'
+var height_difference := &'height_difference'
 
 #var creativity := &'creativity'
 #var curiosity := &'curiosity'
@@ -85,7 +88,7 @@ var key := &'key'
 var meat := &'meat'
 
 var doors := &'doors'
-
+var elevator_buttons := &'elevator_buttons'
 
 var billboard_sprites:= &'billboard_sprites'
 

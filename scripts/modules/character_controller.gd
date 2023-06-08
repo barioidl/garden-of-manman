@@ -32,13 +32,13 @@ func setup_body():
 	physics_material_override = load("res://materials/default_physics_material.tres")
 
 func set_damp():
-	var damp := 1
+	var damp := 0
 	if on_floor:
 		damp += 4
 	if on_wall:
-		damp += 2 
+		damp += 0.5
 	if on_ceiling:
-		damp += 2 
+		damp += 1
 	linear_damp = damp
 
 var bungee_duration := 0.1

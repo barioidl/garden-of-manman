@@ -13,7 +13,6 @@ func _ready() -> void:
 	init_action_planner()
 
 func on_quit():
-	
 	save_all_data()
 
 func init_action_planner():
@@ -23,14 +22,14 @@ func init_action_planner():
 		ActionEatFood.new(),
 		
 		ActionFlee.new(),
+		ActionUseElevator.new(),
 		
 #		ActionFindKey.new(),
-#		ActionOpenDoor.new(),
+		ActionOpenDoor.new(),
 #		ActionScream.new(),
 #		ActionFaceTarget.new(),
 #		ActionAttackTarget.new(),
 #		ActionPuzzle.new(),
-		
 	]
 	for action in planner_actions:
 		action._load()
@@ -39,10 +38,10 @@ func init_action_planner():
 func get_action_planner()->GOAPPlanner:
 	return planner_action
 
-
-var mutation_amount:=0.05
 var all_mutations := {}
+var mutation_amount:=0.05
 var mutations_path := "user://mutations.json"
+var mutations_builtin_path := "res://data/goap/goap mutations.json"
 func save_mutations(data:Dictionary):
 	var data_name = data.name
 	if !all_mutations.has(data_name):
@@ -82,7 +81,10 @@ func save_all_data():
 	_save(all_mutations.values(), mutations_path)
 
 func load_all_data():
-	all_mutations = _load(mutations_path)
+	var path := mutations_path
+#	if !FileAccess.file_exists(mutations_path):
+#		path = mutations_builtin_path
+	all_mutations = _load(path)
 
 
 var disable_when_debug := false

@@ -56,13 +56,10 @@ jump_height = 4.0
 extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("3_iebvc")]
-hunger = 8.0
 
 [node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_6yv8t")]
-process_mode = 4
-time_scale = 0.5
 
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
 
@@ -100,3 +97,5 @@ head_margin = 0.15
 script = ExtResource("14_ofs36")
 
 [node name="rig" parent="body" instance=ExtResource("12_tmh3y")]
+process_mode = 4
+visible = false

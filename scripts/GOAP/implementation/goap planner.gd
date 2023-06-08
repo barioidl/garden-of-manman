@@ -21,7 +21,7 @@ func bake_inputs():
 				var action_list :Array= group_inputs[input]
 				if !action_list.has(act):
 					action_list.append(act)
-				group_inputs[input] = action_list
+					group_inputs[input] = action_list
 func bake_outputs():
 	var self_state := {}
 	for act in actions:
@@ -32,7 +32,7 @@ func bake_outputs():
 				var action_list :Array= group_outputs[input]
 				if !action_list.has(act):
 					action_list.append(act)
-				group_outputs[input] = action_list
+					group_outputs[input] = action_list
 
 func print_group(group:Dictionary):
 	var key = group.keys()
@@ -64,9 +64,6 @@ func get_plan(goal:GOAPGoal,local_state:Dictionary)->Array:
 
 enum index{conditions,plan,cost}
 func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dictionary)->Array:
-	var max_depth :int= local_state[NL.plan_depth]
-	var max_width :int = local_state[NL.plan_width]
-	
 	var available_plans:=[]
 	var generating_plans:=[]
 	
@@ -77,6 +74,8 @@ func find_best_plan(goal:GOAPGoal, desired_result: Dictionary, local_state:Dicti
 	}
 	generating_plans.append(first_branch)
 	
+	var max_depth :int= local_state[NL.plan_depth]
+	var max_width :int = local_state[NL.plan_width]
 	for i in max_depth:
 		if available_plans.size() > max_width:
 			break
@@ -121,6 +120,7 @@ func expand_branch(id:int, in_progress:Array, done:Array, local_state: Dictionar
 			var action = unique_actions[i]
 			var new_branch = branch.duplicate(true)
 			new_branch[index.plan].append(action)
+			new_branch[index.cost] += action.get_cost(local_state)
 			append_action_conditions(new_branch[index.conditions], action, local_state)
 			in_progress.append(new_branch)
 	
@@ -150,8 +150,8 @@ func append_action_conditions(conditions:Dictionary, action:GOAPAction, local_st
 
 #prioritize actions with lowest cost
 func get_suitable_actions(id, key, result, local_state: Dictionary)->Array:
-	var min_cost:=2.0
-	var actions:=[]
+	var min_cost := 999.0
+	var actions := []
 	if !group_outputs.has(key):
 		return actions
 	for act in group_outputs[key]:
@@ -176,7 +176,8 @@ func get_suitable_actions(id, key, result, local_state: Dictionary)->Array:
 func select_plan(available_plans: Array, local_state: Dictionary)->Array:
 	var size = available_plans.size()
 	if size <= 0: return []
-	if size ==1: return available_plans[0][index.plan]
+	if size ==1:
+		return available_plans[0][index.plan]
 	available_plans.sort_custom(plan_sort)
 	
 	var max_options:int=local_state[NL.plan_width]

@@ -22,27 +22,22 @@ func _physics_process(delta: float) -> void:
 var cd := 0.0
 func calculate_speed(delta):
 	cd += delta
-	if cd < 0.1:
-		return
+	if cd < 0.1:return
 	var duration := cd
 	cd = 0
 	
 	var pos = root.global_position
-	if pos.is_equal_approx(prev_pos):
-		return
+	if pos.is_equal_approx(prev_pos):	return
 	var velocity := pos.distance_squared_to(prev_pos) / duration
 	prev_pos =  root.global_position
 	
-	if velocity == prev_velocity:
-		return
+	if velocity == prev_velocity:	return
 	var accel = absf(velocity - prev_velocity)
 	prev_velocity = velocity
 	
-	if accel < accel_offset:
-		return
+	if accel < accel_offset:	return
 	accel -= accel_offset
 	accel = accel / accel_range * accel_damage
-	if accel < 0.5:
-		return
+	if accel < 0.5:return
 	
-	stats.change_health(-round(accel))
+	stats.change_health(-ceilf(accel))
