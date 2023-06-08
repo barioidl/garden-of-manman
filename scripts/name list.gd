@@ -93,6 +93,8 @@ var meat := &'meat'
 
 var doors := &'doors'
 var elevator_buttons := &'elevator_buttons'
+var elevator_doors := &'elevator_doors'
+var elevator_platforms := &'elevator_platforms'
 
 var billboard_sprites:= &'billboard_sprites'
 

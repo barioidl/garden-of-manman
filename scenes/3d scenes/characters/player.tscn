@@ -57,10 +57,8 @@ extra_jumps = 0
 hunger = 5.0
 
 [node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
-process_mode = 4
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_6yv8t")]
-process_mode = 4
 
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
 

@@ -70,8 +70,8 @@ func load_mutations(name:StringName)->Dictionary:
 	
 	var weights = all_mutations[name].weights
 	for i in weights.size():
-		var delta = randf_range(-1,1) * mutation_amount
-		weights[i] = clampf(weights[i]+delta,0,1)
+		var delta = randf_range(-mutation_amount, mutation_amount)
+		weights[i] = clampf(weights[i] + delta,0,1)
 	
 	return all_mutations[name]
 

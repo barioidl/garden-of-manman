@@ -138,7 +138,7 @@ navigation_mesh = SubResource("NavigationMesh_apjf6")
 [node name="nav link" type="NavigationLink3D" parent="elevator/platform/navmesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 start_position = Vector3(1, 0, 0)
-end_position = Vector3(-1, 0, 0)
+end_position = Vector3(-0.5, 0, 0)
 
 [node name="floor buttons" type="Node3D" parent="elevator"]
 script = ExtResource("3_brxvl")

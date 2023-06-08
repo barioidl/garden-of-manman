@@ -7,6 +7,9 @@ extends AnimatableBody3D
 @onready var original_pos:=position
 @export var speed := 1.0
 
+func _ready() -> void:
+	add_to_group(NL.elevator_platforms)
+
 func move_x(pos:float)->float:
 	return move_platform(position.x,pos,'position:x')
 func move_y(pos:float)->float:

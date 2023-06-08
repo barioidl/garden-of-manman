@@ -1,9 +1,8 @@
 extends Node3D
 
 func open(id:int):
-	var slider = get_child(id).get_child(0)
-	slider.slide(true)
+	get_child(id).slide(true)
 
 func close(id:int):
-	var slider = get_child(id).get_child(0)
-	slider.slide(false)
+	get_child(id).slide(false)
+

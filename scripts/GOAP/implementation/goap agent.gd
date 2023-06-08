@@ -94,8 +94,13 @@ func set_local_state(key,value):
 	_print('set local state: '+ str(key)+', '+str(value))
 	debug_local_state()
 
+var follow_cd := 0.0
 func follow_plan():
-	if current_step >= plan_size:	return
+	if follow_cd > 0:
+		follow_cd -= dt
+		return
+	if current_step >= plan_size:
+		return
 	var action :GOAPAction= current_plan[current_step]
 	match action_state:
 		a_states.perform:
