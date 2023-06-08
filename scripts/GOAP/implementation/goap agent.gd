@@ -98,13 +98,13 @@ func follow_plan():
 	if current_step >= plan_size:	return
 	var action :GOAPAction= current_plan[current_step]
 	match action_state:
-		a_states.start:
-			action.start(local_state)
-			action_state = a_states.perform
 		a_states.perform:
 			if !action.perform(local_state, dt):
 				return
 			action_state = a_states.end
+		a_states.start:
+			action.start(local_state)
+			action_state = a_states.perform
 		a_states.end:
 			action.end(local_state)
 			action_state = a_states.start

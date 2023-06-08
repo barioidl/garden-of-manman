@@ -11,7 +11,9 @@ func get_cost(local_state:Dictionary)->float:
 	return 1
  
 func get_inputs(local_state:Dictionary)->Dictionary:
-	return{}
+	return{
+		NL.elevator_closed:-1
+	}
 
 func get_outputs(local_state:Dictionary)->Dictionary:
 	return{
@@ -20,4 +22,4 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 
 func perform(local_state: Dictionary, dt: float)->bool:
 	
-	return true
+	return false

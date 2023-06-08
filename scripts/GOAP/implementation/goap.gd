@@ -22,12 +22,14 @@ func init_action_planner():
 		ActionEatFood.new(),
 		
 		ActionFlee.new(),
+		
 		ActionUseElevator.new(),
 		ActionGetInElevator.new(),
+		ActionWaitForElevator.new(),
 		ActionCallElevator.new(),
 		
 #		ActionFindKey.new(),
-		ActionOpenDoor.new(),
+#		ActionOpenDoor.new(),
 #		ActionScream.new(),
 #		ActionFaceTarget.new(),
 #		ActionAttackTarget.new(),
@@ -39,6 +41,7 @@ func init_action_planner():
 
 func get_action_planner()->GOAPPlanner:
 	return planner_action
+
 
 var all_mutations := {}
 var mutation_amount:=0.05
@@ -73,7 +76,6 @@ func load_mutations(name:StringName)->Dictionary:
 	return all_mutations[name]
 
 
-
 func save_all_data():
 	var nodes = get_tree().get_nodes_in_group(NL.goap_save_load)
 	for i in nodes:
@@ -98,7 +100,7 @@ func _save(resources:Array, path:String):
 	for data in resources:
 		var json_string = JSON.stringify(data)
 		save_game.store_line(json_string)
-	
+
 func _load(path:String) -> Dictionary:
 	if disable_when_debug:
 		if OS.is_debug_build():
@@ -125,6 +127,7 @@ func _load(path:String) -> Dictionary:
 			continue
 		output[data.name] = data
 	return output
+
 
 func _print(line:String):
 	return

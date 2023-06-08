@@ -4,4 +4,5 @@ extends Button3d
 @export var locked:= false
 
 func _ready() -> void:
+	super._ready()
 	add_to_group(NL.elevator_buttons)

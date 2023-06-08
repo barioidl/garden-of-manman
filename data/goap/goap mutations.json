@@ -1,9 +1,1 @@
-{"name":"A scream","score":0,"weights":{}}
-{"name":"A face target","score":0,"weights":{}}
-{"name":"A attack target","score":0,"weights":{}}
-{"name":"A puzzle","score":0,"weights":{}}
-{"name":"A find food","score":0,"weights":{"food":0.993869914135776}}
-{"name":"A eat food","score":0,"weights":{}}
-{"name":"G eat food","score":0,"weights":{"food":1}}
-{"name":"G jumpscare","score":0,"weights":{}}
-{"name":"G puzzle","score":0,"weights":{}}
+6

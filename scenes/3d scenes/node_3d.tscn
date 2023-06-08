@@ -115,7 +115,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.081, 22.8869, -18.78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.081, 24, -18.78)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
@@ -125,7 +125,7 @@ disable_goap = false
 transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819, -0.482963, 0.836516, 0, 0, 0)
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3248, 0.70977, -34.0296)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97799, 24.0026, -15.8664)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("6_jagio")
@@ -163,3 +163,4 @@ script = ExtResource("7_ohcow")
 item = ExtResource("13_0824v")
 
 [node name="elevator" parent="." instance=ExtResource("14_m847s")]
+enable_on_load = true

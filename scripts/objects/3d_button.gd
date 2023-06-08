@@ -27,6 +27,7 @@ func set_interface():
 	set_meta(NL.off,Callable(off))
 
 func interact(user):
+	print('boop')
 	toggle()
 
 func toggle():

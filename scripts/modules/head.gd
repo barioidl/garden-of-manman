@@ -9,8 +9,8 @@ var shape
 #var body
 @export var interact_range:=2.0
 
-func _print(line:String):
-	return
+func _print(line):
+#	return
 	print(line)
 
 func _init() -> void:
@@ -78,7 +78,7 @@ func interact_with(target:Node, user :Node= self, _range := interact_range)->boo
 		_print('what target?')
 		return false
 	if _range > 0:
-		var pos = global_position
+		var pos = user.global_position
 		var target_pos = target.global_position
 		if pos.distance_squared_to(target_pos) > _range*_range:
 			_print('target out of range')
@@ -126,12 +126,7 @@ func use_item(id:int):
 
 func default_interact():
 	var body = get_target()
-	if body == null: return
-	var dist_sq = global_position.distance_squared_to(body.global_position)
-	if dist_sq > interact_range * interact_range: 
-		return
-	if !body.has_meta(NL.interact): return
-	body.get_meta(NL.interact).call(self)
+	interact_with(body)
 
 var drop_id:=0
 var drop_strength:=0.0:
@@ -162,3 +157,4 @@ func drop_item():
 	var aim_at = to_global(Vector3(0,0,10))
 	hotbar.drop_item(drop_id,aim_at,drop_strength)
 	drop_strength = 0
+

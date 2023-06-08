@@ -29,7 +29,7 @@ func setup_body():
 	max_contacts_reported = 2
 	contact_monitor = true
 	
-	physics_material_override = load("res://materials/default_physics_material.tres")
+#	physics_material_override = load("res://materials/default_physics_material.tres")
 
 func set_damp():
 	var damp := 0

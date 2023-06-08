@@ -39,19 +39,20 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	var food = ProximityTool.get_closest_node3d(foods, pos)
 	if food == null:
 		_print('what food?')
-		return true
-	if Interface.interact_with(root,food):
-		var nav_agent = Interface.get_nav_agent(root)
-		if nav_agent != null:
-			nav_agent.detach()
-		_print('food reached')
-		return true
-	var agent = Interface.attach_nav_agent(root,food)
-	var next_pos = agent.get_next_path_pos()
-	Interface.walk_to(root,next_pos)
-	Interface.turn_head(root,food.global_position)
-	_print('walking toward food')
-	return false
+		return false
+	if !Interface.interact_with(root,food):
+		var agent = Interface.attach_nav_agent(root,food)
+		var next_pos = agent.get_next_path_pos()
+		Interface.walk_to(root,next_pos)
+		Interface.turn_head(root,food.global_position)
+		_print('walking toward food')
+		return false
+	var nav_agent = Interface.get_nav_agent(root)
+	if nav_agent != null:
+		nav_agent.detach()
+	_print('food reached')
+	return true
+
 
 func _print(line:String):
 #	return
