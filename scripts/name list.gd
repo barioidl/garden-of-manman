@@ -94,7 +94,7 @@ var meat := &'meat'
 var doors := &'doors'
 var elevator_buttons := &'elevator_buttons'
 var elevator_doors := &'elevator_doors'
-var elevator_platforms := &'elevator_platforms'
+var elevator_panels := &'elevator_panels'
 
 var billboard_sprites:= &'billboard_sprites'
 
@@ -148,6 +148,9 @@ var interact:=&'interact'
 var toggle := &'toggle'
 var on := &'on'
 var off := &'off'
+
+var use_elevator := &'use_elevator'
+var is_open := &'is_open'
 
 func list_of_methods():pass
 

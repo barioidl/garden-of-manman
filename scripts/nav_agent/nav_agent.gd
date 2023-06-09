@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 	offset_height()
 
 
-func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
+func attach_to(_character:Node3D, _target):
 	if _character == null: return
 	
 	character = _character
@@ -35,7 +35,7 @@ func attach_to(_character:Node3D, _target, size:=Vector2.ONE):
 	var callable = Callable(get_nav_agent)
 	character.set_meta(NL.get_nav_agent, callable)
 	
-	set_agent_size(size)
+#	set_agent_size(Vector2(0.25,1))
 	set_target(_target)
 
 func detach():

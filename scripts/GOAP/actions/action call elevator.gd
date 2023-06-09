@@ -28,7 +28,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		var agent = Interface.attach_nav_agent(root,button)
 		var next_pos = agent.get_next_path_pos()
 		Interface.walk_to(root,next_pos)
-		Interface.turn_head(root,button.global_position)
+		Interface.turn_head(root,button.global_position,1,0.1)
 		_print('walking toward button')
 		return false
 	var nav_agent = Interface.get_nav_agent(root)

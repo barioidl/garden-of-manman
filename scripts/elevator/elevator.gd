@@ -13,9 +13,7 @@ var floor_locked:Array[bool]=[]
 
 var current_id := -1
 var cooldown:=0.0
-#func _ready() -> void:
-#	pass 
-#
+
 func _process(delta: float) -> void:
 	if cooldown >0:
 		cooldown -= delta

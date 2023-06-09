@@ -21,5 +21,20 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 	}
 
 func perform(local_state: Dictionary, dt: float)->bool:
-	
+	var root :Node3D= local_state.root
+	var pos := root.global_position
+	var platform = ProximityTool.get_closest_node3d(NL.elevator_panels, pos)
+	if platform == null:
+		return false
+	var dist=pos.distance_squared_to(platform.global_position)
+	if dist > 1:
+		var agent = Interface.attach_nav_agent(root,platform)
+		var next_pos = agent.get_next_path_pos()
+		Interface.walk_to(root,next_pos)
+		Interface.turn_head(root,platform.global_position,1,0.1)
+		_print('walking toward platform')
+		return false
+	var nav_agent = Interface.get_nav_agent(root)
+	if nav_agent != null:
+		nav_agent.detach()
 	return true

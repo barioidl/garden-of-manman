@@ -7,13 +7,16 @@ script/source = "extends StaticBody3D
 
 func _ready() -> void:
 	add_to_group(NL.elevator_doors)
+	set_meta(NL.is_open,is_open)
 
 @onready var panel = $\"door panel\"
-var is_open := false
 func slide(open:bool):
 	panel.slide(open)
-	is_open = open
+	_open = open
 
+var _open := false
+func is_open()->bool:
+	return _open
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_csrv8"]

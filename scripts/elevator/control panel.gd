@@ -2,6 +2,34 @@ extends Node3D
 
 var button = preload("res://scripts/elevator/panel button.tscn")
 @onready var elevator := $"../.."
+
+func _ready() -> void:
+	add_to_group(NL.elevator_panels)
+	set_meta(NL.use_elevator,use_elevator)
+
+func use_elevator(pos:Vector3):
+	pos = elevator.to_local(pos).floor()
+	var axis_pos:float
+	var axis = elevator.axis
+	match elevator.travel_axis:
+		axis.x:
+			axis_pos = pos.x
+		axis.y:
+			axis_pos = pos.y
+		axis.z:
+			axis_pos = pos.z
+	
+	var target_floor := 0
+	var floor_pos = elevator.floor_pos
+	for i in floor_pos.size():
+		var floor_position = floor_pos[i]
+		if floor_position > axis_pos:
+			break
+		target_floor = i
+	get_child(target_floor).toggle()
+#	elevator.travel_to_floor(target_floor)
+
+
 func setup_panel(floors:int):
 	for i in floors:
 		var locked = elevator.floor_locked[i]
