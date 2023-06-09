@@ -8,21 +8,28 @@ func _name()->StringName:
 
 func is_valid(local_state:Dictionary)->bool:
 	var root = local_state.root
+	if cache_valid.has(root):
+		return cache_valid[root]
 	var pos = root.global_position
 	var foods = local_state[NL.foods]
 	var food = ProximityTool.get_closest_node3d(foods, pos)
 	var valid = food != null
+	cache_valid[root] = valid
 	return valid
 
 func get_cost(local_state:Dictionary)->float:
 	var root = local_state.root
+	if cache_cost.has(root):
+		return cache_cost[root]
 	var pos = root.global_position
 	var foods = local_state[NL.foods]
 	var food = ProximityTool.get_closest_node3d(foods, pos)
 	if food == null: return 1
 	var dist :Vector3= food.global_position - root.global_position
 	var cost = dist.length_squared() / (_range*_range)
-	return cost * get_weight(0)
+	cost *= get_weight(0)
+	cache_cost[root] = cost
+	return cost
 
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{}
@@ -54,6 +61,6 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	return true
 
 
-func _print(line:String):
-	return
+func _print(line):
+#	return
 	print(line)

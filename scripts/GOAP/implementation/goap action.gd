@@ -1,9 +1,12 @@
-extends Resource
+extends Node
 class_name GOAPAction
+
+func _process(delta: float) -> void:
+	clean_cache(delta)
+
 
 func _name()->StringName:
 	return &'A default'
-
 
 func is_valid(local_state:Dictionary)->bool:
 	return true
@@ -29,9 +32,21 @@ func end(local_state: Dictionary):
 	pass
 
 
-func _print(line):
-	return
-	print(line)
+var cache_valid := {}
+var cache_cost := {}
+var cache_cd := 0.0
+func clean_cache(delta):
+	if cache_cd > 0:
+		cache_cd -= delta
+		return
+	cache_cd = 0.4
+	if !cache_valid.is_empty():
+		cache_valid.clear()
+		cache_cd += 0.1
+	if !cache_cost.is_empty():
+		cache_cost.clear()
+		cache_cd += 0.1
+
 
 var score:=0.0
 var weights :=[]
@@ -57,3 +72,8 @@ func _load():
 		return
 	weights = data.weights
 #	score = data.score
+
+
+func _print(line):
+	return
+	print(line)

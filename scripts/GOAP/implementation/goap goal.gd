@@ -1,5 +1,8 @@
-extends Resource
+extends Node
 class_name GOAPGoal
+
+func _process(delta: float) -> void:
+	clean_cache(delta)
 
 func _name() -> StringName:
 	return &'G default'
@@ -18,6 +21,22 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	agent.loop_plan = false
 	agent.set_local_state(NL.unique_steps,false)
 	return true
+
+
+var cache_valid := {}
+var cache_priority := {}
+var cache_cd := 0.0
+func clean_cache(delta):
+	if cache_cd > 0:
+		cache_cd -= delta
+		return
+	cache_cd = 0.4
+	if !cache_valid.is_empty():
+		cache_valid.clear()
+		cache_cd += 0.1
+	if !cache_priority.is_empty():
+		cache_priority.clear()
+		cache_cd += 0.1
 
 
 var score:=0.0

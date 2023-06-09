@@ -68,6 +68,8 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_co
 	var groups_name := str(pos.floor())
 	for group in groups:
 		groups_name += group
+	if custom_conds != def_conds:
+		groups_name += custom_conds.get_method()
 	
 	if closest_buffer.has(groups_name):
 		var node = closest_buffer[groups_name]
@@ -100,6 +102,8 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 	var groups_name := str(pos.floor())
 	for group in groups:
 		groups_name += group
+	if custom_conds != def_conds:
+		groups_name += custom_conds.get_method()
 	
 	if farest_buffer.has(groups_name):
 		var node = farest_buffer[groups_name]
@@ -125,6 +129,9 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 
 func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_conds:Callable)-> Node3D:
 	var group_name := str(pos.floor()) + group
+	if custom_conds != def_conds:
+		group_name += custom_conds.get_method()
+	
 	if closest_buffer.has(group_name):
 		var node = closest_buffer[group_name]
 		if node != null:
@@ -138,6 +145,9 @@ func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_cond
 
 func farest_node3d_in_group(group:String, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
 	var group_name := str(pos.floor()) + group
+	if custom_conds != def_conds:
+		group_name += custom_conds.get_method()
+	
 	if farest_buffer.has(group_name):
 		var node = farest_buffer[group_name]
 		if node != null:

@@ -8,7 +8,7 @@ func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.jumpscare)
 
 func get_cost(local_state:Dictionary)->float:
-	return randf_range(0.1,1)
+	return get_weight(0)
  
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{}

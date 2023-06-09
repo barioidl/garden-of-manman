@@ -15,6 +15,7 @@ func priority(local_state:Dictionary)->float:
 	if closed_lock == null:
 		return 0
 	_print(closed_lock.get_path())
+	
 	return 0
 
 func get_result(local_state:Dictionary)->Dictionary:
