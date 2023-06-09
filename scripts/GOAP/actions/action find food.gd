@@ -55,5 +55,5 @@ func perform(local_state:Dictionary,time:float)-> bool:
 
 
 func _print(line:String):
-#	return
+	return
 	print(line)

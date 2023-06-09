@@ -2,6 +2,7 @@ extends StaticBody3D
 @export var password :Lock.types
 @export var lock :Node3D
 @export var door_meshes:Array
+
 func _ready() -> void:
 	set_up()
 

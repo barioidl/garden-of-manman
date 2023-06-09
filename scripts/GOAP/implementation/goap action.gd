@@ -29,8 +29,8 @@ func end(local_state: Dictionary):
 	pass
 
 
-func _print(line:String):
-#	return
+func _print(line):
+	return
 	print(line)
 
 var score:=0.0
@@ -56,4 +56,4 @@ func _load():
 	if data.is_empty():
 		return
 	weights = data.weights
-	score = data.score
+#	score = data.score

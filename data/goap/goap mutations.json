@@ -1,1 +1,11 @@
-6
+{"name":"G eat food","score":8.79999999999999,"weights":[1]}
+{"name":"G flee","score":0.4,"weights":[1,1]}
+{"name":"A find food","score":0.7,"weights":[0.621173225733609]}
+{"name":"A eat food","score":1.1,"weights":[1]}
+{"name":"A flee","score":0,"weights":[0.842373772821276,0.613445601272801]}
+{"name":"G use elevator","score":0.5,"weights":[1]}
+{"name":"A use elevator","score":0.1,"weights":[1]}
+{"name":"A open door","score":0.00040466170466935,"weights":[]}
+{"name":"A get in elevator","score":0.1,"weights":[1]}
+{"name":"A call elevator","score":0.1,"weights":[1]}
+{"name":"A wait for elevator","score":0.1,"weights":[1]}

@@ -62,18 +62,18 @@ func save_mutations(data:Dictionary):
 		return
 	all_mutations[data_name] = data
 
-func load_mutations(name:StringName)->Dictionary:
-	if !all_mutations.has(name):
+func load_mutations(_name:StringName)->Dictionary:
+	if !all_mutations.has(_name):
 		_print('load failed, return empty mutation')
 		return {}
-	all_mutations[name].score *= 0.5
+	all_mutations[_name].score = 0
 	
-	var weights = all_mutations[name].weights
+	var weights = all_mutations[_name].weights
 	for i in weights.size():
 		var delta = randf_range(-mutation_amount, mutation_amount)
 		weights[i] = clampf(weights[i] + delta,0,1)
 	
-	return all_mutations[name]
+	return all_mutations[_name]
 
 
 func save_all_data():

@@ -27,7 +27,6 @@ func use_elevator(pos:Vector3):
 			break
 		target_floor = i
 	get_child(target_floor).toggle()
-#	elevator.travel_to_floor(target_floor)
 
 
 func setup_panel(floors:int):

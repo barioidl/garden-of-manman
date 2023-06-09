@@ -30,5 +30,5 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	return true
 
 func _print(line:String):
-#	return
+	return
 	print(line)

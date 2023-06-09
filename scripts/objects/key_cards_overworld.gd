@@ -10,5 +10,5 @@ func _ready() -> void:
 	tween.tween_callback(get_color)
 
 func get_color():
-	var lock = get_tree().get_first_node_in_group('lock')
+	var lock = get_tree().get_first_node_in_group(NL.locks)
 	$Sprite3D.modulate = lock.get_color(password)

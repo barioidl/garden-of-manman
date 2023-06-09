@@ -45,6 +45,6 @@ func _load():
 	weights = data.weights
 	score = data.score
 
-func _print(line:String):
-#	return
+func _print(line):
+	return
 	print(line)

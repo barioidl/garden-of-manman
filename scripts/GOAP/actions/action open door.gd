@@ -21,6 +21,22 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 	}
 
 func perform(local_state: Dictionary, dt: float)->bool:
-#	var jumpscare = local_state.get(NL.jumpscare)
-#	jumpscare.scream()
+	var root :Node3D= local_state.root
+	var pos = root.global_position
+	var foods = local_state[NL.foods]
+	var food = ProximityTool.get_closest_node3d(foods, pos)
+	if food == null:
+		_print('what food?')
+		return false
+	if !Interface.interact_with(root,food):
+		var agent = Interface.attach_nav_agent(root,food)
+		var next_pos = agent.get_next_path_pos()
+		Interface.walk_to(root,next_pos)
+		Interface.turn_head(root,food.global_position)
+		_print('walking toward food')
+		return false
+	var nav_agent = Interface.get_nav_agent(root)
+	if nav_agent != null:
+		nav_agent.detach()
+	_print('food reached')
 	return true

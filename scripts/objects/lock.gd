@@ -13,7 +13,8 @@ signal lock_updated(state)
 func _ready() -> void:
 	emit_signal("lock_updated",open)
 #	add_to_group('tool_tip')
-	add_to_group('lock')
+	add_to_group(NL.locks)
+	
 	set_meta(NL.interact,interact)
 
 func interact(item):

@@ -49,5 +49,5 @@ func get_hotbar_food(root,local_state:Dictionary) -> int:
 	return -1
 
 func _print(line:String):
-#	return
+	return
 	print(line)

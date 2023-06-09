@@ -8,7 +8,7 @@ func is_valid(local_state:Dictionary)->bool:
 	return true
 
 func get_cost(local_state:Dictionary)->float:
-	return 1
+	return get_weight(0)
  
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{
@@ -27,7 +27,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	if platform == null:
 		return false
 	var dist=pos.distance_squared_to(platform.global_position)
-	if dist > 1:
+	if dist > 2:
 		var agent = Interface.attach_nav_agent(root,platform)
 		var next_pos = agent.get_next_path_pos()
 		Interface.walk_to(root,next_pos)
@@ -38,3 +38,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	if nav_agent != null:
 		nav_agent.detach()
 	return true
+
+func _print(line):
+	return
+	print(line)

@@ -8,7 +8,7 @@ func is_valid(local_state:Dictionary)->bool:
 	return true
 
 func get_cost(local_state:Dictionary)->float:
-	return 1
+	return get_weight(0)
  
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{}
@@ -36,6 +36,6 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		nav_agent.detach()
 	return true
 
-func _print(line:String):
+func _print(line):
 	return
 	print(line)
