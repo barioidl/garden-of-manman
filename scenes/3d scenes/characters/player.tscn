@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="2_7jd1i"]
 [ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="3_iebvc"]
 [ext_resource type="PackedScene" uid="uid://dgc4o234da4e8" path="res://data/state machine/fall_damage.tscn" id="5_bvf82"]
-[ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_pj86h"]
+[ext_resource type="PackedScene" uid="uid://cdbwbmdtlgdws" path="res://data/state machine/fps_aim.tscn" id="5_pj86h"]
 [ext_resource type="PackedScene" path="res://data/state machine/spawn_point.tscn" id="6_04aw7"]
 [ext_resource type="PackedScene" uid="uid://6ga8ja8d5ot1" path="res://data/state machine/stats_debufs.tscn" id="6_6yv8t"]
 [ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]

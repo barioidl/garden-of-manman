@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	if character == null: return
 	if !character.can_process(): 
 		return
-	global_position = character.global_position
+	global_position = character.to_global(Vector3(0,0.5,0))
 	next_pos = nav_agent.get_next_path_position()
 	update_target()
 	offset_height()
@@ -81,11 +81,11 @@ var height_offset_cd:=1.0
 func offset_height():
 	height_offset_cd -= dt
 	if height_offset_cd >0:return
-	height_offset_cd = 0.5
+	height_offset_cd = randf_range(0.5,1.0)
 	
 	cast_floor.force_raycast_update()
 	if !cast_floor.is_colliding():
-		nav_agent.agent_height_offset = 0
+		nav_agent.agent_height_offset *= 0.9
 		return
 	var floor_point = cast_floor.get_collision_point()
 	var floor_dist = global_position.distance_to(floor_point)

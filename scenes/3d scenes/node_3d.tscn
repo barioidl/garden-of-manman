@@ -124,7 +124,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.643, 0, -20.153)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.86306, 22.5, -20.153)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")

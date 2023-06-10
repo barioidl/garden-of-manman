@@ -15,7 +15,3 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	agent.loop_plan = false
 	agent.set_local_state(NL.unique_steps,false)
 	return true
-
-func _print(line):
-	return
-	print(line)

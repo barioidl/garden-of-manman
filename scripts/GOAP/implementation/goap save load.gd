@@ -7,6 +7,7 @@ func _process(delta: float) -> void:
 func _name()->StringName:
 	return &'G default'
 
+
 var cache_valid := {}
 var cache_cost := {}
 var cache_cd := 0.0
@@ -44,7 +45,8 @@ func _load():
 	if data.is_empty():
 		return
 	weights = data.weights
-#	score = data.score
+	score = data.score
+
 
 func _print(line):
 	return

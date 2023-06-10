@@ -56,13 +56,13 @@ func turn_head_toward(target:Vector3, x_speed:= 1.0, y_speed := 1.0)-> bool:
 	var y = atan2(local.y, local.z)
 	
 	var matched := true
-	if is_equal_approx(x,0):
+	if -0.02 < x and x < 0.02:
 		inputs.dpad2.x = 0
 	else:
 		inputs.dpad2.x = rad_to_deg(x) * x_speed * 5
 		matched = false
 	
-	if is_equal_approx(y,0):
+	if -0.02 < y and y < 0.02:
 		inputs.dpad2.y = 0
 	else:
 		inputs.dpad2.y = -rad_to_deg(y) * y_speed * 5
