@@ -4,6 +4,15 @@ class_name ActionEatFood
 func _name()->StringName:
 	return &'A eat food'
 
+func is_valid(local_state:Dictionary)->bool:
+	var root = local_state[NL.root]
+	if cache_valid.has(root):
+		return cache_valid[root]
+	
+	var valid :bool= local_state[NL.hunger] > 0
+	cache_valid[root] = valid
+	return valid
+
 func get_cost(local_state:Dictionary)->float:
 	return get_weight(0)
 

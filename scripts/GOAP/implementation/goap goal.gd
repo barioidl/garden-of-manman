@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name GOAPGoal
 
 func _process(delta: float) -> void:
@@ -30,13 +30,11 @@ func clean_cache(delta):
 	if cache_cd > 0:
 		cache_cd -= delta
 		return
-	cache_cd = 0.4
+	cache_cd = randf_range(0.4,0.6)
 	if !cache_valid.is_empty():
 		cache_valid.clear()
-		cache_cd += 0.1
 	if !cache_priority.is_empty():
 		cache_priority.clear()
-		cache_cd += 0.1
 
 
 var score:=0.0

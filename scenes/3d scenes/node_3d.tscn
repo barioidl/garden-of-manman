@@ -132,8 +132,40 @@ transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819
 light_energy = 0.25
 shadow_enabled = true
 
-[node name="ItemSpawner" type="Sprite3D" parent="."]
+[node name="food" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97799, 24.0026, -15.8664)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("6_jagio")
+script = ExtResource("7_ohcow")
+item = ExtResource("8_5lbay")
+
+[node name="food_2" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.36355, 24.0026, -15.8664)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("6_jagio")
+script = ExtResource("7_ohcow")
+item = ExtResource("8_5lbay")
+
+[node name="food_3" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0028, 24.0026, -15.8664)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("6_jagio")
+script = ExtResource("7_ohcow")
+item = ExtResource("8_5lbay")
+
+[node name="food_4" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0028, 24.0026, -18.4577)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("6_jagio")
+script = ExtResource("7_ohcow")
+item = ExtResource("8_5lbay")
+
+[node name="food_5" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5913, 24.0026, -18.4577)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("6_jagio")

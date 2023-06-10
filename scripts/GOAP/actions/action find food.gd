@@ -21,6 +21,7 @@ func get_cost(local_state:Dictionary)->float:
 	var root = local_state.root
 	if cache_cost.has(root):
 		return cache_cost[root]
+	
 	var pos = root.global_position
 	var foods = local_state[NL.foods]
 	var food = ProximityTool.get_closest_node3d(foods, pos)
@@ -28,6 +29,7 @@ func get_cost(local_state:Dictionary)->float:
 	var dist :Vector3= food.global_position - root.global_position
 	var cost = dist.length_squared() / (_range*_range)
 	cost *= get_weight(0)
+	
 	cache_cost[root] = cost
 	return cost
 

@@ -5,27 +5,31 @@ func _name() -> StringName:
 	return &'G flee'
 
 func is_valid(local_state:Dictionary)->bool:
-	_print('boop')
 	if !local_state.has(NL.predators):
 		return false
 	return true
 
 func priority(local_state:Dictionary)->float:
 	var root = local_state.root
+	if cache_priority.has(root):
+		return cache_priority[root]
 	var root_pos :Vector3= root.global_position
 	var predators = local_state[NL.predators]
-	_print('flee ')
+	
 	var _range := 10.0 * get_weight(0)
 	var target = ProximityTool.get_closest_node3d(predators, root_pos, _range)
 	if target == null: 
 		_print('no predators?')
+		cache_priority[root] = 0
 		return 0
 	
 	var dist = root_pos.distance_to(target.global_position)
 	dist = 1 - clampf(dist/_range,0,1)
-	var priority = Curves.sample(5,7,dist)
+	var _priority = Curves.sample(5,7,dist)
+	_priority *= get_weight(1)
 	_print('predator found')
-	return priority * get_weight(1)
+	cache_priority[root] = _priority
+	return _priority
 
 func get_result(local_state:Dictionary)->Dictionary:
 	return{

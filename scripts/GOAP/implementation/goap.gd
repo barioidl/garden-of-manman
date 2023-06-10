@@ -12,6 +12,9 @@ func _ready() -> void:
 	load_all_data()
 	init_action_planner()
 
+func _process(delta: float) -> void:
+	planner_action._process(delta)
+
 func on_quit():
 	save_all_data()
 

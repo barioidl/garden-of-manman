@@ -13,6 +13,7 @@ func priority(local_state:Dictionary)-> float:
 	var root = local_state.root
 	if cache_priority.has(root):
 		return cache_priority[root]
+	
 	if !local_state.has(NL.destination):
 		cache_priority[root] = 0
 		return 0
@@ -21,6 +22,7 @@ func priority(local_state:Dictionary)-> float:
 	delta_y = absf(delta_y / _range)
 	delta_y = clampf(delta_y,0,1)
 	delta_y = Curves.sample(1,4,delta_y) * get_weight(0)
+	
 	cache_priority[root] = delta_y
 	return delta_y
 

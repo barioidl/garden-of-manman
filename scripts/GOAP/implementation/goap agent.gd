@@ -50,6 +50,7 @@ func _process(delta: float) -> void:
 	dt = delta
 	generate_plan()
 	follow_plan()
+	process_goals()
 
 func _exit_tree() -> void:
 	_save()
@@ -157,6 +158,10 @@ func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
 	if !a.is_valid(local_state):
 		return false
 	return a.priority(local_state) > b.priority(local_state)
+
+func process_goals():
+	for goal in goals:
+		goal._process(dt)
 
 func debug_local_state():
 	if !show_local_state: return

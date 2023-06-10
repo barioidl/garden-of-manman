@@ -1,6 +1,11 @@
 extends Resource
 class_name GOAPPlanner
 
+func _process(delta:float):
+	for action in actions:
+		action._process(delta)
+
+
 var group_inputs:={}
 var group_outputs:={}
 var actions:Array=[]:
