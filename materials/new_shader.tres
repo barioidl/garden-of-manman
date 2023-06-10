@@ -1,0 +1,72 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://c6o2ckfulkviu"]
+
+[sub_resource type="VisualShaderNodeRandomRange" id="VisualShaderNodeRandomRange_vka0m"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_m5nlt"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_np46o"]
+input_name = "modelview_matrix"
+
+[sub_resource type="VisualShaderNodeTransformOp" id="VisualShaderNodeTransformOp_4r0br"]
+operator = 4
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+
+
+
+
+// 3D Noise with friendly permission by Inigo Quilez
+vec3 hash_noise_range( vec3 p ) {
+	p *= mat3(vec3(127.1, 311.7, -53.7), vec3(269.5, 183.3, 77.1), vec3(-301.7, 27.3, 215.3));
+	return 2.0 * fract(fract(p)*4375.55) -1.;
+}
+
+
+void vertex() {
+// Input:2
+	mat4 n_out2p0 = MODELVIEW_MATRIX;
+
+
+// TransformOp:4
+	mat4 n_in4p1 = mat4(vec4(1.00000, 0.00000, 0.00000, 0.0), vec4(0.00000, 1.00000, 0.00000, 0.0), vec4(0.00000, 0.00000, 1.00000, 0.0), vec4(0.00000, 0.00000, 0.00000, 1.0));
+	mat4 n_out4p0 = n_out2p0 + n_in4p1;
+
+
+// Output:0
+	MODELVIEW_MATRIX = n_out4p0;
+
+
+}
+
+void fragment() {
+// Input:6
+	vec2 n_out6p0 = UV;
+
+
+// RandomRange:4
+	float n_in4p1 = 0.00000;
+	float n_in4p2 = 1.00000;
+	float n_out4p0 = mix(n_in4p1, n_in4p2, hash_noise_range(vec3(n_out6p0, 0.0)).x);
+
+
+// Output:0
+	ALBEDO = vec3(n_out4p0);
+
+
+}
+"
+graph_offset = Vector2(-32.7651, 94.5703)
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_np46o")
+nodes/vertex/2/position = Vector2(-100, 360)
+nodes/vertex/4/node = SubResource("VisualShaderNodeTransformOp_4r0br")
+nodes/vertex/4/position = Vector2(180, 340)
+nodes/vertex/connections = PackedInt32Array(2, 0, 4, 0, 4, 0, 0, 10)
+nodes/fragment/4/node = SubResource("VisualShaderNodeRandomRange_vka0m")
+nodes/fragment/4/position = Vector2(20, 20)
+nodes/fragment/6/node = SubResource("VisualShaderNodeInput_m5nlt")
+nodes/fragment/6/position = Vector2(-320, 20)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 0, 6, 0, 4, 0)

@@ -21,6 +21,7 @@ func _physics_process(delta: float) -> void:
 	if !character.can_process(): 
 		return
 	global_position = character.global_position
+	next_pos = nav_agent.get_next_path_position()
 	update_target()
 	offset_height()
 
@@ -55,9 +56,9 @@ func detach():
 	target = null
 	target_pos = Vector3.ZERO
 
-
+var next_pos := Vector3.ZERO
 func get_next_path_pos()->Vector3:
-	return nav_agent.get_next_path_position()
+	return next_pos
 
 func can_reach_target()->bool:
 	var final_pos :Vector3= nav_agent.get_final_position()

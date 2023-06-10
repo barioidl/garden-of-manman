@@ -17,7 +17,7 @@ func get_inputs(local_state:Dictionary)->Dictionary:
 
 func get_outputs(local_state:Dictionary)->Dictionary:
 	return{
-		NL.exploration:1
+		NL.door_close: -1
 	}
 
 func perform(local_state: Dictionary, dt: float)->bool:

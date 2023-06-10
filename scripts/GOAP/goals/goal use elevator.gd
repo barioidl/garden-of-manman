@@ -21,7 +21,8 @@ func priority(local_state:Dictionary)-> float:
 	var delta_y = root.global_position.y - destination.y
 	delta_y = absf(delta_y / _range)
 	delta_y = clampf(delta_y,0,1)
-	delta_y = Curves.sample(1,4,delta_y) * get_weight(0)
+	delta_y = Curves.sample(1,4,delta_y)
+	delta_y *= 0.6 * get_weight(0)
 	
 	cache_priority[root] = delta_y
 	return delta_y

@@ -28,11 +28,12 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		return false
 	var dist=pos.distance_squared_to(platform.global_position)
 	if dist > 2:
+		_print('walking toward platform')
 		var agent = Interface.attach_nav_agent(root,platform)
-		var next_pos = agent.get_next_path_pos()
+		var next_pos :Vector3= agent.get_next_path_pos()
+		if next_pos.is_equal_approx(pos):	return false
 		Interface.walk_to(root,next_pos)
 		Interface.turn_head(root,platform.global_position,1,0.1)
-		_print('walking toward platform')
 		return false
 	var nav_agent = Interface.get_nav_agent(root)
 	if nav_agent != null:

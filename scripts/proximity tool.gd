@@ -14,10 +14,11 @@ func _process(delta: float) -> void:
 	if cd >0:
 		cd -= delta
 		return
-	cd = 0.2
-	cleanup_groups(0.2)
-	cleanup_closest(0.2)
-	cleanup_farest(0.2)
+	var duration = randf_range(0.3,0.6)
+	cd = duration
+	cleanup_groups(duration)
+	cleanup_closest(duration)
+	cleanup_farest(duration)
 
 #func set_interface():
 #	set_meta(NL.get_closest_node3d,get_closest_node3d)
@@ -33,7 +34,7 @@ func _process(delta: float) -> void:
 #		range.y = randf_range(min_range.y, max_range.y)
 #	if min_range.z != max_range.z:
 #		range.z = randf_range(min_range.z, max_range.z)
-#	closest_buffer.size()
+#	closest_cache.size()
 #	if randi()%20 < 10: range.x *= -1
 #	if randi()%20 < 10: range.y *= -1
 #	if randi()%20 < 10: range.z *= -1
@@ -71,8 +72,8 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_co
 	if custom_conds != def_conds:
 		groups_name += custom_conds.get_method()
 	
-	if closest_buffer.has(groups_name):
-		var node = closest_buffer[groups_name]
+	if closest_cache.has(groups_name):
+		var node = closest_cache[groups_name]
 		if node != null:
 			_print('use existing closest 3d node')
 			return node 
@@ -88,8 +89,7 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_co
 		nearest_distance = dist
 		closest_node = node
 	_print('use new closest 3d node')
-	closest_buffer[groups_name] = closest_node
-	closest_lifetime[groups_name] = def_lifetime
+	closest_cache[groups_name] = closest_node
 	return closest_node
 
 func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
@@ -105,8 +105,8 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 	if custom_conds != def_conds:
 		groups_name += custom_conds.get_method()
 	
-	if farest_buffer.has(groups_name):
-		var node = farest_buffer[groups_name]
+	if farest_cache.has(groups_name):
+		var node = farest_cache[groups_name]
 		if node != null:
 			_print('use existing farest 3d node')
 			return node 
@@ -122,8 +122,7 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 		farest_distance = dist
 		farest_node = node
 	_print('use new farest 3d node')
-	farest_buffer[groups_name] = farest_node
-	farest_lifetime[groups_name] = def_lifetime
+	farest_cache[groups_name] = farest_node
 	return farest_node
 
 
@@ -132,15 +131,14 @@ func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_cond
 	if custom_conds != def_conds:
 		group_name += custom_conds.get_method()
 	
-	if closest_buffer.has(group_name):
-		var node = closest_buffer[group_name]
+	if closest_cache.has(group_name):
+		var node = closest_cache[group_name]
 		if node != null:
 			_print('use existing closest 3d node')
 			return node 
 	_print('use new closest 3d node')
 	var node = closest_node3d(group, pos, _range, custom_conds)
-	closest_buffer[group_name] = node
-	closest_lifetime[group_name] = def_lifetime
+	closest_cache[group_name] = node
 	return node
 
 func farest_node3d_in_group(group:String, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
@@ -148,15 +146,14 @@ func farest_node3d_in_group(group:String, pos:Vector3, _range:float, custom_cond
 	if custom_conds != def_conds:
 		group_name += custom_conds.get_method()
 	
-	if farest_buffer.has(group_name):
-		var node = farest_buffer[group_name]
+	if farest_cache.has(group_name):
+		var node = farest_cache[group_name]
 		if node != null:
 			_print('use existing farest 3d node')
 			return node
 	_print('use new farest 3d node')
 	var node = farest_node3d(group, pos, _range, custom_conds)
-	farest_buffer[group_name] = node
-	farest_lifetime[group_name] = def_lifetime
+	farest_cache[group_name] = node
 	return node
 
 
@@ -194,54 +191,26 @@ func farest_node3d(group:StringName, position:Vector3, max_distance:float, custo
 
 
 func get_nodes(group:StringName)->Array:
-	if groups_buffer.has(group):
-		var result :Array= groups_buffer[group]
+	if groups_cache.has(group):
+		var result :Array= groups_cache[group]
 		if !result.is_empty():
 			return result
 	var nodes = scene_tree.get_nodes_in_group(group)
-	groups_buffer[group] = nodes
-	groups_lifetime[group] = def_lifetime
+	groups_cache[group] = nodes
 	return nodes
 
 
-var groups_buffer := {}
-var groups_lifetime := {}
+var groups_cache := {}
 func cleanup_groups(delta):
-	var iterations = groups_lifetime.size()
-	if iterations <=0: return
-	var keys = groups_lifetime.keys()
-	for i in iterations:
-		var key = keys[i]
-		groups_lifetime[key] -= delta
-		if groups_lifetime[key] > 0: continue
-		groups_lifetime.erase(key)
-		groups_buffer.erase(key)
+	groups_cache.clear()
 
-var closest_buffer := {}
-var closest_lifetime := {}
+var closest_cache := {}
 func cleanup_closest(delta):
-	var iterations = closest_lifetime.size()
-	if iterations <=0: return
-	var keys = closest_lifetime.keys()
-	for i in iterations:
-		var key = keys[i]
-		closest_lifetime[key] -= delta
-		if closest_lifetime[key] > 0: continue
-		closest_lifetime.erase(key)
-		closest_buffer.erase(key)
+	closest_cache.clear()
 
-var farest_buffer := {}
-var farest_lifetime := {}
+var farest_cache := {}
 func cleanup_farest(delta):
-	var iterations = farest_lifetime.size()
-	if iterations <=0: return
-	var keys = farest_lifetime.keys()
-	for i in iterations:
-		var key = keys[i]
-		farest_lifetime[key] -= delta
-		if farest_lifetime[key] > 0: continue
-		farest_lifetime.erase(key)
-		farest_buffer.erase(key)
+	farest_cache.clear()
 
 
 func def_conds(node:Node3D)->bool:

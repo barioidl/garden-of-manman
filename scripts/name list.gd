@@ -71,6 +71,8 @@ var is_in_elevator := &'is_in_elevator'
 var can_enter_elevator := &'can_enter_elevator'
 var elevator_closed := &'elevator_closed'
 
+var door_close := &'door_close'
+
 #var creativity := &'creativity'
 #var curiosity := &'curiosity'
 #var integrity := &'integrity'

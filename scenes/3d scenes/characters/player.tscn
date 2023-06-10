@@ -55,7 +55,6 @@ jump_height = 4.0
 extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("3_iebvc")]
-hunger = 5.0
 
 [node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
 

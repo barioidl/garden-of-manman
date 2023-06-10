@@ -10,17 +10,18 @@ func is_valid(local_state:Dictionary)->bool:
 	return true
 
 func priority(local_state:Dictionary)->float:
-	var pos = local_state[NL.root].global_position
+	var root = local_state[NL.root]
+	var pos = root.global_position
 	var closed_lock = ProximityTool.get_closest_node3d(NL.locks, pos, 1, is_lock_open)
 	if closed_lock == null:
 		return 0
-	_print(closed_lock.get_path())
+#	_print(closed_lock.get_path())
 	
 	return 0
 
 func get_result(local_state:Dictionary)->Dictionary:
 	return{
-		NL.exploration:1
+		NL.door_close: -1
 	}
 
 func is_lock_open(lock)->bool:

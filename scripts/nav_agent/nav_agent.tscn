@@ -6,8 +6,9 @@
 script = ExtResource("1_550pq")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
+ignore_y = false
+debug_enabled = true
+debug_path_custom_point_size = 2.0
 
 [node name="cast floor" type="RayCast3D" parent="."]
 enabled = false
