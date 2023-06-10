@@ -11,11 +11,11 @@ func is_valid(local_state:Dictionary)->bool:
 
 func priority(local_state:Dictionary)-> float:
 	var root = local_state.root
-	if cache_priority.has(root):
-		return cache_priority[root]
+	if cache_cost.has(root):
+		return cache_cost[root]
 	
 	if !local_state.has(NL.destination):
-		cache_priority[root] = 0
+		cache_cost[root] = 0
 		return 0
 	var destination :Vector3= local_state[NL.destination]
 	var delta_y = root.global_position.y - destination.y
@@ -24,7 +24,7 @@ func priority(local_state:Dictionary)-> float:
 	delta_y = Curves.sample(1,4,delta_y)
 	delta_y *= 0.6 * get_weight(0)
 	
-	cache_priority[root] = delta_y
+	cache_cost[root] = delta_y
 	return delta_y
 
 func get_result(local_state:Dictionary)->Dictionary:

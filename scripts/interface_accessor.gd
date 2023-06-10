@@ -121,5 +121,8 @@ func get_position_around(body:Node3D, min_range:=Vector3.ONE, max_range:=Vector3
 	var center = body.global_position
 	var meta = body.get_meta(NL.get_random_position)
 	return meta.call(center,min_range,max_range)
-	
 
+func get_hotbar_items(body:Node3D)-> Array:
+	if !body.has_meta(NL.get_hotbar_items):
+		return []
+	return body.get_meta(NL.get_hotbar_items).call()

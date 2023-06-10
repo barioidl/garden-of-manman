@@ -4,7 +4,7 @@ extends ItemOverworld
 
 func _ready() -> void:
 	super._ready()
-	add_to_group('key')
+	add_to_group(NL.keys)
 	var tween = create_tween()
 	tween.tween_interval(0.1)
 	tween.tween_callback(get_color)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=24 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="Texture2D" uid="uid://ka8qjk861m06" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button06.png" id="1_bq3ld"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="6_jagio"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_ohcow"]
 [ext_resource type="Resource" uid="uid://blyxj3d3wn6vs" path="res://data/items/food generic.tres" id="8_5lbay"]
+[ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="8_fxj3l"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="9_6tphn"]
 [ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="10_lrfuk"]
 [ext_resource type="Texture2D" uid="uid://cy6g4mno3aqtu" path="res://assets/Textures/key_card0001.png" id="10_yl6mh"]
@@ -123,11 +124,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35746, 22.8777, -20.1531)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.643, 0, -20.153)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
 disable_goap = false
+
+[node name="ItemStartup" type="Node" parent="player"]
+script = ExtResource("8_fxj3l")
+items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("10_lrfuk")])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819, -0.482963, 0.836516, 0, 0, 0)
@@ -135,7 +140,7 @@ light_energy = 0.25
 shadow_enabled = true
 
 [node name="food" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97799, 24.0026, -15.8664)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97799, 1, -15.8664)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("6_jagio")
@@ -143,31 +148,7 @@ script = ExtResource("7_ohcow")
 item = ExtResource("8_5lbay")
 
 [node name="food_2" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.36355, 24.0026, -15.8664)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("6_jagio")
-script = ExtResource("7_ohcow")
-item = ExtResource("8_5lbay")
-
-[node name="food_3" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0028, 24.0026, -15.8664)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("6_jagio")
-script = ExtResource("7_ohcow")
-item = ExtResource("8_5lbay")
-
-[node name="food_4" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.003, 0.997511, -18.458)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("6_jagio")
-script = ExtResource("7_ohcow")
-item = ExtResource("8_5lbay")
-
-[node name="food_5" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5913, 24.0026, -18.4577)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.36355, 1, -15.8664)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("6_jagio")

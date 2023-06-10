@@ -41,8 +41,7 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	return true
 
 func get_hotbar_food(root,local_state:Dictionary) -> int:
-	var get_items = root.get_meta(NL.get_hotbar_items)
-	var hotbar_items :Array= get_items.call()
+	var hotbar_items := Interface.get_hotbar_items(root)
 	var foods = local_state[NL.foods]
 	for id in hotbar_items.size():
 		var food = hotbar_items[id]

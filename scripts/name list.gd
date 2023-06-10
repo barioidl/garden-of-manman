@@ -89,8 +89,6 @@ var character := &'character'
 var human:= &'human'
 var monster := &'monster'
 
-var key := &'key'
-
 var meat := &'meat'
 
 var doors := &'doors'
