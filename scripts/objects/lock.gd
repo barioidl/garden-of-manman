@@ -27,7 +27,7 @@ func interact(item):
 		return
 	
 	var no_key:=false
-	if item.is_in_group("key"):
+	if item.is_in_group(NL.keys):
 		no_key = item.password == types.none
 	var no_lock = password == types.none
 	if no_lock or no_key:
@@ -36,7 +36,7 @@ func interact(item):
 		emit_signal("lock_updated",open)
 		return
 	
-	if !item.is_in_group("key"):
+	if !item.is_in_group(NL.keys):
 		return
 	if item.password == password:
 #		print("unlocked with key")

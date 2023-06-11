@@ -53,10 +53,11 @@ func get_head_target(body:Node3D)->Node3D:
 		return null
 	return body.get_meta(NL.get_head_target).call()
 
-func interact_with(body:Node3D, target:Node)-> bool:
+func interact_with(body:Node3D, target:Node, user:Node)-> bool:
 	if !body.has_meta(NL.interact_with):
+		print('has no meta')
 		return false
-	return body.get_meta(NL.interact_with).call(target,body)
+	return body.get_meta(NL.interact_with).call(target,user)
 
 
 func get_head_position(body:Node3D)->Vector3:
@@ -126,3 +127,9 @@ func get_hotbar_items(body:Node3D)-> Array:
 	if !body.has_meta(NL.get_hotbar_items):
 		return []
 	return body.get_meta(NL.get_hotbar_items).call()
+
+func input_use_item(body:Node3D,id:int)-> bool:
+	if !body.has_meta(NL.input_use_item):
+		return false
+	body.get_meta(NL.input_use_item).call(id)
+	return true

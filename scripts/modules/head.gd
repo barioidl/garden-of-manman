@@ -10,7 +10,7 @@ var shape
 @export var interact_range:=2.0
 
 func _print(line):
-	return
+#	return
 	print(line)
 
 func _init() -> void:

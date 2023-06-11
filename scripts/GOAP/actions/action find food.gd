@@ -1,7 +1,7 @@
 extends GOAPAction
 class_name ActionFindFood
 
-var _range := 20.0
+var _range := 10.0
 
 func _name()->StringName:
 	return &'A find food'
@@ -49,7 +49,7 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	if food == null:
 		_print('what food?')
 		return false
-	if !Interface.interact_with(root,food):
+	if !Interface.interact_with(root,food,root):
 		var agent = Interface.attach_nav_agent(root,food)
 		var next_pos = agent.get_next_path_pos()
 		Interface.walk_to(root,next_pos)

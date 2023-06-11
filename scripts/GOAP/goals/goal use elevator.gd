@@ -18,14 +18,13 @@ func priority(local_state:Dictionary)-> float:
 		cache_cost[root] = 0
 		return 0
 	var destination :Vector3= local_state[NL.destination]
-	var delta_y = root.global_position.y - destination.y
-	delta_y = absf(delta_y / _range)
-	delta_y = clampf(delta_y,0,1)
-	delta_y = Curves.sample(1,4,delta_y)
-	delta_y *= 0.6 * get_weight(0)
+	var _priority = root.global_position.y - destination.y
+	_priority = absf(_priority / _range)
+	_priority = Curves.sample(1,4,_priority)
+	_priority = clampf(_priority - 0.2,0,1) * get_weight(0)
 	
-	cache_cost[root] = delta_y
-	return delta_y
+	cache_cost[root] = _priority
+	return _priority
 
 func get_result(local_state:Dictionary)->Dictionary:
 	return{

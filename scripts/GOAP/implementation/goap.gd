@@ -32,7 +32,7 @@ func init_action_planner():
 		ActionCallElevator.new(),
 		
 #		ActionFindKey.new(),
-#		ActionOpenDoor.new(),
+		ActionOpenDoor.new(),
 #		ActionScream.new(),
 #		ActionFaceTarget.new(),
 #		ActionAttackTarget.new(),

@@ -10,12 +10,14 @@ func _name()->StringName:
 
 var cache_valid := {}
 var cache_cost := {}
+
 var cache_cd := 0.0
+var cache_duration := 0.5
 func clean_cache(delta):
 	if cache_cd > 0:
 		cache_cd -= delta
 		return
-	cache_cd = randf_range(0.4,0.6)
+	cache_cd = cache_duration + randf_range(0.0,0.2)
 	if !cache_valid.is_empty():
 		cache_valid.clear()
 	if !cache_cost.is_empty():

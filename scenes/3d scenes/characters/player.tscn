@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=18 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -8,8 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cdbwbmdtlgdws" path="res://data/state machine/fps_aim.tscn" id="5_pj86h"]
 [ext_resource type="PackedScene" path="res://data/state machine/spawn_point.tscn" id="6_04aw7"]
 [ext_resource type="PackedScene" uid="uid://6ga8ja8d5ot1" path="res://data/state machine/stats_debufs.tscn" id="6_6yv8t"]
-[ext_resource type="PackedScene" path="res://data/state machine/inventory.tscn" id="7_co62e"]
-[ext_resource type="PackedScene" uid="uid://dn2adgtnmjtxs" path="res://data/state machine/communication.tscn" id="7_ojp8w"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
@@ -63,11 +61,6 @@ extra_jumps = 0
 [node name="fps aim" parent="." instance=ExtResource("5_pj86h")]
 
 [node name="spawn_point" parent="." instance=ExtResource("6_04aw7")]
-
-[node name="communication" parent="." instance=ExtResource("7_ojp8w")]
-
-[node name="inventory" parent="." instance=ExtResource("7_co62e")]
-slots = [null, null]
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_j6qpi")

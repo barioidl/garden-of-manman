@@ -24,7 +24,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	var button = ProximityTool.get_closest_node3d(NL.elevator_buttons, pos)
 	if button == null:
 		return false
-	if !Interface.interact_with(root,button):
+	if !Interface.interact_with(root,button,root):
 		var agent = Interface.attach_nav_agent(root,button)
 		var next_pos = agent.get_next_path_pos()
 		Interface.walk_to(root,next_pos)

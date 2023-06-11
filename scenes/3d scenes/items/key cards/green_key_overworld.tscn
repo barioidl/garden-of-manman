@@ -7,5 +7,4 @@
 password = 3
 
 [node name="Sprite3D" parent="." index="1"]
-cast_shadow = 2
 texture = ExtResource("2_rjgww")

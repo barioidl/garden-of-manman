@@ -72,8 +72,6 @@ func interact(user):
 	if !user.has_meta(NL.append_item_node):return
 	var append_item_node = user.get_meta(NL.append_item_node)
 	var added = append_item_node.call(self)
-	if !added:
-		use_item(null)
 
 
 var gravity: Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")

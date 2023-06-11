@@ -1,13 +1,22 @@
 extends GOAPGoal
 class_name GoalOpenDoor
 
+var _range := 10.0
+
 func _name() -> StringName:
 	return &'G open door'
 
+
 func is_valid(local_state:Dictionary)->bool:
-#	var agent :GOAPAgent= local_state.agent
-#	var door = agent.get_closest_node3d(NL.door,10)
-	return true
+	var root :Node3D= local_state.root
+	if cache_valid.has(root):
+		return cache_valid[root]
+	
+	var keys := get_hotbar_keys(root)
+	var _valid = !keys.is_empty()
+	
+	cache_valid[root] = _valid
+	return _valid
 
 func priority(local_state:Dictionary)->float:
 	var root = local_state[NL.root]
@@ -15,18 +24,19 @@ func priority(local_state:Dictionary)->float:
 		return cache_cost[root]
 	
 	var keys := get_hotbar_keys(root)
-	var key_count := keys.size()
-	_print('key count: ' + str(key_count))
-	if key_count <= 0:
-		return 0
-	
-	var pos = root.global_position
-	var closed_lock = ProximityTool.get_closest_node3d(NL.locks, pos, 1, is_lock_open)
+	var pos :Vector3= root.global_position
+	var closed_lock = ProximityTool.get_closest_node3d(NL.locks, pos, 1, is_lock_open.bind(keys))
 	if closed_lock == null:
+		cache_cost[root] = 0
 		return 0
-#	_print(closed_lock.get_path())
 	
-	return 0
+	var _priority = pos.distance_squared_to(closed_lock.global_position)
+	_priority /= _range * _range
+	_priority = 1 - clampf(_priority,0,1)
+	_print('open door priority: ' + str(_priority))
+	
+	cache_cost[root] = _priority
+	return _priority
 
 func get_result(local_state:Dictionary)->Dictionary:
 	return{
@@ -36,7 +46,6 @@ func get_result(local_state:Dictionary)->Dictionary:
 func get_hotbar_keys(root)->Array:
 	var hotbar_items := Interface.get_hotbar_items(root)
 	if hotbar_items.is_empty(): return []
-	_print('hotbar item size: ' + str(hotbar_items.size()))
 	var result := []
 	for key in hotbar_items:
 		if key == null:	continue
@@ -44,10 +53,16 @@ func get_hotbar_keys(root)->Array:
 		result.append(key)
 	return result
 
-
-func is_lock_open(lock)->bool:
+func is_lock_open(lock:Node,keys:Array)->bool:
+	var password_matched := false
+	for key in keys:
+		if key.password != lock.password:	continue
+		password_matched = true
+	if !password_matched:
+		return false
 	return !lock.open
 
+
 func _print(line):
-#	return
+	return
 	print(line)
