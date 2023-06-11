@@ -1,31 +1,20 @@
 extends GOAPGoal
-class_name GoalUseElevator
+class_name GoalReachDestination
 
 var _range := 5
 
 func _name() -> StringName:
-	return &'G use elevator'
+	return &'G reach destination'
 
 func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.destination)
 
 func priority(local_state:Dictionary)-> float:
-	var root = local_state.root
-	if cache_cost.has(root):
-		return cache_cost[root]
-	
-	var destination :Vector3= local_state[NL.destination]
-	var _priority = root.global_position.y - destination.y
-	_priority = absf(_priority / _range)
-	_priority = Curves.sample(1,4,_priority)
-	_priority = clampf(_priority - 0.2,0,1) * get_weight(0)
-	
-	cache_cost[root] = _priority
-	return _priority
+	return lerpf(0.2,0.5,get_weight(0)) 
 
 func get_result(local_state:Dictionary)->Dictionary:
 	return{
-		NL.height_difference: -1,
+		NL.destination: 1,
 	}
 
 func perform(local_state: Dictionary, dt: float)->bool:

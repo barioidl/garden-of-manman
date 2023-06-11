@@ -58,6 +58,7 @@ func set_interface():
 	root.set_meta(NL.get_head_target, get_target)
 	root.set_meta(NL.interact_with, interact_with)
 	root.set_meta(NL.input_use_item, input_use_item)
+	root.set_meta(NL.drop_item, drop_item)
 
 func get_head_position()->Vector3:
 	return global_position
@@ -151,10 +152,10 @@ func drop_stop():
 	drop_tween.kill()
 	drop_item()
 
-func drop_item():
-	if drop_id <0: return
+func drop_item(item_id := drop_id):
+	if item_id <0: return
 	if drop_strength <0: return
 	var aim_at = to_global(Vector3(0,0,10))
-	hotbar.drop_item(drop_id,aim_at,drop_strength)
+	hotbar.drop_item(item_id, aim_at, drop_strength)
 	drop_strength = 0
 

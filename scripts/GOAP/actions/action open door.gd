@@ -37,7 +37,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	if closed_lock == null:
 		return true
 	var dist = closed_lock.global_position.distance_squared_to(pos)
-	if dist > 4:
+	if dist >= 4:
 		var agent = Interface.attach_nav_agent(root,closed_lock)
 		var next_pos = agent.get_next_path_pos()
 		Interface.walk_to(root,next_pos)
@@ -50,21 +50,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	
 	for key in keys:
 		Interface.interact_with(root,closed_lock,key)
-	_print('opened door')
 	return true
-
-
-#func get_hotbar_key_ids(root)->Array:
-#	var hotbar_items := Interface.get_hotbar_items(root)
-#	var iterations = hotbar_items.size()
-#	if iterations <=0 : return []
-#	var result := []
-#	for id in iterations:
-#		var key = hotbar_items[id]
-#		if key == null:	continue
-#		if !key.is_in_group(NL.keys):	continue
-#		result.append(id)
-#	return result
 
 func get_hotbar_keys(root)->Array:
 	var hotbar_items := Interface.get_hotbar_items(root)
@@ -88,5 +74,5 @@ func is_lock_open(lock:Node,keys:Array)->bool:
 
 
 func _print(line):
-#	return
+	return
 	print(line)

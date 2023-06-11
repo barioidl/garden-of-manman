@@ -60,10 +60,8 @@ var next_pos := Vector3.ZERO
 func get_next_path_pos()->Vector3:
 	return next_pos
 
-func can_reach_target()->bool:
-	var final_pos :Vector3= nav_agent.get_final_position()
-	var dist := final_pos.distance_squared_to(target_pos)
-	return dist < agent_radius * agent_radius
+func get_final_pos()-> Vector3:
+	return nav_agent.get_final_position()
 
 var update_target_cd := 0.0
 func update_target():
@@ -85,7 +83,7 @@ func offset_height():
 	
 	cast_floor.force_raycast_update()
 	if !cast_floor.is_colliding():
-		nav_agent.agent_height_offset *= 0.9
+		nav_agent.agent_height_offset *= 0.99
 		return
 	var floor_point = cast_floor.get_collision_point()
 	var floor_dist = global_position.distance_to(floor_point)

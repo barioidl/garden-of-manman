@@ -122,6 +122,7 @@ var get_head_target := &'get_head_target'
 var interact_with := &'interact_with'
 var get_head_position := &'get_head_position'
 var input_use_item := &'input_use_item'
+var drop_item := &'drop_item'
 
 var append_item := &'append_item'
 var append_item_node := &'append_item_node'

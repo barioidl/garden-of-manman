@@ -43,6 +43,13 @@ func get_result(local_state:Dictionary)->Dictionary:
 		NL.door_close: -1
 	}
 
+func perform(local_state: Dictionary, dt: float)->bool:
+	var agent = local_state.agent
+	agent.loop_plan = true
+	agent.set_local_state(NL.unique_steps,false)
+	return true
+
+
 func get_hotbar_keys(root)->Array:
 	var hotbar_items := Interface.get_hotbar_items(root)
 	if hotbar_items.is_empty(): return []

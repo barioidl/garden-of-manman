@@ -33,6 +33,9 @@ func init_action_planner():
 		
 #		ActionFindKey.new(),
 		ActionOpenDoor.new(),
+		
+		ActionReachDestination.new(),
+		
 #		ActionScream.new(),
 #		ActionFaceTarget.new(),
 #		ActionAttackTarget.new(),
