@@ -17,4 +17,4 @@ func _ready() -> void:
 	agent.set_local_state(NL.destination, Vector3(10,2,-80))
 	
 	
-	queue_free()
+#	queue_free()

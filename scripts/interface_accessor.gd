@@ -66,7 +66,7 @@ func get_head_position(body:Node3D)->Vector3:
 	var meta = body.get_meta(NL.get_head_position)
 	return meta.call()
 
-func attach_nav_agent(body:Node3D,target) -> Node3D:
+func attach_nav_agent(body:Node3D,target) -> NavAgent:
 	if !body.has_meta(NL.get_nav_agent):
 		var agent = NavAgentPool.get_agent_3d()
 		agent.attach_to(body,target)
@@ -132,4 +132,10 @@ func input_use_item(body:Node3D,id:int)-> bool:
 	if !body.has_meta(NL.input_use_item):
 		return false
 	body.get_meta(NL.input_use_item).call(id)
+	return true
+
+func drop_item(body:Node3D,id:int)-> bool:
+	if !body.has_meta(NL.drop_item):
+		return false
+	body.get_meta(NL.drop_item).call(id)
 	return true

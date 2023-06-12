@@ -5,13 +5,13 @@ func _name()->StringName:
 	return &'A eat food'
 
 func is_valid(local_state:Dictionary)->bool:
-	var root = local_state[NL.root]
-	if cache_valid.has(root):
-		return cache_valid[root]
-	
-	var valid :bool= local_state[NL.hunger] > 0
-	cache_valid[root] = valid
-	return valid
+#	var root = local_state[NL.root]
+#	if cache_valid.has(root):
+#		return cache_valid[root]
+#
+#	var valid :bool= local_state[NL.hunger] > 0
+#	cache_valid[root] = valid
+	return local_state[NL.hunger] > 0
 
 func get_cost(local_state:Dictionary)->float:
 	return get_weight(0)
@@ -30,7 +30,6 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 	return {
 		NL.hunger: -1
 	}
-
 
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root = local_state.root

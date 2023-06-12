@@ -37,7 +37,8 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	if closed_lock == null:
 		return true
 	var dist = closed_lock.global_position.distance_squared_to(pos)
-	if dist >= 4:
+	var _range = local_state[NL.interact_range]
+	if dist >= _range*_range:
 		var agent = Interface.attach_nav_agent(root,closed_lock)
 		var next_pos = agent.get_next_path_pos()
 		Interface.walk_to(root,next_pos)

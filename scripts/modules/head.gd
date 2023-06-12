@@ -27,6 +27,7 @@ func _ready() -> void:
 	shape = root.get_node_or_null('shape')
 	connect_hotbar()
 	use_shape_size()
+	update_agent()
 
 func _process(delta: float) -> void:
 	pass
@@ -52,6 +53,9 @@ func connect_hotbar():
 	inputs.connect(NL.skill_pressed,skill)
 	inputs.connect(NL.misc_pressed,misc)
 
+func update_agent():
+	var agent := Interface.get_goap_agent(root)
+	agent.set_local_state(NL.interact_range, interact_range)
 
 func set_interface():
 	root.set_meta(NL.get_head_position, get_head_position)

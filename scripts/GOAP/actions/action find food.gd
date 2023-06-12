@@ -41,6 +41,10 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 		NL.has_food:1,
 	}
 
+func start(local_state:Dictionary):
+	var root = local_state[NL.root]
+	Interface.drop_item(root,0)
+
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root
 	var pos = root.global_position
@@ -49,9 +53,15 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	if food == null:
 		_print('what food?')
 		return false
-	if !Interface.interact_with(root,food,root):
-		var agent = Interface.attach_nav_agent(root,food)
+	var dist = pos.distance_squared_to(food.global_position)
+	var _range = local_state[NL.interact_range]
+	if dist >= _range*_range:
+		var agent := Interface.attach_nav_agent(root,food)
 		var next_pos = agent.get_next_path_pos()
+		var final_pos = agent.get_final_pos()
+		if final_pos.distance_squared_to(food) > 0.5:
+			cache_cost[root] = 0
+			return true
 		Interface.walk_to(root,next_pos)
 		Interface.turn_head(root,food.global_position)
 		_print('walking toward food')

@@ -14,7 +14,6 @@ var fall := &'fall'
 func list_of_goap_states():pass
 var root :=&'root'
 var agent := &'agent'
-#var proximity_tool := &'proximity_tool'
 
 var jumpscare := &'jumpscare'
 var puzzle := &'puzzle'
@@ -50,6 +49,8 @@ var has_food := &'has_food'
 var has_drink := &'has_drink'
 var has_key := &'has_key'
 
+var interact_range := &'interact_range'
+
 #var interest := &'interest'
 #var joy := &'joy'
 #var surprise := &'surprise'
@@ -72,6 +73,7 @@ var can_enter_elevator := &'can_enter_elevator'
 var elevator_closed := &'elevator_closed'
 
 var door_close := &'door_close'
+var lights_on := &'lights_on'
 
 #var creativity := &'creativity'
 #var curiosity := &'curiosity'
@@ -97,6 +99,7 @@ var elevator_doors := &'elevator_doors'
 var elevator_panels := &'elevator_panels'
 
 var billboard_sprites:= &'billboard_sprites'
+var light_buttons := &'light_buttons'
 
 var ui_save_load := &'ui_save_load'
 var goap_save_load := &'goap_save_load'

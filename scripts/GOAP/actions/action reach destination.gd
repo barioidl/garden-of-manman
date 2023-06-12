@@ -27,7 +27,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		var agent = Interface.attach_nav_agent(root,destination)
 		var next_pos :Vector3= agent.get_next_path_pos()
 		var final_pos = agent.get_final_pos()
-		if next_pos.distance_squared_to(final_pos) < 0.5:
+		if pos.distance_squared_to(final_pos) < 0.5:
 			agent.detach()
 			return true
 		Interface.walk_to(root,next_pos)

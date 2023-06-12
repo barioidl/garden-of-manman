@@ -31,10 +31,12 @@ func init_action_planner():
 		ActionWaitForElevator.new(),
 		ActionCallElevator.new(),
 		
-#		ActionFindKey.new(),
+		ActionFindKey.new(),
 		ActionOpenDoor.new(),
 		
 		ActionReachDestination.new(),
+		ActionTurnLightOn.new(),
+		ActionTurnLightOff.new(),
 		
 #		ActionScream.new(),
 #		ActionFaceTarget.new(),

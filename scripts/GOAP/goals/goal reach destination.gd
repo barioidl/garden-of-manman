@@ -10,7 +10,7 @@ func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.destination)
 
 func priority(local_state:Dictionary)-> float:
-	return lerpf(0.2,0.5,get_weight(0)) 
+	return get_weight(0) * 0.2
 
 func get_result(local_state:Dictionary)->Dictionary:
 	return{

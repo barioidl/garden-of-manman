@@ -59,13 +59,13 @@ func turn_head_toward(target:Vector3, x_speed:= 1.0, y_speed := 1.0)-> bool:
 	if -0.02 < x and x < 0.02:
 		inputs.dpad2.x = 0
 	else:
-		inputs.dpad2.x = rad_to_deg(x) * x_speed * 5
+		inputs.dpad2.x = rad_to_deg(x) * x_speed * 2
 		matched = false
 	
 	if -0.02 < y and y < 0.02:
 		inputs.dpad2.y = 0
 	else:
-		inputs.dpad2.y = -rad_to_deg(y) * y_speed * 5
+		inputs.dpad2.y = -rad_to_deg(y) * y_speed * 2
 		matched = false
 	
 	return matched
