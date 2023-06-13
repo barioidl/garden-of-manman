@@ -18,7 +18,6 @@
 [ext_resource type="AudioStream" uid="uid://bm44g8fpxx2nx" path="res://assets/audio/fl exported/spider hunt.ogg" id="12_hqwsp"]
 [ext_resource type="PackedScene" uid="uid://glmnjpmbgsco" path="res://data/state machine/hotbar.tscn" id="12_m7c2m"]
 [ext_resource type="Texture2D" uid="uid://coj1148xm0ts" path="res://assets/Textures/manman face0000.png" id="13_62xdx"]
-[ext_resource type="Script" path="res://scripts/modules/puzzle.gd" id="13_boe7p"]
 [ext_resource type="Script" path="res://scripts/modules/jumpscare.gd" id="13_ipner"]
 [ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="14_7ugkw"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="14_o6648"]
@@ -27,6 +26,7 @@
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="15_mi7sy"]
 [ext_resource type="Script" path="res://scripts/monster.gd" id="16_0x1n3"]
 [ext_resource type="Texture2D" uid="uid://c0jdnyte7aqxr" path="res://assets/Textures/manman face0002.png" id="16_kopr6"]
+[ext_resource type="Script" path="res://scripts/modules/chase prey.gd" id="16_kpcpb"]
 [ext_resource type="Texture2D" uid="uid://dhswlhhs6ln0k" path="res://assets/Textures/manman face0003.png" id="17_ip7pj"]
 [ext_resource type="Texture2D" uid="uid://ckss1y6pp30ik" path="res://assets/Textures/manman face0004.png" id="18_k6co4"]
 [ext_resource type="Texture2D" uid="uid://cuahhn8b61yup" path="res://assets/Textures/manman face0005.png" id="19_ywwcc"]
@@ -240,13 +240,14 @@ func _ready() -> void:
 		
 		GoalFindKey.new(),
 		GoalOpenDoor.new(),
+#		GoalCloseDoor.new(),
 		GoalReachDestination.new(),
 		
 #		GoalTurnLightOn.new(),
 		GoalTurnLightOff.new(),
 		
 #		GoalPuzzle.new(),
-		GoalJumpscare.new(),
+#		GoalJumpscare.new(),
 	]
 	
 
@@ -280,7 +281,6 @@ step_speed = 0.2
 hunger = 8.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
-process_mode = 4
 
 [node name="fall_damage" parent="stats" instance=ExtResource("6_01le1")]
 
@@ -310,7 +310,7 @@ script = ExtResource("13_ipner")
 scream_sfx = SubResource("Resource_re18v")
 
 [node name="puzzle" type="Node" parent="goap_agent"]
-script = ExtResource("13_boe7p")
+script = ExtResource("16_kpcpb")
 
 [node name="debug_display" parent="." instance=ExtResource("15_hcd4e")]
 
