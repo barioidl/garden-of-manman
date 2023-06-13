@@ -13,9 +13,9 @@ func priority(local_state:Dictionary)->float:
 	var root = local_state.root
 	if cache_cost.has(root):
 		return cache_cost[root]
+	
 	var root_pos :Vector3= root.global_position
 	var predators = local_state[NL.predators]
-	
 	var target = ProximityTool.get_closest_node3d(predators, root_pos)
 	if target == null: 
 		_print('no predators?')

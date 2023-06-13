@@ -33,6 +33,7 @@ func priority(local_state:Dictionary)->float:
 	var _priority = pos.distance_squared_to(closed_lock.global_position)
 	_priority /= _range * _range
 	_priority = 1 - clampf(_priority,0,1)
+	_priority *= get_weight(0)
 	_print('open door priority: ' + str(_priority))
 	
 	cache_cost[root] = _priority

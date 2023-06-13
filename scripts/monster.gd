@@ -13,5 +13,7 @@ func _ready() -> void:
 	
 	var agent = Interface.get_goap_agent(root)
 	agent.set_local_state(NL.preys,[NL.human])
+	agent.set_local_state(NL.foods,[NL.meat])
+	agent.set_local_state(NL.destination, Vector3(-7,1,-8))
 	
 	queue_free()

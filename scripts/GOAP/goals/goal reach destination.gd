@@ -1,8 +1,6 @@
 extends GOAPGoal
 class_name GoalReachDestination
 
-var _range := 5
-
 func _name() -> StringName:
 	return &'G reach destination'
 
@@ -19,7 +17,7 @@ func get_result(local_state:Dictionary)->Dictionary:
 
 func perform(local_state: Dictionary, dt: float)->bool:
 	var agent = local_state.agent
-	agent.loop_plan = false
+	agent.loop_plan = true
 	agent.set_local_state(NL.unique_steps,false)
 	return true
 

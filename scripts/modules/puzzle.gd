@@ -36,7 +36,7 @@ func get_scores():
 	score = 1 - dist / range
 	score = clampf(score,0,1)
 
-func perform(local_state: Dictionary, dt: float)->bool:
+func perform(local_state: Dictionary, dt: float)-> bool:
 	var pos = root.global_position
 	var point = WorldState.get_farest_node_3d('safepoints',pos)
 	if point == null:

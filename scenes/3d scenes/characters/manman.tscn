@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="3_5spun"]
 [ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_t33xl"]
 [ext_resource type="PackedScene" uid="uid://6ga8ja8d5ot1" path="res://data/state machine/stats_debufs.tscn" id="5_77jj2"]
-[ext_resource type="PackedScene" path="res://data/state machine/fps_aim.tscn" id="5_l8osy"]
+[ext_resource type="PackedScene" uid="uid://cdbwbmdtlgdws" path="res://data/state machine/fps_aim.tscn" id="5_l8osy"]
 [ext_resource type="PackedScene" uid="uid://dgc4o234da4e8" path="res://data/state machine/fall_damage.tscn" id="6_01le1"]
 [ext_resource type="Resource" uid="uid://drkla4kyw4qdl" path="res://data/audio/puzzle sfx.tres" id="6_r3q25"]
 [ext_resource type="Resource" uid="uid://duy4eq8ii5263" path="res://data/audio/hunt sfx.tres" id="7_pwdy1"]
@@ -236,10 +236,17 @@ func _ready() -> void:
 	super._ready()
 	goals = [
 		GoalEatFood.new(),
-#		GoalJumpscare.new(),
+		GoalUseElevator.new(),
+		
+		GoalFindKey.new(),
+		GoalOpenDoor.new(),
+		GoalReachDestination.new(),
+		
+#		GoalTurnLightOn.new(),
+		GoalTurnLightOff.new(),
+		
 #		GoalPuzzle.new(),
-#		GoalFlee.new(),
-#		GoalPlay.new(),
+		GoalJumpscare.new(),
 	]
 	
 
@@ -274,7 +281,6 @@ hunger = 8.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
 process_mode = 4
-time_scale = 0.2
 
 [node name="fall_damage" parent="stats" instance=ExtResource("6_01le1")]
 
@@ -293,21 +299,18 @@ turn_speed = 100
 script = ExtResource("11_dynar")
 
 [node name="goap_agent" type="Node" parent="."]
-process_mode = 4
 script = SubResource("GDScript_g145v")
-
-[node name="jumpscare" type="Node" parent="goap_agent"]
-process_mode = 4
-script = ExtResource("13_ipner")
-scream_sfx = SubResource("Resource_re18v")
-
-[node name="puzzle" type="Node" parent="goap_agent"]
-process_mode = 4
-script = ExtResource("13_boe7p")
 
 [node name="monster" type="Node" parent="goap_agent"]
 process_mode = 3
 script = ExtResource("16_0x1n3")
+
+[node name="jumpscare" type="Node" parent="goap_agent"]
+script = ExtResource("13_ipner")
+scream_sfx = SubResource("Resource_re18v")
+
+[node name="puzzle" type="Node" parent="goap_agent"]
+script = ExtResource("13_boe7p")
 
 [node name="debug_display" parent="." instance=ExtResource("15_hcd4e")]
 

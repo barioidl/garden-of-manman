@@ -1,4 +1,3 @@
-#@tool
 extends Node
 
 func list_of_states():pass

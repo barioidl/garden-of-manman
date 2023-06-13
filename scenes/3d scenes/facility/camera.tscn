@@ -16,5 +16,11 @@ frames = Array[Texture]([ExtResource("2_oe7cd"), ExtResource("3_syls5"), ExtReso
 [node name="camera" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
+cast_shadow = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_oe7cd")
 script = ExtResource("1_ov42e")
 sprites = SubResource("Resource_oqrwp")

@@ -5,7 +5,12 @@ func _name()->StringName:
 	return &'A reach destination'
 
 func is_valid(local_state:Dictionary)->bool:
-	return local_state.has(NL.destination)
+	var root = local_state[NL.root]
+	if cache_valid.has(root):
+		return cache_valid[root]
+	var _valid = local_state.has(NL.destination)
+	cache_valid[root] = _valid
+	return _valid
 
 func get_cost(local_state:Dictionary)->float:
 	return get_weight(0)
@@ -27,8 +32,9 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		var agent = Interface.attach_nav_agent(root,destination)
 		var next_pos :Vector3= agent.get_next_path_pos()
 		var final_pos = agent.get_final_pos()
-		if pos.distance_squared_to(final_pos) < 0.5:
+		if pos.distance_squared_to(final_pos) < 1:
 			agent.detach()
+			cache_valid[root] = false
 			return true
 		Interface.walk_to(root,next_pos)
 		Interface.turn_head(root,next_pos,1,0.1)

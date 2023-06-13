@@ -1,13 +1,14 @@
 extends Node
 
+var root
 @onready var agent = get_parent()
-@onready var root = $"../.."
 var target:Node3D
 
 @export var range:= 2.5
 var score := 0.0
 
-# Called when the node enters the scene tree for the first time.
+func _enter_tree() -> void:
+	root = get_parent().root
 func _ready() -> void:
 	if !can_process():
 		return
@@ -21,6 +22,7 @@ func _process(delta: float) -> void:
 
 func set_interface():
 	agent.set_local_state(NL.jumpscare,self)
+
 func get_target():
 	target = get_tree().get_first_node_in_group(NL.player)
 

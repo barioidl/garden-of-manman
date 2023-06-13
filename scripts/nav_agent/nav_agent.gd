@@ -83,7 +83,6 @@ func offset_height():
 	
 	cast_floor.force_raycast_update()
 	if !cast_floor.is_colliding():
-		nav_agent.agent_height_offset *= 0.99
 		return
 	var floor_point = cast_floor.get_collision_point()
 	var floor_dist = global_position.distance_to(floor_point)

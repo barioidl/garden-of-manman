@@ -74,6 +74,10 @@ func use_camera(layer_id:int,cam_id:int):
 	var rot = camera.global_rotation
 	body.global_position = pos
 	body.global_rotation = rot
+	
+#	var billboard_sprites = get_tree().get_nodes_in_group(NL.billboard_sprites)
+#	for sprite in billboard_sprites:
+#		sprite.cooldown = 0.1
 
 
 func _print(line:String):
@@ -93,11 +97,7 @@ func _ready() -> void:
 	set_interface()
 
 func _process(delta: float) -> void:
-	if current_user == null:
-		return
-	var dist_sq = current_user.global_position. distance_squared_to(global_position)
-	if dist_sq > interact_range * interact_range:
-		reject_user()
+	reject_user(delta)
 
 
 func set_interface():
@@ -115,8 +115,16 @@ func interact(user):
 	root.change_state(root.states.selecting)
 	current_user = _root
 
-func reject_user():
+var reject_cd := 0.0
+func reject_user(delta):
+	if reject_cd >0:
+		reject_cd -= delta
+		return
+	reject_cd = randf_range(0.4,0.6)
 	if current_user == null:
+		return
+	var dist_sq = current_user.global_position. distance_squared_to(global_position)
+	if dist_sq < interact_range * interact_range:
 		return
 	root.change_state(root.states.off)
 	PlayerInputs.attach_to(current_user)
@@ -453,9 +461,6 @@ transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 
 
 [node name="camera10" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
 transform = Transform3D(0.664463, 0.241845, 0.707107, -0.34202, 0.939692, 0, -0.664463, -0.241845, 0.707107, 37.127, 1.99423, 15.8077)
-
-[node name="camera11" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
-transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 86.9208, 1.99423, 6.08816)
 
 [node name="camera12" parent="floors/floor -4" instance=ExtResource("6_d3a33")]
 transform = Transform3D(-0.664463, -0.241845, -0.707107, -0.34202, 0.939692, 0, 0.664463, 0.241845, -0.707107, 7.6122, 1.73571, 0.426441)

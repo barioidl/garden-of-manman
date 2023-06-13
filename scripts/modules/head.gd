@@ -55,6 +55,8 @@ func connect_hotbar():
 
 func update_agent():
 	var agent := Interface.get_goap_agent(root)
+	if agent == null:
+		return
 	agent.set_local_state(NL.interact_range, interact_range)
 
 func set_interface():

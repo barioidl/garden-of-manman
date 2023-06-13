@@ -15,10 +15,12 @@ func priority(local_state:Dictionary)-> float:
 	var root = local_state[NL.root]
 	if cache_cost.has(root):
 		return cache_cost[root]
+		
 	var hunger = local_state[NL.hunger]
 	var max_hunger = local_state[NL.max_hunger]
 	var score = Curves.sample(1,3,hunger/max_hunger)
 	score *= get_weight(0)
+	
 	cache_cost[root] = score
 	return score 
 

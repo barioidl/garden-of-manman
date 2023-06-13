@@ -4,6 +4,8 @@ extends Node
 
 var def_range := 20.0
 var def_lifetime := 0.5
+var resolution := Vector3(5, 5, 5)
+
 
 func _print(line:String):
 	return
@@ -66,7 +68,7 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_co
 	if groups_size == 1:
 		return nearest_node3d_in_group(groups[0], pos, _range, custom_conds)
 	
-	var groups_name := str(pos.floor())
+	var groups_name := str(snapped(pos,resolution))
 	for group in groups:
 		groups_name += group
 	if custom_conds != def_conds:
@@ -99,7 +101,7 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 	if groups_size == 1:
 		return farest_node3d_in_group(groups[0], pos, _range, custom_conds)
 	
-	var groups_name := str(pos.floor())
+	var groups_name := str(snapped(pos,resolution))
 	for group in groups:
 		groups_name += group
 	if custom_conds != def_conds:
@@ -127,7 +129,7 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 
 
 func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_conds:Callable)-> Node3D:
-	var group_name := str(pos.floor()) + group
+	var group_name := str(snapped(pos,resolution)) + group
 	if custom_conds != def_conds:
 		group_name += custom_conds.get_method()
 	
@@ -142,7 +144,7 @@ func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_cond
 	return node
 
 func farest_node3d_in_group(group:String, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
-	var group_name := str(pos.floor()) + group
+	var group_name := str(snapped(pos,resolution)) + group
 	if custom_conds != def_conds:
 		group_name += custom_conds.get_method()
 	
