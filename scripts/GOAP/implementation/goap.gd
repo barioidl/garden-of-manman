@@ -38,10 +38,9 @@ func init_action_planner():
 		ActionTurnLightOn.new(),
 		ActionTurnLightOff.new(),
 		
-#		ActionScream.new(),
-#		ActionFaceTarget.new(),
-#		ActionAttackTarget.new(),
-#		ActionPuzzle.new(),
+		ActionHuntPrey.new(),
+		ActionChasePrey.new(),
+		ActionAttackPrey.new(),
 	]
 	for action in planner_actions:
 		action._load()

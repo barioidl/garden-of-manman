@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	if cd >0:
 		cd -= delta
 		return
-	var duration = randf_range(0.8,1.2)
+	var duration = randf_range(1,5)
 	cd = duration
 	cleanup_groups(duration)
 	cleanup_closest(duration)
@@ -71,8 +71,7 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_co
 	var groups_name := str(snapped(pos,resolution))
 	for group in groups:
 		groups_name += group
-	if custom_conds != def_conds:
-		groups_name += custom_conds.get_method()
+	groups_name += custom_conds.get_method()
 	
 	if closest_cache.has(groups_name):
 		var node = closest_cache[groups_name]
@@ -104,8 +103,7 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 	var groups_name := str(snapped(pos,resolution))
 	for group in groups:
 		groups_name += group
-	if custom_conds != def_conds:
-		groups_name += custom_conds.get_method()
+	groups_name += custom_conds.get_method()
 	
 	if farest_cache.has(groups_name):
 		var node = farest_cache[groups_name]
@@ -130,8 +128,7 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 
 func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_conds:Callable)-> Node3D:
 	var group_name := str(snapped(pos,resolution)) + group
-	if custom_conds != def_conds:
-		group_name += custom_conds.get_method()
+	group_name += custom_conds.get_method()
 	
 	if closest_cache.has(group_name):
 		var node = closest_cache[group_name]
@@ -145,8 +142,7 @@ func nearest_node3d_in_group(group:String, pos:Vector3, _range:float,custom_cond
 
 func farest_node3d_in_group(group:String, pos:Vector3, _range:float, custom_conds:Callable)-> Node3D:
 	var group_name := str(snapped(pos,resolution)) + group
-	if custom_conds != def_conds:
-		group_name += custom_conds.get_method()
+	group_name += custom_conds.get_method()
 	
 	if farest_cache.has(group_name):
 		var node = farest_cache[group_name]

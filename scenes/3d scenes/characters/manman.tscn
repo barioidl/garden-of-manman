@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bi85pq8ys3rxq"]
+[gd_scene load_steps=41 format=3 uid="uid://bi85pq8ys3rxq"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_ef07a"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_b5wiq"]
@@ -12,7 +12,6 @@
 [ext_resource type="Resource" uid="uid://bqambvukwurhq" path="res://data/audio/kill sfx.tres" id="8_h85l8"]
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="9_kdcl8"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="10_md03h"]
-[ext_resource type="Script" path="res://scripts/tags.gd" id="11_dynar"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="11_newbt"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="11_qhlc8"]
 [ext_resource type="AudioStream" uid="uid://bm44g8fpxx2nx" path="res://assets/audio/fl exported/spider hunt.ogg" id="12_hqwsp"]
@@ -246,7 +245,9 @@ func _ready() -> void:
 #		GoalTurnLightOn.new(),
 		GoalTurnLightOff.new(),
 		
-#		GoalPuzzle.new(),
+		GoalHuntPrey.new(),
+#		GoalChasePrey.new(),
+		GoalAttackPrey.new(),
 #		GoalJumpscare.new(),
 	]
 	
@@ -261,6 +262,12 @@ streams = Array[AudioStream]([ExtResource("12_hqwsp")])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_plrhc"]
 height = 2.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dd54"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uy5y8"]
+material = SubResource("StandardMaterial3D_0dd54")
 
 [sub_resource type="Resource" id="Resource_hd1to"]
 script = ExtResource("14_7ugkw")
@@ -278,7 +285,6 @@ extra_jumps = 0
 step_speed = 0.2
 
 [node name="stats" parent="." instance=ExtResource("4_t33xl")]
-hunger = 8.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("5_77jj2")]
 
@@ -295,9 +301,6 @@ hunt_sfx = ExtResource("7_pwdy1")
 kill_sfx = ExtResource("8_h85l8")
 turn_speed = 100
 
-[node name="tags" type="Node" parent="."]
-script = ExtResource("11_dynar")
-
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")
 
@@ -306,13 +309,16 @@ process_mode = 3
 script = ExtResource("16_0x1n3")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("13_ipner")
 scream_sfx = SubResource("Resource_re18v")
 
 [node name="puzzle" type="Node" parent="goap_agent"]
+process_mode = 4
 script = ExtResource("16_kpcpb")
 
 [node name="debug_display" parent="." instance=ExtResource("15_hcd4e")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.32, 0)
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
@@ -320,6 +326,9 @@ shape = SubResource("CapsuleShape3D_plrhc")
 script = ExtResource("9_kdcl8")
 average_size = Vector3(0.5, 2.4, 0.5)
 sneak_size = Vector3(1.2, 0.75, 1.2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="shape"]
+mesh = SubResource("CapsuleMesh_uy5y8")
 
 [node name="body" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -335,7 +344,9 @@ head_margin = 1.0
 [node name="hotbar" parent="body" instance=ExtResource("12_m7c2m")]
 
 [node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("head_bone")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+visible = false
 script = ExtResource("15_mi7sy")
 head_bone = NodePath("body")
 item_holders = Array[NodePath]([NodePath("body/right shoulder"), NodePath("body/left shoulder")])

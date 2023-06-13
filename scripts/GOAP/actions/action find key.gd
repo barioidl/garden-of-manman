@@ -32,9 +32,8 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root
 	var pos = root.global_position
 	var key = ProximityTool.get_closest_node3d(NL.keys, pos,1,key_check)
-	if key == null:
-		_print('no key?')
-		return false
+	if key == null:	return false
+	
 	var dist = key.global_position.distance_squared_to(pos)
 	var _range = local_state[NL.interact_range]
 	if dist >= _range*_range:
@@ -44,11 +43,13 @@ func perform(local_state:Dictionary,time:float)-> bool:
 		Interface.turn_head(root,key.global_position,1,0.2)
 		_print('walking toward key')
 		return false
-	Interface.interact_with(root,key,root)
+	
 	var nav_agent = Interface.get_nav_agent(root)
 	if nav_agent != null:
 		nav_agent.detach()
 	_print('key reached')
+	
+	Interface.interact_with(root,key,root)
 	return true
 
 func key_check(key:Node)->bool:

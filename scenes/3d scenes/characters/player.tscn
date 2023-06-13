@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dnwyoafck8xle"]
+[gd_scene load_steps=20 format=3 uid="uid://dnwyoafck8xle"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bstlq"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="1_s0o3g"]
@@ -40,6 +40,14 @@ func _ready() -> void:
 radius = 0.2
 height = 1.2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2ete"]
+albedo_color = Color(0, 1, 0.0509804, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ippak"]
+material = SubResource("StandardMaterial3D_j2ete")
+radius = 0.2
+height = 1.2
+
 [node name="player" type="RigidBody3D"]
 disable_mode = 1
 axis_lock_angular_x = true
@@ -58,6 +66,7 @@ jump_height = 4.0
 extra_jumps = 0
 
 [node name="stats" parent="." instance=ExtResource("3_iebvc")]
+hunger = 8.0
 
 [node name="fall_damage" parent="stats" instance=ExtResource("5_bvf82")]
 
@@ -81,6 +90,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_uh8a4")
 script = ExtResource("8_ihxnv")
 average_size = Vector3(0.2, 1.2, 0.2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="shape"]
+mesh = SubResource("CapsuleMesh_ippak")
 
 [node name="body" type="Node3D" parent="."]
 script = ExtResource("9_xmcsr")

@@ -89,15 +89,13 @@ light_energy = 0.2
 shadow_enabled = true
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.22239, 0, -39.8615)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.485525, 0, -21.5119)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.98553, 0, -34.0119)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")
-disable_goap = false
 
 [node name="tutorials" type="Node3D" parent="."]
 process_mode = 4
@@ -183,7 +181,7 @@ visible = false
 enable_on_load = true
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, -25)
 billboard = 1
 texture_filter = 0
 texture = ExtResource("6_jagio")

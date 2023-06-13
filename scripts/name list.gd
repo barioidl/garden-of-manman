@@ -40,6 +40,11 @@ var enemies := &'enemies'
 var predators := &'predator'
 var preys := &'prey'
 
+var prey_tension := &'prey_tension'
+var prey_distance := &'prey_distance'
+var prey_health := &'prey_health'
+
+
 var foods := &'foods'
 var drinks := &'drinks'
 var keys := &'keys'
@@ -50,7 +55,7 @@ var has_key := &'has_key'
 
 var interact_range := &'interact_range'
 
-#var interest := &'interest'
+var interest := &'interest'
 #var joy := &'joy'
 #var surprise := &'surprise'
 #var sadness := &'sadness'

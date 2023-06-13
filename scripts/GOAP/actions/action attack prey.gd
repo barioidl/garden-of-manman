@@ -1,8 +1,8 @@
 extends GOAPAction
-class_name ActionChasePrey
+class_name ActionAttackPrey
 
 func _name()->StringName:
-	return &'A chase prey'
+	return &'A attack prey'
 
 func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.preys)
@@ -15,7 +15,7 @@ func get_inputs(local_state:Dictionary)->Dictionary:
 
 func get_outputs(local_state:Dictionary)->Dictionary:
 	return{
-		NL.prey_distance: -1
+		NL.prey_health: -1
 	}
 
 func perform(local_state: Dictionary, dt: float)->bool:
@@ -41,4 +41,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	if nav_agent != null:
 		nav_agent.detach()
 	_print('prey reached')
+	
+	var damage := randi_range(3, 6)
+	Interface.change_health(prey, -damage)
 	return true

@@ -50,26 +50,31 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	var pos = root.global_position
 	var foods = local_state[NL.foods]
 	var food = ProximityTool.get_closest_node3d(foods, pos)
-	if food == null:
-		_print('what food?')
-		return false
-	var dist = pos.distance_squared_to(food.global_position)
+	if food == null:	return false
+	
+	var food_pos = food.global_position
+	var dist = pos.distance_squared_to(food_pos)
 	var _range = local_state[NL.interact_range]
 	if dist >= _range*_range:
 		var agent := Interface.attach_nav_agent(root,food)
 		var next_pos = agent.get_next_path_pos()
+		
 		var final_pos = agent.get_final_pos()
-		if final_pos.distance_squared_to(food) > 0.5:
+		if final_pos.distance_squared_to(food_pos) > 0.5:
 			cache_cost[root] = 0
 			return true
+		
 		Interface.walk_to(root,next_pos)
 		Interface.turn_head(root,food.global_position)
 		_print('walking toward food')
 		return false
+	
 	var nav_agent = Interface.get_nav_agent(root)
 	if nav_agent != null:
 		nav_agent.detach()
 	_print('food reached')
+	
+	Interface.interact_with(root,food,root)
 	return true
 
 
