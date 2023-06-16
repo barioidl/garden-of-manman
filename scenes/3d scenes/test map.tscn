@@ -92,7 +92,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.22239, 0, -39.8615)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.98553, 0, -34.0119)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.40219, 0, -26.8833)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("3_65qyn")

@@ -268,6 +268,7 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_uy5y8"]
 material = SubResource("StandardMaterial3D_0dd54")
+height = 2.4
 
 [sub_resource type="Resource" id="Resource_hd1to"]
 script = ExtResource("14_7ugkw")

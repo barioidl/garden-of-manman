@@ -52,9 +52,9 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	Interface.interact_with(root,key,root)
 	return true
 
-func key_check(key:Node)->bool:
+func key_check(key:Node, range:float)->bool:
 	return key.is_in_overworld
 
 func _print(line):
-#	return
+	return
 	print(line)

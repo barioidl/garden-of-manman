@@ -39,7 +39,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	agent.set_local_state(NL.unique_steps,false)
 	return true
 
-func is_light_on(light)-> bool:
+func is_light_on(light, range)-> bool:
 	return light.button_pressed
 
 func _print(line:String):

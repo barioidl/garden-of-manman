@@ -61,7 +61,7 @@ func get_hotbar_keys(root)->Array:
 		result.append(key)
 	return result
 
-func is_lock_open(lock:Node,keys:Array)->bool:
+func is_lock_open(lock:Node, range:float, keys:Array)->bool:
 	var password_matched := false
 	for key in keys:
 		if key.password != lock.password:	continue

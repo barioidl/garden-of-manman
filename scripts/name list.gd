@@ -79,6 +79,15 @@ var elevator_closed := &'elevator_closed'
 var door_close := &'door_close'
 var lights_on := &'lights_on'
 
+var senses := &'senses'
+var sight := &'sight'
+var motion := &'motion'
+var sound := &'sound'
+var smell := &'smell'
+var taste := &'taste'
+var tounch := &'tounch'
+
+
 #var creativity := &'creativity'
 #var curiosity := &'curiosity'
 #var integrity := &'integrity'

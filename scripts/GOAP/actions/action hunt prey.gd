@@ -22,7 +22,8 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	var root = local_state.root
 	var pos :Vector3= root.global_position
 	var preys = local_state[NL.preys]
-	var prey = ProximityTool.get_closest_node3d(preys, pos)
+	var detect_ranges := bake_detections(local_state)
+	var prey = ProximityTool.get_closest_node3d(preys, pos,1, can_spot_prey.bindv(detect_ranges))
 	if prey == null:
 		_print('no prey to attack')
 		return true
@@ -42,3 +43,32 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		nav_agent.detach()
 	_print('prey reached')
 	return true
+
+func bake_detections(local_state:Dictionary)->Array:
+	var sensors := [0,0,0]
+	if local_state.has(NL.sight):
+		sensors[0] = local_state[NL.sight]
+	if local_state.has(NL.motion):
+		sensors[1] = local_state[NL.motion]
+	if local_state.has(NL.sound):
+		sensors[2] = local_state[NL.sound]
+	return sensors
+
+func can_spot_prey(prey:Node, range:float,
+ sight:float, motion:float, sound:float )->bool:
+	if sight > 0:
+		if range < sight * sight:
+			return true
+	if motion > 0:
+		if range < motion * motion:
+			if prey.linear_velocity != Vector3.ZERO:
+				_print('prey moving')
+				return true
+	if sound > 0:
+		if range < sound * sound:
+			return true
+	return false
+
+func _print(line):
+#	return
+	print(line)

@@ -39,7 +39,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		nav_agent.detach()
 	return true
 
-func is_light_off(light)-> bool:
+func is_light_off(light,range)-> bool:
 	return !light.button_pressed
 
 

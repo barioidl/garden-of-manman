@@ -4,7 +4,7 @@ extends Node
 
 var def_range := 20.0
 var def_lifetime := 0.5
-var resolution := Vector3(5, 5, 5)
+var resolution := Vector3(3, 3, 3)
 
 
 func _print(line:String):
@@ -84,10 +84,10 @@ func nearest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_co
 	for group in groups:
 		var node = closest_node3d(group, pos, _range, custom_conds)
 		if node == null:continue
-		var dist = pos.distance_squared_to(node.global_position)
-		if dist >= nearest_distance:continue
-		if !custom_conds.call(node):continue
-		nearest_distance = dist
+		var dist_sq = pos.distance_squared_to(node.global_position)
+		if dist_sq >= nearest_distance:continue
+		if !custom_conds.call(node, dist_sq):continue
+		nearest_distance = dist_sq
 		closest_node = node
 	_print('use new closest 3d node')
 	closest_cache[groups_name] = closest_node
@@ -116,10 +116,10 @@ func farest_node3d_in_groups(groups:Array, pos:Vector3, _range:float, custom_con
 	for group in groups:
 		var node = closest_node3d(group, pos, _range, custom_conds)
 		if node == null:continue
-		var dist = pos.distance_squared_to(node.global_position)
-		if dist <= farest_distance:continue
-		if !custom_conds.call(node):continue
-		farest_distance = dist
+		var dist_sq = pos.distance_squared_to(node.global_position)
+		if dist_sq <= farest_distance:continue
+		if !custom_conds.call(node, dist_sq):continue
+		farest_distance = dist_sq
 		farest_node = node
 	_print('use new farest 3d node')
 	farest_cache[groups_name] = farest_node
@@ -165,7 +165,7 @@ func closest_node3d(group:StringName, position:Vector3, max_distance:float, cust
 		var pos = node.global_position
 		var dist_sq = position.distance_squared_to(pos)
 		if dist_sq >= min_distance_sq:continue
-		if !custom_conds.call(node):continue
+		if !custom_conds.call(node, dist_sq):continue
 		min_distance_sq = dist_sq
 		closest_node = node
 	return closest_node
@@ -182,7 +182,7 @@ func farest_node3d(group:StringName, position:Vector3, max_distance:float, custo
 		var dist_sq = position.distance_squared_to(pos)
 		if dist_sq >= max_distance:continue
 		if dist_sq <= max_dist:continue
-		if !custom_conds.call(node):continue
+		if !custom_conds.call(node, dist_sq):continue
 		max_dist = dist_sq
 		farest_node = node
 	return farest_node
@@ -211,5 +211,5 @@ func cleanup_farest(delta):
 	farest_cache.clear()
 
 
-func def_conds(node:Node3D)->bool:
+func def_conds(node:Node3D,dist_sq:float)->bool:
 	return true
