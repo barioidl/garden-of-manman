@@ -8,7 +8,7 @@ func is_valid(local_state:Dictionary)->bool:
 	return local_state.has(NL.preys)
 
 func get_cost(local_state:Dictionary)->float:
-	return get_weight(0)
+	return get_weight(0) * 5
 
 func get_inputs(local_state:Dictionary)->Dictionary:
 	return{}

@@ -181,16 +181,16 @@ func get_suitable_actions(id, key, result, local_state: Dictionary)->Array:
 func select_plan(available_plans: Array, local_state: Dictionary)->Array:
 	var size = available_plans.size()
 	if size <= 0: return []
-	if size ==1:
+	if size == 1:
 		return available_plans[0][index.plan]
+	
+	var max_options:int=local_state[NL.goal_options]
 	available_plans.sort_custom(plan_sort)
-	
-	var max_options:int=local_state[NL.plan_width]
-	if max_options <=1:
+	if max_options == 1:
 		return available_plans[0][index.plan]
 	
-	max_options = mini(max_options,size)
-	var id = randi_range(0,max_options-1)
+	max_options = mini(max_options, size-1)
+	var id = randi_range(0, max_options)
 	return available_plans[id][index.plan]
 
 func plan_sort(a,b)->bool:

@@ -26,7 +26,9 @@ var current_step:=0
 enum a_states{start,perform,end}
 var action_state:= a_states.start
 
-@export var planner_limits:=Vector2(3,6)
+@export var goal_options := 2
+@export var plan_width := 3
+@export var plan_depth := 6
 var loop_plan:= false
 
 @export var show_local_state := false
@@ -85,8 +87,9 @@ func init_local_state():
 	set_local_state(NL.root,root)
 	set_local_state(NL.agent,self)
 	set_local_state(NL.unique_steps,false)
-	set_local_state(NL.plan_width,planner_limits.x)
-	set_local_state(NL.plan_depth,planner_limits.y)
+	set_local_state(NL.goal_options,goal_options)
+	set_local_state(NL.plan_width,plan_width)
+	set_local_state(NL.plan_depth,plan_depth)
 
 func set_local_state(key,value):
 	if local_state.has(key):

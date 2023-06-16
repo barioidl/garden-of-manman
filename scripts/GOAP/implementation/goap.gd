@@ -38,8 +38,8 @@ func init_action_planner():
 		ActionTurnLightOn.new(),
 		ActionTurnLightOff.new(),
 		
-		ActionHuntPrey.new(),
 		ActionChasePrey.new(),
+		ActionChasePreySound.new(),
 		ActionAttackPrey.new(),
 	]
 	for action in planner_actions:

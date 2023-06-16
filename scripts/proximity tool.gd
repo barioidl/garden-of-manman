@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	if cd >0:
 		cd -= delta
 		return
-	var duration = randf_range(1,5)
+	var duration = randf_range(0.8,1.2)
 	cd = duration
 	cleanup_groups(duration)
 	cleanup_closest(duration)

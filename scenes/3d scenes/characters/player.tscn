@@ -77,6 +77,7 @@ extra_jumps = 0
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_j6qpi")
+planner_limits = null
 
 [node name="human" type="Node" parent="goap_agent"]
 script = ExtResource("12_1k2w5")

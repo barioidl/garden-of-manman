@@ -19,7 +19,7 @@ func priority(local_state:Dictionary)-> float:
 		cache_cost[root] = 0
 		return 0
 	
-	var _range := 15.0 * get_weight(0)
+	var _range := 20.0 * get_weight(0)
 	var dist = pos.distance_to(prey.global_position)
 	dist = 1 - clampf(dist/_range,0,1)
 	var _priority = Curves.sample(4,4,dist)

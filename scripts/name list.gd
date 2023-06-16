@@ -18,6 +18,7 @@ var jumpscare := &'jumpscare'
 var puzzle := &'puzzle'
 var playing := &'playing'
 
+var goal_options := &'goal_options'
 var plan_width := &'plan_width'
 var plan_depth := &'plan_depth'
 var unique_steps := &'unique_steps'
@@ -40,7 +41,7 @@ var enemies := &'enemies'
 var predators := &'predator'
 var preys := &'prey'
 
-var prey_tension := &'prey_tension'
+#var prey_tension := &'prey_tension'
 var prey_distance := &'prey_distance'
 var prey_health := &'prey_health'
 
@@ -98,6 +99,11 @@ var tounch := &'tounch'
 #var bravery := &'bravery'
 
 func list_of_group_names():pass
+var audio_player := &'audio_player' 
+var audio_player_2d := &'audio_player_2d' 
+var audio_player_3d := &'audio_player_3d' 
+
+
 var player := &'player'
 var character := &'character'
 

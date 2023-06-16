@@ -245,8 +245,7 @@ func _ready() -> void:
 #		GoalTurnLightOn.new(),
 		GoalTurnLightOff.new(),
 		
-		GoalHuntPrey.new(),
-#		GoalChasePrey.new(),
+		GoalChasePrey.new(),
 		GoalAttackPrey.new(),
 #		GoalJumpscare.new(),
 	]
@@ -304,6 +303,7 @@ turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")
+planner_limits = null
 
 [node name="monster" type="Node" parent="goap_agent"]
 process_mode = 3

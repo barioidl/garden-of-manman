@@ -75,7 +75,7 @@ func attach_nav_agent(body:Node3D,target) -> NavAgent:
 	agent.set_target(target)
 	return agent
 
-func get_nav_agent(body:Node3D) -> Node3D:
+func get_nav_agent(body:Node3D) -> NavAgent:
 	if !body.has_meta(NL.get_nav_agent):
 		return null
 	var meta = body.get_meta(NL.get_nav_agent)

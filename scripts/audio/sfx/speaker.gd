@@ -6,7 +6,7 @@ func _ready() -> void:
 	connect('finished',finished) # Replace with function body.
 
 func play_sfx(audio):
-	add_to_group('audio_player')
+	add_to_group(NL.audio_player)
 	stream = audio
 	play()
 
