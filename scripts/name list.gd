@@ -82,7 +82,7 @@ var lights_on := &'lights_on'
 
 var senses := &'senses'
 var sight := &'sight'
-var motion := &'motion'
+var motion_sense := &'motion_sense'
 var sound := &'sound'
 var smell := &'smell'
 var taste := &'taste'

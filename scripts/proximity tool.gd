@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 
 
 func get_closest_node3d(groups, pos:Vector3, _range:=1.0, custom_conds:=def_conds)-> Node3D:
-	_range = _range * def_range
+	_range = def_range
 	if groups is String or groups is StringName:
 		return nearest_node3d_in_group(groups, pos, _range, custom_conds)
 	if groups is Array:
@@ -53,7 +53,7 @@ func get_closest_node3d(groups, pos:Vector3, _range:=1.0, custom_conds:=def_cond
 
 
 func get_farest_node3d(groups, pos:Vector3, _range:=1.0, custom_conds:=def_conds)-> Node3D:
-	_range = _range * def_range
+	_range = def_range
 	if groups is String or groups is StringName:
 		return farest_node3d_in_group(groups, pos, _range, custom_conds)
 	if groups is Array:

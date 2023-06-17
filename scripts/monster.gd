@@ -17,7 +17,7 @@ func _ready() -> void:
 	agent.set_local_state(NL.destination, root.global_position)
 	
 #	agent.set_local_state(NL.sight,20)
-	agent.set_local_state(NL.motion,20)
+	agent.set_local_state(NL.motion_sense,5)
 #	agent.set_local_state(NL.sound,20)
 	
 #	agent.set_local_state(NL.smell,1)

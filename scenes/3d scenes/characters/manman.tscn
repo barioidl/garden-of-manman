@@ -263,7 +263,7 @@ streams = Array[AudioStream]([ExtResource("12_hqwsp")])
 height = 2.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dd54"]
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(1, 0, 0.815686, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_uy5y8"]
 material = SubResource("StandardMaterial3D_0dd54")
@@ -303,7 +303,6 @@ turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
 script = SubResource("GDScript_g145v")
-planner_limits = null
 
 [node name="monster" type="Node" parent="goap_agent"]
 process_mode = 3

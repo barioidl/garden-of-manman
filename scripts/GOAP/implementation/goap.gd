@@ -40,6 +40,7 @@ func init_action_planner():
 		
 		ActionChasePrey.new(),
 		ActionChasePreySound.new(),
+		ActionChaseMovingPrey.new(),
 		ActionAttackPrey.new(),
 	]
 	for action in planner_actions:
