@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=3 format=3 uid="uid://uvy2cwjcfxec"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_0uqw2"]
+[ext_resource type="AudioStream" uid="uid://dkyvligr18156" path="res://assets/audio/zapsplat/gain_walkers_OLD_STUFF_Elevator_Door_Open_02.mp3" id="2_i2r3j"]
+
+[resource]
+script = ExtResource("1_0uqw2")
+pitch_range = Vector2(4, 5)
+volume_range = Vector2(-5, 1)
+streams = Array[AudioStream]([ExtResource("2_i2r3j")])

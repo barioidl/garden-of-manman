@@ -5,6 +5,8 @@ func _ready() -> void:
 
 func set_button_color():
 	var locked = $"../..".locked
-	var mat = material_override.duplicate()
-	mat.albedo_color = Color.DARK_RED if locked else Color.RED
+	var mat :ShaderMaterial= material_override.duplicate()
+	var color = Color.DARK_RED if locked else Color.RED
+	mat.set("shader_parameter/albedo",color)
 	material_override = mat
+

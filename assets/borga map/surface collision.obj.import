@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dlcr0i6m4ubyt"
+path="res://.godot/imported/surface collision.obj-f41e01fa5483d2f41488090cdf15f557.mesh"
+
+[deps]
+
+files=["res://.godot/imported/surface collision.obj-f41e01fa5483d2f41488090cdf15f557.mesh"]
+
+source_file="res://assets/borga map/surface collision.obj"
+dest_files=["res://.godot/imported/surface collision.obj-f41e01fa5483d2f41488090cdf15f557.mesh", "res://.godot/imported/surface collision.obj-f41e01fa5483d2f41488090cdf15f557.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

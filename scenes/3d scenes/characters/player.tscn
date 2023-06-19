@@ -91,6 +91,7 @@ script = ExtResource("8_ihxnv")
 average_size = Vector3(0.2, 1.2, 0.2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="shape"]
+visible = false
 mesh = SubResource("CapsuleMesh_ippak")
 
 [node name="body" type="Node3D" parent="."]

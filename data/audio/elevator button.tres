@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioList" load_steps=3 format=3 uid="uid://dh7rwra4eacev"]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="1_tcyby"]
+[ext_resource type="AudioStream" uid="uid://bvcxmtudo0d1x" path="res://assets/audio/zapsplat/industrial_elevator_button_call_press.mp3" id="2_3ycwg"]
+
+[resource]
+script = ExtResource("1_tcyby")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-3, 1)
+streams = Array[AudioStream]([ExtResource("2_3ycwg")])

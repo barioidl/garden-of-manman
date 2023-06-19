@@ -1,111 +1,25 @@
-[gd_scene load_steps=48 format=3 uid="uid://bdygo1vh3hoq"]
+[gd_scene load_steps=46 format=3 uid="uid://bdygo1vh3hoq"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_jx5q0"]
 [ext_resource type="ArrayMesh" uid="uid://c8nmbyahwi26a" path="res://assets/borga map/elevator.obj" id="2_jecrp"]
 [ext_resource type="Script" path="res://scripts/elevator/platform.gd" id="3_3jgmf"]
+[ext_resource type="Material" uid="uid://ccmljv86hpctm" path="res://materials/pillar material.tres" id="3_6ko37"]
 [ext_resource type="PackedScene" uid="uid://bca8j52nv1qj7" path="res://scripts/elevator/floor button.tscn" id="3_aj3yc"]
-[ext_resource type="Texture2D" uid="uid://bf7lsm3w7awfv" path="res://assets/little-martian, retro-texture-pack-v9/png/SUPPORT_1C.png" id="3_bq3ub"]
 [ext_resource type="Script" path="res://scripts/elevator/floor button panel.gd" id="3_brxvl"]
 [ext_resource type="Script" path="res://scripts/elevator/control panel.gd" id="3_e65bw"]
 [ext_resource type="Script" path="res://scripts/elevator/elevator.gd" id="3_l2rnb"]
+[ext_resource type="Texture2D" uid="uid://bgcuhihp4p7k6" path="res://assets/little-martian, retro-texture-pack-v9/png/RIVET_1B.png" id="4_yltq3"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="6_htxwi"]
+[ext_resource type="Resource" uid="uid://uvy2cwjcfxec" path="res://data/audio/elevator door slide.tres" id="6_lswlq"]
 [ext_resource type="Texture2D" uid="uid://ch0hl03ujsslv" path="res://assets/little-martian, retro-texture-pack-v9/png/GRID_1C.png" id="7_l48hf"]
 [ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="7_rxrbm"]
 [ext_resource type="Texture2D" uid="uid://cxbfp5j2404v" path="res://assets/little-martian, retro-texture-pack-v9/png/CRATE_1L.png" id="8_v5ru8"]
 [ext_resource type="Texture2D" uid="uid://btix108agxbed" path="res://assets/little-martian, retro-texture-pack-v9/png/SUPPORT_2B.png" id="10_7o8l8"]
 [ext_resource type="Script" path="res://scripts/elevator/floor doors.gd" id="10_t1owg"]
+[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="10_tq8n2"]
 [ext_resource type="PackedScene" uid="uid://cmi132ifn1jtu" path="res://scripts/elevator/floor_door.tscn" id="11_bsagr"]
-
-[sub_resource type="Shader" id="Shader_mf78y"]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
-
-shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
-uniform vec4 albedo : source_color;
-uniform sampler2D texture_albedo : source_color,filter_nearest,repeat_enable;
-uniform float roughness : hint_range(0,1);
-uniform sampler2D texture_metallic : hint_default_white,filter_nearest,repeat_enable;
-uniform vec4 metallic_texture_channel;
-uniform sampler2D texture_roughness : hint_roughness_gray,filter_nearest,repeat_enable;
-uniform float specular;
-uniform float metallic;
-uniform sampler2D texture_emission : source_color, hint_default_black,filter_nearest,repeat_enable;
-uniform vec4 emission : source_color;
-uniform float emission_energy;
-uniform float rim : hint_range(0,1);
-uniform float rim_tint : hint_range(0,1);
-uniform sampler2D texture_rim : hint_default_white,filter_nearest,repeat_enable;
-varying vec3 uv1_triplanar_pos;
-uniform float uv1_blend_sharpness;
-varying vec3 uv1_power_normal;
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-
-
-void vertex() {
-	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
-	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.y);
-	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.z);
-	TANGENT = normalize(TANGENT);
-	BINORMAL = vec3(0.0,1.0,0.0) * abs(NORMAL.x);
-	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(NORMAL.y);
-	BINORMAL+= vec3(0.0,1.0,0.0) * abs(NORMAL.z);
-	BINORMAL = normalize(BINORMAL);
-	uv1_power_normal=pow(abs(NORMAL),vec3(uv1_blend_sharpness));
-	uv1_triplanar_pos = VERTEX * uv1_scale + uv1_offset;
-	uv1_power_normal/=dot(uv1_power_normal,vec3(1.0));
-	uv1_triplanar_pos *= vec3(1.0,-1.0, 1.0);
-}
-
-
-
-
-vec4 triplanar_texture(sampler2D p_sampler,vec3 p_weights,vec3 p_triplanar_pos) {
-	vec4 samp=vec4(0.0);
-	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
-	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
-	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
-	return samp;
-}
-
-
-void fragment() {
-	vec4 albedo_tex = triplanar_texture(texture_albedo,uv1_power_normal,uv1_triplanar_pos);
-	albedo_tex *= COLOR;
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-	float metallic_tex = dot(triplanar_texture(texture_metallic,uv1_power_normal,uv1_triplanar_pos),metallic_texture_channel);
-	METALLIC = metallic_tex * metallic;
-	vec4 roughness_texture_channel = vec4(0.333333,0.333333,0.333333,0.0);
-	float roughness_tex = dot(triplanar_texture(texture_roughness,uv1_power_normal,uv1_triplanar_pos),roughness_texture_channel);
-	ROUGHNESS = roughness_tex * roughness;
-	SPECULAR = specular;
-	vec3 emission_tex = triplanar_texture(texture_emission,uv1_power_normal,uv1_triplanar_pos).rgb;
-	EMISSION = (emission.rgb*emission_tex)*emission_energy;
-	vec2 rim_tex = triplanar_texture(texture_rim,uv1_power_normal,uv1_triplanar_pos).xy;
-	RIM = rim*rim_tex.x;	RIM_TINT = rim_tint*rim_tex.y;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_582qx"]
-render_priority = 0
-shader = SubResource("Shader_mf78y")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.01
-shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 0.2
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
-shader_parameter/rim = 0.5
-shader_parameter/rim_tint = 0.5
-shader_parameter/uv1_blend_sharpness = 20.0
-shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
-shader_parameter/uv1_offset = Vector3(0.11, 0, 0)
-shader_parameter/texture_albedo = ExtResource("3_bq3ub")
-shader_parameter/texture_metallic = ExtResource("3_bq3ub")
-shader_parameter/texture_roughness = ExtResource("3_bq3ub")
-shader_parameter/texture_emission = ExtResource("3_bq3ub")
-shader_parameter/texture_rim = ExtResource("3_bq3ub")
+[ext_resource type="AudioStream" uid="uid://bddf2mqrc4d4g" path="res://assets/audio/zapsplat/west_wolf_Elevator_interior_1.mp3" id="11_igy4c"]
+[ext_resource type="Texture2D" uid="uid://c3f65us7q58gl" path="res://assets/little-martian, retro-texture-pack-v9/png/GRID_1B.png" id="13_lqocn"]
 
 [sub_resource type="Shader" id="Shader_usa7s"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -177,26 +91,14 @@ void fragment() {
 }
 "
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1fb2b"]
-load_path = "res://.godot/imported/SUPPORT_1A.png-cf4af5f1df1a96a944d7a60e2c9b8198.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dren2"]
-load_path = "res://.godot/imported/SUPPORT_1A.png-cf4af5f1df1a96a944d7a60e2c9b8198.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pvpqr"]
-load_path = "res://.godot/imported/SUPPORT_1A.png-cf4af5f1df1a96a944d7a60e2c9b8198.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3slbu"]
-load_path = "res://.godot/imported/SUPPORT_1A.png-cf4af5f1df1a96a944d7a60e2c9b8198.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5jb2l"]
 render_priority = 0
 shader = SubResource("Shader_usa7s")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.01
+shader_parameter/roughness = 0.1
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
-shader_parameter/specular = 0.0
-shader_parameter/metallic = 0.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.5
 shader_parameter/emission = null
 shader_parameter/emission_energy = null
 shader_parameter/rim = 0.5
@@ -204,20 +106,145 @@ shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 20.0
 shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
 shader_parameter/uv1_offset = Vector3(0.24, 0, 0)
-shader_parameter/texture_albedo = ExtResource("3_bq3ub")
-shader_parameter/texture_metallic = SubResource("CompressedTexture2D_dren2")
-shader_parameter/texture_roughness = SubResource("CompressedTexture2D_3slbu")
-shader_parameter/texture_emission = SubResource("CompressedTexture2D_1fb2b")
-shader_parameter/texture_rim = SubResource("CompressedTexture2D_pvpqr")
+shader_parameter/texture_albedo = ExtResource("4_yltq3")
+shader_parameter/texture_metallic = ExtResource("4_yltq3")
+shader_parameter/texture_roughness = ExtResource("4_yltq3")
+shader_parameter/texture_emission = ExtResource("4_yltq3")
+shader_parameter/texture_rim = ExtResource("4_yltq3")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6w6dv"]
 size = Vector3(3.6, 0.1, 3.6)
+
+[sub_resource type="GDScript" id="GDScript_23c14"]
+script/source = "extends CollisionShape3D
+
+@export var travel_sfx:AudioList 
+var traveling := false
+
+func _ready() -> void:
+	var platform = get_parent()
+	platform.connect('elevator_start',elevator_start)
+	platform.connect('elevator_stop',elevator_stop)
+
+var audio_player:AudioStreamPlayer3D
+var tween:Tween
+
+func elevator_start():
+	_print('start playing sfx')
+	traveling = true
+	create_sound()
+	tween = create_tween()
+	tween.tween_method(move_speaker,0,1,10)
+
+func elevator_stop():
+	_print('stop playing sfx')
+	traveling = false
+	tween.kill()
+	if audio_player != null:
+		audio_player.stop()
+		audio_player = null
+
+func create_sound():
+	var pos = global_position
+	audio_player = AudioPool.create_sound_3d(pos,travel_sfx)
+	audio_player.connect('finished',on_player_finished)
+
+func move_speaker(delta):
+	audio_player.position = global_position
+	_print('moving speaker')
+
+func on_player_finished():
+	audio_player.disconnect('finished',on_player_finished)
+	if !traveling:
+		return
+	create_sound()
+
+func _print(line):
+#	return
+	print(line)
+"
+
+[sub_resource type="Resource" id="Resource_fanwo"]
+script = ExtResource("10_tq8n2")
+pitch_range = Vector2(1, 1.5)
+volume_range = Vector2(5, 10)
+streams = Array[AudioStream]([ExtResource("11_igy4c")])
+
+[sub_resource type="Shader" id="Shader_mf78y"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_nearest,repeat_enable;
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_nearest,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_gray,filter_nearest,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform sampler2D texture_emission : source_color, hint_default_black,filter_nearest,repeat_enable;
+uniform vec4 emission : source_color;
+uniform float emission_energy;
+uniform float rim : hint_range(0,1);
+uniform float rim_tint : hint_range(0,1);
+uniform sampler2D texture_rim : hint_default_white,filter_nearest,repeat_enable;
+varying vec3 uv1_triplanar_pos;
+uniform float uv1_blend_sharpness;
+varying vec3 uv1_power_normal;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+
+
+void vertex() {
+	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.y);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.z);
+	TANGENT = normalize(TANGENT);
+	BINORMAL = vec3(0.0,1.0,0.0) * abs(NORMAL.x);
+	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(NORMAL.y);
+	BINORMAL+= vec3(0.0,1.0,0.0) * abs(NORMAL.z);
+	BINORMAL = normalize(BINORMAL);
+	uv1_power_normal=pow(abs(NORMAL),vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = VERTEX * uv1_scale + uv1_offset;
+	uv1_power_normal/=dot(uv1_power_normal,vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0,-1.0, 1.0);
+}
+
+
+
+
+vec4 triplanar_texture(sampler2D p_sampler,vec3 p_weights,vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo,uv1_power_normal,uv1_triplanar_pos);
+	albedo_tex *= COLOR;
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(triplanar_texture(texture_metallic,uv1_power_normal,uv1_triplanar_pos),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(0.333333,0.333333,0.333333,0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness,uv1_power_normal,uv1_triplanar_pos),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	vec3 emission_tex = triplanar_texture(texture_emission,uv1_power_normal,uv1_triplanar_pos).rgb;
+	EMISSION = (emission.rgb*emission_tex)*emission_energy;
+	vec2 rim_tex = triplanar_texture(texture_rim,uv1_power_normal,uv1_triplanar_pos).xy;
+	RIM = rim*rim_tex.x;	RIM_TINT = rim_tint*rim_tex.y;
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vsybi"]
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.05
+shader_parameter/roughness = 0.4
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
 shader_parameter/specular = 0.0
 shader_parameter/metallic = 0.0
@@ -229,10 +256,10 @@ shader_parameter/uv1_blend_sharpness = 20.0
 shader_parameter/uv1_scale = Vector3(0.425, 0.425, 0.425)
 shader_parameter/uv1_offset = Vector3(0.235, 0, 0.235)
 shader_parameter/texture_albedo = ExtResource("7_l48hf")
-shader_parameter/texture_metallic = ExtResource("7_l48hf")
-shader_parameter/texture_roughness = ExtResource("7_l48hf")
-shader_parameter/texture_emission = ExtResource("7_l48hf")
-shader_parameter/texture_rim = ExtResource("7_l48hf")
+shader_parameter/texture_metallic = ExtResource("13_lqocn")
+shader_parameter/texture_roughness = ExtResource("13_lqocn")
+shader_parameter/texture_emission = ExtResource("13_lqocn")
+shader_parameter/texture_rim = ExtResource("13_lqocn")
 
 [sub_resource type="BoxMesh" id="BoxMesh_elekl"]
 material = SubResource("ShaderMaterial_vsybi")
@@ -311,23 +338,11 @@ void fragment() {
 }
 "
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kfaqw"]
-load_path = "res://.godot/imported/DOOR_2B.png-f039039502c06e292f38e162d068c0f4.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s5ark"]
-load_path = "res://.godot/imported/DOOR_2B.png-f039039502c06e292f38e162d068c0f4.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_in463"]
-load_path = "res://.godot/imported/DOOR_2B.png-f039039502c06e292f38e162d068c0f4.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k328k"]
-load_path = "res://.godot/imported/DOOR_2B.png-f039039502c06e292f38e162d068c0f4.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_180oe"]
 render_priority = 0
 shader = SubResource("Shader_e0nbi")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.01
+shader_parameter/roughness = 0.5
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
 shader_parameter/specular = 0.0
 shader_parameter/metallic = 0.0
@@ -339,10 +354,10 @@ shader_parameter/uv1_blend_sharpness = 20.0
 shader_parameter/uv1_scale = Vector3(0.28, 0.28, 0.28)
 shader_parameter/uv1_offset = Vector3(0.5, 0.5, 0.5)
 shader_parameter/texture_albedo = ExtResource("8_v5ru8")
-shader_parameter/texture_metallic = SubResource("CompressedTexture2D_s5ark")
-shader_parameter/texture_roughness = SubResource("CompressedTexture2D_k328k")
-shader_parameter/texture_emission = SubResource("CompressedTexture2D_kfaqw")
-shader_parameter/texture_rim = SubResource("CompressedTexture2D_in463")
+shader_parameter/texture_metallic = ExtResource("8_v5ru8")
+shader_parameter/texture_roughness = ExtResource("8_v5ru8")
+shader_parameter/texture_emission = ExtResource("8_v5ru8")
+shader_parameter/texture_rim = ExtResource("8_v5ru8")
 
 [sub_resource type="BoxMesh" id="BoxMesh_d64cm"]
 material = SubResource("ShaderMaterial_180oe")
@@ -355,7 +370,7 @@ size = Vector3(3.6, 0.1, 3)
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.01
+shader_parameter/roughness = 0.5
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.2
@@ -468,7 +483,7 @@ load_path = "res://.godot/imported/SUPPORT_1A.png-cf4af5f1df1a96a944d7a60e2c9b81
 render_priority = 0
 shader = SubResource("Shader_1rog4")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.01
+shader_parameter/roughness = 0.5
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
 shader_parameter/specular = 0.0
 shader_parameter/metallic = 0.0
@@ -499,21 +514,22 @@ script = ExtResource("1_jx5q0")
 
 [node name="Elevator" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 0, 20)
+visible = false
 mesh = ExtResource("2_jecrp")
-surface_material_override/0 = SubResource("ShaderMaterial_582qx")
+surface_material_override/0 = ExtResource("3_6ko37")
 surface_material_override/1 = SubResource("ShaderMaterial_5jb2l")
 
 [node name="elevator" type="Node3D" parent="."]
 script = ExtResource("3_l2rnb")
 
 [node name="platform" type="AnimatableBody3D" parent="elevator"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 script = ExtResource("3_3jgmf")
 doors = Array[NodePath]([NodePath("door panel"), NodePath("door panel2")])
 speed = 2.0
+slide_sfx = ExtResource("6_lswlq")
 
 [node name="control panel" type="Marker3D" parent="elevator/platform"]
-transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 1, 0.75, -1.75)
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0.6, -1.75)
 script = ExtResource("3_e65bw")
 
 [node name="ceiling lamp" parent="elevator/platform" instance=ExtResource("6_htxwi")]
@@ -523,6 +539,8 @@ enabled = true
 [node name="floor" type="CollisionShape3D" parent="elevator/platform"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_6w6dv")
+script = SubResource("GDScript_23c14")
+travel_sfx = SubResource("Resource_fanwo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="elevator/platform/floor"]
 mesh = SubResource("BoxMesh_elekl")
@@ -557,10 +575,10 @@ shape = SubResource("BoxShape3D_3nvbo")
 mesh = SubResource("BoxMesh_sn3yd")
 
 [node name="door panel" type="CollisionShape3D" parent="elevator/platform"]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 1.8, 1.5, 2)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 1.8, 1.5, 0.91)
 shape = SubResource("BoxShape3D_g8mpd")
 script = ExtResource("7_rxrbm")
-duration = 0.4
+duration = 1.0
 open_position = 2.0
 clode_position = 0.91
 
@@ -569,10 +587,10 @@ transform = Transform3D(-1, 0, 0, 0, 1, 8.35188e-23, 0, -8.35188e-23, 1, 0, 0, 0
 mesh = SubResource("BoxMesh_5lyr2")
 
 [node name="door panel2" type="CollisionShape3D" parent="elevator/platform"]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 1.8, 1.5, -2)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 1.8, 1.5, -0.91)
 shape = SubResource("BoxShape3D_g8mpd")
 script = ExtResource("7_rxrbm")
-duration = 0.4
+duration = 1.0
 open_position = 2.0
 clode_position = 0.91
 mirrored = true
@@ -609,7 +627,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.5, 0)
 
 [node name="button5" parent="elevator/floor buttons" instance=ExtResource("3_aj3yc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31, 0)
-locked = true
 
 [node name="button6" parent="elevator/floor buttons" instance=ExtResource("3_aj3yc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38.5, 0)
