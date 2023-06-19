@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://qye8be1amvr3"
+path.s3tc="res://.godot/imported/BRICK_2B.png-d73794dee3ec5b4c9172f0b8767748fe.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://assets/little-martian, retro-texture-pack-v9/png/BRICK_2B.png"
+dest_files=["res://.godot/imported/BRICK_2B.png-d73794dee3ec5b4c9172f0b8767748fe.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=1.0
+compress/hdr_compression=2
+compress/normal_map=2
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=320
+detect_3d/compress_to=1

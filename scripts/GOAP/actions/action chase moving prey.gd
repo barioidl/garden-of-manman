@@ -32,6 +32,7 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		reset_input(root)
 		_print('no prey to attack')
 		return false
+	
 	if !is_prey_moving(prey,1):
 		reset_input(root)
 		_print('prey aint moving')

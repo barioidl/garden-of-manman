@@ -74,17 +74,6 @@ func change_state(new_state,add_to_stack:=true):
 	
 "
 
-[sub_resource type="GDScript" id="GDScript_xypeh"]
-script/source = "extends TextureButton
-
-func _ready() -> void:
-	connect('pressed',start) # Replace with function body.
-
-func start():
-	$\"../../../..\".play_button_sfx()
-	get_tree().change_scene_to_file(\"res://scenes/3d scenes/main_scene.tscn\")
-"
-
 [sub_resource type="GDScript" id="GDScript_xeehh"]
 script/source = "extends TextureButton
 
@@ -96,6 +85,17 @@ func _ready() -> void:
 func _open_page():
 	$\"../../../..\".play_button_sfx()
 	OS.shell_open(link)
+"
+
+[sub_resource type="GDScript" id="GDScript_xypeh"]
+script/source = "extends TextureButton
+
+func _ready() -> void:
+	connect('pressed',start) # Replace with function body.
+
+func start():
+	$\"../../../..\".play_button_sfx()
+	get_tree().change_scene_to_file(\"res://scenes/3d scenes/main_scene.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_qvros"]
@@ -1036,7 +1036,6 @@ theme = SubResource("Theme_7t2kr")
 script = SubResource("GDScript_5kh0j")
 
 [node name="main page" type="BoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.01
@@ -1045,7 +1044,7 @@ anchor_right = 0.6
 anchor_bottom = 0.99
 
 [node name="NinePatchRect" type="NinePatchRect" parent="main page"]
-custom_minimum_size = Vector2(200, 500)
+custom_minimum_size = Vector2(250, 500)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_whvft")
@@ -1061,43 +1060,24 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 vertical = true
 
-[node name="start" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("3_y0kql")
-texture_pressed = ExtResource("4_qnttq")
-texture_hover = ExtResource("11_i8xw5")
-texture_disabled = ExtResource("12_asujs")
-texture_focused = ExtResource("7_pjynr")
-script = SubResource("GDScript_xypeh")
-
-[node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/start"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "start game"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
 [node name="merch" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 5
 script = SubResource("GDScript_xeehh")
 link = "https://youtu.be/_b_bUNSM3Vo"
 
@@ -1115,15 +1095,15 @@ autowrap_mode = 2
 
 [node name="wishlist" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 5
 script = SubResource("GDScript_xeehh")
-link = "https://ninelies.itch.io/"
+link = "https://twitter.com/Ninelie20340672"
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/wishlist"]
 layout_mode = 1
@@ -1139,13 +1119,13 @@ autowrap_mode = 2
 
 [node name="wishlist2" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 5
 script = SubResource("GDScript_xeehh")
 link = "https://ninelies.itch.io/"
 
@@ -1163,13 +1143,13 @@ autowrap_mode = 2
 
 [node name="youtube" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 5
 script = SubResource("GDScript_xeehh")
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/youtube"]
@@ -1184,15 +1164,39 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="twitter" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
+[node name="start" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
+texture_normal = ExtResource("3_y0kql")
+texture_pressed = ExtResource("4_qnttq")
+texture_hover = ExtResource("11_i8xw5")
+texture_disabled = ExtResource("12_asujs")
+texture_focused = ExtResource("7_pjynr")
+stretch_mode = 5
+script = SubResource("GDScript_xypeh")
+
+[node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/start"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "start game"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="twitter" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
 texture_normal = ExtResource("5_5mmy2")
 texture_pressed = ExtResource("6_wtw1i")
 texture_hover = ExtResource("7_ylyai")
 texture_disabled = ExtResource("8_tdxnv")
 texture_focused = ExtResource("9_3n0b5")
+stretch_mode = 5
 script = SubResource("GDScript_xeehh")
 link = "https://twitter.com/Ninelie20340672"
 
@@ -1210,13 +1214,13 @@ autowrap_mode = 2
 
 [node name="settings" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("3_y0kql")
 texture_pressed = ExtResource("4_qnttq")
 texture_hover = ExtResource("11_i8xw5")
 texture_disabled = ExtResource("12_asujs")
 texture_focused = ExtResource("7_pjynr")
+stretch_mode = 5
 script = SubResource("GDScript_qvros")
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/settings"]
@@ -1233,13 +1237,13 @@ autowrap_mode = 2
 
 [node name="assets" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("3_y0kql")
 texture_pressed = ExtResource("4_qnttq")
 texture_hover = ExtResource("11_i8xw5")
 texture_disabled = ExtResource("12_asujs")
 texture_focused = ExtResource("7_pjynr")
+stretch_mode = 5
 script = SubResource("GDScript_0tnka")
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/assets"]
@@ -1256,13 +1260,13 @@ autowrap_mode = 2
 
 [node name="exit" type="TextureButton" parent="main page/NinePatchRect/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("3_y0kql")
 texture_pressed = ExtResource("4_qnttq")
 texture_hover = ExtResource("11_i8xw5")
 texture_disabled = ExtResource("12_asujs")
 texture_focused = ExtResource("7_pjynr")
+stretch_mode = 5
 script = SubResource("GDScript_rw822")
 
 [node name="Label" type="Label" parent="main page/NinePatchRect/VBoxContainer/exit"]
@@ -1301,30 +1305,36 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Textures:
-UI pack by Kenney Vleugels (www.kenney.nl)
+UI pack by Kenney Vleugels
+
+256x256 Pixel Textures by flakdeau19
+Pixel Art Texture Pack by flakdeau19
+
+retro-texture-pack-v9 by little-martian
 
 Shaders:
 Outline shader by embyr
 
 Models:
-Conveyor Kit (1.0)  by Kenney (www.kenney.nl)
+Conveyor Kit (1.0)  by Kenney
 
-Furniture Kit (2.0) by Kenney (www.kenney.nl)
+Furniture Kit (2.0) by Kenney
 
-Animated Characters  by Kenney (www.kenney.nl)
+Animated Characters  by Kenney
 
-Generated models by Sloyd (https://sloyd.ai/)
+Generated models by Sloyd
 
 Sfx:
-Voiceover Pack: Fighter	by  Kenney Vleugels (Kenney.nl)
+Voiceover Pack: Fighter	by  Kenney Vleugels
 
-Impact Sounds (1.0) by Kenney (www.kenney.nl)
+Impact Sounds (1.0) by Kenney
 
-Interface Sounds (1.0) by Kenney (www.kenney.nl)
+Interface Sounds (1.0) by Kenney
 
-“Additional sound effects from https://www.zapsplat.com“"
+Additional sound effects from https://www.zapsplat.com"
 
 [node name="Gameplay" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

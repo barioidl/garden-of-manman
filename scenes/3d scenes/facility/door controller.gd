@@ -9,10 +9,12 @@ func _ready() -> void:
 func set_up():
 	lock.password=password
 	var door_color :Color=lock.get_color(password)
-	var material :=StandardMaterial3D.new()
-	material.albedo_color = door_color
 	for mesh in door_meshes:
 		mesh = get_node_or_null(mesh)
+		if mesh == null:
+			continue
+		var material = mesh.material_override
+		material.albedo = door_color
 		mesh.material_override = material
 
 signal lock_updated(state)

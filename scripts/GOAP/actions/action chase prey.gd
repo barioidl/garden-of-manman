@@ -7,9 +7,7 @@ func _name()->StringName:
 func is_valid(local_state:Dictionary)->bool:
 	if !local_state.has(NL.preys):
 		return false
-	if local_state.has(NL.motion_sense):
-		return false
-	if local_state.has(NL.sound):
+	if !local_state.has(NL.sight):
 		return false
 	return true
 
@@ -34,6 +32,11 @@ func perform(local_state: Dictionary, dt: float)->bool:
 		return false
 	
 	var dist = pos.distance_squared_to(prey.global_position)
+	var visible_range = local_state[NL.sight]
+	if dist > visible_range*visible_range:
+		_print('prey out of range')
+		return false
+	
 	var _range = local_state[NL.interact_range]
 	if dist >= _range*_range:
 		var agent := Interface.attach_nav_agent(root,prey)

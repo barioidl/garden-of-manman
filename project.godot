@@ -47,8 +47,8 @@ gdscript/warnings/unsafe_property_access=1
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=540
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/aspect="keep_width"
@@ -209,8 +209,11 @@ common/enable_object_picking=false
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 lights_and_shadows/directional_shadow/size=2048
 anti_aliasing/screen_space_roughness_limiter/enabled=false
+textures/decals/filter=0
+textures/light_projectors/filter=0
 environment/volumetric_fog/use_filter=0
 limits/opengl/max_renderable_elements=5000
 limits/opengl/max_renderable_lights=16

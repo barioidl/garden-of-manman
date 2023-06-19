@@ -328,6 +328,7 @@ average_size = Vector3(0.5, 2.4, 0.5)
 sneak_size = Vector3(1.2, 0.75, 1.2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="shape"]
+visible = false
 mesh = SubResource("CapsuleMesh_uy5y8")
 
 [node name="body" type="Node3D" parent="."]
@@ -346,7 +347,6 @@ head_margin = 1.0
 [node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("head_bone")]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
-visible = false
 script = ExtResource("15_mi7sy")
 head_bone = NodePath("body")
 item_holders = Array[NodePath]([NodePath("body/right shoulder"), NodePath("body/left shoulder")])
