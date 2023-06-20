@@ -13,8 +13,9 @@ func set_up():
 		mesh = get_node_or_null(mesh)
 		if mesh == null:
 			continue
-		var material = mesh.material_override
-		material.albedo = door_color
+		var material = mesh.material_override.duplicate()
+		material.set("shader_parameter/albedo",door_color)
+		material.set("shader_parameter/emission",door_color)
 		mesh.material_override = material
 
 signal lock_updated(state)

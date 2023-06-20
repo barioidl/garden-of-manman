@@ -83,6 +83,7 @@ script = ExtResource("12_1k2w5")
 
 [node name="debug_display" parent="." instance=ExtResource("18_tnk7y")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1, 2)
+visible = false
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
@@ -98,7 +99,7 @@ mesh = SubResource("CapsuleMesh_ippak")
 script = ExtResource("9_xmcsr")
 
 [node name="head" parent="body" instance=ExtResource("9_8vf4s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 connect_to_shape = false
 head_margin = 0.15
 

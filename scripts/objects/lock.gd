@@ -58,11 +58,11 @@ func get_color(_pass)->Color:
 		types.generic:
 			return Color.GHOST_WHITE
 		types.red:
-			return Color.INDIAN_RED
+			return Color.RED
 		types.green:
-			return Color.MEDIUM_SEA_GREEN
+			return Color.GREEN
 		types.blue:
-			return Color.CORNFLOWER_BLUE
+			return Color.BLUE
 		types.yellow:
 			return Color.YELLOW
 		types.purple:
