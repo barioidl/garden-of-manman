@@ -1,30 +1,27 @@
-[gd_scene load_steps=26 format=3 uid="uid://dxoq1or5n41wx"]
+[gd_scene load_steps=23 format=3 uid="uid://dxoq1or5n41wx"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/facility/door controller.gd" id="1_585e0"]
 [ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_xvq1m"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="2_ticx8"]
 [ext_resource type="Script" path="res://scripts/objects/lock.gd" id="2_u7rai"]
-[ext_resource type="AudioStream" uid="uid://le84adcvsr4y" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_1.ogg" id="3_3hgk3"]
-[ext_resource type="AudioStream" uid="uid://c7h4n1akhjho7" path="res://assets/audio/kenney_rpg-audio/Audio/doorOpen_2.ogg" id="4_g30xk"]
-[ext_resource type="AudioStream" uid="uid://n3fgt15re2q1" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_1.ogg" id="5_dddhu"]
-[ext_resource type="AudioStream" uid="uid://ctix3ut3bravx" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_2.ogg" id="6_tcm6h"]
-[ext_resource type="AudioStream" uid="uid://bt57slhjr1v0p" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_4.ogg" id="7_7nhrt"]
+[ext_resource type="AudioStream" uid="uid://dj4tye3fjg86e" path="res://assets/audio/zapsplat/zapsplat_emergency_prison_cell_door_metal_slide_close_rattle_dry_002_43740.mp3" id="3_hvbeo"]
+[ext_resource type="AudioStream" uid="uid://v6168drgckvn" path="res://assets/audio/zapsplat/zapsplat_emergency_prison_cell_door_metal_slide_close_rattle_dry_001_43739.mp3" id="5_na2l8"]
 [ext_resource type="Texture2D" uid="uid://idwh770af3w5" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Metal/s2 Metal Grid 2.png" id="9_pahci"]
 [ext_resource type="Texture2D" uid="uid://bxy8vw8lnvb3t" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Metal/s2 Metal Grid 2 Holes.png" id="10_20wh0"]
 [ext_resource type="Texture2D" uid="uid://d1he6jdhh6c34" path="res://assets/little-martian, retro-texture-pack-v9/png/DOOR_2A.png" id="12_we7dj"]
 [ext_resource type="Texture2D" uid="uid://bv0sk654eoq1k" path="res://assets/little-martian, retro-texture-pack-v9/png/PIPES_1B.png" id="13_q1ya4"]
 
-[sub_resource type="Resource" id="Resource_vw06u"]
-script = ExtResource("2_ticx8")
-pitch_range = Vector2(0.1, 0.2)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("3_3hgk3"), ExtResource("4_g30xk")])
-
 [sub_resource type="Resource" id="Resource_xfxpr"]
 script = ExtResource("2_ticx8")
-pitch_range = Vector2(0.1, 0.2)
+pitch_range = Vector2(1.1, 1.2)
 volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("5_dddhu"), ExtResource("6_tcm6h"), ExtResource("7_7nhrt")])
+streams = Array[AudioStream]([ExtResource("3_hvbeo")])
+
+[sub_resource type="Resource" id="Resource_vw06u"]
+script = ExtResource("2_ticx8")
+pitch_range = Vector2(1.4, 1.5)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([ExtResource("5_na2l8")])
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nyf5f"]
 size = Vector3(0.2, 6, 4)
@@ -232,14 +229,14 @@ script = ExtResource("1_585e0")
 password = 6
 lock = NodePath("lock")
 door_meshes = [NodePath("lock/CollisionShape3D/MeshInstance3D"), NodePath("lock/CollisionShape3D2/MeshInstance3D")]
-door_open_sfx = SubResource("Resource_vw06u")
-door_close_sfx = SubResource("Resource_xfxpr")
+door_open_sfx = SubResource("Resource_xfxpr")
+door_close_sfx = SubResource("Resource_vw06u")
 
 [node name="top" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 shape = SubResource("BoxShape3D_nyf5f")
 script = ExtResource("1_xvq1m")
-duration = 5.0
+duration = 3.0
 open_position = 6.0
 clode_position = 3.0
 direction = 1
@@ -254,7 +251,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.5)
 script = ExtResource("2_u7rai")
 password = 6
 easy_close = true
-cooldown = 5.0
+cooldown = 3.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="lock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.5)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=25 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="Texture2D" uid="uid://d30dini4jbrni" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Cement/s2 Cement Grey.png" id="1_381pl"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="13_1wplj"]
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="13_0824v"]
 [ext_resource type="PackedScene" uid="uid://cgop3hbljslab" path="res://scenes/3d scenes/garden of manman/surface.tscn" id="14_1m6cm"]
+[ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="15_dy6vl"]
 [ext_resource type="PackedScene" uid="uid://bdygo1vh3hoq" path="res://scenes/3d scenes/garden of manman/elevator.tscn" id="16_e0cmf"]
 [ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="18_5ggfe"]
 
@@ -222,10 +223,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-transform = Transform3D(0.986435, 0, 0.164153, 0, 1, 0, -0.164153, 0, 0.986435, 9.44884, 4.66341, -23.7833)
+transform = Transform3D(0.986435, 0, 0.164153, 0, 1, 0, -0.164153, 0, 0.986435, 9.449, 1, -23.783)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.2594, 0.5, -77.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11.7406, 0.5, -17)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("7_qe3lc")
@@ -245,3 +246,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.5, 1.5, -9.5)
 
 [node name="Surface" parent="." instance=ExtResource("14_1m6cm")]
+
+[node name="door_2" parent="." instance=ExtResource("15_dy6vl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -18.5)
+password = 3

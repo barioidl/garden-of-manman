@@ -51,12 +51,11 @@ func _process(delta: float) -> void:
 	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
 	if dist_ratio > 1: return
 	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
-	if dir.distance_squared_to(prev_dir) < 0.1:
+	if dir.distance_squared_to(prev_dir) < 0.5 * dist_ratio:
 		return
 	prev_dir = dir
 	forward = dir.normalized()
 	
-	_print('processing billboard')
 	select_sprite(delta)
 	rotate_sprite(delta)
 
