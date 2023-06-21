@@ -13,12 +13,40 @@ dof_blur_near_transition = 2.0
 [sub_resource type="GDScript" id="GDScript_wut8v"]
 script/source = "extends Camera3D
 
-var transform_changed := false
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_TRANSFORM_CHANGED:
-		transform_changed = true
-func _process(delta: float) -> void:
-	transform_changed = false
+var sequence :=[
+	'ui_up','ui_up','ui_down','ui_down',
+	'ui_left','ui_right','ui_left','ui_right',
+	'skill','attack'
+	]
+@onready var max_keys := sequence.size()
+var current_key := 0
+
+var clipping := true
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	is_konami_code(event)
+
+func is_konami_code(event:InputEvent):
+	if event.is_echo():
+		return
+	if !event.is_pressed():
+		return
+	if !event.is_action(sequence[current_key]):
+		current_key = 0
+		return
+	current_key += 1
+	if current_key >= max_keys:
+		current_key = 0
+		toggle_noclip()
+
+func toggle_noclip():
+	var chara = get_parent().character
+	if chara == null:
+		return
+	clipping = !clipping
+	chara.gravity_scale = 1 if clipping else 0
+	chara.set_collision_layer_value(1,clipping)
+	chara.set_collision_mask_value(1,clipping)
 "
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gxwb1"]

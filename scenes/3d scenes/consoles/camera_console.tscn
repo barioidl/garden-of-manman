@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=42 format=3 uid="uid://rl1fv4l3ai0l"]
 
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
 [ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="2_sgoax"]
@@ -313,7 +313,7 @@ script/source = "extends Control
 var root:Node3D
 @export var head:Node3D
 @export var noise_sfx:AudioList
-
+@export var truth_sfx:AudioList
 
 func _enter_tree() -> void:
 	root = get_parent().root
@@ -325,7 +325,13 @@ func connect_buttons():
 	$\"door\".connect('pressed',toggle_door)
 	$\"light\".connect('pressed',toggle_light)
 	$\"noise\".connect('pressed',play_loud_noise)
-#	$\"\".connect('pressed',option_pressed.bind(3))
+	
+	var final_button := $\"confess\"
+	if randi_range(0,10) > 1:
+		final_button.visible = false
+	else:
+		final_button.visible = true
+		final_button.connect('pressed',confess)
 
 func toggle_door():
 	var pos = head.get_contact()
@@ -340,9 +346,11 @@ func toggle_light():
 	lock.toggle()
 
 func play_loud_noise():
-	var pos = head.global_position
+	var pos = head.get_contact()
 	AudioPool.create_sound_3d(pos, noise_sfx)
-	
+
+func confess():
+	pass
 
 
 func _print(line):
@@ -352,9 +360,15 @@ func _print(line):
 
 [sub_resource type="Resource" id="Resource_dnahf"]
 script = ExtResource("10_btqtx")
-pitch_range = Vector2(0.75, 1.25)
+pitch_range = Vector2(0.8, 1.2)
 volume_range = Vector2(-1, 1)
 streams = Array[AudioStream]([ExtResource("11_nwgme")])
+
+[sub_resource type="Resource" id="Resource_jlaxj"]
+script = ExtResource("10_btqtx")
+pitch_range = Vector2(0.75, 1.25)
+volume_range = Vector2(-1, 1)
+streams = Array[AudioStream]([])
 
 [sub_resource type="GDScript" id="GDScript_0r5ds"]
 script/source = "extends TextureButton
@@ -557,6 +571,7 @@ vertical = true
 script = SubResource("GDScript_ca8tx")
 head = NodePath("../../body/head")
 noise_sfx = SubResource("Resource_dnahf")
+truth_sfx = SubResource("Resource_jlaxj")
 metadata/_edit_use_anchors_ = true
 
 [node name="door" type="TextureButton" parent="UI/camera view"]
@@ -610,21 +625,20 @@ text = "Loud noise"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="option 3" type="TextureButton" parent="UI/camera view"]
-visible = false
+[node name="confess" type="TextureButton" parent="UI/camera view"]
 layout_mode = 2
 texture_normal = ExtResource("18_8kfyj")
 texture_pressed = ExtResource("19_yxgk1")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="UI/camera view/option 3"]
+[node name="Label" type="Label" parent="UI/camera view/confess"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Human noise"
+text = "Confess"
 horizontal_alignment = 1
 vertical_alignment = 1
 
