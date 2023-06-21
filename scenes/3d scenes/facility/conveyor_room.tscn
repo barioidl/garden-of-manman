@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3]
 
-[ext_resource type="Script" path="res://scripts/conveyor belt.gd" id="1_hr61d"]
+[ext_resource type="Script" path="res://scripts/objects/conveyor belt.gd" id="1_hr61d"]
 
 [sub_resource type="GDScript" id="GDScript_wx0iv"]
 script/source = "extends StaticBody3D

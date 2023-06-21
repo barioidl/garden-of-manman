@@ -1,8 +1,8 @@
 [gd_scene load_steps=74 format=3 uid="uid://18fxmepjaxdw"]
 
 [ext_resource type="PackedScene" uid="uid://dnwyoafck8xle" path="res://scenes/3d scenes/characters/player.tscn" id="1_ssxib"]
-[ext_resource type="Script" path="res://scripts/assign character as player .gd" id="5_bmfmr"]
 [ext_resource type="PackedScene" uid="uid://bk0gpt7acyutf" path="res://scenes/3d scenes/characters/hopper.tscn" id="7_2ewu1"]
+[ext_resource type="Script" path="res://scripts/modules/assign character as player .gd" id="7_3h8mk"]
 [ext_resource type="PackedScene" uid="uid://djpeyjf27alka" path="res://scenes/3d scenes/characters/spider.tscn" id="7_8jvxy"]
 [ext_resource type="PackedScene" uid="uid://cf5v3dfvq0e77" path="res://scenes/3d scenes/characters/birdup.tscn" id="7_jdoo3"]
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="8_jhbom"]
@@ -243,7 +243,7 @@ transform = Transform3D(-0.759339, 0, -0.650695, 0, 1, 0, 0.650695, 0, -0.759339
 max_contacts_reported = 3
 
 [node name="attach player control" type="Node" parent="characters/timmy"]
-script = ExtResource("5_bmfmr")
+script = ExtResource("7_3h8mk")
 
 [node name="map" type="Node3D" parent="."]
 
@@ -449,43 +449,30 @@ script = SubResource("GDScript_lxu0g")
 metadata/_edit_lock_ = true
 
 [node name="Admin corridor" parent="map/garden of manman/floor -4" instance=ExtResource("11_d5pxr")]
-areas = [NodePath("../../-4 areas/Administrator")]
 
 [node name="conveyor belt room" parent="map/garden of manman/floor -4" instance=ExtResource("10_4rqmp")]
-areas = [NodePath("../../-4 areas/conveyor room")]
 
 [node name="forming chamber" parent="map/garden of manman/floor -4" instance=ExtResource("15_dc4wi")]
-areas = [NodePath("../../-4 areas/hydro forming chamber")]
 
 [node name="camera room" parent="map/garden of manman/floor -4" instance=ExtResource("12_re8d2")]
-areas = [NodePath("../../-4 areas/camera room")]
 
 [node name="disposal pit" parent="map/garden of manman/floor -4" instance=ExtResource("13_5p86a")]
-areas = [NodePath("../../-4 areas/disposal pit")]
 
 [node name="elevator" parent="map/garden of manman/floor -4" instance=ExtResource("14_bbi14")]
-areas = [NodePath("../../-4 areas/elevator")]
 
 [node name="disposal storage room" parent="map/garden of manman/floor -4" instance=ExtResource("15_52pgu")]
-areas = [NodePath("../../-4 areas/disposable storage")]
 
 [node name="power room" parent="map/garden of manman/floor -4" instance=ExtResource("16_xgll3")]
-areas = [NodePath("../../-4 areas/power control room")]
 
 [node name="storage room" parent="map/garden of manman/floor -4" instance=ExtResource("18_embkh")]
-areas = [NodePath("../../-4 areas/storage room")]
 
 [node name="lobby" parent="map/garden of manman/floor -4" instance=ExtResource("19_ky2e8")]
-areas = [NodePath("../../-4 areas/Lobby")]
 
 [node name="cnc room" parent="map/garden of manman/floor -4" instance=ExtResource("20_ch4ff")]
-areas = [NodePath("../../-4 areas/CNC room")]
 
 [node name="plasma room" parent="map/garden of manman/floor -4" instance=ExtResource("21_hogdi")]
-areas = [NodePath("../../-4 areas/plasma cutter room")]
 
 [node name="assembly" parent="map/garden of manman/floor -4" instance=ExtResource("22_gexd2")]
-areas = [NodePath("../../-4 areas/pcb assembly")]
 
 [node name="-1 areas" type="Node3D" parent="map/garden of manman"]
 
@@ -553,12 +540,10 @@ shape = SubResource("BoxShape3D_67dcs")
 script = SubResource("GDScript_lxu0g")
 
 [node name="kitchen" parent="map/garden of manman/floor -1" instance=ExtResource("22_63gb2")]
-areas = [NodePath("../../-1 areas/kitchen"), NodePath("../../-4 areas/disposal pit top"), NodePath("../../-1 areas/upper corridor")]
 
 [node name="upper corridor" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 22.5, -31.5)
 script = ExtResource("8_plspx")
-areas = [NodePath("../../-1 areas/kitchen"), NodePath("../../-1 areas/upper corridor"), NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/dinning room")]
 
 [node name="UpperCorridor" type="MeshInstance3D" parent="map/garden of manman/floor -1/upper corridor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -22.5, 31.5)
@@ -622,7 +607,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 [node name="dinning room" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -29.5)
 script = ExtResource("8_plspx")
-areas = [NodePath("../../-1 areas/upper corridor"), NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/dinning room")]
 
 [node name="Room8" type="MeshInstance3D" parent="map/garden of manman/floor -1/dinning room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -22.5, 29.5)
@@ -632,7 +616,6 @@ skeleton = NodePath("../../../../..")
 [node name="upper lobby" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -17.5)
 script = ExtResource("8_plspx")
-areas = [NodePath("../../-1 areas/upper lobby"), NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/dinning room"), NodePath("../../-1 areas/upper corridor"), NodePath("../../-4 areas/elevator")]
 
 [node name="Room7" type="MeshInstance3D" parent="map/garden of manman/floor -1/upper lobby"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -22.5, 17.5)
@@ -642,7 +625,6 @@ skeleton = NodePath("../../../../..")
 [node name="upper storage room" type="Node3D" parent="map/garden of manman/floor -1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 22.5, -7.5)
 script = ExtResource("8_plspx")
-areas = [NodePath("../../-1 areas/upper storage room"), NodePath("../../-1 areas/upper lobby")]
 
 [node name="ceiling lamp" parent="map/garden of manman/floor -1/upper storage room" instance=ExtResource("14_uial0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)

@@ -80,13 +80,13 @@ var elevator_closed := &'elevator_closed'
 var door_close := &'door_close'
 var lights_on := &'lights_on'
 
-var senses := &'senses'
+#var senses := &'senses'
 var sight := &'sight'
 var motion_sense := &'motion_sense'
 var sound := &'sound'
-var smell := &'smell'
-var taste := &'taste'
-var tounch := &'tounch'
+#var smell := &'smell'
+#var taste := &'taste'
+#var tounch := &'tounch'
 
 
 #var creativity := &'creativity'

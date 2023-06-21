@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ctb27xxr3m3cn"]
+[gd_scene load_steps=20 format=3 uid="uid://ctb27xxr3m3cn"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_masev"]
 [ext_resource type="ArrayMesh" uid="uid://dx3broj3aebqb" path="res://assets/borga map/storage room mesh.obj" id="2_kde2s"]
@@ -8,9 +8,17 @@
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="4_gnuuk"]
 [ext_resource type="Resource" uid="uid://ddf6y7ffv0mcm" path="res://data/items/eyejar green.tres" id="5_fqi7d"]
 [ext_resource type="Resource" uid="uid://nt2yha0ae32k" path="res://data/items/eyejar blue.tres" id="6_k15cw"]
-[ext_resource type="Texture2D" uid="uid://cpfpb085plcvy" path="res://assets/Textures/key_card0004.png" id="10_xy52y"]
+[ext_resource type="Texture2D" uid="uid://c31wdmh7jp5u6" path="res://assets/Textures/key_card0003.png" id="9_mq1fm"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="11_4wbu2"]
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="11_5fwpr"]
+[ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="12_hqfgl"]
+[ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="13_pqscf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mg4my"]
+size = Vector3(17, 6, 31)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wq733"]
+size = Vector3(2, 3, 10)
 
 [sub_resource type="GDScript" id="GDScript_fawar"]
 script/source = "extends StaticBody3D
@@ -102,12 +110,28 @@ func switch(input):
 	visible = input
 "
 
-[node name="disposal storage room" type="Node3D"]
+[sub_resource type="GDScript" id="GDScript_wl1ii"]
+script/source = "extends Decal
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	queue_free() # Replace with function body.
+"
+
+[node name="disposal storage room" type="Area3D"]
 script = ExtResource("1_masev")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, 14)
+shape = SubResource("BoxShape3D_mg4my")
+
+[node name="CollisionShape3D_2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, -6)
+shape = SubResource("BoxShape3D_wq733")
 
 [node name="StorageRoomMesh" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_kde2s")
-skeleton = NodePath("../../../../..")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -437,8 +461,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.5, 22.5)
 modulate = Color(0, 1, 0, 1)
 billboard = 1
 texture_filter = 0
-texture = ExtResource("10_xy52y")
+texture = ExtResource("9_mq1fm")
 script = ExtResource("11_4wbu2")
 item = ExtResource("11_5fwpr")
+
+[node name="door" parent="." instance=ExtResource("12_hqfgl")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2)
+password = 2
+
+[node name="Decal_2" type="Decal" parent="door"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 1.5, 2.18557e-08)
+size = Vector3(1.59422, 2, 2)
+texture_albedo = ExtResource("13_pqscf")
+modulate = Color(1, 0, 0, 1)
+script = SubResource("GDScript_wl1ii")
 
 [connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]

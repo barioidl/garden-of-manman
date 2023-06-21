@@ -2,6 +2,7 @@ extends Node3D
 
 var button = preload("res://scripts/elevator/panel button.tscn")
 @onready var elevator := $"../.."
+@export var button_distance := 0.5
 
 func _ready() -> void:
 	add_to_group(NL.elevator_panels)
@@ -36,7 +37,7 @@ func setup_panel(floors:int):
 
 func create_button(id:int,locked:bool):
 	var child = button.instantiate()
-	var button_height:float=id*0.5
+	var button_height:float=id*button_distance
 	child.position = Vector3(0,button_height,0)
 	child.locked = locked
 	child.connect(NL.pressed,button_pressed.bind(id))

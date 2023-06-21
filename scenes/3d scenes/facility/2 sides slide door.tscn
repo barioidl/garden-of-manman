@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://drave67c42qj"]
+[gd_scene load_steps=38 format=3 uid="uid://drave67c42qj"]
 
 [ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_81jg1"]
 [ext_resource type="Script" path="res://scripts/objects/lock.gd" id="1_c0csp"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://61jyni6qoxbp" path="res://assets/little-martian, retro-texture-pack-v9/png/CONSOLE_1B.png" id="11_ifacy"]
 [ext_resource type="Texture2D" uid="uid://dk3o8txqh7frf" path="res://assets/little-martian, retro-texture-pack-v9/png/CONSOLE_1D.png" id="11_m3hph"]
 [ext_resource type="Texture2D" uid="uid://c8vpafkclkdup" path="res://assets/little-martian, retro-texture-pack-v9/png/CONSOLE_1C.png" id="12_82iym"]
+[ext_resource type="Texture2D" uid="uid://bv0sk654eoq1k" path="res://assets/little-martian, retro-texture-pack-v9/png/PIPES_1B.png" id="14_cm5wp"]
 
 [sub_resource type="Resource" id="Resource_84qfp"]
 script = ExtResource("2_7un62")
@@ -362,7 +363,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
 shape = SubResource("ConcavePolygonShape3D_r6xsp")
 script = ExtResource("1_81jg1")
 duration = 0.4
-open_position = 1.15
+open_position = 1.2
 ease = 1
 transition = 1
 lock = NodePath("lock")
@@ -374,7 +375,7 @@ skeleton = NodePath("../..")
 
 [node name="lock" type="StaticBody3D" parent="left"]
 editor_description = "requires a specific key"
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.575)
 script = ExtResource("1_c0csp")
 password = 1
 cooldown = 0.4
@@ -391,7 +392,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
 shape = SubResource("ConcavePolygonShape3D_1kjan")
 script = ExtResource("1_81jg1")
 duration = 0.4
-open_position = 1.15
+open_position = 1.6
 mirrored = true
 ease = 1
 transition = 1
@@ -406,6 +407,17 @@ skeleton = NodePath("../..")
 start_position = Vector3(1, 0, 0)
 end_position = Vector3(-1, 0, 0)
 script = SubResource("GDScript_rdesl")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.5, 0)
+layers = 512
+size = Vector3(4, 4, 0.2)
+texture_albedo = ExtResource("14_cm5wp")
+texture_normal = ExtResource("14_cm5wp")
+texture_orm = ExtResource("14_cm5wp")
+upper_fade = 1.68179e-05
+lower_fade = 1e-05
+cull_mask = 512
 
 [connection signal="lock_updated" from="left/lock" to="." method="updated"]
 [connection signal="lock_updated" from="left/lock" to="left" method="slide"]

@@ -116,7 +116,7 @@ func interact(user):
 	current_user = _root
 
 var reject_cd := 0.0
-func reject_user(delta):
+func reject_user(delta:=0.01):
 	if reject_cd >0:
 		reject_cd -= delta
 		return

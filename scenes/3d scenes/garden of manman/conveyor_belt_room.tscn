@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_x5ckn"]
 [ext_resource type="ArrayMesh" uid="uid://k5ndm18prpga" path="res://assets/borga map/conveyor room mesh.obj" id="2_o702g"]
-[ext_resource type="Script" path="res://scripts/conveyor belt.gd" id="3_bo141"]
+[ext_resource type="Script" path="res://scripts/objects/conveyor belt.gd" id="3_bo141"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="4_fwg0r"]
 [ext_resource type="PackedScene" uid="uid://ymiup8tchxbt" path="res://scenes/3d scenes/facility/assembling_mob.tscn" id="5_5pebb"]
 [ext_resource type="PackedScene" uid="uid://bfx86i5ctbb7" path="res://scenes/3d scenes/facility/long arm.tscn" id="6_nwhqs"]

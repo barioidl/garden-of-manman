@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://csx6qoli5htt1" path="res://scenes/3d scenes/facility/fence.tscn" id="5_chxup"]
 [ext_resource type="PackedScene" uid="uid://cchfco5i7ybjy" path="res://scenes/3d scenes/facility/shutter.tscn" id="5_ysa5s"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_i1s81"]
-[ext_resource type="Script" path="res://scripts/conveyor belt.gd" id="8_jc62r"]
+[ext_resource type="Script" path="res://scripts/objects/conveyor belt.gd" id="8_jc62r"]
 [ext_resource type="Texture2D" uid="uid://cy6g4mno3aqtu" path="res://assets/Textures/key_card0001.png" id="9_44uqx"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="9_qkm25"]
 [ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="11_iwstp"]

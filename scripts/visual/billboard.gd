@@ -122,10 +122,10 @@ func select_z(dist_axis:float):
 		axis_up=axises.y
 
 
-
 func select(side):
 	current_side = side
 	emit_signal("sprite_changed")
+
 
 func billboard_forward():
 	var up := convert_to_axis(axis_up)
@@ -157,7 +157,7 @@ func is_axis_valid(forward,up) -> bool:
 
 func convert_to_axis(_axis)->Vector3:
 	var ref_basis = reference_frame.global_transform.basis
-	match  _axis:
+	match _axis:
 		axises.x:
 			return ref_basis.x
 		axises._x:

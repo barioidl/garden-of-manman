@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dxoq1or5n41wx"]
+[gd_scene load_steps=26 format=3 uid="uid://dxoq1or5n41wx"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/facility/door controller.gd" id="1_585e0"]
 [ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_xvq1m"]
@@ -11,7 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://bt57slhjr1v0p" path="res://assets/audio/kenney_rpg-audio/Audio/doorClose_4.ogg" id="7_7nhrt"]
 [ext_resource type="Texture2D" uid="uid://idwh770af3w5" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Metal/s2 Metal Grid 2.png" id="9_pahci"]
 [ext_resource type="Texture2D" uid="uid://bxy8vw8lnvb3t" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Metal/s2 Metal Grid 2 Holes.png" id="10_20wh0"]
-[ext_resource type="Texture2D" uid="uid://b8lw640qa0rd7" path="res://assets/little-martian, retro-texture-pack-v9/png/DOORTRIM_1A.png" id="12_qdk2i"]
+[ext_resource type="Texture2D" uid="uid://d1he6jdhh6c34" path="res://assets/little-martian, retro-texture-pack-v9/png/DOOR_2A.png" id="12_we7dj"]
+[ext_resource type="Texture2D" uid="uid://bv0sk654eoq1k" path="res://assets/little-martian, retro-texture-pack-v9/png/PIPES_1B.png" id="13_q1ya4"]
 
 [sub_resource type="Resource" id="Resource_vw06u"]
 script = ExtResource("2_ticx8")
@@ -111,8 +112,8 @@ shader_parameter/emission_energy = null
 shader_parameter/rim = 0.5
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 20.0
-shader_parameter/uv1_scale = Vector3(0.1, 0.1, 0.1)
-shader_parameter/uv1_offset = Vector3(0.147, 0.326, 0.5)
+shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
+shader_parameter/uv1_offset = Vector3(0.147, 0.409, 0.5)
 shader_parameter/texture_albedo = ExtResource("9_pahci")
 shader_parameter/texture_metallic = ExtResource("9_pahci")
 shader_parameter/texture_roughness = ExtResource("10_20wh0")
@@ -127,7 +128,7 @@ material = SubResource("StandardMaterial3D_iefee")
 size = Vector3(0.2, 6, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f8f0v"]
-size = Vector3(0.25, 0.5, 0.25)
+size = Vector3(0.25, 0.5, 0.325)
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -199,7 +200,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mcb2n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hjf24"]
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -207,27 +208,30 @@ shader_parameter/roughness = 0.1
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.1
-shader_parameter/emission = null
-shader_parameter/emission_energy = null
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 1.0
 shader_parameter/rim = 0.5
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 20.0
-shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
-shader_parameter/uv1_offset = Vector3(0.637, 0.312, 0.095)
-shader_parameter/texture_albedo = ExtResource("12_qdk2i")
-shader_parameter/texture_metallic = ExtResource("12_qdk2i")
-shader_parameter/texture_roughness = ExtResource("12_qdk2i")
-shader_parameter/texture_emission = ExtResource("12_qdk2i")
-shader_parameter/texture_rim = ExtResource("12_qdk2i")
+shader_parameter/uv1_scale = Vector3(0.35, 0.35, 0.35)
+shader_parameter/uv1_offset = Vector3(1.174, 0.524, -0.4)
+shader_parameter/texture_albedo = ExtResource("12_we7dj")
+shader_parameter/texture_metallic = ExtResource("12_we7dj")
+shader_parameter/texture_roughness = ExtResource("12_we7dj")
+shader_parameter/texture_emission = ExtResource("12_we7dj")
+shader_parameter/texture_rim = ExtResource("12_we7dj")
+
+[sub_resource type="BoxMesh" id="BoxMesh_wpfkq"]
+size = Vector3(0.25, 0.5, 0.325)
 
 [sub_resource type="BoxMesh" id="BoxMesh_j6k4r"]
-size = Vector3(0.25, 0.5, 0.25)
+size = Vector3(0.25, 0.5, 0.325)
 
 [node name="door" type="StaticBody3D" node_paths=PackedStringArray("lock")]
 script = ExtResource("1_585e0")
 password = 6
 lock = NodePath("lock")
-door_meshes = [NodePath("top/MeshInstance3D"), NodePath("lock/CollisionShape3D/MeshInstance3D"), NodePath("lock/CollisionShape3D2/MeshInstance3D")]
+door_meshes = [NodePath("lock/CollisionShape3D/MeshInstance3D"), NodePath("lock/CollisionShape3D2/MeshInstance3D")]
 door_open_sfx = SubResource("Resource_vw06u")
 door_close_sfx = SubResource("Resource_xfxpr")
 
@@ -257,16 +261,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.5)
 shape = SubResource("BoxShape3D_f8f0v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="lock/CollisionShape3D"]
-material_override = SubResource("ShaderMaterial_mcb2n")
-mesh = SubResource("BoxMesh_j6k4r")
+material_override = SubResource("ShaderMaterial_hjf24")
+mesh = SubResource("BoxMesh_wpfkq")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="lock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.5, 0, 0)
 shape = SubResource("BoxShape3D_f8f0v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="lock/CollisionShape3D2"]
-material_override = SubResource("ShaderMaterial_mcb2n")
+material_override = SubResource("ShaderMaterial_hjf24")
 mesh = SubResource("BoxMesh_j6k4r")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, 0)
+layers = 512
+size = Vector3(4, 6, 0.2)
+texture_albedo = ExtResource("13_q1ya4")
+texture_normal = ExtResource("13_q1ya4")
+texture_orm = ExtResource("13_q1ya4")
+upper_fade = 1.68179e-05
+lower_fade = 1e-05
+cull_mask = 512
 
 [connection signal="lock_updated" from="lock" to="." method="updated"]
 [connection signal="lock_updated" from="lock" to="top" method="slide"]

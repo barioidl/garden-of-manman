@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://g8qpkdbp35en"]
 
 [ext_resource type="Script" path="res://scripts/elevator/floor button.gd" id="1_ufxpc"]
-[ext_resource type="Script" path="res://scripts/button press animation.gd" id="2_aa607"]
+[ext_resource type="Script" path="res://scripts/visual/button press animation.gd" id="2_aa607"]
 [ext_resource type="Texture2D" uid="uid://44sp4isvi85q" path="res://assets/little-martian, retro-texture-pack-v9/png/TILE_3C.png" id="2_mem06"]
 [ext_resource type="Resource" uid="uid://dh7rwra4eacev" path="res://data/audio/elevator button.tres" id="4_lcok7"]
 [ext_resource type="Texture2D" uid="uid://bjwbbyf0cv8hj" path="res://assets/flakdeau19,256x256 Pixel Textures/256x256/256_Tiles Circle 09.png" id="5_rvcss"]

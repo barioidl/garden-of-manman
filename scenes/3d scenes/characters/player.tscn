@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scripts/modules/shape.gd" id="8_ihxnv"]
 [ext_resource type="PackedScene" uid="uid://v3st5v2xnav4" path="res://data/state machine/head.tscn" id="9_8vf4s"]
 [ext_resource type="Script" path="res://scripts/modules/body.gd" id="9_xmcsr"]
-[ext_resource type="Script" path="res://scripts/human.gd" id="12_1k2w5"]
+[ext_resource type="Script" path="res://scripts/modules/human.gd" id="12_1k2w5"]
 [ext_resource type="PackedScene" uid="uid://pq7662ttv81f" path="res://scenes/3d scenes/body parts/rig.tscn" id="12_tmh3y"]
 [ext_resource type="Script" path="res://scripts/modules/hotbar.gd" id="14_ofs36"]
 [ext_resource type="PackedScene" uid="uid://be0ykq12fij2y" path="res://data/state machine/debug_display.tscn" id="18_tnk7y"]

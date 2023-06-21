@@ -1,24 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://df28f6i0hm2iq"]
+[gd_scene load_steps=10 format=3 uid="uid://df28f6i0hm2iq"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_o3na5"]
 [ext_resource type="ArrayMesh" uid="uid://devl1r834kqg2" path="res://assets/borga map/room 1.obj" id="2_nsb7n"]
-[ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="3_ams0f"]
-[ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="5_m732t"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="6_dv3nw"]
 [ext_resource type="PackedScene" uid="uid://cu3b3oytrilip" path="res://assets/sloyd/container_shelf.tscn" id="6_qguy6"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_tewd6"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="8_0jc2w"]
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="8_ph1ev"]
 [ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="9_1b0i5"]
-
-[sub_resource type="GDScript" id="GDScript_8tpbd"]
-script/source = "extends Decal
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	queue_free() # Replace with function body.
-"
 
 [sub_resource type="GDScript" id="GDScript_v0osh"]
 script/source = "extends Node3D
@@ -30,22 +19,10 @@ func _on_3d_button_toggled(button_pressed) -> void:
 
 [node name="storage room" type="Node3D"]
 script = ExtResource("1_o3na5")
-areas = [NodePath("../../-4 areas/storage room"), NodePath("../../-4 areas/disposable storage"), NodePath("../../-4 areas/Lobby")]
 
 [node name="Room1" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_nsb7n")
 skeleton = NodePath("../../../../..")
-
-[node name="door" parent="." instance=ExtResource("3_ams0f")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2)
-password = 2
-
-[node name="Decal" type="Decal" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
-size = Vector3(1.59422, 2, 2)
-texture_albedo = ExtResource("5_m732t")
-modulate = Color(1, 0, 0, 1)
-script = SubResource("GDScript_8tpbd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)

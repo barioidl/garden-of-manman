@@ -1,11 +1,9 @@
-@tool
+#@tool
 extends Node
 
 func _process(delta: float) -> void:
 	limit_billboard = 30
-	
 	limit_IK_solver = 10
-	
 	limit_goap_generate_plan = 1
 	
 

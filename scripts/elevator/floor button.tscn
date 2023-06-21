@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://bca8j52nv1qj7"]
 
 [ext_resource type="Script" path="res://scripts/elevator/floor button.gd" id="1_m45x3"]
-[ext_resource type="Script" path="res://scripts/button press animation.gd" id="2_anxcp"]
 [ext_resource type="Texture2D" uid="uid://44sp4isvi85q" path="res://assets/little-martian, retro-texture-pack-v9/png/TILE_3C.png" id="2_f720p"]
+[ext_resource type="Script" path="res://scripts/visual/button press animation.gd" id="3_4iuha"]
 [ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="3_anw81"]
 [ext_resource type="AudioStream" uid="uid://bvcxmtudo0d1x" path="res://assets/audio/zapsplat/industrial_elevator_button_call_press.mp3" id="5_xce82"]
 [ext_resource type="Script" path="res://scripts/elevator/button color setup.gd" id="6_qmjww"]
@@ -228,7 +228,7 @@ mesh = SubResource("BoxMesh_42uhm")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.2, 0, 0)
 shape = SubResource("CylinderShape3D_5fodq")
-script = ExtResource("2_anxcp")
+script = ExtResource("3_4iuha")
 transition = 4
 sfx_list = SubResource("Resource_jvd06")
 

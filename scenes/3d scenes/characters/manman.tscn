@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://be0ykq12fij2y" path="res://data/state machine/debug_display.tscn" id="15_hcd4e"]
 [ext_resource type="Texture2D" uid="uid://liruub56ame2" path="res://assets/Textures/manman face0001.png" id="15_l1jl5"]
 [ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="15_mi7sy"]
-[ext_resource type="Script" path="res://scripts/monster.gd" id="16_0x1n3"]
+[ext_resource type="Script" path="res://scripts/modules/monster.gd" id="16_0x1n3"]
 [ext_resource type="Texture2D" uid="uid://c0jdnyte7aqxr" path="res://assets/Textures/manman face0002.png" id="16_kopr6"]
 [ext_resource type="Script" path="res://scripts/modules/chase prey.gd" id="16_kpcpb"]
 [ext_resource type="Texture2D" uid="uid://dhswlhhs6ln0k" path="res://assets/Textures/manman face0003.png" id="17_ip7pj"]

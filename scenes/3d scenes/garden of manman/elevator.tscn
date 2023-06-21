@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bdygo1vh3hoq"]
+[gd_scene load_steps=47 format=3 uid="uid://bdygo1vh3hoq"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_jx5q0"]
 [ext_resource type="ArrayMesh" uid="uid://c8nmbyahwi26a" path="res://assets/borga map/elevator.obj" id="2_jecrp"]
@@ -20,6 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://cmi132ifn1jtu" path="res://scripts/elevator/floor_door.tscn" id="11_bsagr"]
 [ext_resource type="AudioStream" uid="uid://bddf2mqrc4d4g" path="res://assets/audio/zapsplat/west_wolf_Elevator_interior_1.mp3" id="11_igy4c"]
 [ext_resource type="Texture2D" uid="uid://c3f65us7q58gl" path="res://assets/little-martian, retro-texture-pack-v9/png/GRID_1B.png" id="13_lqocn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4mpi8"]
+size = Vector3(5, 61, 4)
 
 [sub_resource type="Shader" id="Shader_usa7s"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -508,13 +511,16 @@ size = Vector3(1.8, 0.1, 3)
 vertices = PackedVector3Array(1.5, 0, 1.5, -1.5, 0, 1.5, 1.5, 0, -1.5, -1.5, 0, -1.5)
 polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(1, 3, 2)]
 
-[node name="elevator" type="Node3D"]
+[node name="elevator" type="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5, 0, -20)
 script = ExtResource("1_jx5q0")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 25.5, 0)
+shape = SubResource("BoxShape3D_4mpi8")
+
 [node name="Elevator" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 0, 20)
-visible = false
 mesh = ExtResource("2_jecrp")
 surface_material_override/0 = ExtResource("3_6ko37")
 surface_material_override/1 = SubResource("ShaderMaterial_5jb2l")
@@ -529,8 +535,9 @@ speed = 2.0
 slide_sfx = ExtResource("6_lswlq")
 
 [node name="control panel" type="Marker3D" parent="elevator/platform"]
-transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0.6, -1.75)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6, -1.75)
 script = ExtResource("3_e65bw")
+button_distance = 0.25
 
 [node name="ceiling lamp" parent="elevator/platform" instance=ExtResource("6_htxwi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
