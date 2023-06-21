@@ -18,31 +18,42 @@ func _ready() -> void:
 	set_meta(NL.interact,interact)
 
 func interact(item):
-	if !accept_input:	return
-	#simple overrides
+	if !accept_input:
+		return
 	if open and easy_close:
-		open = false
-		start_cooldown()
-		emit_signal("lock_updated",open)
+		_print('closed door without key')
+		lock_close()
 		return
 	
-	var no_key:=false
-	if item.is_in_group(NL.keys):
+	var item_is_key = item.is_in_group(NL.keys)
+	var no_key := false
+	if item_is_key:
 		no_key = item.password == types.none
-	var no_lock = password == types.none
-	if no_lock or no_key:
-		open = !open
-		start_cooldown()
-		emit_signal("lock_updated",open)
+	if password == types.none or no_key:
+		_print('override door')
+		lock_toggle()
 		return
 	
-	if !item.is_in_group(NL.keys):
-		return
+	if !item_is_key:	return
 	if item.password == password:
-#		print("unlocked with key")
-		open = !open
-		start_cooldown()
-		emit_signal("lock_updated",open)
+		_print("unlocked with key")
+		lock_toggle()
+
+func lock_toggle():
+	open = !open
+	start_cooldown()
+	emit_signal("lock_updated",open)
+
+func lock_open():
+	open = true
+	start_cooldown()
+	emit_signal("lock_updated",open)
+
+func lock_close():
+	open = false
+	start_cooldown()
+	emit_signal("lock_updated",open)
+
 
 func start_cooldown():
 	accept_input = false
@@ -68,3 +79,8 @@ func get_color(_pass)->Color:
 		types.purple:
 			return Color.PURPLE
 	return Color.WHITE
+
+
+func _print(line):
+	return
+	print(line)

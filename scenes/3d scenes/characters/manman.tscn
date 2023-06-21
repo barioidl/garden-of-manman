@@ -302,6 +302,7 @@ kill_sfx = ExtResource("8_h85l8")
 turn_speed = 100
 
 [node name="goap_agent" type="Node" parent="."]
+process_mode = 4
 script = SubResource("GDScript_g145v")
 
 [node name="monster" type="Node" parent="goap_agent"]
@@ -345,7 +346,6 @@ head_margin = 1.0
 [node name="hotbar" parent="body" instance=ExtResource("12_m7c2m")]
 
 [node name="rig" type="Node3D" parent="body" node_paths=PackedStringArray("head_bone")]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 script = ExtResource("15_mi7sy")
 head_bone = NodePath("body")

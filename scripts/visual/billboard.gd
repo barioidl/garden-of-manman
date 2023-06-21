@@ -9,7 +9,7 @@ enum bill_board_modes{bill_board, lock_y_axis, six_sides}
 	set(value):
 		face_camera = value
 
-@export var disable_dist:=30.0
+@export var disable_dist := 30.0
 @export var reference_frame:Node3D
 var camera :Camera3D
 
@@ -50,12 +50,13 @@ func _process(delta: float) -> void:
 	var dir = camera.global_position - global_position
 	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
 	if dist_ratio > 1: return
-	if dir.distance_squared_to(prev_dir) < 0.1 * dist_ratio:
+	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
+	if dir.distance_squared_to(prev_dir) < 0.1:
 		return
 	prev_dir = dir
-	
 	forward = dir.normalized()
-	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
+	
+	_print('processing billboard')
 	select_sprite(delta)
 	rotate_sprite(delta)
 
@@ -171,3 +172,7 @@ func convert_to_axis(_axis)->Vector3:
 		axises._z:
 			return -ref_basis.z
 	return basis.y
+
+func _print(line):
+#	return
+	print(line)

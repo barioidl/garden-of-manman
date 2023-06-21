@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://rl1fv4l3ai0l"]
+[gd_scene load_steps=38 format=3 uid="uid://rl1fv4l3ai0l"]
 
 [ext_resource type="ArrayMesh" uid="uid://k8p38y3hcws4" path="res://assets/factory/monitor screen.obj" id="1_gstf6"]
 [ext_resource type="ArrayMesh" uid="uid://bqnaocbenohyv" path="res://assets/factory/keyboard.obj" id="2_sgoax"]
@@ -9,12 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bn0omgmyn3hcu" path="res://assets/minimap0004.png" id="8_5ungq"]
 [ext_resource type="Texture2D" uid="uid://2o5vl6fu5bmk" path="res://assets/kenney/kenney_ui-pack/PNG/green_button00.png" id="11_lbuse"]
 [ext_resource type="Texture2D" uid="uid://5itacy7m0cws" path="res://assets/kenney/kenney_ui-pack/PNG/green_button01.png" id="12_1xcmf"]
-[ext_resource type="Script" path="res://scripts/audio/audio_list.gd" id="14_fxc52"]
-[ext_resource type="AudioStream" uid="uid://bkqogr3dw3n2l" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/1.ogg" id="15_q4ngd"]
-[ext_resource type="AudioStream" uid="uid://doan1l0uckmll" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/2.ogg" id="16_mqeuq"]
-[ext_resource type="AudioStream" uid="uid://2pbpi4vlugu3" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/3.ogg" id="17_pp58v"]
 [ext_resource type="Texture2D" uid="uid://crfddtl2yns0u" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button00.png" id="18_8kfyj"]
-[ext_resource type="AudioStream" uid="uid://dbifl2frqkd0k" path="res://assets/audio/kenney_voiceover-pack-fighter/Audio/4.ogg" id="18_q5ebp"]
 [ext_resource type="Texture2D" uid="uid://b2dmrbnjwihv7" path="res://assets/kenney/kenney_ui-pack/PNG/blue_button01.png" id="19_yxgk1"]
 
 [sub_resource type="GDScript" id="GDScript_a87ma"]
@@ -75,14 +70,24 @@ func use_camera(layer_id:int,cam_id:int):
 	body.global_position = pos
 	body.global_rotation = rot
 	
-#	var billboard_sprites = get_tree().get_nodes_in_group(NL.billboard_sprites)
-#	for sprite in billboard_sprites:
-#		sprite.cooldown = 0.1
+	var billboard_sprites = get_tree().get_nodes_in_group(NL.billboard_sprites)
+	for sprite in billboard_sprites:
+		sprite.cooldown = 0
+		sprite.select_counter = 0
 
 
 func _print(line:String):
 #	return
 	print(line)
+"
+
+[sub_resource type="GDScript" id="GDScript_jaspm"]
+script/source = "extends Node3D
+
+var root:Node3D
+
+func _enter_tree() -> void:
+	root = get_parent().root
 "
 
 [sub_resource type="GDScript" id="GDScript_vcuxi"]
@@ -97,7 +102,7 @@ func _ready() -> void:
 	set_interface()
 
 func _process(delta: float) -> void:
-	reject_user(delta)
+	check_user(delta)
 
 
 func set_interface():
@@ -116,7 +121,7 @@ func interact(user):
 	current_user = _root
 
 var reject_cd := 0.0
-func reject_user(delta:=0.01):
+func check_user(delta):
 	if reject_cd >0:
 		reject_cd -= delta
 		return
@@ -124,8 +129,11 @@ func reject_user(delta:=0.01):
 	if current_user == null:
 		return
 	var dist_sq = current_user.global_position. distance_squared_to(global_position)
-	if dist_sq < interact_range * interact_range:
+	if dist_sq < interact_range*interact_range:
 		return
+	reject_user()
+
+func reject_user():
 	root.change_state(root.states.off)
 	PlayerInputs.attach_to(current_user)
 	current_user = null
@@ -281,6 +289,7 @@ script/source = "extends TextureButton
 
 var root : Node3D
 @export var console:Node3D
+
 func _enter_tree() -> void:
 	root = get_parent().root
 
@@ -288,25 +297,21 @@ func _ready() -> void:
 	connect('pressed',pressed) # Replace with function body.
 
 func pressed():
-	_print('boop')
 	console.reject_user()
-	
+
 
 func _print(line:String):
-#	return
+	return
 	print(line)
 "
 
 [sub_resource type="GDScript" id="GDScript_ca8tx"]
 script/source = "extends Control
 
-var root : Node3D
-@onready var body = $\"../../body\"
+var root:Node3D
+@export var head:Node3D
+@export var noise_sfx:AudioList
 
-@export var audio_0:AudioList
-@export var audio_1:AudioList
-@export var audio_2:AudioList
-@export var audio_3:AudioList
 
 func _enter_tree() -> void:
 	root = get_parent().root
@@ -315,60 +320,32 @@ func _ready() -> void:
 	connect_buttons()
 
 func connect_buttons():
-	$\"option 0\".connect('pressed',option_pressed.bind(0))
-	$\"option 1\".connect('pressed',option_pressed.bind(1))
-	$\"option 2\".connect('pressed',option_pressed.bind(2))
-	$\"option 3\".connect('pressed',option_pressed.bind(3))
+	$\"door\".connect('pressed',toggle_door)
+	$\"light\".connect('pressed',toggle_light)
+	$\"noise\".connect('pressed',play_loud_noise)
+#	$\"\".connect('pressed',option_pressed.bind(3))
 
-func option_pressed(id:int):
-	_print('option pressed: ' + str(id))
-	var list:AudioList
-	var volume:=0.0
-	match id:
-		0:
-			list = audio_0
-			volume = 5
-		1:
-			list = audio_1
-			volume = 8
-		2:
-			list = audio_2
-			volume = 6
-		3:
-			list = audio_3
-			volume = 4
-	var pos = body.global_position
-	var player = AudioPool.create_sound_3d(pos,list)
-	if player != null:
-		player.offset_volume = volume
+func toggle_door():
+	var pos = head.get_contact()
+	var lock := ProximityTool.get_closest_node3d(NL.locks, pos)
+	if lock == null:	return
+	lock.lock_toggle()
 
-func _print(line:String):
+func toggle_light():
+	var pos = head.get_contact()
+	var lock := ProximityTool.get_closest_node3d(NL.light_buttons, pos)
+	if lock == null:	return
+	lock.toggle()
+
+func play_loud_noise():
+	var pos = head.global_position
+	AudioPool.create_sound_3d(pos, noise_sfx)
+
+
+func _print(line):
+	return
 	print(line)
 "
-
-[sub_resource type="Resource" id="Resource_4eqh7"]
-script = ExtResource("14_fxc52")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("15_q4ngd")])
-
-[sub_resource type="Resource" id="Resource_r3jrp"]
-script = ExtResource("14_fxc52")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("16_mqeuq")])
-
-[sub_resource type="Resource" id="Resource_aykf0"]
-script = ExtResource("14_fxc52")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("17_pp58v")])
-
-[sub_resource type="Resource" id="Resource_vq7ff"]
-script = ExtResource("14_fxc52")
-pitch_range = Vector2(0.75, 1.25)
-volume_range = Vector2(-1, 1)
-streams = Array[AudioStream]([ExtResource("18_q5ebp")])
 
 [sub_resource type="GDScript" id="GDScript_0r5ds"]
 script/source = "extends TextureButton
@@ -381,11 +358,11 @@ func _ready() -> void:
 	connect('pressed',pressed) # Replace with function body.
 
 func pressed():
-	_print('boop')
+	_print('quit button pressed')
 	root.change_state(root.states.selecting)
 
 func _print(line:String):
-#	return
+	return
 	print(line)
 "
 
@@ -394,11 +371,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -51)
 script = SubResource("GDScript_a87ma")
 
 [node name="body" type="Node3D" parent="."]
+script = SubResource("GDScript_jaspm")
 
 [node name="head" parent="body" instance=ExtResource("3_xnssc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-enabled = false
-script = null
+target_position = Vector3(0, 0, 10)
 
 [node name="console" type="StaticBody3D" parent="."]
 transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, 1.20151, 2, -27.1787)
@@ -492,6 +469,7 @@ theme = SubResource("Theme_rxedv")
 script = SubResource("GDScript_dtqdo")
 
 [node name="minimaps" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -556,81 +534,74 @@ text = "return"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="camera view" type="FlowContainer" parent="UI"]
+[node name="camera view" type="FlowContainer" parent="UI" node_paths=PackedStringArray("head")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.99
-anchor_top = 0.99
+anchor_left = 0.85
+anchor_top = 0.5
 anchor_right = 0.99
 anchor_bottom = 0.99
-offset_left = -190.0
-offset_top = -261.0
 grow_horizontal = 0
 grow_vertical = 0
-pivot_offset = Vector2(100, 260)
 alignment = 2
+vertical = true
 script = SubResource("GDScript_ca8tx")
-audio_0 = SubResource("Resource_4eqh7")
-audio_1 = SubResource("Resource_r3jrp")
-audio_2 = SubResource("Resource_aykf0")
-audio_3 = SubResource("Resource_vq7ff")
+head = NodePath("../../body/head")
+metadata/_edit_use_anchors_ = true
 
-[node name="option 0" type="TextureButton" parent="UI/camera view"]
-custom_minimum_size = Vector2(100, 0)
+[node name="door" type="TextureButton" parent="UI/camera view"]
 layout_mode = 2
 texture_normal = ExtResource("18_8kfyj")
 texture_pressed = ExtResource("19_yxgk1")
-stretch_mode = 0
+stretch_mode = 1
 
-[node name="Label" type="Label" parent="UI/camera view/option 0"]
+[node name="Label" type="Label" parent="UI/camera view/door"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "yes"
+text = "Toggle door"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="option 1" type="TextureButton" parent="UI/camera view"]
-custom_minimum_size = Vector2(100, 0)
+[node name="light" type="TextureButton" parent="UI/camera view"]
 layout_mode = 2
 texture_normal = ExtResource("18_8kfyj")
 texture_pressed = ExtResource("19_yxgk1")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="UI/camera view/option 1"]
+[node name="Label" type="Label" parent="UI/camera view/light"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "affirmative"
+text = "Toggle light"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="option 2" type="TextureButton" parent="UI/camera view"]
-custom_minimum_size = Vector2(100, 0)
+[node name="noise" type="TextureButton" parent="UI/camera view"]
 layout_mode = 2
 texture_normal = ExtResource("18_8kfyj")
 texture_pressed = ExtResource("19_yxgk1")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="UI/camera view/option 2"]
+[node name="Label" type="Label" parent="UI/camera view/noise"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "reluctant yes"
+text = "Loud noise"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="option 3" type="TextureButton" parent="UI/camera view"]
-custom_minimum_size = Vector2(100, 0)
+visible = false
 layout_mode = 2
 texture_normal = ExtResource("18_8kfyj")
 texture_pressed = ExtResource("19_yxgk1")
@@ -643,7 +614,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "sarcastic no"
+text = "Human noise"
 horizontal_alignment = 1
 vertical_alignment = 1
 

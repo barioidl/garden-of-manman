@@ -535,9 +535,9 @@ speed = 2.0
 slide_sfx = ExtResource("6_lswlq")
 
 [node name="control panel" type="Marker3D" parent="elevator/platform"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6, -1.75)
+transform = Transform3D(-3.27835e-08, 0, -0.75, 0, 0.75, 0, 0.75, 0, -3.27835e-08, 0, 0.6, -1.75)
 script = ExtResource("3_e65bw")
-button_distance = 0.25
+button_distance = 0.3
 
 [node name="ceiling lamp" parent="elevator/platform" instance=ExtResource("6_htxwi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)

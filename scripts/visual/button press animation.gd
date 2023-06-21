@@ -14,7 +14,7 @@ func _button_toggled(button_pressed) -> void:
 
 func play_animation(button_pressed):
 	var _in = Vector3(0.1,0,0)
-	var _out = Vector3(0.2,0,0)
+	var _out = Vector3(0.15,0,0)
 	var tween = create_tween()
 	tween.tween_property(self,'position',_in, duration*0.5).set_trans(transition)
 	tween.tween_property(self,'position',_out, duration*0.5).set_trans(transition)
