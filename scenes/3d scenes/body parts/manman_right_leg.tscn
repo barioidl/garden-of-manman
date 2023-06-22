@@ -1,9 +1,9 @@
 [gd_scene load_steps=29 format=3 uid="uid://kdc45ywomfjf"]
 
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_pcyc1"]
+[ext_resource type="Script" path="res://scripts/body parts/limb.gd" id="1_pcyc1"]
 [ext_resource type="Texture2D" uid="uid://c24td08dr45o4" path="res://assets/Textures/manman thigh0005.png" id="1_u3ixe"]
 [ext_resource type="PackedScene" uid="uid://b6876vc1gukeb" path="res://scenes/3d scenes/body parts/leg animation.tscn" id="1_wsnkn"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="2_fx8q2"]
+[ext_resource type="Script" path="res://scripts/body parts/ik target.gd" id="2_fx8q2"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_h2wns"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="3_df6fj"]
 [ext_resource type="Texture2D" uid="uid://cfmuf3uosfaxg" path="res://assets/Textures/manman thigh0000.png" id="3_gla6l"]

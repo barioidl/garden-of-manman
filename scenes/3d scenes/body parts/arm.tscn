@@ -1,8 +1,8 @@
 [gd_scene load_steps=29 format=3 uid="uid://btly3xw4dm86n"]
 
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="1_cqla2"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_j5t3a"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_q00xy"]
+[ext_resource type="Script" path="res://scripts/body parts/ik target.gd" id="1_j5t3a"]
+[ext_resource type="Script" path="res://scripts/body parts/limb.gd" id="1_q00xy"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="1_sn8ug"]
 [ext_resource type="PackedScene" uid="uid://chk37jh0ixlfc" path="res://scenes/3d scenes/body parts/arm animation.tscn" id="2_k3b7s"]
 [ext_resource type="Texture2D" uid="uid://dpim4x0uvxfch" path="res://assets/Textures/timmy top arm0000.png" id="7_h1fr8"]

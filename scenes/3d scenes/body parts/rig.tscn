@@ -1,8 +1,8 @@
 [gd_scene load_steps=41 format=3 uid="uid://pq7662ttv81f"]
 
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="1_1yqpl"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/rig.gd" id="1_4fh26"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/hip bone.gd" id="2_56iui"]
+[ext_resource type="Script" path="res://scripts/body parts/ik target.gd" id="1_1yqpl"]
+[ext_resource type="Script" path="res://scripts/body parts/rig.gd" id="1_4fh26"]
+[ext_resource type="Script" path="res://scripts/body parts/hip bone.gd" id="2_56iui"]
 [ext_resource type="Texture2D" uid="uid://dtqkd3o2icoy4" path="res://assets/Textures/timmy hip0000.png" id="4_38nna"]
 [ext_resource type="PackedScene" uid="uid://btly3xw4dm86n" path="res://scenes/3d scenes/body parts/arm.tscn" id="5_6vgu5"]
 [ext_resource type="PackedScene" uid="uid://cokr73x1eh2bc" path="res://scenes/3d scenes/body parts/leg.tscn" id="6_2y1ec"]

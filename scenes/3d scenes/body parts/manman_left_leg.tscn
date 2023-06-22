@@ -1,0 +1,48 @@
+[gd_scene load_steps=24 format=3 uid="uid://h5ky76c3wdb7"]
+
+[ext_resource type="PackedScene" uid="uid://kdc45ywomfjf" path="res://scenes/3d scenes/body parts/manman_right_leg.tscn" id="1_3g0dh"]
+[ext_resource type="Texture2D" uid="uid://bpbknu37frmkd" path="res://assets/Textures/manman thigh0006.png" id="2_dsccn"]
+[ext_resource type="Texture2D" uid="uid://bgp2kcsyntd2i" path="res://assets/Textures/manman thigh0007.png" id="3_srcs7"]
+[ext_resource type="Texture2D" uid="uid://v5g2iabgkdqf" path="res://assets/Textures/manman thigh0008.png" id="4_sr14a"]
+[ext_resource type="Texture2D" uid="uid://dxsihtesuvqlo" path="res://assets/Textures/manman thigh0009.png" id="5_6r0t4"]
+[ext_resource type="Texture2D" uid="uid://dvlxn7r5rlf7p" path="res://assets/Textures/manman thigh0010.png" id="6_1018i"]
+[ext_resource type="Texture2D" uid="uid://dd037ji4dibu8" path="res://assets/Textures/manman thigh0011.png" id="7_nqtwf"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_rnpwc"]
+[ext_resource type="Texture2D" uid="uid://djavl032f8npn" path="res://assets/Textures/manman bottom leg0006.png" id="9_bt0gu"]
+[ext_resource type="Texture2D" uid="uid://ciwse6q7nrvjt" path="res://assets/Textures/manman bottom leg0007.png" id="10_nytuu"]
+[ext_resource type="Texture2D" uid="uid://dinhk863ek8jj" path="res://assets/Textures/manman bottom leg0008.png" id="11_1qhb7"]
+[ext_resource type="Texture2D" uid="uid://cyurjnxxscfgc" path="res://assets/Textures/manman bottom leg0009.png" id="12_mavoe"]
+[ext_resource type="Texture2D" uid="uid://djilvsginpch3" path="res://assets/Textures/manman bottom leg0010.png" id="13_vmtt2"]
+[ext_resource type="Texture2D" uid="uid://dbydp72v7hbeo" path="res://assets/Textures/manman bottom leg0011.png" id="14_hb75d"]
+[ext_resource type="Texture2D" uid="uid://6w52b7npwwxy" path="res://assets/Textures/manman bottom feet0006.png" id="15_1fcv1"]
+[ext_resource type="Texture2D" uid="uid://bhyhnpgl1orm2" path="res://assets/Textures/manman bottom feet0007.png" id="16_2rgnr"]
+[ext_resource type="Texture2D" uid="uid://bhynkvf3dwqnw" path="res://assets/Textures/manman bottom feet0008.png" id="17_jgb5o"]
+[ext_resource type="Texture2D" uid="uid://ndfw0tfcwhgn" path="res://assets/Textures/manman bottom feet0009.png" id="18_su64p"]
+[ext_resource type="Texture2D" uid="uid://b2c2f8uyx5cl6" path="res://assets/Textures/manman bottom feet0010.png" id="19_5dm7l"]
+[ext_resource type="Texture2D" uid="uid://b2q8a87i3fyjw" path="res://assets/Textures/manman bottom feet0011.png" id="20_srk6e"]
+
+[sub_resource type="Resource" id="Resource_hjqi2"]
+script = ExtResource("8_rnpwc")
+frames = Array[Texture]([ExtResource("2_dsccn"), ExtResource("3_srcs7"), ExtResource("4_sr14a"), ExtResource("5_6r0t4"), ExtResource("6_1018i"), ExtResource("7_nqtwf")])
+
+[sub_resource type="Resource" id="Resource_bjakm"]
+script = ExtResource("8_rnpwc")
+frames = Array[Texture]([ExtResource("9_bt0gu"), ExtResource("10_nytuu"), ExtResource("11_1qhb7"), ExtResource("12_mavoe"), ExtResource("13_vmtt2"), ExtResource("14_hb75d")])
+
+[sub_resource type="Resource" id="Resource_htuh0"]
+script = ExtResource("8_rnpwc")
+frames = Array[Texture]([ExtResource("15_1fcv1"), ExtResource("16_2rgnr"), ExtResource("17_jgb5o"), ExtResource("18_su64p"), ExtResource("19_5dm7l"), ExtResource("20_srk6e")])
+
+[node name="left leg" instance=ExtResource("1_3g0dh")]
+
+[node name="Sprite3D" parent="right leg" index="1"]
+texture = ExtResource("2_dsccn")
+sprites = SubResource("Resource_hjqi2")
+
+[node name="Sprite3D" parent="right leg/elbow" index="1"]
+texture = ExtResource("9_bt0gu")
+sprites = SubResource("Resource_bjakm")
+
+[node name="Sprite3D" parent="right leg/elbow/wrist" index="1"]
+texture = ExtResource("15_1fcv1")
+sprites = SubResource("Resource_htuh0")

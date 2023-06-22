@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://chk37jh0ixlfc"]
 
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/leg raycast.gd" id="1_p4bqj"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb animation player.gd" id="2_n42wr"]
+[ext_resource type="Script" path="res://scripts/body parts/leg raycast.gd" id="1_p4bqj"]
+[ext_resource type="Script" path="res://scripts/body parts/limb animation player.gd" id="2_n42wr"]
 
 [sub_resource type="Animation" id="Animation_2putk"]
 length = 0.001

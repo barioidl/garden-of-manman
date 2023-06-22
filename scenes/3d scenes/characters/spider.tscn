@@ -1,7 +1,7 @@
 [gd_scene load_steps=39 format=3 uid="uid://djpeyjf27alka"]
 
 [ext_resource type="Script" path="res://scripts/modules/character_controller.gd" id="1_bhlmi"]
-[ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/characters/spider_leg.tscn" id="1_s3sio"]
+[ext_resource type="PackedScene" uid="uid://2e2b7uitefcl" path="res://scenes/3d scenes/body parts/spider_leg.tscn" id="1_s3sio"]
 [ext_resource type="PackedScene" path="res://data/state machine/inputs.tscn" id="2_nkc5e"]
 [ext_resource type="PackedScene" uid="uid://5tj6nyl33ced" path="res://data/state machine/platformer.tscn" id="3_lrbm0"]
 [ext_resource type="PackedScene" uid="uid://bs1s526y8omgb" path="res://data/state machine/stats.tscn" id="4_nxtod"]
@@ -233,7 +233,7 @@ func _ready() -> void:
 	goals = [
 		GoalEatFood.new(),
 		GoalJumpscare.new(),
-		GoalPuzzle.new(),
+#		GoalPuzzle.new(),
 #		GoalFlee.new(),
 #		GoalPlay.new(),
 	]
@@ -334,7 +334,6 @@ hunger = 10.0
 
 [node name="stats_debufs" parent="stats" instance=ExtResource("6_g0jqh")]
 process_mode = 4
-time_scale = 0.5
 
 [node name="fps aim" parent="." instance=ExtResource("5_e85df")]
 
@@ -410,8 +409,8 @@ alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("19_vv7ur")
 script = ExtResource("13_decgv")
-sprites = ExtResource("16_450uj")
 has_shadow = false
+sprites = ExtResource("16_450uj")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="body/body/head/face"]
 transform = Transform3D(1, 0, -2.08798e-21, 0, 1, 0, 2.08798e-21, 0, 1, 0, 0, 0.25)

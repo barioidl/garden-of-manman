@@ -1,0 +1,70 @@
+[gd_scene load_steps=24 format=3 uid="uid://r2pta8k5mqd3"]
+
+[ext_resource type="PackedScene" uid="uid://c513h4oo2fkmh" path="res://scenes/3d scenes/body parts/manman right arm.tscn" id="1_gc2rj"]
+[ext_resource type="Texture2D" uid="uid://cftdm2ych2c5l" path="res://assets/Textures/manman top arm0006.png" id="2_f5w5j"]
+[ext_resource type="Texture2D" uid="uid://cyj25ep6r7oe" path="res://assets/Textures/manman top arm0007.png" id="3_vixty"]
+[ext_resource type="Texture2D" uid="uid://b7wx0jvof5ndq" path="res://assets/Textures/manman top arm0008.png" id="4_rxtf5"]
+[ext_resource type="Texture2D" uid="uid://copxbtntsply2" path="res://assets/Textures/manman top arm0009.png" id="5_x6ivm"]
+[ext_resource type="Texture2D" uid="uid://u6nrc3ewadyx" path="res://assets/Textures/manman top arm0010.png" id="6_adx37"]
+[ext_resource type="Texture2D" uid="uid://dn53ur6xj4t5b" path="res://assets/Textures/manman top arm0011.png" id="7_wfpw1"]
+[ext_resource type="Script" path="res://scripts/visual/bill_board_sides.gd" id="8_5l5j4"]
+[ext_resource type="Texture2D" uid="uid://bpasoy6unltoy" path="res://assets/Textures/manman bottom arm0006.png" id="9_dve31"]
+[ext_resource type="Texture2D" uid="uid://ckcb6ta4i1dtl" path="res://assets/Textures/manman bottom arm0007.png" id="10_t0fes"]
+[ext_resource type="Texture2D" uid="uid://begiay7g2o88b" path="res://assets/Textures/manman bottom arm0008.png" id="11_gvf88"]
+[ext_resource type="Texture2D" uid="uid://b8du22j8hi1to" path="res://assets/Textures/manman bottom arm0009.png" id="12_shseg"]
+[ext_resource type="Texture2D" uid="uid://dgtqj1goebfbf" path="res://assets/Textures/manman bottom arm0010.png" id="13_xumxg"]
+[ext_resource type="Texture2D" uid="uid://g6ia1bhq3ys6" path="res://assets/Textures/manman bottom arm0011.png" id="14_18qm0"]
+[ext_resource type="Texture2D" uid="uid://btyyokjlow7mw" path="res://assets/Textures/manman hand0006.png" id="15_stwoc"]
+[ext_resource type="Texture2D" uid="uid://cmgrexwpmox6b" path="res://assets/Textures/manman hand0007.png" id="16_4v33f"]
+[ext_resource type="Texture2D" uid="uid://cu1pqojbsosgh" path="res://assets/Textures/manman hand0008.png" id="17_hdllb"]
+[ext_resource type="Texture2D" uid="uid://ld0tefry113x" path="res://assets/Textures/manman hand0009.png" id="18_tyi1x"]
+[ext_resource type="Texture2D" uid="uid://dcv7xos8h6fay" path="res://assets/Textures/manman hand0010.png" id="19_emcsc"]
+[ext_resource type="Texture2D" uid="uid://d2rwoq4vawv2d" path="res://assets/Textures/manman hand0011.png" id="20_ra5qj"]
+
+[sub_resource type="Resource" id="Resource_7xaav"]
+script = ExtResource("8_5l5j4")
+frames = Array[Texture]([ExtResource("2_f5w5j"), ExtResource("3_vixty"), ExtResource("4_rxtf5"), ExtResource("5_x6ivm"), ExtResource("6_adx37"), ExtResource("7_wfpw1")])
+
+[sub_resource type="Resource" id="Resource_vmvi7"]
+script = ExtResource("8_5l5j4")
+frames = Array[Texture]([ExtResource("9_dve31"), ExtResource("10_t0fes"), ExtResource("11_gvf88"), ExtResource("12_shseg"), ExtResource("13_xumxg"), ExtResource("14_18qm0")])
+
+[sub_resource type="Resource" id="Resource_mdhkq"]
+script = ExtResource("8_5l5j4")
+frames = Array[Texture]([ExtResource("15_stwoc"), ExtResource("16_4v33f"), ExtResource("17_hdllb"), ExtResource("18_tyi1x"), ExtResource("19_emcsc"), ExtResource("20_ra5qj")])
+
+[node name="left shoulder" instance=ExtResource("1_gc2rj")]
+
+[node name="Marker3D" parent="." index="1"]
+transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.82137e-15, -8.74228e-08, -1, -0.36, 0, 0)
+
+[node name="Sprite3D" parent="Marker3D" index="0"]
+cd_range = Vector2(0.02, 0.5)
+
+[node name="Node3D" parent="." index="2"]
+transform = Transform3D(-0.612373, 0.612373, -0.5, 0.707107, 0.707107, 0, 0.353553, -0.353553, -0.866026, -0.304, -0.225, 0.193)
+
+[node name="Sprite3D" parent="Node3D" index="0"]
+cd_range = Vector2(0.02, 0.5)
+
+[node name="Node3D2" parent="." index="3"]
+transform = Transform3D(-0.612372, 0.612372, 0.5, 0.707107, 0.707107, 0, -0.353553, 0.353553, -0.866025, -0.375, -0.275, -0.214)
+
+[node name="Sprite3D" parent="Node3D2" index="0"]
+cd_range = Vector2(0.02, 0.5)
+
+[node name="Sprite3D" parent="arm" index="1"]
+texture = ExtResource("2_f5w5j")
+sprites = SubResource("Resource_7xaav")
+cd_range = Vector2(0.02, 0.5)
+
+[node name="Sprite3D" parent="arm/elbow" index="1"]
+texture = ExtResource("9_dve31")
+sprites = SubResource("Resource_vmvi7")
+cd_range = Vector2(0.02, 0.5)
+
+[node name="Sprite3D" parent="arm/elbow/wrist" index="1"]
+transform = Transform3D(0.944444, -0.0342218, 0.326882, 0, 0.994564, 0.104123, -0.328668, -0.0983381, 0.939312, -0.05, -0.2, 0.05)
+texture = ExtResource("15_stwoc")
+sprites = SubResource("Resource_mdhkq")
+cd_range = Vector2(0.02, 0.5)

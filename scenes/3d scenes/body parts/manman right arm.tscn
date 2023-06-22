@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://chk37jh0ixlfc" path="res://scenes/3d scenes/body parts/arm animation.tscn" id="1_0d25e"]
 [ext_resource type="Texture2D" uid="uid://cpuxfa3m1ccrn" path="res://assets/Textures/manman shoulder0005.png" id="1_uqr12"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/limb.gd" id="1_wvaqk"]
+[ext_resource type="Script" path="res://scripts/body parts/limb.gd" id="1_wvaqk"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_sc85m"]
 [ext_resource type="Texture2D" uid="uid://djnjv1uwtgrpc" path="res://assets/Textures/manman shoulder0000.png" id="3_p01qj"]
 [ext_resource type="Texture2D" uid="uid://dv02bckk07kww" path="res://assets/Textures/manman shoulder0001.png" id="4_5svq0"]
@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://onp2w2fk6c8g" path="res://assets/Textures/manman top arm0005.png" id="21_3jamw"]
 [ext_resource type="Texture2D" uid="uid://mndttt4nndum" path="res://assets/Textures/manman top arm0000.png" id="22_0h2n5"]
 [ext_resource type="Texture2D" uid="uid://dsmtj6ifphabr" path="res://assets/Textures/manman top arm0001.png" id="23_5qjkj"]
-[ext_resource type="Script" path="res://scenes/3d scenes/body parts/ik target.gd" id="23_mi3rs"]
+[ext_resource type="Script" path="res://scripts/body parts/ik target.gd" id="23_mi3rs"]
 [ext_resource type="Texture2D" uid="uid://dmvc6455rowns" path="res://assets/Textures/manman top arm0002.png" id="24_15ad6"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="24_og8qn"]
 [ext_resource type="Texture2D" uid="uid://cc5oiwjlwl5gm" path="res://assets/Textures/manman top arm0003.png" id="25_64hfy"]
