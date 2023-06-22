@@ -202,14 +202,18 @@ locale/locale_filter_mode=1
 
 [physics]
 
+2d/run_on_separate_thread=true
 3d/run_on_separate_thread=true
 common/max_physics_steps_per_frame=2
+2d/physics_engine="GodotPhysics2D"
 3d/default_gravity=10.0
+2d/default_gravity=1000.0
 common/enable_object_picking=false
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+driver/threads/thread_model=2
 lights_and_shadows/directional_shadow/size=2048
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 textures/decals/filter=0

@@ -61,6 +61,7 @@ script = ExtResource("1_bstlq")
 
 [node name="platformer" parent="." instance=ExtResource("2_7jd1i")]
 horizontal_speed = 4.0
+fall_speed = 0.4
 sneak_speed = 0.4
 jump_height = 4.0
 extra_jumps = 0

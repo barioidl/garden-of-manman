@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=27 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="Texture2D" uid="uid://d30dini4jbrni" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Cement/s2 Cement Grey.png" id="1_381pl"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cgop3hbljslab" path="res://scenes/3d scenes/garden of manman/surface.tscn" id="14_1m6cm"]
 [ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="15_dy6vl"]
 [ext_resource type="PackedScene" uid="uid://bdygo1vh3hoq" path="res://scenes/3d scenes/garden of manman/elevator.tscn" id="16_e0cmf"]
+[ext_resource type="AudioStream" uid="uid://dbbkwhua5gmk7" path="res://assets/audio/zapsplat/aaj_0176_HrtbtDpSlw1SFX.mp3" id="16_qxrws"]
 [ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="18_5ggfe"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
@@ -140,6 +141,23 @@ polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Arr
 [sub_resource type="SphereShape3D" id="SphereShape3D_m1yvh"]
 radius = 2.0
 
+[sub_resource type="GDScript" id="GDScript_7lk6s"]
+script/source = "extends AudioStreamPlayer3D
+
+func _ready() -> void:
+	connect('finished',change_pitch)
+
+var pitch_counter := 0
+func change_pitch():
+	print('beat ended')
+	play()
+	if pitch_counter > 0:
+		pitch_counter -= 1
+		return
+	pitch_counter = randi_range(3,10)
+	pitch_scale = randf_range(0.8,1.2)
+"
+
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_gvegq")
 
@@ -226,7 +244,7 @@ shape = SubResource("SphereShape3D_m1yvh")
 transform = Transform3D(0.986435, 0, 0.164153, 0, 1, 0, -0.164153, 0, 0.986435, 9.449, 1, -23.783)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11.7406, 0.5, -17)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.03415, 0.5, -72.4972)
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("7_qe3lc")
@@ -240,7 +258,7 @@ items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("13_082
 [node name="camera console" parent="." instance=ExtResource("18_5ggfe")]
 
 [node name="door" parent="." instance=ExtResource("9_6tphn")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0, -13.0456)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0, -30.0456)
 
 [node name="3d button" parent="." instance=ExtResource("13_1wplj")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.5, 1.5, -9.5)
@@ -250,3 +268,17 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.5,
 [node name="door_2" parent="." instance=ExtResource("15_dy6vl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -18.5)
 password = 3
+
+[node name="rivers of blood" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -10, -20)
+stream = ExtResource("16_qxrws")
+attenuation_model = 1
+unit_size = 100.0
+max_db = 0.0
+autoplay = true
+max_distance = 100.0
+bus = &"Sfx_3d"
+emission_angle_filter_attenuation_db = 0.0
+attenuation_filter_cutoff_hz = 20500.0
+attenuation_filter_db = 0.0
+script = SubResource("GDScript_7lk6s")

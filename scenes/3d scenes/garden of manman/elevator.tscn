@@ -163,7 +163,7 @@ func on_player_finished():
 	create_sound()
 
 func _print(line):
-#	return
+	return
 	print(line)
 "
 

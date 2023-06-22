@@ -9,9 +9,6 @@ var shape
 #var body
 @export var interact_range:=2.0
 
-func _print(line):
-#	return
-	print(line)
 
 func _init() -> void:
 	name = 'head'
@@ -165,3 +162,7 @@ func drop_item(item_id := drop_id):
 	hotbar.drop_item(item_id, aim_at, drop_strength)
 	drop_strength = 0
 
+
+func _print(line):
+	return
+	print(line)

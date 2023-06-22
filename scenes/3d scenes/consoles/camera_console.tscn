@@ -79,7 +79,7 @@ func use_camera(layer_id:int,cam_id:int):
 
 
 func _print(line:String):
-#	return
+	return
 	print(line)
 "
 
@@ -142,7 +142,7 @@ func reject_user():
 	_print('rejected user')
 
 func _print(line:String):
-#	return
+	return
 	print(line)
 "
 
@@ -169,11 +169,6 @@ var root : Node3D
 func _enter_tree() -> void:
 	root = get_parent().root
 
-func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
-	pass
 "
 
 [sub_resource type="GDScript" id="GDScript_qyh21"]
@@ -183,11 +178,6 @@ var root : Node3D
 func _enter_tree() -> void:
 	root = get_parent().root
 
-func _ready() -> void:
-	pass 
-
-func _process(delta: float) -> void:
-	pass
 "
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b42on"]
@@ -350,8 +340,12 @@ func play_loud_noise():
 	AudioPool.create_sound_3d(pos, noise_sfx)
 
 func confess():
-	pass
+	var pos = head.global_position
+	var speaker := AudioPool.create_sound_3d(pos, truth_sfx)
+	speaker.connect('finished', on_confessed)
 
+func on_confessed():
+	pass
 
 func _print(line):
 	return
