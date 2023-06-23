@@ -1,7 +1,8 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dgm0pqw2youwa"]
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://wbdclc2ejxvi"]
 
-[ext_resource type="Texture2D" uid="uid://dewsejj0x2pro" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Tiles/s2 Tiles Small White.png" id="1_ict4q"]
-[ext_resource type="Texture2D" uid="uid://cilx1svvda7on" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Tiles/s2 Tiles Small White Mix.png" id="2_chpk8"]
+[ext_resource type="Texture2D" uid="uid://cxbfp5j2404v" path="res://assets/little-martian, retro-texture-pack-v9/png/CRATE_1L.png" id="1_wr1ke"]
+[ext_resource type="Texture2D" uid="uid://c8m3v40b5601p" path="res://assets/little-martian, retro-texture-pack-v9/png/CONCRETE_1B.png" id="2_1fwjh"]
+[ext_resource type="Texture2D" uid="uid://2m7416sgr7iw" path="res://assets/little-martian, retro-texture-pack-v9/png/CONCRETE_2B.png" id="3_88kf8"]
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -77,19 +78,19 @@ void fragment() {
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.75
+shader_parameter/roughness = 1.0
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
-shader_parameter/specular = 1.0
-shader_parameter/metallic = 0.0
-shader_parameter/emission = Color(1, 1, 1, 1)
-shader_parameter/emission_energy = 0.0
+shader_parameter/specular = 0.25
+shader_parameter/metallic = 0.2
+shader_parameter/emission = null
+shader_parameter/emission_energy = null
 shader_parameter/rim = 0.5
 shader_parameter/rim_tint = 0.5
-shader_parameter/uv1_blend_sharpness = 20.0
-shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("1_ict4q")
-shader_parameter/texture_metallic = ExtResource("2_chpk8")
-shader_parameter/texture_roughness = ExtResource("2_chpk8")
-shader_parameter/texture_emission = ExtResource("2_chpk8")
-shader_parameter/texture_rim = ExtResource("2_chpk8")
+shader_parameter/uv1_blend_sharpness = 100.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, -0.3, 0)
+shader_parameter/texture_albedo = ExtResource("1_wr1ke")
+shader_parameter/texture_metallic = ExtResource("3_88kf8")
+shader_parameter/texture_roughness = ExtResource("2_1fwjh")
+shader_parameter/texture_emission = ExtResource("2_1fwjh")
+shader_parameter/texture_rim = ExtResource("1_wr1ke")

@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dgm0pqw2youwa"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c3u2deu44d1o1"]
 
-[ext_resource type="Texture2D" uid="uid://dewsejj0x2pro" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Tiles/s2 Tiles Small White.png" id="1_ict4q"]
-[ext_resource type="Texture2D" uid="uid://cilx1svvda7on" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Tiles/s2 Tiles Small White Mix.png" id="2_chpk8"]
+[ext_resource type="Texture2D" uid="uid://b4dcqhka13g28" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Tiles/s2 Tiles Small WhiteBlack Rows.png" id="1_bhcpv"]
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -77,19 +76,19 @@ void fragment() {
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.75
-shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/specular = 1.0
-shader_parameter/metallic = 0.0
-shader_parameter/emission = Color(1, 1, 1, 1)
-shader_parameter/emission_energy = 0.0
+shader_parameter/metallic = 0.25
+shader_parameter/emission = null
+shader_parameter/emission_energy = null
 shader_parameter/rim = 0.5
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 20.0
-shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("1_ict4q")
-shader_parameter/texture_metallic = ExtResource("2_chpk8")
-shader_parameter/texture_roughness = ExtResource("2_chpk8")
-shader_parameter/texture_emission = ExtResource("2_chpk8")
-shader_parameter/texture_rim = ExtResource("2_chpk8")
+shader_parameter/texture_albedo = ExtResource("1_bhcpv")
+shader_parameter/texture_metallic = ExtResource("1_bhcpv")
+shader_parameter/texture_roughness = ExtResource("1_bhcpv")
+shader_parameter/texture_emission = ExtResource("1_bhcpv")
+shader_parameter/texture_rim = ExtResource("1_bhcpv")
