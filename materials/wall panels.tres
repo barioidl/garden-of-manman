@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://l8ipphudtxen"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://o56d08ji48q"]
 
-[ext_resource type="Texture2D" uid="uid://ddovbid32p1vd" path="res://assets/little-martian, retro-texture-pack-v9/png/CRATE_1N.png" id="1_uc55g"]
+[ext_resource type="Texture2D" uid="uid://kdqgedh3fob" path="res://assets/little-martian, retro-texture-pack-v9/png/SUPPORT_1A.png" id="1_5w5ut"]
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -76,19 +76,19 @@ void fragment() {
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.9
-shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
-shader_parameter/specular = 0.0
-shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.2
 shader_parameter/emission = null
 shader_parameter/emission_energy = null
 shader_parameter/rim = 0.5
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 20.0
 shader_parameter/uv1_scale = Vector3(0.663, 0.663, 0.663)
-shader_parameter/uv1_offset = Vector3(0, 0.1, 0)
-shader_parameter/texture_albedo = ExtResource("1_uc55g")
-shader_parameter/texture_metallic = ExtResource("1_uc55g")
-shader_parameter/texture_roughness = ExtResource("1_uc55g")
-shader_parameter/texture_emission = ExtResource("1_uc55g")
-shader_parameter/texture_rim = ExtResource("1_uc55g")
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("1_5w5ut")
+shader_parameter/texture_metallic = ExtResource("1_5w5ut")
+shader_parameter/texture_roughness = ExtResource("1_5w5ut")
+shader_parameter/texture_emission = ExtResource("1_5w5ut")
+shader_parameter/texture_rim = ExtResource("1_5w5ut")

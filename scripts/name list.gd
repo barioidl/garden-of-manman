@@ -177,6 +177,8 @@ var off := &'off'
 var use_elevator := &'use_elevator'
 var is_open := &'is_open'
 
+var get_room := &'get_room'
+
 func list_of_methods():pass
 
 func list_of_signals():pass

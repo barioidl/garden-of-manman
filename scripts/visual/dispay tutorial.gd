@@ -12,6 +12,7 @@ enum actions{
 
 func _ready() -> void:
 	replace_placeholder()
+	setup_mask()
 	connect("body_entered",body_entered)
 	monitorable = false
 	monitoring = true
@@ -22,6 +23,11 @@ func body_entered(body:Node3D):
 	Interface.show_dialogue(line)
 	queue_free()
 
+func setup_mask():
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	
+	set_collision_mask_value(8,true)
 
 func replace_placeholder():
 	if key == actions.none:

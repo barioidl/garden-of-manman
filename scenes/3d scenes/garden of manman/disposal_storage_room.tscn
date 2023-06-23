@@ -1,15 +1,16 @@
-[gd_scene load_steps=31 format=3 uid="uid://ctb27xxr3m3cn"]
+[gd_scene load_steps=30 format=3 uid="uid://ctb27xxr3m3cn"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_masev"]
 [ext_resource type="ArrayMesh" uid="uid://dx3broj3aebqb" path="res://assets/borga map/storage room mesh.obj" id="2_kde2s"]
 [ext_resource type="Resource" uid="uid://bla61rbgx17oc" path="res://data/items/eyejar brown.tres" id="3_4nni0"]
+[ext_resource type="Material" uid="uid://o56d08ji48q" path="res://materials/wall panels.tres" id="3_6st0q"]
 [ext_resource type="PackedScene" uid="uid://du7sf0vjhjree" path="res://scenes/3d scenes/facility/high_shelf.tscn" id="3_bso4f"]
 [ext_resource type="Resource" uid="uid://di5h1i8a2on1e" path="res://data/items/eyejar red.tres" id="4_44ylj"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="4_gnuuk"]
 [ext_resource type="Material" uid="uid://c3u2deu44d1o1" path="res://materials/BW tile floor.tres" id="4_l3wgc"]
 [ext_resource type="Resource" uid="uid://ddf6y7ffv0mcm" path="res://data/items/eyejar green.tres" id="5_fqi7d"]
 [ext_resource type="Material" uid="uid://dgm0pqw2youwa" path="res://materials/lamps.tres" id="5_oqk0u"]
-[ext_resource type="Texture2D" uid="uid://b044d36r7gbur" path="res://assets/little-martian, retro-texture-pack-v9/png/FENCE_1A.png" id="6_2tnrt"]
+[ext_resource type="Texture2D" uid="uid://b18ucgn6rx7o2" path="res://assets/little-martian, retro-texture-pack-v9/png/RIVET_1A.png" id="6_co2no"]
 [ext_resource type="Resource" uid="uid://nt2yha0ae32k" path="res://data/items/eyejar blue.tres" id="6_k15cw"]
 [ext_resource type="Material" uid="uid://bm1w4gvwpdiu5" path="res://materials/warning tape.tres" id="7_cy2wa"]
 [ext_resource type="Material" uid="uid://l8ipphudtxen" path="res://materials/small metal panel.tres" id="8_66gj2"]
@@ -18,7 +19,6 @@
 [ext_resource type="Material" uid="uid://dbpdtti6xjlhc" path="res://materials/metal mesh.tres" id="10_gix3g"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="11_4wbu2"]
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="11_5fwpr"]
-[ext_resource type="Texture2D" uid="uid://kdqgedh3fob" path="res://assets/little-martian, retro-texture-pack-v9/png/SUPPORT_1A.png" id="11_fnrak"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="12_hqfgl"]
 [ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="13_pqscf"]
 
@@ -98,27 +98,6 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lf1eb"]
-render_priority = 0
-shader = SubResource("Shader_mf78y")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.5
-shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 0.2
-shader_parameter/emission = null
-shader_parameter/emission_energy = null
-shader_parameter/rim = 0.5
-shader_parameter/rim_tint = 0.5
-shader_parameter/uv1_blend_sharpness = 20.0
-shader_parameter/uv1_scale = Vector3(0.663, 0.663, 0.663)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("11_fnrak")
-shader_parameter/texture_metallic = ExtResource("11_fnrak")
-shader_parameter/texture_roughness = ExtResource("11_fnrak")
-shader_parameter/texture_emission = ExtResource("11_fnrak")
-shader_parameter/texture_rim = ExtResource("11_fnrak")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xx5ku"]
 render_priority = 0
 shader = SubResource("Shader_mf78y")
@@ -134,11 +113,11 @@ shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 20.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("6_2tnrt")
-shader_parameter/texture_metallic = ExtResource("6_2tnrt")
-shader_parameter/texture_roughness = ExtResource("6_2tnrt")
-shader_parameter/texture_emission = ExtResource("6_2tnrt")
-shader_parameter/texture_rim = ExtResource("6_2tnrt")
+shader_parameter/texture_albedo = ExtResource("6_co2no")
+shader_parameter/texture_metallic = ExtResource("6_co2no")
+shader_parameter/texture_roughness = ExtResource("6_co2no")
+shader_parameter/texture_emission = ExtResource("6_co2no")
+shader_parameter/texture_rim = ExtResource("6_co2no")
 
 [sub_resource type="GDScript" id="GDScript_fawar"]
 script/source = "extends StaticBody3D
@@ -252,7 +231,7 @@ shape = SubResource("BoxShape3D_wq733")
 
 [node name="StorageRoomMesh" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_kde2s")
-surface_material_override/0 = SubResource("ShaderMaterial_lf1eb")
+surface_material_override/0 = ExtResource("3_6st0q")
 surface_material_override/1 = ExtResource("4_l3wgc")
 surface_material_override/2 = ExtResource("5_oqk0u")
 surface_material_override/3 = SubResource("ShaderMaterial_xx5ku")
@@ -270,6 +249,7 @@ red_jar = ExtResource("4_44ylj")
 green_jar = ExtResource("5_fqi7d")
 blue_jar = ExtResource("6_k15cw")
 placement_template = NodePath("high shelf/jar position template")
+dont_spawn = true
 
 [node name="high shelf" parent="shelves" instance=ExtResource("3_bso4f")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2, 0, -0.75)

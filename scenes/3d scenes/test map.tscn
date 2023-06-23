@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=21 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="Texture2D" uid="uid://d30dini4jbrni" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Cement/s2 Cement Grey.png" id="1_381pl"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
@@ -8,13 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
 [ext_resource type="Script" path="res://scripts/modules/assign character as player .gd" id="7_qe3lc"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="8_adjw4"]
-[ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="9_6tphn"]
-[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="13_1wplj"]
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="13_0824v"]
-[ext_resource type="PackedScene" uid="uid://cgop3hbljslab" path="res://scenes/3d scenes/garden of manman/surface.tscn" id="14_1m6cm"]
-[ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="15_dy6vl"]
 [ext_resource type="PackedScene" uid="uid://ctb27xxr3m3cn" path="res://scenes/3d scenes/garden of manman/disposal_storage_room.tscn" id="16_4kbnr"]
-[ext_resource type="PackedScene" uid="uid://bdygo1vh3hoq" path="res://scenes/3d scenes/garden of manman/elevator.tscn" id="16_e0cmf"]
 [ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="18_5ggfe"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
@@ -32,10 +27,11 @@ sky_material = SubResource("ProceduralSkyMaterial_5gbdl")
 [sub_resource type="Environment" id="Environment_pjwlt"]
 background_mode = 2
 background_color = Color(0.94902, 0.94902, 0.94902, 1)
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_6rrjj")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.25
+ambient_light_energy = 0.1
 tonemap_mode = 3
 fog_sun_scatter = 0.1
 adjustment_enabled = true
@@ -148,7 +144,6 @@ script = SubResource("GDScript_gvegq")
 environment = SubResource("Environment_pjwlt")
 
 [node name="map collision" type="StaticBody3D" parent="."]
-visible = false
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -168,20 +163,18 @@ skeleton = NodePath("../..")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="map collision/MapPathFinding"]
 navigation_mesh = SubResource("NavigationMesh_8ucub")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="map collision"]
 transform = Transform3D(0.854459, 0.25976, -0.449916, 4.89302e-09, 0.866025, 0.500001, 0.519519, -0.42723, 0.739983, 0, 0, 0)
 light_energy = 0.5
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
 [node name="tutorials" type="Node3D" parent="."]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -43)
-visible = false
 
 [node name="pickup tutorial" type="Area3D" parent="tutorials"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.965, 0.787213, 3.018)
-collision_layer = 128
+collision_layer = 0
 collision_mask = 128
 monitorable = false
 script = ExtResource("4_hang5")
@@ -228,7 +221,8 @@ shape = SubResource("SphereShape3D_m1yvh")
 transform = Transform3D(0.986435, 0, 0.164153, 0, 1, 0, -0.164153, 0, 0.986435, 9.449, 1, -23.783)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.03415, 0.5, -72.4972)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 0, -12)
+collision_layer = 129
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("7_qe3lc")
@@ -237,21 +231,6 @@ script = ExtResource("7_qe3lc")
 script = ExtResource("8_adjw4")
 items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("13_0824v")])
 
-[node name="elevator" parent="." instance=ExtResource("16_e0cmf")]
-
 [node name="camera console" parent="." instance=ExtResource("18_5ggfe")]
-
-[node name="door" parent="." instance=ExtResource("9_6tphn")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0, -30.0456)
-
-[node name="3d button" parent="." instance=ExtResource("13_1wplj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.5, 1.5, -9.5)
-
-[node name="Surface" parent="." instance=ExtResource("14_1m6cm")]
-visible = false
-
-[node name="door_2" parent="." instance=ExtResource("15_dy6vl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -18.5)
-password = 3
 
 [node name="disposal storage room" parent="." instance=ExtResource("16_4kbnr")]
