@@ -1,17 +1,43 @@
-[gd_scene load_steps=31 format=3 uid="uid://m656m5c6naer"]
+[gd_scene load_steps=44 format=3 uid="uid://m656m5c6naer"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_etxmj"]
 [ext_resource type="PackedScene" uid="uid://bfx86i5ctbb7" path="res://scenes/3d scenes/facility/long arm.tscn" id="2_2wclx"]
+[ext_resource type="Material" uid="uid://bm1w4gvwpdiu5" path="res://materials/warning tape.tres" id="3_0va4m"]
 [ext_resource type="ArrayMesh" uid="uid://sqtjslhq44he" path="res://assets/borga map/forming room.obj" id="3_n3sn8"]
+[ext_resource type="Material" uid="uid://wbdclc2ejxvi" path="res://materials/big metal panel.tres" id="3_qvghi"]
 [ext_resource type="PackedScene" uid="uid://ymiup8tchxbt" path="res://scenes/3d scenes/facility/assembling_mob.tscn" id="4_dxd52"]
+[ext_resource type="Material" uid="uid://dwp4hqevf8vdg" path="res://materials/belt inner.tres" id="4_x6lat"]
 [ext_resource type="PackedScene" uid="uid://csx6qoli5htt1" path="res://scenes/3d scenes/facility/fence.tscn" id="5_chxup"]
+[ext_resource type="Material" uid="uid://dgm0pqw2youwa" path="res://materials/lamps.tres" id="5_rko77"]
 [ext_resource type="PackedScene" uid="uid://cchfco5i7ybjy" path="res://scenes/3d scenes/facility/shutter.tscn" id="5_ysa5s"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_i1s81"]
+[ext_resource type="Material" uid="uid://dmt1cmhm2v122" path="res://materials/floor.tres" id="6_x4tfr"]
+[ext_resource type="Material" uid="uid://o56d08ji48q" path="res://materials/wall panels.tres" id="7_2uueg"]
 [ext_resource type="Script" path="res://scripts/objects/conveyor belt.gd" id="8_jc62r"]
 [ext_resource type="Texture2D" uid="uid://cy6g4mno3aqtu" path="res://assets/Textures/key_card0001.png" id="9_44uqx"]
+[ext_resource type="Material" uid="uid://dbpdtti6xjlhc" path="res://materials/metal mesh.tres" id="9_p1aj7"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="9_qkm25"]
+[ext_resource type="Material" uid="uid://cm46rsdboq54t" path="res://materials/belt center.tres" id="10_yll1w"]
 [ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="11_iwstp"]
+[ext_resource type="Material" uid="uid://c5ayeurov0djx" path="res://materials/belt side.tres" id="11_qfb3w"]
 [ext_resource type="Texture2D" uid="uid://c6h27v62pi8hm" path="res://assets/kenney/kenney_ui-pack/PNG/red_panel.png" id="12_41syx"]
+[ext_resource type="Material" uid="uid://l8ipphudtxen" path="res://materials/small metal panel.tres" id="12_pkuxd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qro3l"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jm4cj"]
+resource_name = "striping-dark"
+albedo_color = Color(0.92, 0.639932, 0.247837, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hedml"]
+size = Vector3(50, 6, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dr6h4"]
+size = Vector3(30, 3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nnxac"]
+size = Vector3(10, 3, 6)
 
 [sub_resource type="GDScript" id="GDScript_wlhke"]
 script/source = "extends Node3D
@@ -66,14 +92,6 @@ size = Vector3(54, 0.4, 1.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xf812"]
 size = Vector3(20, 0.4, 1.25)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qa8gy"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_6n11j"]
-material = SubResource("StandardMaterial3D_qa8gy")
-size = Vector2(50, 10)
-orientation = 1
 
 [sub_resource type="Animation" id="Animation_4uohd"]
 length = 0.001
@@ -426,14 +444,36 @@ func body_entered(body):
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b15m3"]
 
-[node name="forming chamber" type="Node3D"]
+[node name="forming chamber" type="Area3D"]
 script = ExtResource("1_etxmj")
-areas = [NodePath("../../render bounds/hydro forming chamber"), NodePath("../../render bounds/camera room"), NodePath("../../render bounds/conveyor room")]
 
 [node name="FormingRoom" type="MeshInstance3D" parent="."]
 layers = 513
 mesh = ExtResource("3_n3sn8")
-skeleton = NodePath("../../../../..")
+surface_material_override/0 = ExtResource("3_qvghi")
+surface_material_override/1 = ExtResource("4_x6lat")
+surface_material_override/2 = ExtResource("5_rko77")
+surface_material_override/3 = ExtResource("6_x4tfr")
+surface_material_override/4 = SubResource("StandardMaterial3D_qro3l")
+surface_material_override/5 = ExtResource("7_2uueg")
+surface_material_override/6 = ExtResource("3_0va4m")
+surface_material_override/7 = ExtResource("9_p1aj7")
+surface_material_override/8 = SubResource("StandardMaterial3D_jm4cj")
+surface_material_override/9 = ExtResource("10_yll1w")
+surface_material_override/10 = ExtResource("11_qfb3w")
+surface_material_override/13 = ExtResource("12_pkuxd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 3, -40)
+shape = SubResource("BoxShape3D_hedml")
+
+[node name="CollisionShape3D_2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 1.5, -44)
+shape = SubResource("BoxShape3D_dr6h4")
+
+[node name="CollisionShape3D_3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 1.5, -38)
+shape = SubResource("BoxShape3D_nnxac")
 
 [node name="arm link" type="Node3D" parent="."]
 script = SubResource("GDScript_wlhke")
@@ -588,10 +628,6 @@ velocity = Vector3(-1, 0, 0)
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="belts/conveyor belt2"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.2, 7)
 shape = SubResource("BoxShape3D_xf812")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 66, 12.5, -40)
-mesh = SubResource("QuadMesh_6n11j")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.5, 0.5, -35.25)

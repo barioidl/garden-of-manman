@@ -62,9 +62,10 @@ func add_character(body):
 	_print('added character')
 
 func remove_character(body):
-	if !body.has_meta(NL.get_room):
+	var callable = body.get_meta(NL.get_room,false)
+	if callable is bool:
 		return
-	if body.get_meta(NL.get_room) != get_room:
+	if callable != get_room:
 		return
 	body.remove_meta(NL.get_room)
 	_print('removed character')

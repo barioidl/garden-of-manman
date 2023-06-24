@@ -1,12 +1,15 @@
-[gd_scene load_steps=32 format=3 uid="uid://cv1yxmhpapjbm"]
+[gd_scene load_steps=38 format=3 uid="uid://cv1yxmhpapjbm"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_x5ckn"]
 [ext_resource type="ArrayMesh" uid="uid://k5ndm18prpga" path="res://assets/borga map/conveyor room mesh.obj" id="2_o702g"]
+[ext_resource type="Material" uid="uid://cm46rsdboq54t" path="res://materials/belt center.tres" id="3_6j5ys"]
 [ext_resource type="Script" path="res://scripts/objects/conveyor belt.gd" id="3_bo141"]
 [ext_resource type="Material" uid="uid://dbpdtti6xjlhc" path="res://materials/metal mesh.tres" id="4_27po1"]
+[ext_resource type="Material" uid="uid://c5ayeurov0djx" path="res://materials/belt side.tres" id="4_76t8s"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="4_fwg0r"]
 [ext_resource type="PackedScene" uid="uid://ymiup8tchxbt" path="res://scenes/3d scenes/facility/assembling_mob.tscn" id="5_5pebb"]
 [ext_resource type="Material" uid="uid://o56d08ji48q" path="res://materials/wall panels.tres" id="5_d3mb0"]
+[ext_resource type="Material" uid="uid://dwp4hqevf8vdg" path="res://materials/belt inner.tres" id="5_jhs64"]
 [ext_resource type="Material" uid="uid://wbdclc2ejxvi" path="res://materials/big metal panel.tres" id="6_00wf5"]
 [ext_resource type="Material" uid="uid://bm1w4gvwpdiu5" path="res://materials/warning tape.tres" id="6_mhipa"]
 [ext_resource type="PackedScene" uid="uid://bfx86i5ctbb7" path="res://scenes/3d scenes/facility/long arm.tscn" id="6_nwhqs"]
@@ -19,6 +22,18 @@
 [ext_resource type="Texture2D" uid="uid://drjfjfx582ph4" path="res://assets/Textures/flash light0000.png" id="10_t5rt5"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="10_vtll1"]
 [ext_resource type="Resource" uid="uid://ddlssuha00ffl" path="res://data/items/flash light.tres" id="11_wjsum"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6k5by"]
+size = Vector3(10, 6, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rvurf"]
+size = Vector3(2, 3.5, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xvkly"]
+size = Vector3(13, 3.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqw2v"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="GDScript" id="GDScript_wx0iv"]
 script/source = "extends StaticBody3D
@@ -40,9 +55,6 @@ func button_toggled(button_pressed) -> void:
 	else:
 		emit_signal('deactivate_belts') 
 "
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqw2v"]
-albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dkeeb"]
 size = Vector3(1.25, 0.2, 43)
@@ -92,28 +104,46 @@ func switch(input):
 	visible = input
 "
 
-[node name="conveyor belt room" type="Node3D"]
+[node name="conveyor belt room" type="Area3D"]
 script = ExtResource("1_x5ckn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 3, -17)
+shape = SubResource("BoxShape3D_6k5by")
+
+[node name="CollisionShape3D_2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 1.75, -19)
+shape = SubResource("BoxShape3D_rvurf")
+
+[node name="CollisionShape3D_3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 1.75, -13)
+shape = SubResource("BoxShape3D_xvkly")
+
+[node name="CollisionShape3D_4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 1.75, -23)
+shape = SubResource("BoxShape3D_xvkly")
 
 [node name="ConveyorBelt" type="MeshInstance3D" parent="."]
 mesh = ExtResource("9_cktnx")
-skeleton = NodePath("../../../../..")
+surface_material_override/0 = ExtResource("3_6j5ys")
+surface_material_override/1 = ExtResource("4_76t8s")
+surface_material_override/2 = ExtResource("5_jhs64")
+
+[node name="ConveyorRoomMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_o702g")
+skeleton = NodePath("../conveyor room")
+surface_material_override/0 = ExtResource("4_27po1")
+surface_material_override/1 = ExtResource("5_d3mb0")
+surface_material_override/2 = ExtResource("6_mhipa")
+surface_material_override/3 = SubResource("StandardMaterial3D_lqw2v")
+surface_material_override/4 = ExtResource("8_5uenf")
+surface_material_override/5 = ExtResource("7_yvsad")
+surface_material_override/6 = ExtResource("6_00wf5")
+surface_material_override/7 = ExtResource("9_px5ap")
 
 [node name="conveyor room" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -20)
 script = SubResource("GDScript_wx0iv")
-
-[node name="ConveyorRoomMesh" type="MeshInstance3D" parent="conveyor room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 20)
-mesh = ExtResource("2_o702g")
-surface_material_override/0 = ExtResource("4_27po1")
-surface_material_override/1 = ExtResource("8_5uenf")
-surface_material_override/2 = ExtResource("6_mhipa")
-surface_material_override/3 = SubResource("StandardMaterial3D_lqw2v")
-surface_material_override/4 = ExtResource("5_d3mb0")
-surface_material_override/5 = ExtResource("7_yvsad")
-surface_material_override/6 = ExtResource("6_00wf5")
-surface_material_override/7 = ExtResource("9_px5ap")
 
 [node name="conveyor belt" type="StaticBody3D" parent="conveyor room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.3, -21.5)

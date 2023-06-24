@@ -77,7 +77,7 @@ void fragment() {
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.75
+shader_parameter/roughness = 0.0
 shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
 shader_parameter/specular = 1.0
 shader_parameter/metallic = 0.0

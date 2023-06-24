@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=24 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="Texture2D" uid="uid://d30dini4jbrni" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Cement/s2 Cement Grey.png" id="1_381pl"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="8_adjw4"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="12_hukr0"]
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="13_0824v"]
+[ext_resource type="PackedScene" uid="uid://m656m5c6naer" path="res://scenes/3d scenes/garden of manman/forming_chamber.tscn" id="13_k2q77"]
+[ext_resource type="PackedScene" uid="uid://cv1yxmhpapjbm" path="res://scenes/3d scenes/garden of manman/conveyor_belt_room.tscn" id="14_bbfxg"]
 [ext_resource type="PackedScene" uid="uid://ctb27xxr3m3cn" path="res://scenes/3d scenes/garden of manman/disposal_storage_room.tscn" id="16_4kbnr"]
 [ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="18_5ggfe"]
 
@@ -145,6 +147,7 @@ script = SubResource("GDScript_gvegq")
 environment = SubResource("Environment_pjwlt")
 
 [node name="map collision" type="StaticBody3D" parent="."]
+visible = false
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -238,3 +241,7 @@ items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("13_082
 
 [node name="3d button" parent="." instance=ExtResource("12_hukr0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.5, 2.5)
+
+[node name="forming chamber" parent="." instance=ExtResource("13_k2q77")]
+
+[node name="conveyor belt room" parent="." instance=ExtResource("14_bbfxg")]
