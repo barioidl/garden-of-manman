@@ -42,6 +42,8 @@ func on():
 		return
 	if cooldown >0: 
 		return
+	if button_pressed:
+		return
 	button_pressed = true
 	fire_signals()
 
@@ -49,6 +51,8 @@ func off():
 	if disabled:
 		return
 	if cooldown > 0: 
+		return
+	if !button_pressed:
 		return
 	button_pressed = false
 	fire_signals()

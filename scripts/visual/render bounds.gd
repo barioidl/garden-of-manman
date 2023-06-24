@@ -1,10 +1,10 @@
 extends Area3D
 
 @export var brightness := 1.0
-@export var oxygen := 1.0
-@export var pressure := 1.0
-@export var temperature := 25.0
-@export var moisture := 0.0
+@export var oxygen := 20
+@export var pressure := 100
+@export var temperature := 25
+@export var moisture := 10
 
 
 @export var enable_on_load:= false
@@ -12,7 +12,7 @@ signal toggle_visibility(active)
 
 func _ready() -> void:
 	connect_signals()
-	setup_mask()
+	set_layers_masks()
 	if enable_on_load:
 		enable()
 	else:
@@ -25,7 +25,7 @@ func connect_signals():
 	connect('area_entered',_on_area_entered)
 	connect('area_exited',_on_area_exited)
 
-func setup_mask():
+func set_layers_masks():
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
 	
@@ -58,14 +58,10 @@ func disable():
 		node.process_mode = Node.PROCESS_MODE_DISABLED
 
 func add_character(body):
-	if !body.is_in_group(NL.character):
-		return
 	body.set_meta(NL.get_room,get_room)
 	_print('added character')
 
 func remove_character(body):
-	if !body.is_in_group(NL.character):
-		return
 	if !body.has_meta(NL.get_room):
 		return
 	if body.get_meta(NL.get_room) != get_room:

@@ -12,6 +12,7 @@ func _init() -> void:
 
 func _ready():
 	add_to_group(NL.character)
+	set_layers_masks()
 
 var dt := 0.0
 func _process(delta: float) -> void:
@@ -30,6 +31,9 @@ func setup_body():
 	contact_monitor = true
 	
 #	physics_material_override = load("res://materials/default_physics_material.tres")
+
+func set_layers_masks():
+	set_collision_layer_value(8,true)
 
 func set_damp():
 	var damp := 0

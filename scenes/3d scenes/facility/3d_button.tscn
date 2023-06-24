@@ -22,9 +22,24 @@
 [sub_resource type="GDScript" id="GDScript_m22gs"]
 script/source = "extends Button3d
 
+func _init() -> void:
+	set_layers_masks()
+
 func _ready() -> void:
 	super._ready()
 	add_to_group(NL.light_buttons)
+	connect('toggled',on_toggled)
+
+func set_layers_masks():
+	set_collision_layer_value(8,true)
+
+func on_toggled(pressed):
+	var get_room = get_meta(NL.get_room,false)
+	if get_room is bool:
+		print('boop')
+		return
+	var room = get_room.call()
+	print(room.name)
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_crg15"]

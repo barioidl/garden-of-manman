@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=22 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="Texture2D" uid="uid://d30dini4jbrni" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Cement/s2 Cement Grey.png" id="1_381pl"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
 [ext_resource type="Script" path="res://scripts/modules/assign character as player .gd" id="7_qe3lc"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="8_adjw4"]
+[ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="12_hukr0"]
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="13_0824v"]
 [ext_resource type="PackedScene" uid="uid://ctb27xxr3m3cn" path="res://scenes/3d scenes/garden of manman/disposal_storage_room.tscn" id="16_4kbnr"]
 [ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="18_5ggfe"]
@@ -221,7 +222,7 @@ shape = SubResource("SphereShape3D_m1yvh")
 transform = Transform3D(0.986435, 0, 0.164153, 0, 1, 0, -0.164153, 0, 0.986435, 9.449, 1, -23.783)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 0, -12)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 0, 1.5)
 collision_layer = 129
 
 [node name="Node" type="Node" parent="player"]
@@ -234,3 +235,6 @@ items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("13_082
 [node name="camera console" parent="." instance=ExtResource("18_5ggfe")]
 
 [node name="disposal storage room" parent="." instance=ExtResource("16_4kbnr")]
+
+[node name="3d button" parent="." instance=ExtResource("12_hukr0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.5, 2.5)
