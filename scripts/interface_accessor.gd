@@ -1,108 +1,115 @@
 extends Node
 
 func get_input(body:Node3D)-> Inputs:
-	if !body.has_meta(NL.get_inputs):
+	var callable = body.get_meta(NL.get_inputs,false)
+	if callable is bool:
 		return null
-	return body.get_meta(NL.get_inputs).call()
+	return callable.call()
 
 func change_health(body,delta:=-1.0)->bool:
-	if !body.has_meta(NL.change_health):
+	var meta = body.get_meta(NL.change_health,false)
+	if meta is bool:
 		return false
-	var meta = body.get_meta(NL.change_health)
 	meta.call(delta)
 	return true
 
 func change_hunger(body,delta:=-1.0)->bool:
-	if !body.has_meta(NL.change_hunger):
+	var meta = body.get_meta(NL.change_hunger,false)
+	if meta is bool:
 		return false
-	var meta = body.get_meta(NL.change_hunger)
 	meta.call(delta)
 	return true
 
 func stunt(body,duration:=0.5):
-	if body.has_meta(NL.delay_platformer):
-		body.get_meta(NL.delay_platformer).call(duration)
+	var callable=body.get_meta(NL.delay_platformer,false)
+	if callable is Callable:
+		callable.call(duration)
 
 func walk_to(body:Node3D,target:Vector3)->bool:
-	if !body.has_meta(NL.walk_to_target):
-		return true
-	var walk_to = body.get_meta(NL.walk_to_target)
-	return walk_to.call(target)
+	var callable = body.get_meta(NL.walk_to_target,false)
+	if callable is bool:
+		return false
+	return callable.call(target)
 
 func turn_head(body:Node3D, target:Vector3, x_speed := 1.0, y_speed := 1.0) -> bool:
-	if !body.has_meta(NL.turn_head_toward):
+	var callable = body.get_meta(NL.turn_head_toward,false)
+	if callable is bool:
 		return false
-	var turn_head = body.get_meta(NL.turn_head_toward)
-	return turn_head.call(target,x_speed,y_speed)
+	return callable.call(target,x_speed,y_speed)
 
 
 
 func is_hotbar_full(body:Node3D)->bool:
-	if !body.has_meta(NL.is_hotbar_full):
-		return true
-	return body.get_meta(NL.is_hotbar_full).call()
+	var callable = body.get_meta(NL.is_hotbar_full,false)
+	if callable is bool:
+		return false
+	return callable.call()
 
 
 func reset_inputs(body:Node3D):
-	if !body.has_meta(NL.reset_inputs):
-		return null
-	return body.get_meta(NL.reset_inputs).call()
+	var callable = body.get_meta(NL.reset_inputs,false)
+	if callable is bool:
+		return
+	return callable.call()
 
 func get_head_target(body:Node3D)->Node3D:
-	if !body.has_meta(NL.get_head_target):
+	var callable = body.get_meta(NL.get_head_target,false)
+	if callable is bool:
 		return null
-	return body.get_meta(NL.get_head_target).call()
+	return callable.call()
 
 func interact_with(body:Node3D, target:Node, user:Node)-> bool:
-	if !body.has_meta(NL.interact_with):
-		print('has no meta')
+	var callable = body.get_meta(NL.interact_with,false)
+	if callable is bool:
 		return false
-	return body.get_meta(NL.interact_with).call(target,user)
+	return callable.call(target,user)
 
 
 func get_head_position(body:Node3D)->Vector3:
-	if !body.has_meta(NL.get_head_position):
+	var callable = body.get_meta(NL.get_head_position,false)
+	if callable is bool:
 		return Vector3.ZERO
-	var meta = body.get_meta(NL.get_head_position)
-	return meta.call()
+	return callable.call()
 
 func attach_nav_agent(body:Node3D,target) -> NavAgent:
-	if !body.has_meta(NL.get_nav_agent):
+	var callable = body.get_meta(NL.get_nav_agent,false)
+	if callable is bool:
 		var agent = NavAgentPool.get_agent_3d()
 		agent.attach_to(body,target)
 		return agent
-	var agent = body.get_meta(NL.get_nav_agent).call()
+	var agent = callable.call()
 	agent.set_target(target)
 	return agent
 
 func get_nav_agent(body:Node3D) -> NavAgent:
-	if !body.has_meta(NL.get_nav_agent):
+	var callable = body.get_meta(NL.get_nav_agent,false)
+	if callable is bool:
 		return null
-	var meta = body.get_meta(NL.get_nav_agent)
-	return meta.call()
+	return callable.call()
 
 
 func show_dialogue(line:String):
-	var meta = Hud.get_meta(NL.show_dialogue)
-	meta.call(line)
+	var callable = Hud.get_meta(NL.show_dialogue)
+	callable.call(line)
 
 func show_image(img:Texture):
-	var meta = Hud.get_meta(NL.show_image)
-	meta.call(img)
+	var callable = Hud.get_meta(NL.show_image)
+	callable.call(img)
+
 
 func get_goap_agent(body:Node3D)->GOAPAgent:
-	if !body.has_meta(NL.get_goap_agent):
-		return
-	var meta = body.get_meta(NL.get_goap_agent)
-	return meta.call()
+	var callable = body.get_meta(NL.get_goap_agent,false)
+	if callable is bool:
+		return null
+	return callable.call()
 
 func reward_agent(body:Node3D,amount:=0.0):
 	if is_equal_approx(amount,0):
 		return
-	if !body.has_meta(NL.reward_agent):
+	var callable = body.get_meta(NL.reward_agent,false)
+	if callable is bool:
 		return
-	var meta = body.get_meta(NL.reward_agent)
-	return meta.call(amount)
+	return callable.call(amount)
 
 #func get_closest_node3d(body:Node3D, group:StringName, pos:Vector3, _range:=100.0)-> Node3D:
 #	if !body.has_meta(NL.get_closest_node3d):
@@ -115,27 +122,30 @@ func reward_agent(body:Node3D,amount:=0.0):
 #		return null
 #	var meta = body.get_meta(NL.get_farest_node3d)
 #	return meta.call(group,pos,_range)
-
-func get_position_around(body:Node3D, min_range:=Vector3.ONE, max_range:=Vector3.ONE)-> Vector3:
-	if !body.has_meta(NL.get_random_position):
-		return body.global_position
-	var center = body.global_position
-	var meta = body.get_meta(NL.get_random_position)
-	return meta.call(center,min_range,max_range)
+#
+#func get_position_around(body:Node3D, min_range:=Vector3.ONE, max_range:=Vector3.ONE)-> Vector3:
+#	if !body.has_meta(NL.get_random_position):
+#		return body.global_position
+#	var center = body.global_position
+#	var meta = body.get_meta(NL.get_random_position)
+#	return meta.call(center,min_range,max_range)
 
 func get_hotbar_items(body:Node3D)-> Array:
-	if !body.has_meta(NL.get_hotbar_items):
+	var callable = body.get_meta(NL.get_hotbar_items,false)
+	if callable is bool:
 		return []
-	return body.get_meta(NL.get_hotbar_items).call()
+	return callable.call()
 
 func input_use_item(body:Node3D,id:int)-> bool:
-	if !body.has_meta(NL.input_use_item):
+	var callable = body.get_meta(NL.input_use_item,false)
+	if callable is bool:
 		return false
-	body.get_meta(NL.input_use_item).call(id)
+	callable.call(id)
 	return true
 
 func drop_item(body:Node3D,id:int)-> bool:
-	if !body.has_meta(NL.drop_item):
+	var callable = body.get_meta(NL.drop_item,false)
+	if callable is bool:
 		return false
-	body.get_meta(NL.drop_item).call(id)
+	callable.call(id)
 	return true
