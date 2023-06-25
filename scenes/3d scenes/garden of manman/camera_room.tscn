@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bu512mwqfs5ow"]
+[gd_scene load_steps=18 format=3 uid="uid://bu512mwqfs5ow"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_ac8xe"]
 [ext_resource type="ArrayMesh" uid="uid://j7b4uied8t2r" path="res://assets/borga map/camera room mesh.obj" id="2_r07jb"]
+[ext_resource type="Texture2D" uid="uid://byx3n0s0kyu11" path="res://assets/little-martian, retro-texture-pack-v9/png/BRICK_1B.png" id="3_1qban"]
 [ext_resource type="Texture2D" uid="uid://bwd1ys512iajr" path="res://assets/little-martian, retro-texture-pack-v9/png/BRICK_1A.png" id="3_ccoqt"]
 [ext_resource type="Material" uid="uid://bm1w4gvwpdiu5" path="res://materials/warning tape.tres" id="4_l7w8u"]
 [ext_resource type="Material" uid="uid://dto5scqgr7osv" path="res://materials/BW board floor.tres" id="4_yp0lq"]
@@ -100,7 +101,7 @@ shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 100.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("3_ccoqt")
+shader_parameter/texture_albedo = ExtResource("3_1qban")
 shader_parameter/texture_metallic = ExtResource("3_ccoqt")
 shader_parameter/texture_roughness = ExtResource("3_ccoqt")
 shader_parameter/texture_emission = ExtResource("3_ccoqt")

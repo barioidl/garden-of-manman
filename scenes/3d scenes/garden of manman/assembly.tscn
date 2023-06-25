@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://cji1p5w5q6tjd"]
+[gd_scene load_steps=18 format=3 uid="uid://cji1p5w5q6tjd"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_e7qpp"]
 [ext_resource type="ArrayMesh" uid="uid://d3pkv3rbrtlps" path="res://assets/borga map/room 5.obj" id="2_mw8lh"]
+[ext_resource type="Material" uid="uid://1qty7rp4bb55" path="res://materials/grey tiles.tres" id="3_cmch1"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="3_xa1xe"]
+[ext_resource type="Material" uid="uid://vjdaqlby3jct" path="res://materials/dark wood.tres" id="4_o1kug"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="5_4mdgt"]
+[ext_resource type="Material" uid="uid://k1q1rbksbc76" path="res://materials/big white tiles.tres" id="5_bhldr"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_7cq0s"]
 [ext_resource type="PackedScene" uid="uid://bb0t0bkhtha43" path="res://scenes/3d scenes/facility/blue_chair.tscn" id="7_vpjkm"]
 [ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="7_xr8jf"]
@@ -11,6 +14,9 @@
 [ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="9_x4iu3"]
 [ext_resource type="ArrayMesh" uid="uid://bfk44idlnxatj" path="res://assets/factory/big screen.obj" id="10_jhoe8"]
 [ext_resource type="PackedScene" uid="uid://otrj1kjtockh" path="res://scenes/3d scenes/facility/speaker.tscn" id="11_sol71"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d8vtv"]
+size = Vector3(20, 4, 10)
 
 [sub_resource type="GDScript" id="GDScript_bwgd4"]
 script/source = "extends Node3D
@@ -23,13 +29,18 @@ func _on_3d_button_toggled(button_pressed) -> void:
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0yufo"]
 points = PackedVector3Array(-0.69567, 0.12823, -0.0643698, 0.69567, 0.910859, 0.0225804, 0.69567, 0.910859, -0.0643698, -0.69567, 0.910859, 0.0225804, 0.69567, 0.12823, 0.0225804, 0.69567, 0.12823, -0.0643698, -0.69567, 0.910859, -0.0643698, -0.69567, 0.12823, 0.0225804)
 
-[node name="assembly" type="Node3D"]
+[node name="assembly" type="Area3D"]
 script = ExtResource("1_e7qpp")
-areas = [NodePath("../../-4 areas/pcb assembly"), NodePath("../../-4 areas/camera room"), NodePath("../../-4 areas/plasma cutter room")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -52)
+shape = SubResource("BoxShape3D_d8vtv")
 
 [node name="Room5" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_mw8lh")
-skeleton = NodePath("../../../../..")
+surface_material_override/0 = ExtResource("3_cmch1")
+surface_material_override/1 = ExtResource("4_o1kug")
+surface_material_override/2 = ExtResource("5_bhldr")
 
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.5, 3.4, -52)
