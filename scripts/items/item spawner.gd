@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends Sprite3D
 class_name ItemSpawner
 

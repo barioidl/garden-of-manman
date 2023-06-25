@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://d0udp2unv4vl3"]
+[gd_scene load_steps=44 format=3 uid="uid://d0udp2unv4vl3"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_qhpbv"]
 [ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="2_doa65"]
@@ -25,6 +25,12 @@
 [ext_resource type="Texture2D" uid="uid://oegwi03fqm8" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Concrete/s2 Concrete Lines 3 Grey Hor.png" id="19_fvkvl"]
 [ext_resource type="Texture2D" uid="uid://b18ucgn6rx7o2" path="res://assets/little-martian, retro-texture-pack-v9/png/RIVET_1A.png" id="22_5al8l"]
 [ext_resource type="Texture2D" uid="uid://tic84psn36wt" path="res://assets/little-martian, retro-texture-pack-v9/png/RIVET_2B.png" id="25_2j44i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtwrg"]
+size = Vector3(3, 5, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqy6d"]
+size = Vector3(20, 20, 20)
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -101,9 +107,9 @@ render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/roughness = 0.0
-shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 1, 0)
 shader_parameter/specular = 0.0
-shader_parameter/metallic = 0.1
+shader_parameter/metallic = 0.5
 shader_parameter/emission = Color(1, 1, 1, 1)
 shader_parameter/emission_energy = 0.0
 shader_parameter/rim = 0.5
@@ -310,9 +316,9 @@ data = PackedVector3Array(6, 2, -80, 4.0769, 2, -80.7804, 6.0384, 2, -80.3902, 9
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.1
-shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
-shader_parameter/specular = 1.241
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 1.0
 shader_parameter/metallic = 1.0
 shader_parameter/emission = null
 shader_parameter/emission_energy = null
@@ -356,9 +362,9 @@ render_priority = 0
 shader = SubResource("Shader_7c6sb")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/roughness = 0.1
-shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 1)
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/specular = 1.0
-shader_parameter/metallic = 0.5
+shader_parameter/metallic = 1.0
 shader_parameter/emission = Color(1, 1, 1, 1)
 shader_parameter/emission_energy = 0.0
 shader_parameter/rim = 0.5
@@ -475,10 +481,17 @@ func _ready() -> void:
 	queue_free() # Replace with function body.
 "
 
-[node name="Admin corridor" type="Node3D"]
+[node name="Admin corridor" type="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -80)
 script = ExtResource("1_qhpbv")
-areas = [NodePath("../../render bounds/Administrator"), NodePath("../../render bounds/camera room")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 19)
+shape = SubResource("BoxShape3D_vtwrg")
+
+[node name="CollisionShape3D_2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_eqy6d")
 
 [node name="Admin" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 80)
@@ -498,7 +511,7 @@ metadata/_edit_lock_ = true
 [node name="SpotLight3D" type="SpotLight3D" parent="lamps"]
 transform = Transform3D(-4.37114e-08, -0.819152, 0.573576, 0, 0.573576, 0.819152, -1, 3.58063e-08, -2.50718e-08, 9.5, 10, 0)
 light_color = Color(1, 0.708333, 0.5, 1)
-light_energy = 5.0
+light_energy = 10.0
 shadow_enabled = true
 spot_range = 13.0
 spot_angle = 40.0
@@ -517,7 +530,7 @@ sprites = SubResource("Resource_qqfhg")
 [node name="SpotLight3D2" type="SpotLight3D" parent="lamps"]
 transform = Transform3D(-4.37114e-08, 0.819152, -0.573576, 0, 0.573576, 0.819152, 1, 3.58063e-08, -2.50718e-08, -9.5, 10, 0)
 light_color = Color(1, 0.708333, 0.5, 1)
-light_energy = 5.0
+light_energy = 10.0
 shadow_enabled = true
 spot_range = 13.0
 spot_angle = 40.0
@@ -536,7 +549,7 @@ sprites = SubResource("Resource_qqfhg")
 [node name="SpotLight3D3" type="SpotLight3D" parent="lamps"]
 transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 10, 9.5)
 light_color = Color(1, 0.708333, 0.5, 1)
-light_energy = 5.0
+light_energy = 10.0
 shadow_enabled = true
 spot_range = 13.0
 spot_angle = 40.0
@@ -555,7 +568,7 @@ sprites = SubResource("Resource_qqfhg")
 [node name="SpotLight3D4" type="SpotLight3D" parent="lamps"]
 transform = Transform3D(-1, 1.23689e-07, -8.66076e-08, 0, 0.573576, 0.819152, 1.50996e-07, 0.819152, -0.573576, 0, 10, -9.5)
 light_color = Color(1, 0.708333, 0.5, 1)
-light_energy = 5.0
+light_energy = 10.0
 shadow_enabled = true
 spot_range = 13.0
 spot_angle = 40.0
@@ -593,9 +606,10 @@ skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_ag1uc")
 surface_material_override/1 = SubResource("StandardMaterial3D_y7qv2")
 
-[node name="AdminPlatform2" type="MeshInstance3D" parent="."]
+[node name="AdminPlatform2" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 80)
 mesh = ExtResource("15_xkrp4")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_sju3c")
 surface_material_override/1 = SubResource("ShaderMaterial_wtvq3")
 

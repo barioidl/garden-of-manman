@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://diwb3s78ooaml"]
+[gd_scene load_steps=33 format=3 uid="uid://diwb3s78ooaml"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_1pg7p"]
 [ext_resource type="ArrayMesh" uid="uid://7mp5j0wgjtp5" path="res://assets/borga map/power manager.obj" id="2_3gwhp"]
@@ -26,6 +26,9 @@
 [ext_resource type="Texture2D" uid="uid://c8kc5nrp5pyih" path="res://assets/ismo/right.png" id="24_i0dlu"]
 [ext_resource type="Texture2D" uid="uid://dyq5ih4tcj712" path="res://assets/ismo/right normal.png" id="25_dke2f"]
 [ext_resource type="Texture2D" uid="uid://c3t2q2rw7n412" path="res://assets/kenney/kenney_ui-pack/PNG/blue_boxTick.png" id="26_qunf7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sltky"]
+size = Vector3(10, 4, 10)
 
 [sub_resource type="GDScript" id="GDScript_weihl"]
 script/source = "extends Node3D
@@ -111,14 +114,16 @@ func _process(delta: float) -> void:
 	cd = pos.length_squared() * speed
 "
 
-[node name="power room" type="Node3D"]
+[node name="power room" type="Area3D"]
 script = ExtResource("1_1pg7p")
-areas = [NodePath("../../render bounds/camera room"), NodePath("../../render bounds/power control room")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2, -36)
+shape = SubResource("BoxShape3D_sltky")
 
 [node name="PowerManager" type="MeshInstance3D" parent="."]
 layers = 513
 mesh = ExtResource("2_3gwhp")
-skeleton = NodePath("../../../../..")
 
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 4, -35.5)

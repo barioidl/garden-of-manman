@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4j41kkqbo3ch"]
+[gd_scene load_steps=7 format=3 uid="uid://d4j41kkqbo3ch"]
 
+[ext_resource type="Texture2D" uid="uid://dgryml76hg8pb" path="res://assets/Textures/0000.png" id="1_76uwn"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_umxrs"]
 [ext_resource type="Resource" uid="uid://bgt5myttrgr3i" path="res://assets/bill_board_sides/arm_segment.tres" id="3_q4wtj"]
 [ext_resource type="Script" path="res://scripts/visual/billboard_clone.gd" id="4_eue7p"]
@@ -22,7 +23,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("4_ievhj")
+texture = ExtResource("1_76uwn")
 script = ExtResource("2_umxrs")
 sprites = ExtResource("3_q4wtj")
 axis_ratio = Vector3(1, 0.5, 1)

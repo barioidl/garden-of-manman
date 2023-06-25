@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf1h0gfkioxhx"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dto5scqgr7osv"]
 
-[ext_resource type="Texture2D" uid="uid://cxdyskrxdluo7" path="res://assets/little-martian, retro-texture-pack-v9/png/STEEL_1A.png" id="1_6ivfj"]
-[ext_resource type="ArrayMesh" uid="uid://bo64v1dg0e2qq" path="res://assets/factory/hanging platform strings.obj" id="1_lu650"]
+[ext_resource type="Texture2D" uid="uid://co0uwupo0mqah" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Tiles/s2 Tiles Small WhiteBlack.png" id="1_4yigw"]
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -73,28 +72,23 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsj5n"]
+[resource]
 render_priority = 0
 shader = SubResource("Shader_mf78y")
-shader_parameter/albedo = Color(0.133333, 0, 1, 1)
+shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/roughness = 0.5
-shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 0)
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/specular = 1.0
 shader_parameter/metallic = 0.25
 shader_parameter/emission = null
 shader_parameter/emission_energy = null
-shader_parameter/rim = 1.0
+shader_parameter/rim = 0.5
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_blend_sharpness = 20.0
-shader_parameter/uv1_scale = Vector3(1, 20, 1)
+shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("1_6ivfj")
-shader_parameter/texture_metallic = ExtResource("1_6ivfj")
-shader_parameter/texture_roughness = ExtResource("1_6ivfj")
-shader_parameter/texture_emission = ExtResource("1_6ivfj")
-shader_parameter/texture_rim = ExtResource("1_6ivfj")
-
-[node name="hanging strings" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 20, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("ShaderMaterial_wsj5n")
-mesh = ExtResource("1_lu650")
+shader_parameter/texture_albedo = ExtResource("1_4yigw")
+shader_parameter/texture_metallic = ExtResource("1_4yigw")
+shader_parameter/texture_roughness = ExtResource("1_4yigw")
+shader_parameter/texture_emission = ExtResource("1_4yigw")
+shader_parameter/texture_rim = ExtResource("1_4yigw")

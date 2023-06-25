@@ -1,8 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://ymiup8tchxbt"]
+[gd_scene load_steps=6 format=3 uid="uid://ymiup8tchxbt"]
 
-[ext_resource type="Texture2D" uid="uid://de0qc3u1pbjxx" path="res://assets/Textures/human naked0004.png" id="1_ngydp"]
+[ext_resource type="Texture2D" uid="uid://cflxdotwanusp" path="res://assets/Textures/human naked0000.png" id="1_e5r7q"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="2_g6kuy"]
 [ext_resource type="Resource" uid="uid://dhjey0fy4revt" path="res://assets/Textures/human naked.tres" id="3_137fl"]
+
+[sub_resource type="GDScript" id="GDScript_trlrj"]
+script/source = "extends ItemOverworld
+
+func _ready() -> void:
+	super._ready()
+	add_to_group(NL.meat)
+	add_to_group(NL.foods)
+	connect(NL.item_used,used)
+
+func used():
+	print('food used')
+	Interface.change_hunger(root,-2)
+	hotbar.hotbar_items[id] = null
+	queue_free()
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_by1lr"]
 size = Vector3(0.3, 1.1, 0.3)
@@ -11,6 +27,7 @@ size = Vector3(0.3, 1.1, 0.3)
 collision_layer = 3
 linear_damp = 1.0
 angular_damp = 10.0
+script = SubResource("GDScript_trlrj")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -18,8 +35,13 @@ shape = SubResource("BoxShape3D_by1lr")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+cast_shadow = 2
 axis = 1
-texture = ExtResource("1_ngydp")
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("1_e5r7q")
 script = ExtResource("2_g6kuy")
 sprites = ExtResource("3_137fl")
 face_camera = 1

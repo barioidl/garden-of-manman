@@ -1,13 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://df28f6i0hm2iq"]
+[gd_scene load_steps=15 format=3 uid="uid://df28f6i0hm2iq"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_o3na5"]
 [ext_resource type="ArrayMesh" uid="uid://devl1r834kqg2" path="res://assets/borga map/room 1.obj" id="2_nsb7n"]
+[ext_resource type="Material" uid="uid://o56d08ji48q" path="res://materials/wall panels.tres" id="3_0xkhf"]
+[ext_resource type="Material" uid="uid://c3u2deu44d1o1" path="res://materials/BW tile floor.tres" id="4_vaguy"]
+[ext_resource type="Material" uid="uid://buyxi0x42330o" path="res://materials/wood.tres" id="5_rfqgw"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="6_dv3nw"]
 [ext_resource type="PackedScene" uid="uid://cu3b3oytrilip" path="res://assets/sloyd/container_shelf.tscn" id="6_qguy6"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="6_tewd6"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="8_0jc2w"]
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="8_ph1ev"]
 [ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="9_1b0i5"]
+[ext_resource type="Texture2D" uid="uid://coj1148xm0ts" path="res://assets/Textures/manman face0000.png" id="9_inr3l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fsg5l"]
+size = Vector3(20, 4, 10)
 
 [sub_resource type="GDScript" id="GDScript_v0osh"]
 script/source = "extends Node3D
@@ -17,42 +24,77 @@ func _on_3d_button_toggled(button_pressed) -> void:
 		light.switch(button_pressed)
 "
 
-[node name="storage room" type="Node3D"]
+[node name="storage room" type="Area3D"]
 script = ExtResource("1_o3na5")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -8)
+shape = SubResource("BoxShape3D_fsg5l")
+
 [node name="Room1" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("2_nsb7n")
-skeleton = NodePath("../../../../..")
+surface_material_override/0 = ExtResource("3_0xkhf")
+surface_material_override/1 = ExtResource("4_vaguy")
+surface_material_override/2 = ExtResource("5_rfqgw")
+
+[node name="Vaginium" type="Decal" parent="Room1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.5, 1.5, -3)
+layers = 512
+size = Vector3(2, 0.5, 2)
+texture_albedo = ExtResource("9_inr3l")
+texture_normal = ExtResource("9_inr3l")
+upper_fade = 1e-05
+lower_fade = 1e-05
+cull_mask = 1048064
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)
 
 [node name="ContainerShelf" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(9, 0, 0, 0, 8, 0, 0, 0, 5, 2.42034, 0, 0.176236)
+transform = Transform3D(5, 0, 0, 0, 7.5, 0, 0, 0, 5, 3.5, 0, 0.176)
 
 [node name="ContainerShelf2" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(-10, 0, -7.54979e-07, 0, 8, 0, 1.50996e-06, 0, -5, 2.75, 0, 9.8)
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 7.5, 0, 7.54979e-07, 0, -5, 3.5, 0, 9.8)
 
 [node name="ContainerShelf3" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(-1.62921e-06, 0, 4, 0, 8, 0, -10, 0, -6.51683e-07, 0.2, 0, 5)
+transform = Transform3D(-8.14603e-07, 0, 5, 0, 7.5, 0, -5, 0, -8.14603e-07, 0.200001, 0, 2)
+
+[node name="ContainerShelf3_2" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-8.14603e-07, 0, 5, 0, 7.5, 0, -5, 0, -8.14603e-07, 0.200001, 0, 5)
+
+[node name="ContainerShelf3_3" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-8.14603e-07, 0, 5, 0, 7.5, 0, -5, 0, -8.14603e-07, 0.200001, 0, 8)
 
 [node name="ContainerShelf4" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(-10, 0, -7.54979e-07, 0, 8, 0, 1.50996e-06, 0, -5, 8.25, 0, 9.8)
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 7.5, 0, 7.54979e-07, 0, -5, 6.5, 0, 9.8)
 
 [node name="ContainerShelf5" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(-10, 0, -7.54979e-07, 0, 8, 0, 1.50996e-06, 0, -5, 13.75, 0, 9.8)
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 7.5, 0, 7.54979e-07, 0, -5, 9.5, 0, 9.8)
+
+[node name="ContainerShelf5_2" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 7.5, 0, 7.54979e-07, 0, -5, 12.5, 0, 9.8)
 
 [node name="ContainerShelf6" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 5, 16.5, 0, 0.176)
+transform = Transform3D(5, 0, 0, 0, 7.5, 0, 0, 0, 5, 15.5, 0, 0.176)
+
+[node name="ContainerShelf6_2" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(5, 0, 0, 0, 7.5, 0, 0, 0, 5, 12.5, 0, 0.176)
+
+[node name="ContainerShelf6_3" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(5, 0, 0, 0, 7.5, 0, 0, 0, 5, 9.5, 0, 0.176)
 
 [node name="ContainerShelf7" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 5, 11, 0, 0.176)
+transform = Transform3D(5, 0, 0, 0, 7.5, 0, 0, 0, 5, 18.5, 0, 0.176)
 
 [node name="ContainerShelf8" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
-transform = Transform3D(-4.37114e-07, 0, -5, 0, 8, 0, 10, 0, -2.18557e-07, 19.75, 0, 4.5)
+transform = Transform3D(-2.18557e-07, 0, -5, 0, 7.5, 0, 5, 0, -2.18557e-07, 19.75, 0, 4)
+
+[node name="ContainerShelf8_2" parent="StaticBody3D" instance=ExtResource("6_qguy6")]
+transform = Transform3D(-2.18557e-07, 0, -5, 0, 7.5, 0, 5, 0, -2.18557e-07, 19.75, 0, 7)
 
 [node name="3d button" parent="." instance=ExtResource("6_tewd6")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.2531, 1.5, -12.7123)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.5, 1.5, -12.712)
 
 [node name="lamps" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)

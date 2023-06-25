@@ -225,7 +225,7 @@ shape = SubResource("SphereShape3D_m1yvh")
 transform = Transform3D(0.986435, 0, 0.164153, 0, 1, 0, -0.164153, 0, 0.986435, 9.449, 1, -23.783)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 0, 1.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 41.7603, 0, -37.9764)
 collision_layer = 129
 
 [node name="Node" type="Node" parent="player"]
@@ -237,10 +237,10 @@ items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("13_082
 
 [node name="camera console" parent="." instance=ExtResource("18_5ggfe")]
 
-[node name="disposal storage room" parent="." instance=ExtResource("16_4kbnr")]
-
 [node name="3d button" parent="." instance=ExtResource("12_hukr0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.5, 2.5)
+
+[node name="disposal storage room" parent="." instance=ExtResource("16_4kbnr")]
 
 [node name="forming chamber" parent="." instance=ExtResource("13_k2q77")]
 

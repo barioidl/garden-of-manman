@@ -1,14 +1,145 @@
-[gd_scene load_steps=19 format=3 uid="uid://bfnn3wq2r476j"]
+[gd_scene load_steps=38 format=3 uid="uid://bfnn3wq2r476j"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_yvqmc"]
 [ext_resource type="ArrayMesh" uid="uid://bud257jx4cy8q" path="res://assets/borga map/disposal pit mesh.obj" id="2_myn5q"]
+[ext_resource type="Material" uid="uid://c5ayeurov0djx" path="res://materials/belt side.tres" id="3_2kerc"]
 [ext_resource type="PackedScene" uid="uid://cchfco5i7ybjy" path="res://scenes/3d scenes/facility/shutter.tscn" id="3_4fwgt"]
+[ext_resource type="Material" uid="uid://dbpdtti6xjlhc" path="res://materials/metal mesh.tres" id="3_fmthj"]
 [ext_resource type="PackedScene" uid="uid://fbskajw2hjb7" path="res://scenes/3d scenes/facility/attached_platform.tscn" id="4_1s2vx"]
+[ext_resource type="Material" uid="uid://dwp4hqevf8vdg" path="res://materials/belt inner.tres" id="4_xag44"]
 [ext_resource type="PackedScene" uid="uid://dljnsowyktm2" path="res://scenes/3d scenes/facility/hanging_platform.tscn" id="5_rgvsn"]
+[ext_resource type="Material" uid="uid://cm46rsdboq54t" path="res://materials/belt center.tres" id="5_y5vgo"]
+[ext_resource type="Texture2D" uid="uid://dqof1fb8h1yp7" path="res://assets/little-martian, retro-texture-pack-v9/png/LAB_2A.png" id="6_04gg8"]
 [ext_resource type="PackedScene" uid="uid://bf1h0gfkioxhx" path="res://scenes/3d scenes/facility/hanging_strings.tscn" id="6_usfqs"]
 [ext_resource type="Texture2D" uid="uid://rbx10ruwpk6x" path="res://icon.png" id="7_kdo3f"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="7_l3o7c"]
+[ext_resource type="Texture2D" uid="uid://hkphy227j66j" path="res://assets/little-martian, retro-texture-pack-v9/png/SLIME_1A.png" id="7_t4msn"]
+[ext_resource type="Texture2D" uid="uid://cdwv2b4ubm8y2" path="res://assets/little-martian, retro-texture-pack-v9/png/LAB_2B.png" id="7_te17x"]
+[ext_resource type="Texture2D" uid="uid://cykwk6be36xo6" path="res://assets/little-martian, retro-texture-pack-v9/png/SLIME_1B.png" id="8_b7p8d"]
+[ext_resource type="Texture2D" uid="uid://rfn0aej53h58" path="res://assets/little-martian, retro-texture-pack-v9/png/LAB_5A.png" id="8_elath"]
+[ext_resource type="Material" uid="uid://dto5scqgr7osv" path="res://materials/BW board floor.tres" id="8_xps70"]
 [ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="9_1xt42"]
+[ext_resource type="Material" uid="uid://wbdclc2ejxvi" path="res://materials/big metal panel.tres" id="9_6qx8x"]
+[ext_resource type="Texture2D" uid="uid://pyke30mo2epx" path="res://assets/little-martian, retro-texture-pack-v9/png/LAB_5B.png" id="9_876lr"]
+[ext_resource type="Material" uid="uid://dmt1cmhm2v122" path="res://materials/floor.tres" id="11_862mu"]
+
+[sub_resource type="Shader" id="Shader_mf78y"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_nearest,repeat_enable;
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_nearest,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_gray,filter_nearest,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform sampler2D texture_emission : source_color, hint_default_black,filter_nearest,repeat_enable;
+uniform vec4 emission : source_color;
+uniform float emission_energy;
+uniform float rim : hint_range(0,1);
+uniform float rim_tint : hint_range(0,1);
+uniform sampler2D texture_rim : hint_default_white,filter_nearest,repeat_enable;
+varying vec3 uv1_triplanar_pos;
+uniform float uv1_blend_sharpness;
+varying vec3 uv1_power_normal;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+
+
+void vertex() {
+	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.y);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.z);
+	TANGENT = normalize(TANGENT);
+	BINORMAL = vec3(0.0,1.0,0.0) * abs(NORMAL.x);
+	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(NORMAL.y);
+	BINORMAL+= vec3(0.0,1.0,0.0) * abs(NORMAL.z);
+	BINORMAL = normalize(BINORMAL);
+	uv1_power_normal=pow(abs(NORMAL),vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = VERTEX * uv1_scale + uv1_offset;
+	uv1_power_normal/=dot(uv1_power_normal,vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0,-1.0, 1.0);
+}
+
+
+
+
+vec4 triplanar_texture(sampler2D p_sampler,vec3 p_weights,vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo,uv1_power_normal,uv1_triplanar_pos);
+	albedo_tex *= COLOR;
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(triplanar_texture(texture_metallic,uv1_power_normal,uv1_triplanar_pos),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(0.333333,0.333333,0.333333,0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness,uv1_power_normal,uv1_triplanar_pos),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	vec3 emission_tex = triplanar_texture(texture_emission,uv1_power_normal,uv1_triplanar_pos).rgb;
+	EMISSION = (emission.rgb*emission_tex)*emission_energy;
+	vec2 rim_tex = triplanar_texture(texture_rim,uv1_power_normal,uv1_triplanar_pos).xy;
+	RIM = rim*rim_tex.x;	RIM_TINT = rim_tint*rim_tex.y;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4s2yl"]
+render_priority = 0
+shader = SubResource("Shader_mf78y")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.25
+shader_parameter/emission = null
+shader_parameter/emission_energy = null
+shader_parameter/rim = 0.5
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_blend_sharpness = 100.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0, -0.5, 0)
+shader_parameter/texture_albedo = ExtResource("6_04gg8")
+shader_parameter/texture_metallic = ExtResource("7_te17x")
+shader_parameter/texture_roughness = ExtResource("7_te17x")
+shader_parameter/texture_emission = ExtResource("6_04gg8")
+shader_parameter/texture_rim = ExtResource("6_04gg8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrdgc"]
+render_priority = 0
+shader = SubResource("Shader_mf78y")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.25
+shader_parameter/emission = null
+shader_parameter/emission_energy = null
+shader_parameter/rim = 0.5
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_blend_sharpness = 100.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0, 0.25, 0)
+shader_parameter/texture_albedo = ExtResource("8_elath")
+shader_parameter/texture_metallic = ExtResource("9_876lr")
+shader_parameter/texture_roughness = ExtResource("9_876lr")
+shader_parameter/texture_emission = ExtResource("8_elath")
+shader_parameter/texture_rim = ExtResource("8_elath")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qhsr"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tyqy3"]
+size = Vector3(20, 0, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8ea8x"]
 size = Vector3(1.5, 0.3, 3.976)
@@ -58,6 +189,27 @@ func body_entered(body):
 [sub_resource type="BoxShape3D" id="BoxShape3D_gbwtc"]
 size = Vector3(20, 0.5, 20)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i03cc"]
+render_priority = 0
+shader = SubResource("Shader_mf78y")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 0)
+shader_parameter/specular = 1.0
+shader_parameter/metallic = 1.0
+shader_parameter/emission = Color(0.1, 1, 0, 1)
+shader_parameter/emission_energy = 0.1
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 1.0
+shader_parameter/uv1_blend_sharpness = 100.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("7_t4msn")
+shader_parameter/texture_metallic = ExtResource("8_b7p8d")
+shader_parameter/texture_roughness = ExtResource("8_b7p8d")
+shader_parameter/texture_emission = ExtResource("7_t4msn")
+shader_parameter/texture_rim = ExtResource("7_t4msn")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hndcf"]
 albedo_color = Color(0.415686, 0.690196, 0.298039, 1)
 emission_enabled = true
@@ -69,16 +221,31 @@ material = SubResource("StandardMaterial3D_hndcf")
 size = Vector2(20, 20)
 orientation = 1
 
-[node name="disposal pit" type="Node3D"]
+[node name="disposal pit" type="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 11)
 script = ExtResource("1_yvqmc")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="DisposalPitMesh" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="DisposalPitMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -11)
 mesh = ExtResource("2_myn5q")
-skeleton = NodePath("../../../../../..")
+surface_material_override/0 = ExtResource("3_2kerc")
+surface_material_override/1 = ExtResource("4_xag44")
+surface_material_override/2 = ExtResource("5_y5vgo")
+surface_material_override/3 = ExtResource("3_2kerc")
+surface_material_override/4 = SubResource("ShaderMaterial_4s2yl")
+surface_material_override/5 = SubResource("ShaderMaterial_qrdgc")
+surface_material_override/6 = ExtResource("8_xps70")
+surface_material_override/7 = ExtResource("9_6qx8x")
+surface_material_override/8 = ExtResource("3_fmthj")
+surface_material_override/9 = SubResource("StandardMaterial3D_0qhsr")
+surface_material_override/10 = ExtResource("11_862mu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+shape = SubResource("BoxShape3D_tyqy3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+visible = false
 
 [node name="shutter4" parent="StaticBody3D" instance=ExtResource("3_4fwgt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 10.5, -10.3234)
@@ -304,13 +471,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_gbwtc")
 
 [node name="acid surface" type="MeshInstance3D" parent="acid"]
+material_override = SubResource("ShaderMaterial_i03cc")
 mesh = SubResource("QuadMesh_mttlx")
 skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="acid/acid surface"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
 light_color = Color(0.415686, 0.690196, 0.298039, 1)
-light_energy = 0.2
+light_energy = 0.25
+light_size = 1.0
 shadow_enabled = true
 omni_range = 15.0
 omni_attenuation = 0.1
@@ -318,7 +487,8 @@ omni_attenuation = 0.1
 [node name="OmniLight3D3" type="OmniLight3D" parent="acid/acid surface"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
 light_color = Color(0.415686, 0.690196, 0.298039, 1)
-light_energy = 0.2
+light_energy = 0.25
+light_size = 1.0
 shadow_enabled = true
 omni_range = 15.0
 omni_attenuation = 0.1
@@ -326,7 +496,8 @@ omni_attenuation = 0.1
 [node name="OmniLight3D4" type="OmniLight3D" parent="acid/acid surface"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
 light_color = Color(0.415686, 0.690196, 0.298039, 1)
-light_energy = 0.2
+light_energy = 0.25
+light_size = 1.0
 shadow_enabled = true
 omni_range = 15.0
 omni_attenuation = 0.1
@@ -334,7 +505,8 @@ omni_attenuation = 0.1
 [node name="OmniLight3D2" type="OmniLight3D" parent="acid/acid surface"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
 light_color = Color(0.415686, 0.690196, 0.298039, 1)
-light_energy = 0.2
+light_energy = 0.25
+light_size = 1.0
 shadow_enabled = true
 omni_range = 15.0
 omni_attenuation = 0.1

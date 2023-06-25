@@ -1,17 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://bfx86i5ctbb7"]
+[gd_scene load_steps=17 format=3 uid="uid://bfx86i5ctbb7"]
 
 [ext_resource type="PackedScene" uid="uid://d4j41kkqbo3ch" path="res://scenes/3d scenes/facility/arm_segment.tscn" id="1_qmvfk"]
 [ext_resource type="Script" path="res://scenes/3d scenes/facility/arm control.gd" id="2_a3hs2"]
 [ext_resource type="Texture2D" uid="uid://lb8mhyjg3f0j" path="res://assets/Textures/0005.png" id="2_d42xv"]
+[ext_resource type="Texture2D" uid="uid://dgryml76hg8pb" path="res://assets/Textures/0000.png" id="2_gud1q"]
 [ext_resource type="Script" path="res://scripts/visual/3d_billboard_sprite.gd" id="3_d2f60"]
 [ext_resource type="Script" path="res://scripts/visual/ik_constraint.gd" id="3_dgrs3"]
 [ext_resource type="Script" path="res://scripts/visual/InverseKinematic.gd" id="3_rmev1"]
 [ext_resource type="Resource" uid="uid://bgt5myttrgr3i" path="res://assets/bill_board_sides/arm_segment.tres" id="4_cnpwu"]
 [ext_resource type="Script" path="res://scripts/visual/billboard_clone.gd" id="5_mln50"]
-[ext_resource type="Texture2D" uid="uid://b72o1n4yb7stn" path="res://assets/Textures/hand flat0005.png" id="7_v7nm5"]
 [ext_resource type="Resource" uid="uid://c7rn14cmid1uv" path="res://assets/bill_board_sides/hand_flat.tres" id="8_q7d7l"]
-[ext_resource type="Texture2D" uid="uid://dxfhohdx8fvtq" path="res://assets/Textures/hand grab0005.png" id="9_2nbo0"]
+[ext_resource type="Texture2D" uid="uid://bvpdytgwrb6u3" path="res://assets/Textures/hand flat0000.png" id="9_p15xv"]
 [ext_resource type="Resource" uid="uid://b4gigcx2fpm4g" path="res://assets/bill_board_sides/hand_grab.tres" id="10_xx3bq"]
+[ext_resource type="Texture2D" uid="uid://o1ir67ck4dwu" path="res://assets/Textures/hand grab0000.png" id="11_c6j4b"]
 
 [sub_resource type="GDScript" id="GDScript_ath2s"]
 script/source = "extends Node3D
@@ -180,7 +181,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("2_d42xv")
+texture = ExtResource("2_gud1q")
 script = ExtResource("3_d2f60")
 sprites = ExtResource("4_cnpwu")
 axis_ratio = Vector3(1, 0.5, 1)
@@ -307,7 +308,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("7_v7nm5")
+texture = ExtResource("9_p15xv")
 script = ExtResource("3_d2f60")
 sprites = ExtResource("8_q7d7l")
 
@@ -317,7 +318,7 @@ shaded = true
 double_sided = false
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("9_2nbo0")
+texture = ExtResource("11_c6j4b")
 script = ExtResource("3_d2f60")
 sprites = ExtResource("10_xx3bq")
 

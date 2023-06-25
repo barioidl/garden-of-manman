@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends Node3D
 class_name Billboard3d
 
@@ -48,12 +48,16 @@ func _process(delta: float) -> void:
 	if !PerformanceCap.allow_billboard():	return
 	
 	var dir = camera.global_position - global_position
-	var dist_ratio = dir.length_squared() / (disable_dist * disable_dist)
-	if dist_ratio > 1: return
+	var dist_ratio = dir.length() / disable_dist
 	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
-	if dir.distance_squared_to(prev_dir) < 0.5 * dist_ratio:
+	
+	if dist_ratio > 1: 
+		print(dist_ratio)
 		return
-	prev_dir = dir
+	
+#	if dir.distance_squared_to(prev_dir) < 0.1:
+#		return
+#	prev_dir = dir
 	forward = dir.normalized()
 	
 	select_sprite(delta)
