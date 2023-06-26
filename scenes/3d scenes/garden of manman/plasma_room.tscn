@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d1v6jou48u5ce"]
+[gd_scene load_steps=18 format=3 uid="uid://d1v6jou48u5ce"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_imxu2"]
 [ext_resource type="ArrayMesh" uid="uid://b0xobjqwv44uv" path="res://assets/borga map/room 4.obj" id="2_ne88e"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cfppajnyvxilj" path="res://scenes/3d scenes/facility/couch_set_0.tscn" id="6_dymj0"]
 [ext_resource type="PackedScene" uid="uid://btebnhvtt4x02" path="res://scenes/3d scenes/facility/high_lamp.tscn" id="7_xo8rv"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="9_spnr3"]
-[ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="11_fnib8"]
 [ext_resource type="Texture2D" uid="uid://cio8fb5yitscg" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownMid.png" id="12_3gxkd"]
 [ext_resource type="PackedScene" uid="uid://bjyc0exh2hp4w" path="res://scenes/3d scenes/facility/bath_tub.tscn" id="12_qe4fj"]
 [ext_resource type="Texture2D" uid="uid://c31wdmh7jp5u6" path="res://assets/Textures/key_card0003.png" id="13_l7u4w"]
@@ -38,7 +37,6 @@ size = Vector3(0.4, 1, 0.4)
 
 [node name="plasma room" type="Node3D"]
 script = ExtResource("1_imxu2")
-areas = [NodePath("../../-4 areas/plasma cutter room"), NodePath("../../-4 areas/camera room"), NodePath("../../-4 areas/CNC room"), NodePath("../../-4 areas/pcb assembly")]
 
 [node name="Room4" type="MeshInstance3D" parent="."]
 layers = 17
@@ -82,10 +80,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -37.5)
 [node name="HighLamp4" parent="Node3D" instance=ExtResource("7_xo8rv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -44.5)
 
-[node name="door" parent="." instance=ExtResource("9_spnr3")]
-transform = Transform3D(-4.37114e-08, 0, -2, 0, 1, 0, 1, 0, -8.74228e-08, -15, 0.2, -46.5)
-password = 2
-
 [node name="door2" parent="." instance=ExtResource("9_spnr3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4, 0, -35.5)
 password = 2
@@ -93,12 +87,6 @@ password = 2
 [node name="door mark" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -44)
 script = SubResource("GDScript_4cn4m")
-
-[node name="Decal5" type="Decal" parent="door mark"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02045, 1.5, -2.5)
-size = Vector3(4, 3, 2)
-texture_albedo = ExtResource("11_fnib8")
-modulate = Color(1, 0, 0.0166664, 1)
 
 [node name="Decal6" type="Decal" parent="door mark"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.97955, 1.5, 8.5)

@@ -210,6 +210,8 @@ script = ExtResource("7_3h8mk")
 
 [node name="map collision" type="StaticBody3D" parent="map/garden of manman"]
 script = SubResource("GDScript_mgw5g")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/garden of manman/map collision"]
 shape = SubResource("ConcavePolygonShape3D_5dojh")

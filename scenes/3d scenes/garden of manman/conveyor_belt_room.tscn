@@ -130,6 +130,7 @@ surface_material_override/1 = ExtResource("4_76t8s")
 surface_material_override/2 = ExtResource("5_jhs64")
 
 [node name="ConveyorRoomMesh" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("2_o702g")
 skeleton = NodePath("../conveyor room")
 surface_material_override/0 = ExtResource("4_27po1")

@@ -495,6 +495,7 @@ shape = SubResource("BoxShape3D_eqy6d")
 
 [node name="Admin" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 80)
+layers = 513
 mesh = ExtResource("3_5sss3")
 surface_material_override/0 = SubResource("ShaderMaterial_f4x4h")
 surface_material_override/1 = SubResource("ShaderMaterial_4odjd")

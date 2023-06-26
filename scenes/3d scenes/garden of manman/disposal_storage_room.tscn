@@ -138,6 +138,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, -6)
 shape = SubResource("BoxShape3D_wq733")
 
 [node name="StorageRoomMesh" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("2_kde2s")
 surface_material_override/0 = ExtResource("3_6st0q")
 surface_material_override/1 = ExtResource("4_l3wgc")

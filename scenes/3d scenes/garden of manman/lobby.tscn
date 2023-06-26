@@ -151,6 +151,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -18.5)
 shape = SubResource("BoxShape3D_inn1x")
 
 [node name="Room2" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("2_1iax0")
 surface_material_override/0 = SubResource("ShaderMaterial_4qaed")
 surface_material_override/1 = ExtResource("5_ydeeq")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cji1p5w5q6tjd"]
+[gd_scene load_steps=20 format=3 uid="uid://cji1p5w5q6tjd"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_e7qpp"]
 [ext_resource type="ArrayMesh" uid="uid://d3pkv3rbrtlps" path="res://assets/borga map/room 5.obj" id="2_mw8lh"]
@@ -14,6 +14,8 @@
 [ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="9_x4iu3"]
 [ext_resource type="ArrayMesh" uid="uid://bfk44idlnxatj" path="res://assets/factory/big screen.obj" id="10_jhoe8"]
 [ext_resource type="PackedScene" uid="uid://otrj1kjtockh" path="res://scenes/3d scenes/facility/speaker.tscn" id="11_sol71"]
+[ext_resource type="PackedScene" uid="uid://dxoq1or5n41wx" path="res://scenes/3d scenes/facility/drop door.tscn" id="15_kurua"]
+[ext_resource type="Texture2D" uid="uid://f7qht5hnknrl" path="res://assets/kenney/kenney_ui-pack/PNG/dropdownBottom.png" id="16_4fyu7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d8vtv"]
 size = Vector3(20, 4, 10)
@@ -37,6 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -52)
 shape = SubResource("BoxShape3D_d8vtv")
 
 [node name="Room5" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("2_mw8lh")
 surface_material_override/0 = ExtResource("3_cmch1")
 surface_material_override/1 = ExtResource("4_o1kug")
@@ -183,4 +186,26 @@ transform = Transform3D(0.888217, 0, 0.459425, 0, 1, 0, -0.459425, 0, 0.888217, 
 [node name="Speaker2" parent="StaticBody3D" instance=ExtResource("11_sol71")]
 transform = Transform3D(0.885799, 0, -0.464069, 0, 1, 0, 0.464069, 0, 0.885799, -3.46174, 0, -0.5)
 
+[node name="door_2" parent="." instance=ExtResource("15_kurua")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 0, -46.5)
+password = 2
+
+[node name="CollisionShape3D" parent="door_2/lock" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1)
+
+[node name="CollisionShape3D2" parent="door_2/lock" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1)
+
+[node name="Decal" parent="door_2" index="2"]
+size = Vector3(4.1, 6.1, 0.2)
+
+[node name="Decal5" type="Decal" parent="door_2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.5, -0.0204506)
+visible = false
+size = Vector3(4, 3, 2)
+texture_albedo = ExtResource("16_4fyu7")
+modulate = Color(1, 0, 0.0166664, 1)
+
 [connection signal="toggled" from="3d button" to="lights" method="_on_3d_button_toggled"]
+
+[editable path="door_2"]
