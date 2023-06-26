@@ -70,21 +70,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.925)
 material_override = SubResource("StandardMaterial3D_121dl")
 mesh = SubResource("BoxMesh_l3f8k")
 
-[node name="y slider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0, 3)
+[node name="y slider" type="CollisionShape3D" parent="x slider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -1.75)
 shape = SubResource("BoxShape3D_djofc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="y slider"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="x slider/y slider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
 material_override = SubResource("StandardMaterial3D_00330")
 mesh = SubResource("BoxMesh_pfmq2")
 
-[node name="bearing" type="MeshInstance3D" parent="y slider"]
+[node name="bearing" type="MeshInstance3D" parent="x slider/y slider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, 0.2, 0)
 material_override = SubResource("StandardMaterial3D_121dl")
 mesh = SubResource("BoxMesh_a8aqe")
 
-[node name="bearing2" type="MeshInstance3D" parent="y slider"]
+[node name="bearing2" type="MeshInstance3D" parent="x slider/y slider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, -0.2, 0)
 material_override = SubResource("StandardMaterial3D_121dl")
 mesh = SubResource("BoxMesh_a8aqe")

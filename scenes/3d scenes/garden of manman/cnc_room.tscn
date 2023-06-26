@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cvqsnkankjt6b"]
+[gd_scene load_steps=17 format=3 uid="uid://cvqsnkankjt6b"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_fuygo"]
 [ext_resource type="ArrayMesh" uid="uid://vbacuigiwgcu" path="res://assets/borga map/room 3.obj" id="2_pgxss"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="9_sq0hu"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="10_ihixv"]
 [ext_resource type="ArrayMesh" uid="uid://dw2n4y8hbqvv0" path="res://assets/factory/bear face.obj" id="12_p0ugo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mfh15"]
+size = Vector3(20, 4, 10)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_iwi0e"]
 top_radius = 0.3
@@ -33,9 +36,12 @@ func _on_3d_button_toggled(button_pressed) -> void:
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4obnf"]
 points = PackedVector3Array(0.0832059, 0.176926, -1.38778e-17, -0.198432, -0.121401, -0.0296673, -0.0555975, 0, -0.243899, 0.201489, -0.114241, -0.0296673, -0.198432, 0.121401, -0.0296673, -0.0120532, -0.21782, 1.38778e-17, 0.0514894, 0, -0.251046, -0.0127236, 0.228571, -0.0296673, 0.165781, 0.107126, -0.101094, -0.189027, 0.11569, 0, 0.00865464, -0.228571, -0.0296673, 0.192084, 0.108868, -1.38778e-17, -0.0245596, 0.045621, -0.239828, -0.162724, 0.114286, -0.101094, -0.0239918, -0.0510207, -0.230892, 0.192084, -0.108868, -1.38778e-17, -0.189027, -0.11569, 0, 0.137198, 0.135675, -0.101094, 0.201489, 0.114241, -0.0296673, 0.0259072, -0.048805, -0.226185, -0.16985, 0.0571429, -0.101094, 0.172946, 0.0570981, -0.101094, -0.141306, 0.135675, -0.101094, -0.0127236, -0.228571, -0.0296673, -0.0120532, 0.21782, 1.38778e-17, 0.00865464, 0.228571, -0.0296673, 0.0264937, 0.0437171, -0.234931, 0.172946, -0.135675, -0.0296673, 0.0355204, -0.204175, 2.77556e-17, 0.172946, 0.135675, -0.0296673, -0.0484714, 0, -0.251046, 0.0371981, -0.214252, -0.0296673)
 
-[node name="cnc room" type="Node3D"]
+[node name="cnc room" type="Area3D"]
 script = ExtResource("1_fuygo")
-areas = [NodePath("../../-4 areas/CNC room"), NodePath("../../-4 areas/Lobby"), NodePath("../../-4 areas/camera room"), NodePath("../../-4 areas/plasma cutter room")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -30)
+shape = SubResource("BoxShape3D_mfh15")
 
 [node name="Room3" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_pgxss")
@@ -52,12 +58,12 @@ item = ExtResource("4_f3qpr")
 
 [node name="CNC machine" parent="." instance=ExtResource("6_7e7r8")]
 
-[node name="mill head" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.85, 2.7, -31.5)
+[node name="mill head" type="MeshInstance3D" parent="CNC machine/x slider/y slider" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.0999999, 0)
 mesh = SubResource("CylinderMesh_iwi0e")
 skeleton = NodePath("../CNC machine/y slider")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="mill head"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CNC machine/x slider/y slider/mill head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.742023, 0)
 material_override = ExtResource("7_vd8in")
 mesh = SubResource("CylinderMesh_117t2")
@@ -155,3 +161,5 @@ mesh = ExtResource("12_p0ugo")
 skeleton = NodePath("../../../..")
 
 [connection signal="toggled" from="3d button" to="decor" method="_on_3d_button_toggled"]
+
+[editable path="CNC machine"]
