@@ -1,7 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://dufs68em46log"]
+[gd_scene load_steps=28 format=3 uid="uid://dufs68em46log"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_j7hww"]
 [ext_resource type="PackedScene" uid="uid://cchfco5i7ybjy" path="res://scenes/3d scenes/facility/shutter.tscn" id="2_aqduo"]
+[ext_resource type="Material" uid="uid://o56d08ji48q" path="res://materials/wall panels.tres" id="3_peq0d"]
+[ext_resource type="Material" uid="uid://buyxi0x42330o" path="res://materials/wood.tres" id="4_0u26i"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="4_to6f3"]
 [ext_resource type="Texture2D" uid="uid://nas20luej0mn" path="res://assets/Textures/key_card0005.png" id="5_wy1sp"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="6_tdtwh"]
@@ -24,18 +26,26 @@
 [ext_resource type="PackedScene" uid="uid://cfppajnyvxilj" path="res://scenes/3d scenes/facility/couch_set_0.tscn" id="20_v7qgn"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="22_teycm"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_6bifi"]
+size = Vector3(10, 5, 20)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_4qmyk"]
 size = Vector3(1.5, 0.4, 6)
 
-[node name="kitchen" type="Node3D"]
+[node name="kitchen" type="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 22.5, -12)
 script = ExtResource("1_j7hww")
-areas = [NodePath("../../-1 areas/kitchen"), NodePath("../../-4 areas/disposal pit"), NodePath("../../-1 areas/upper corridor")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.5, 0)
+shape = SubResource("BoxShape3D_6bifi")
 
 [node name="Room11" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, -22.5, 12)
 mesh = ExtResource("8_eg5pk")
-skeleton = NodePath("../../../..")
+surface_material_override/0 = ExtResource("3_peq0d")
+surface_material_override/1 = ExtResource("4_0u26i")
+surface_material_override/2 = ExtResource("4_0u26i")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
