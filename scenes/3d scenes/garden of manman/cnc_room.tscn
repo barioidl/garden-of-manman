@@ -61,7 +61,6 @@ item = ExtResource("4_f3qpr")
 [node name="mill head" type="MeshInstance3D" parent="CNC machine/x slider/y slider" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.0999999, 0)
 mesh = SubResource("CylinderMesh_iwi0e")
-skeleton = NodePath("../CNC machine/y slider")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CNC machine/x slider/y slider/mill head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.742023, 0)

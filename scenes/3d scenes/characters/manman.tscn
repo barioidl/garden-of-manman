@@ -306,7 +306,6 @@ process_mode = 4
 script = SubResource("GDScript_g145v")
 
 [node name="monster" type="Node" parent="goap_agent"]
-process_mode = 3
 script = ExtResource("16_0x1n3")
 
 [node name="jumpscare" type="Node" parent="goap_agent"]

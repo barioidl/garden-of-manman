@@ -342,6 +342,8 @@ func play_loud_noise():
 func confess():
 	var pos = head.global_position
 	var speaker := AudioPool.create_sound_3d(pos, truth_sfx)
+	if speaker == null:
+		return
 	speaker.connect('finished', on_confessed)
 
 func on_confessed():

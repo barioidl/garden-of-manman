@@ -52,7 +52,6 @@ func _process(delta: float) -> void:
 	cooldown = lerpf(cd_range.x, cd_range.y, dist_ratio)
 	
 	if dist_ratio > 1: 
-		print(dist_ratio)
 		return
 	
 #	if dir.distance_squared_to(prev_dir) < 0.1:
@@ -177,5 +176,5 @@ func convert_to_axis(_axis)->Vector3:
 	return basis.y
 
 func _print(line):
-#	return
+	return
 	print(line)

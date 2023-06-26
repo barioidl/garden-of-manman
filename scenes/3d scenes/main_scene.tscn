@@ -146,8 +146,9 @@ func change_pitch():
 	if loop_counter > 0:
 		loop_counter -= 1
 		return
-	loop_counter = randi_range(3,10)
-	pitch_scale = randf_range(0.8,1.2)
+	loop_counter = randi_range(2,10)
+	var pitch = pitch_scale + randf_range(-0.1,0.1)
+	pitch_scale = clampf(pitch,0.8,1.2)
 "
 
 [sub_resource type="GDScript" id="GDScript_lxu0g"]
@@ -195,6 +196,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.126964, 4.38931, 25.6314)
 
 [node name="mommy long" parent="characters" instance=ExtResource("10_nwwic")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 8, 5, -80)
+gravity_scale = 0.2
 linear_damp = 1.0
 
 [node name="swing" type="Node3D" parent="characters/mommy long" node_paths=PackedStringArray("target")]
@@ -203,12 +205,12 @@ top_level = true
 script = SubResource("GDScript_6wonm")
 target = NodePath("..")
 
+[node name="attach player control" type="Node" parent="characters/mommy long"]
+script = ExtResource("7_3h8mk")
+
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
 transform = Transform3D(-0.759339, 0, -0.650695, 0, 1, 0, 0.650695, 0, -0.759339, -5.708, 1, -15.904)
 max_contacts_reported = 3
-
-[node name="attach player control" type="Node" parent="characters/timmy"]
-script = ExtResource("7_3h8mk")
 
 [node name="map" type="Node3D" parent="."]
 
@@ -226,6 +228,7 @@ shape = SubResource("ConcavePolygonShape3D_ag484")
 navigation_mesh = SubResource("NavigationMesh_vcipc")
 
 [node name="rivers of blood" type="AudioStreamPlayer3D" parent="map/garden of manman/map collision"]
+process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -10, -20)
 stream = ExtResource("46_67vx2")
 attenuation_model = 1
@@ -409,8 +412,6 @@ mesh = ExtResource("61_q6cjl")
 mesh = ExtResource("60_lm31w")
 
 [node name="surface" type="Node3D" parent="map/garden of manman"]
-process_mode = 4
-visible = false
 script = SubResource("GDScript_lxu0g")
 
 [node name="Surface" parent="map/garden of manman/surface" instance=ExtResource("43_hihr3")]
