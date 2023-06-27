@@ -104,12 +104,14 @@ func _process(delta: float) -> void:
 [sub_resource type="GDScript" id="GDScript_6wonm"]
 script/source = "extends Node3D
 @export var target :Node3D
+@export var distance := 13.0
 
 func _physics_process(delta: float) -> void:
 	var rel = target.global_position - global_position
 	var distsq = rel.length_squared()
-	if distsq > 13*13:
-		target.global_position =global_position+ rel.normalized()*13
+	if distsq < distance*distance:
+		return
+	target.global_position = global_position + rel.normalized() * distance
 "
 
 [sub_resource type="GDScript" id="GDScript_mgw5g"]
@@ -180,19 +182,19 @@ environment = SubResource("Environment_pe2si")
 [node name="characters" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = SubResource("GDScript_vmftm")
 player = NodePath("timmy")
-disable_range = 25
 
 [node name="pumped up bird" parent="characters" instance=ExtResource("7_jdoo3")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.88124, 1.77417, -36.7823)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.881, 0, -36.782)
 
 [node name="jumbo zo" parent="characters" instance=ExtResource("7_2ewu1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6581, 1.5, -44.1669)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.658, 0, -44.167)
 
 [node name="manman" parent="characters" instance=ExtResource("8_jhbom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5367, 0, -8.31085)
 
 [node name="namnam" parent="characters" instance=ExtResource("7_8jvxy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.126964, 4.38931, 25.6314)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.127, 6, 25.631)
+gravity_scale = -1.0
 
 [node name="mommy long" parent="characters" instance=ExtResource("10_nwwic")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 8, 5, -80)
@@ -209,7 +211,7 @@ target = NodePath("..")
 script = ExtResource("7_3h8mk")
 
 [node name="timmy" parent="characters" instance=ExtResource("1_ssxib")]
-transform = Transform3D(-0.759339, 0, -0.650695, 0, 1, 0, 0.650695, 0, -0.759339, -5.708, 1, -15.904)
+transform = Transform3D(-0.759339, 0, -0.650695, 0, 1, 0, 0.650695, 0, -0.759339, -5.708, 0, -15.904)
 max_contacts_reported = 3
 
 [node name="map" type="Node3D" parent="."]

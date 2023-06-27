@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://fbskajw2hjb7"]
+[gd_scene load_steps=6 format=3 uid="uid://dp7t62k516d20"]
 
-[ext_resource type="Texture2D" uid="uid://cxdyskrxdluo7" path="res://assets/little-martian, retro-texture-pack-v9/png/STEEL_1A.png" id="1_ce36e"]
+[ext_resource type="ArrayMesh" uid="uid://dw2n4y8hbqvv0" path="res://assets/factory/bear face.obj" id="1_10ejy"]
+[ext_resource type="Texture2D" uid="uid://fk5dqq7wbcg2" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Concrete/s2 Concrete Base Orange.png" id="1_73qey"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bj8bs"]
-size = Vector3(2, 0.1, 2)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4obnf"]
+points = PackedVector3Array(0.0832059, 0.176926, -1.38778e-17, -0.198432, -0.121401, -0.0296673, -0.0555975, 0, -0.243899, 0.201489, -0.114241, -0.0296673, -0.198432, 0.121401, -0.0296673, -0.0120532, -0.21782, 1.38778e-17, 0.0514894, 0, -0.251046, -0.0127236, 0.228571, -0.0296673, 0.165781, 0.107126, -0.101094, -0.189027, 0.11569, 0, 0.00865464, -0.228571, -0.0296673, 0.192084, 0.108868, -1.38778e-17, -0.0245596, 0.045621, -0.239828, -0.162724, 0.114286, -0.101094, -0.0239918, -0.0510207, -0.230892, 0.192084, -0.108868, -1.38778e-17, -0.189027, -0.11569, 0, 0.137198, 0.135675, -0.101094, 0.201489, 0.114241, -0.0296673, 0.0259072, -0.048805, -0.226185, -0.16985, 0.0571429, -0.101094, 0.172946, 0.0570981, -0.101094, -0.141306, 0.135675, -0.101094, -0.0127236, -0.228571, -0.0296673, -0.0120532, 0.21782, 1.38778e-17, 0.00865464, 0.228571, -0.0296673, 0.0264937, 0.0437171, -0.234931, 0.172946, -0.135675, -0.0296673, 0.0355204, -0.204175, 2.77556e-17, 0.172946, 0.135675, -0.0296673, -0.0484714, 0, -0.251046, 0.0371981, -0.214252, -0.0296673)
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -75,34 +76,32 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fcu6s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_502mg"]
 render_priority = 0
 shader = SubResource("Shader_mf78y")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 0.9
-shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 0)
 shader_parameter/specular = 0.0
-shader_parameter/metallic = 0.2
+shader_parameter/metallic = 0.0
 shader_parameter/emission = null
 shader_parameter/emission_energy = null
 shader_parameter/rim = 0.5
 shader_parameter/rim_tint = 0.5
-shader_parameter/uv1_blend_sharpness = 100.0
-shader_parameter/uv1_scale = Vector3(5, 1, 1)
+shader_parameter/uv1_blend_sharpness = 20.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("1_ce36e")
-shader_parameter/texture_metallic = ExtResource("1_ce36e")
-shader_parameter/texture_roughness = ExtResource("1_ce36e")
-shader_parameter/texture_emission = ExtResource("1_ce36e")
-shader_parameter/texture_rim = ExtResource("1_ce36e")
+shader_parameter/texture_albedo = ExtResource("1_73qey")
+shader_parameter/texture_metallic = ExtResource("1_73qey")
+shader_parameter/texture_roughness = ExtResource("1_73qey")
+shader_parameter/texture_emission = ExtResource("1_73qey")
+shader_parameter/texture_rim = ExtResource("1_73qey")
 
-[sub_resource type="BoxMesh" id="BoxMesh_517f0"]
-size = Vector3(2, 0.1, 2)
+[node name="BearFace" type="CollisionShape3D"]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 3.2955, 0, 8)
+shape = SubResource("ConvexPolygonShape3D_4obnf")
 
-[node name="attached_platform" type="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -9)
-shape = SubResource("BoxShape3D_bj8bs")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_fcu6s")
-mesh = SubResource("BoxMesh_517f0")
+[node name="BearFace" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_502mg")
+mesh = ExtResource("1_10ejy")
+skeleton = NodePath("../../../..")

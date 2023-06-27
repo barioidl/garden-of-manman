@@ -245,7 +245,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 shape = SubResource("BoxShape3D_tyqy3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-visible = false
 
 [node name="shutter4" parent="StaticBody3D" instance=ExtResource("3_4fwgt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 10.5, -10.3234)

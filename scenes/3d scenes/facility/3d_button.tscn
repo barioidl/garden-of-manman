@@ -61,6 +61,7 @@ frames = Array[Texture]([ExtResource("2_le2kq"), ExtResource("6_ecmqj"), ExtReso
 [node name="3d button" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
 script = SubResource("GDScript_m22gs")
+fire_signal_at_start = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.1, 0, 0)
@@ -80,7 +81,7 @@ sprites = SubResource("Resource_gjb0p")
 face_camera = 1
 
 [node name="lever" type="Node3D" parent="."]
-transform = Transform3D(-0.5, -0.866025, 0, 0.866025, -0.5, 0, 0, 0, 1, 0.1, 0, 0)
+transform = Transform3D(-0.5, -0.866025, 0, 0.866025, -0.5, 0, 0, 0, 1, 0.15, 0, 0)
 script = ExtResource("10_vipr5")
 transition = 2
 sfx_list = SubResource("Resource_ordtx")

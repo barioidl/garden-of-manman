@@ -1,10 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://d1v6jou48u5ce"]
+[gd_scene load_steps=22 format=3 uid="uid://d1v6jou48u5ce"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_imxu2"]
 [ext_resource type="ArrayMesh" uid="uid://b0xobjqwv44uv" path="res://assets/borga map/room 4.obj" id="2_ne88e"]
 [ext_resource type="PackedScene" uid="uid://bca7k6hv73vxi" path="res://scenes/3d scenes/facility/table_red_wood.tscn" id="3_4bm43"]
+[ext_resource type="Material" uid="uid://l8ipphudtxen" path="res://materials/small metal panel.tres" id="3_f6sk1"]
+[ext_resource type="Material" uid="uid://ccmljv86hpctm" path="res://materials/pillar material.tres" id="4_gg0v5"]
 [ext_resource type="PackedScene" uid="uid://bb0t0bkhtha43" path="res://scenes/3d scenes/facility/blue_chair.tscn" id="4_naure"]
 [ext_resource type="PackedScene" uid="uid://cl6xguxpm3f3y" path="res://scenes/3d scenes/facility/coffee_shelf.tscn" id="5_0fidu"]
+[ext_resource type="Material" uid="uid://wbdclc2ejxvi" path="res://materials/big metal panel.tres" id="5_pbdns"]
 [ext_resource type="PackedScene" uid="uid://cfppajnyvxilj" path="res://scenes/3d scenes/facility/couch_set_0.tscn" id="6_dymj0"]
 [ext_resource type="PackedScene" uid="uid://btebnhvtt4x02" path="res://scenes/3d scenes/facility/high_lamp.tscn" id="7_xo8rv"]
 [ext_resource type="PackedScene" uid="uid://drave67c42qj" path="res://scenes/3d scenes/facility/2 sides slide door.tscn" id="9_spnr3"]
@@ -46,8 +49,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -41)
 shape = SubResource("BoxShape3D_6pnco")
 
 [node name="Room4" type="MeshInstance3D" parent="."]
-layers = 17
+layers = 513
 mesh = ExtResource("2_ne88e")
+surface_material_override/0 = ExtResource("3_f6sk1")
+surface_material_override/1 = ExtResource("4_gg0v5")
+surface_material_override/2 = ExtResource("5_pbdns")
 
 [node name="Node3D" type="Node3D" parent="."]
 

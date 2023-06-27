@@ -1,16 +1,19 @@
-[gd_scene load_steps=17 format=3 uid="uid://cvqsnkankjt6b"]
+[gd_scene load_steps=19 format=3 uid="uid://cvqsnkankjt6b"]
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_fuygo"]
 [ext_resource type="ArrayMesh" uid="uid://vbacuigiwgcu" path="res://assets/borga map/room 3.obj" id="2_pgxss"]
 [ext_resource type="Texture2D" uid="uid://dgo0prv0b0as2" path="res://assets/Textures/key_card0000.png" id="3_0ub8w"]
 [ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="3_ili5b"]
+[ext_resource type="Material" uid="uid://vjdaqlby3jct" path="res://materials/dark wood.tres" id="3_p1wee"]
+[ext_resource type="Material" uid="uid://l8ipphudtxen" path="res://materials/small metal panel.tres" id="3_shcxv"]
 [ext_resource type="Resource" uid="uid://dgkv7vdnynrb7" path="res://data/items/key blue.tres" id="4_f3qpr"]
+[ext_resource type="Material" uid="uid://buyxi0x42330o" path="res://materials/wood.tres" id="5_v2mx6"]
 [ext_resource type="PackedScene" uid="uid://gk67ml5mffkw" path="res://scenes/3d scenes/cnc/cnc_frame.tscn" id="6_7e7r8"]
 [ext_resource type="Material" uid="uid://daq1jsntv2geq" path="res://materials/hard steel .tres" id="7_vd8in"]
 [ext_resource type="PackedScene" uid="uid://8yu44mht2bro" path="res://scenes/3d scenes/facility/crates.tscn" id="8_4ppvp"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="9_sq0hu"]
 [ext_resource type="PackedScene" uid="uid://3ckp5hyougl0" path="res://scenes/3d scenes/facility/3d_button.tscn" id="10_ihixv"]
-[ext_resource type="ArrayMesh" uid="uid://dw2n4y8hbqvv0" path="res://assets/factory/bear face.obj" id="12_p0ugo"]
+[ext_resource type="PackedScene" uid="uid://dp7t62k516d20" path="res://scenes/3d scenes/facility/bear_face.tscn" id="12_2ndbw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mfh15"]
 size = Vector3(20, 4, 10)
@@ -33,9 +36,6 @@ func _on_3d_button_toggled(button_pressed) -> void:
 		light.switch(button_pressed)
 "
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4obnf"]
-points = PackedVector3Array(0.0832059, 0.176926, -1.38778e-17, -0.198432, -0.121401, -0.0296673, -0.0555975, 0, -0.243899, 0.201489, -0.114241, -0.0296673, -0.198432, 0.121401, -0.0296673, -0.0120532, -0.21782, 1.38778e-17, 0.0514894, 0, -0.251046, -0.0127236, 0.228571, -0.0296673, 0.165781, 0.107126, -0.101094, -0.189027, 0.11569, 0, 0.00865464, -0.228571, -0.0296673, 0.192084, 0.108868, -1.38778e-17, -0.0245596, 0.045621, -0.239828, -0.162724, 0.114286, -0.101094, -0.0239918, -0.0510207, -0.230892, 0.192084, -0.108868, -1.38778e-17, -0.189027, -0.11569, 0, 0.137198, 0.135675, -0.101094, 0.201489, 0.114241, -0.0296673, 0.0259072, -0.048805, -0.226185, -0.16985, 0.0571429, -0.101094, 0.172946, 0.0570981, -0.101094, -0.141306, 0.135675, -0.101094, -0.0127236, -0.228571, -0.0296673, -0.0120532, 0.21782, 1.38778e-17, 0.00865464, 0.228571, -0.0296673, 0.0264937, 0.0437171, -0.234931, 0.172946, -0.135675, -0.0296673, 0.0355204, -0.204175, 2.77556e-17, 0.172946, 0.135675, -0.0296673, -0.0484714, 0, -0.251046, 0.0371981, -0.214252, -0.0296673)
-
 [node name="cnc room" type="Area3D"]
 script = ExtResource("1_fuygo")
 
@@ -44,8 +44,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -30)
 shape = SubResource("BoxShape3D_mfh15")
 
 [node name="Room3" type="MeshInstance3D" parent="."]
+layers = 513
 mesh = ExtResource("2_pgxss")
-skeleton = NodePath("../../../../..")
+surface_material_override/0 = ExtResource("3_shcxv")
+surface_material_override/1 = ExtResource("3_p1wee")
+surface_material_override/2 = ExtResource("5_v2mx6")
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.513162, 0.843912, -32.4593)
@@ -103,61 +106,26 @@ transform = Transform3D(1.73564, 0, -0.496883, 0, 1, 0, 0.993766, 0, 0.867818, 1
 [node name="Crates2" parent="boxes" instance=ExtResource("8_4ppvp")]
 transform = Transform3D(-0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, -0.766044, -1, 0.909108, -2)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="boxes"]
-transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 3.2955, 0, 8)
-shape = SubResource("ConvexPolygonShape3D_4obnf")
+[node name="BearFace" parent="boxes" instance=ExtResource("12_2ndbw")]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 3.2955, 0, 8.5)
 
-[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D2"]
-mesh = ExtResource("12_p0ugo")
-skeleton = NodePath("../../../..")
+[node name="BearFace_2" parent="boxes" instance=ExtResource("12_2ndbw")]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 0, 0, 8.5)
 
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="boxes"]
-transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, -0.204498, 0, 8)
-shape = SubResource("ConvexPolygonShape3D_4obnf")
+[node name="BearFace_3" parent="boxes" instance=ExtResource("12_2ndbw")]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 1.6, 0, 11.5)
 
-[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D8"]
-mesh = ExtResource("12_p0ugo")
-skeleton = NodePath("../../../..")
+[node name="BearFace_4" parent="boxes" instance=ExtResource("12_2ndbw")]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 5, 0, 11.5)
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="boxes"]
-transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 5.08496, 0, 11)
-shape = SubResource("ConvexPolygonShape3D_4obnf")
+[node name="BearFace_5" parent="boxes" instance=ExtResource("12_2ndbw")]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 3.2955, 0, 14.5)
 
-[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D4"]
-mesh = ExtResource("12_p0ugo")
-skeleton = NodePath("../../../..")
+[node name="BearFace_6" parent="boxes" instance=ExtResource("12_2ndbw")]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 0, 0, 14.5)
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="boxes"]
-transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 3.2955, 0, 14)
-shape = SubResource("ConvexPolygonShape3D_4obnf")
-
-[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D3"]
-mesh = ExtResource("12_p0ugo")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="boxes"]
-transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 6.7955, 0, 14)
-shape = SubResource("ConvexPolygonShape3D_4obnf")
-
-[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D5"]
-mesh = ExtResource("12_p0ugo")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="boxes"]
-transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, -0.204498, 0, 14)
-shape = SubResource("ConvexPolygonShape3D_4obnf")
-
-[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D6"]
-mesh = ExtResource("12_p0ugo")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="boxes"]
-transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 1.67257, 0, 11)
-shape = SubResource("ConvexPolygonShape3D_4obnf")
-
-[node name="BearFace" type="MeshInstance3D" parent="boxes/CollisionShape3D7"]
-mesh = ExtResource("12_p0ugo")
-skeleton = NodePath("../../../..")
+[node name="BearFace_7" parent="boxes" instance=ExtResource("12_2ndbw")]
+transform = Transform3D(8, -8.81073e-13, -3.38813e-21, 0, -3.49692e-07, -4, 8.81073e-13, 8, -1.74846e-07, 6.6, 0, 14.5)
 
 [connection signal="toggled" from="3d button" to="decor" method="_on_3d_button_toggled"]
 

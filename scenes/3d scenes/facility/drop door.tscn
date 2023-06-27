@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dxoq1or5n41wx"]
+[gd_scene load_steps=24 format=3 uid="uid://dxoq1or5n41wx"]
 
 [ext_resource type="Script" path="res://scenes/3d scenes/facility/door controller.gd" id="1_585e0"]
 [ext_resource type="Script" path="res://scripts/visual/door slide.gd" id="1_xvq1m"]
@@ -224,6 +224,14 @@ size = Vector3(0.25, 0.5, 0.325)
 [sub_resource type="BoxMesh" id="BoxMesh_j6k4r"]
 size = Vector3(0.25, 0.5, 0.325)
 
+[sub_resource type="GDScript" id="GDScript_vbq3r"]
+script/source = "extends NavigationLink3D
+
+
+func _lock_updated(state) -> void:
+	enabled = state
+"
+
 [node name="door" type="StaticBody3D" node_paths=PackedStringArray("lock")]
 script = ExtResource("1_585e0")
 password = 6
@@ -269,6 +277,11 @@ shape = SubResource("BoxShape3D_f8f0v")
 material_override = SubResource("ShaderMaterial_hjf24")
 mesh = SubResource("BoxMesh_j6k4r")
 
+[node name="NavigationLink3D" type="NavigationLink3D" parent="."]
+start_position = Vector3(1, 0, 0)
+end_position = Vector3(-1, 0, 0)
+script = SubResource("GDScript_vbq3r")
+
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, 0)
 layers = 512
@@ -282,3 +295,4 @@ cull_mask = 512
 
 [connection signal="lock_updated" from="lock" to="." method="updated"]
 [connection signal="lock_updated" from="lock" to="top" method="slide"]
+[connection signal="lock_updated" from="lock" to="NavigationLink3D" method="_lock_updated"]

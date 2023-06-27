@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/visual/render bounds.gd" id="1_j7hww"]
 [ext_resource type="PackedScene" uid="uid://cchfco5i7ybjy" path="res://scenes/3d scenes/facility/shutter.tscn" id="2_aqduo"]
-[ext_resource type="Material" uid="uid://o56d08ji48q" path="res://materials/wall panels.tres" id="3_peq0d"]
+[ext_resource type="Material" uid="uid://wbdclc2ejxvi" path="res://materials/big metal panel.tres" id="3_j3xw5"]
 [ext_resource type="Material" uid="uid://buyxi0x42330o" path="res://materials/wood.tres" id="4_0u26i"]
 [ext_resource type="PackedScene" uid="uid://biw3gpw5ysim8" path="res://scenes/3d scenes/facility/ceiling_lamp.tscn" id="4_to6f3"]
 [ext_resource type="Texture2D" uid="uid://nas20luej0mn" path="res://assets/Textures/key_card0005.png" id="5_wy1sp"]
@@ -43,7 +43,7 @@ shape = SubResource("BoxShape3D_6bifi")
 [node name="Room11" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, -22.5, 12)
 mesh = ExtResource("8_eg5pk")
-surface_material_override/0 = ExtResource("3_peq0d")
+surface_material_override/0 = ExtResource("3_j3xw5")
 surface_material_override/1 = ExtResource("4_0u26i")
 surface_material_override/2 = ExtResource("4_0u26i")
 
