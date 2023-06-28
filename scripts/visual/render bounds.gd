@@ -10,13 +10,16 @@ extends Area3D
 @export var enable_on_load:= false
 signal toggle_visibility(active)
 
-func _ready() -> void:
-	connect_signals()
-	set_layers_masks()
+func _init() -> void:
 	if enable_on_load:
 		enable()
 	else:
 		disable()
+
+func _ready() -> void:
+	connect_signals()
+	set_layers_masks()
+
 
 func connect_signals():
 	connect('body_entered',_on_body_entered)

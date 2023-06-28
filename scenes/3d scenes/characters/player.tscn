@@ -98,6 +98,7 @@ mesh = SubResource("CapsuleMesh_ippak")
 
 [node name="body" type="Node3D" parent="."]
 script = ExtResource("9_xmcsr")
+metadata/f = Vector4(0, 0, 0, 0)
 
 [node name="head" parent="body" instance=ExtResource("9_8vf4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)

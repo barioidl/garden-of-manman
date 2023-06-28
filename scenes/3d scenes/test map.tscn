@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cag264guw3cim"]
+[gd_scene load_steps=25 format=3 uid="uid://cag264guw3cim"]
 
 [ext_resource type="Texture2D" uid="uid://d30dini4jbrni" path="res://assets/flakdeau19, Pixel Art Texture Pack/Pixel Art Texture Pack/Cement/s2 Cement Grey.png" id="1_381pl"]
 [ext_resource type="ArrayMesh" uid="uid://cvhvujr3itwl6" path="res://assets/borga map/total map.obj" id="1_ptihf"]
@@ -8,10 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://bi85pq8ys3rxq" path="res://scenes/3d scenes/characters/manman.tscn" id="5_q21kk"]
 [ext_resource type="Script" path="res://scripts/modules/assign character as player .gd" id="7_qe3lc"]
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="8_adjw4"]
-[ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="13_0824v"]
-[ext_resource type="PackedScene" uid="uid://m656m5c6naer" path="res://scenes/3d scenes/garden of manman/forming_chamber.tscn" id="13_k2q77"]
-[ext_resource type="PackedScene" uid="uid://cv1yxmhpapjbm" path="res://scenes/3d scenes/garden of manman/conveyor_belt_room.tscn" id="14_bbfxg"]
-[ext_resource type="PackedScene" uid="uid://ctb27xxr3m3cn" path="res://scenes/3d scenes/garden of manman/disposal_storage_room.tscn" id="16_4kbnr"]
+[ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="9_m3fwe"]
+[ext_resource type="PackedScene" uid="uid://df28f6i0hm2iq" path="res://scenes/3d scenes/garden of manman/storage_room.tscn" id="11_w43em"]
+[ext_resource type="PackedScene" uid="uid://bv1bvetxrnpaq" path="res://scenes/3d scenes/garden of manman/lobby.tscn" id="12_sldns"]
+[ext_resource type="PackedScene" uid="uid://cvqsnkankjt6b" path="res://scenes/3d scenes/garden of manman/cnc_room.tscn" id="13_pkytv"]
+[ext_resource type="PackedScene" uid="uid://d1v6jou48u5ce" path="res://scenes/3d scenes/garden of manman/plasma_room.tscn" id="14_yh50v"]
+[ext_resource type="PackedScene" uid="uid://cji1p5w5q6tjd" path="res://scenes/3d scenes/garden of manman/assembly.tscn" id="15_tpd0k"]
 [ext_resource type="PackedScene" uid="uid://rl1fv4l3ai0l" path="res://scenes/3d scenes/consoles/camera_console.tscn" id="18_5ggfe"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
@@ -155,6 +157,7 @@ material_override = SubResource("ShaderMaterial_evsju")
 mesh = ExtResource("1_ptihf")
 
 [node name="MapPathFinding" type="MeshInstance3D" parent="map collision"]
+visible = false
 mesh = ExtResource("4_ded8e")
 skeleton = NodePath("../..")
 
@@ -219,23 +222,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -10)
 shape = SubResource("SphereShape3D_m1yvh")
 
 [node name="manman" parent="." instance=ExtResource("5_q21kk")]
-transform = Transform3D(0.986435, 0, 0.164153, 0, 1, 0, -0.164153, 0, 0.986435, 9.449, 1, -23.783)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5404, 0, -29.6964)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.7603, 0, -85.4764)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.91261, 9.53674e-07, -22.1427)
 collision_layer = 129
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("7_qe3lc")
+disable_goap = false
 
 [node name="ItemStartup" type="Node" parent="player"]
 script = ExtResource("8_adjw4")
-items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("13_0824v")])
+items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("9_m3fwe")])
 
 [node name="camera console" parent="." instance=ExtResource("18_5ggfe")]
+process_mode = 4
+visible = false
 
-[node name="disposal storage room" parent="." instance=ExtResource("16_4kbnr")]
+[node name="storage room" parent="." instance=ExtResource("11_w43em")]
 
-[node name="forming chamber" parent="." instance=ExtResource("13_k2q77")]
+[node name="lobby" parent="." instance=ExtResource("12_sldns")]
 
-[node name="conveyor belt room" parent="." instance=ExtResource("14_bbfxg")]
+[node name="cnc room" parent="." instance=ExtResource("13_pkytv")]
+
+[node name="plasma room" parent="." instance=ExtResource("14_yh50v")]
+
+[node name="assembly" parent="." instance=ExtResource("15_tpd0k")]

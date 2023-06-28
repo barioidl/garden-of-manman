@@ -7,6 +7,15 @@ var inverted_velocity := Vector3.ZERO
 var local_velocity := Vector3.ZERO
 var custom_transform :Node3D= self
 
+var bungee_duration := 0.1
+var on_floor_bungee := 0.0
+var on_wall_bungee := 0.0
+var on_ceiling_bungee := 0.0
+
+var on_floor:=false
+var on_wall:=false
+var on_ceiling:=false
+
 func _init() -> void:
 	setup_body()
 
@@ -14,11 +23,9 @@ func _ready():
 	add_to_group(NL.character)
 	set_layers_masks()
 
-var dt := 0.0
 func _process(delta: float) -> void:
-	dt = delta
 	set_damp()
-	bungee_time()
+	bungee_time(delta)
 
 func _physics_process(delta):
 	move_body()
@@ -29,8 +36,6 @@ func setup_body():
 	axis_lock_angular_z = true
 	max_contacts_reported = 2
 	contact_monitor = true
-	
-#	physics_material_override = load("res://materials/default_physics_material.tres")
 
 func set_layers_masks():
 	set_collision_layer_value(8,true)
@@ -45,11 +50,7 @@ func set_damp():
 		damp += 1
 	linear_damp = damp
 
-var bungee_duration := 0.1
-var on_floor_bungee := 0.0
-var on_wall_bungee := 0.0
-var on_ceiling_bungee := 0.0
-func bungee_time():
+func bungee_time(dt):
 	on_floor_bungee -= dt
 	on_wall_bungee -= dt
 	on_ceiling_bungee -= dt
@@ -58,9 +59,6 @@ func bungee_time():
 	on_wall = on_wall_bungee > 0
 	on_ceiling = on_ceiling_bungee > 0
 
-var on_floor:=false
-var on_wall:=false
-var on_ceiling:=false
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	for i in state.get_contact_count():
 		var normal = state.get_contact_local_normal(i)
@@ -88,4 +86,3 @@ func move_body():
 	
 	local_velocity = Vector3.ZERO
 	linear_velocity = tran.basis * velo
-#	var _collided=move_and_slide()

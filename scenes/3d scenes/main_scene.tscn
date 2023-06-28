@@ -488,9 +488,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.9)
 [node name="CollisionShape3D" parent="map/garden of manman/floor -1/Container/door/lock" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 
-[node name="Decal" parent="map/garden of manman/floor -1/Container/door" index="3"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, 0)
-
 [node name="surface" type="Node3D" parent="map/garden of manman"]
 visible = false
 script = SubResource("GDScript_lxu0g")
