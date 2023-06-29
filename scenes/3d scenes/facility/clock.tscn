@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccgx2mu3sk7vk"]
+[gd_scene load_steps=12 format=3 uid="uid://ccgx2mu3sk7vk"]
 
 [ext_resource type="FontFile" uid="uid://kwync4yspidv" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future.ttf" id="1_m2bpc"]
+[ext_resource type="ArrayMesh" uid="uid://bhqy7orwrrxj0" path="res://assets/factory/clock.obj" id="1_xtdvx"]
+[ext_resource type="Texture2D" uid="uid://b044d36r7gbur" path="res://assets/little-martian, retro-texture-pack-v9/png/FENCE_1A.png" id="2_ghdcl"]
+[ext_resource type="Texture2D" uid="uid://blvt18j2n3jng" path="res://assets/little-martian, retro-texture-pack-v9/png/RIVET_2A.png" id="2_hp2p6"]
 
 [sub_resource type="GDScript" id="GDScript_txjx0"]
 script/source = "extends StaticBody3D
@@ -8,8 +11,117 @@ script/source = "extends StaticBody3D
 var root = self
 "
 
-[sub_resource type="BoxMesh" id="BoxMesh_k5524"]
-size = Vector3(0.7, 0.2, 0.2)
+[sub_resource type="Shader" id="Shader_mf78y"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_nearest,repeat_enable;
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_nearest,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_gray,filter_nearest,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform sampler2D texture_emission : source_color, hint_default_black,filter_nearest,repeat_enable;
+uniform vec4 emission : source_color;
+uniform float emission_energy;
+uniform float rim : hint_range(0,1);
+uniform float rim_tint : hint_range(0,1);
+uniform sampler2D texture_rim : hint_default_white,filter_nearest,repeat_enable;
+varying vec3 uv1_triplanar_pos;
+uniform float uv1_blend_sharpness;
+varying vec3 uv1_power_normal;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+
+
+void vertex() {
+	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.y);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.z);
+	TANGENT = normalize(TANGENT);
+	BINORMAL = vec3(0.0,1.0,0.0) * abs(NORMAL.x);
+	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(NORMAL.y);
+	BINORMAL+= vec3(0.0,1.0,0.0) * abs(NORMAL.z);
+	BINORMAL = normalize(BINORMAL);
+	uv1_power_normal=pow(abs(NORMAL),vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = VERTEX * uv1_scale + uv1_offset;
+	uv1_power_normal/=dot(uv1_power_normal,vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0,-1.0, 1.0);
+}
+
+
+
+
+vec4 triplanar_texture(sampler2D p_sampler,vec3 p_weights,vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo,uv1_power_normal,uv1_triplanar_pos);
+	albedo_tex *= COLOR;
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(triplanar_texture(texture_metallic,uv1_power_normal,uv1_triplanar_pos),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(0.333333,0.333333,0.333333,0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness,uv1_power_normal,uv1_triplanar_pos),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	vec3 emission_tex = triplanar_texture(texture_emission,uv1_power_normal,uv1_triplanar_pos).rgb;
+	EMISSION = (emission.rgb*emission_tex)*emission_energy;
+	vec2 rim_tex = triplanar_texture(texture_rim,uv1_power_normal,uv1_triplanar_pos).xy;
+	RIM = rim*rim_tex.x;	RIM_TINT = rim_tint*rim_tex.y;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aagfl"]
+render_priority = 0
+shader = SubResource("Shader_mf78y")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 0.8
+shader_parameter/metallic_texture_channel = Vector4(1, 1, 1, 0)
+shader_parameter/specular = 1.0
+shader_parameter/metallic = 0.2
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 0.0
+shader_parameter/rim = 0.5
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_blend_sharpness = 10.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("2_ghdcl")
+shader_parameter/texture_metallic = ExtResource("2_ghdcl")
+shader_parameter/texture_roughness = ExtResource("2_ghdcl")
+shader_parameter/texture_emission = ExtResource("2_ghdcl")
+shader_parameter/texture_rim = ExtResource("2_ghdcl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkoc2"]
+render_priority = 0
+shader = SubResource("Shader_mf78y")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(1, 1, 0, 0)
+shader_parameter/specular = 1.0
+shader_parameter/metallic = 2.0
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 0.0
+shader_parameter/rim = 0.5
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_blend_sharpness = 20.0
+shader_parameter/uv1_scale = Vector3(2, 2, 2)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("2_hp2p6")
+shader_parameter/texture_metallic = ExtResource("2_hp2p6")
+shader_parameter/texture_roughness = ExtResource("2_hp2p6")
+shader_parameter/texture_emission = ExtResource("2_hp2p6")
+shader_parameter/texture_rim = ExtResource("2_hp2p6")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0phn3"]
 size = Vector3(0.7, 0.2, 0.2)
@@ -44,35 +156,45 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	counter += delta * timescale
 	if counter < 1: return
-	var ticks := floori(counter) 
-	counter -= ticks
-	increment_time(ticks)
+	var iterations := floori(counter) 
+	counter -= iterations
+	increment_second(iterations)
 	edit_label()
 
 
 func get_clock()->Node:
 	return self
 
-func increment_time(ticks:int):
+func increment_second(ticks:int):
 	seconds += ticks
-	if seconds < 60:
+	var cap := 60
+	if seconds < cap:
 		emit_signal('on_second_changed',seconds)
 		return
-	seconds -= 60
+	var iterations := floori(seconds / cap)
+	seconds -= cap * iterations
 	emit_signal('on_second_changed',seconds)
-	
-	if minutes + 1 < 60:
-		minutes += 1
+	increment_minute(iterations)
+
+func increment_minute(tick:int):
+	minutes += tick
+	var cap := 60
+	if minutes < cap:
 		emit_signal('on_minute_changed',minutes)
 		return
-	minutes = 0
+	var iterations := floori(minutes / cap)
+	minutes -= cap * iterations
 	emit_signal('on_minute_changed',minutes)
-	
-	if hours + 1 < 24:
-		hours += 1
+	increment_hour(iterations)
+
+func increment_hour(tick:int):
+	hours += tick
+	var cap := 24
+	if hours < cap:
 		emit_signal('on_hour_changed',hours)
 		return
-	hours = 0
+	var iterations := floori(hours / cap)
+	hours -= cap * iterations
 	emit_signal('on_hour_changed',hours)
 
 
@@ -96,18 +218,28 @@ func edit_label():
 	text = str_hour+str_min+str_sec
 "
 
+[sub_resource type="GDScript" id="GDScript_1epqs"]
+script/source = "extends HSlider
+
+func _on_drag_ended(value_changed: bool) -> void:
+	get_parent().timescale = value
+"
+
 [node name="digital clock" type="StaticBody3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0.5)
 script = SubResource("GDScript_txjx0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_k5524")
+mesh = ExtResource("1_xtdvx")
+surface_material_override/0 = SubResource("ShaderMaterial_aagfl")
+surface_material_override/1 = SubResource("ShaderMaterial_mkoc2")
+surface_material_override/2 = SubResource("ShaderMaterial_aagfl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_0phn3")
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.325, -0.075, 0.101)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.27, 0, 0.085)
 alpha_antialiasing_mode = 1
 texture_filter = 0
 text = "24:60:63"
@@ -115,5 +247,19 @@ font = ExtResource("1_m2bpc")
 font_size = 24
 outline_size = 3
 horizontal_alignment = 0
-vertical_alignment = 2
 script = SubResource("GDScript_5dj3a")
+
+[node name="HSlider" type="HSlider" parent="Label3D"]
+offset_left = 479.0
+offset_top = 88.0
+offset_right = 849.0
+offset_bottom = 104.0
+min_value = 1.0
+max_value = 10000.0
+value = 1.0
+script = SubResource("GDScript_1epqs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.493203, 0.573486, -0.654114, -0.319231, 0.818786, 0.477159, 0.809223, -0.0265227, 0.586903, 0, 0, 0)
+
+[connection signal="drag_ended" from="Label3D/HSlider" to="Label3D/HSlider" method="_on_drag_ended"]
