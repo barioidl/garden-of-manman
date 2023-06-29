@@ -174,7 +174,9 @@ light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
 [node name="tutorials" type="Node3D" parent="."]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -43)
+visible = false
 
 [node name="pickup tutorial" type="Area3D" parent="tutorials"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.965, 0.787213, 3.018)
@@ -225,7 +227,7 @@ shape = SubResource("SphereShape3D_m1yvh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5404, 0, -29.6964)
 
 [node name="player" parent="." instance=ExtResource("4_t373y")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.91261, 9.53674e-07, -22.1427)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.08739, 9.53674e-07, -22.1427)
 collision_layer = 129
 
 [node name="Node" type="Node" parent="player"]

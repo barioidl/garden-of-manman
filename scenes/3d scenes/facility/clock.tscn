@@ -1,0 +1,119 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccgx2mu3sk7vk"]
+
+[ext_resource type="FontFile" uid="uid://kwync4yspidv" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future.ttf" id="1_m2bpc"]
+
+[sub_resource type="GDScript" id="GDScript_txjx0"]
+script/source = "extends StaticBody3D
+
+var root = self
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_k5524"]
+size = Vector3(0.7, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0phn3"]
+size = Vector3(0.7, 0.2, 0.2)
+
+[sub_resource type="GDScript" id="GDScript_5dj3a"]
+script/source = "extends Label3D
+
+var root:Node3D
+
+signal on_second_changed(sec)
+signal on_minute_changed(min)
+signal on_hour_changed(hour)
+
+@export var timescale := 1.0
+@export var show_second := true
+
+var counter := 0.0
+var seconds := 59
+var minutes := 59
+var hours := 23
+
+func _enter_tree() -> void:
+	root = get_parent().root
+
+func _ready() -> void:
+	root.set_meta(NL.get_clock,get_clock)
+	
+	connect('on_second_changed',update_seconds)
+	connect('on_minute_changed',update_minutes)
+	connect('on_hour_changed',update_hours)
+
+func _process(delta: float) -> void:
+	counter += delta * timescale
+	if counter < 1: return
+	var ticks := floori(counter) 
+	counter -= ticks
+	increment_time(ticks)
+	edit_label()
+
+
+func get_clock()->Node:
+	return self
+
+func increment_time(ticks:int):
+	seconds += ticks
+	if seconds < 60:
+		emit_signal('on_second_changed',seconds)
+		return
+	seconds -= 60
+	emit_signal('on_second_changed',seconds)
+	
+	if minutes + 1 < 60:
+		minutes += 1
+		emit_signal('on_minute_changed',minutes)
+		return
+	minutes = 0
+	emit_signal('on_minute_changed',minutes)
+	
+	if hours + 1 < 24:
+		hours += 1
+		emit_signal('on_hour_changed',hours)
+		return
+	hours = 0
+	emit_signal('on_hour_changed',hours)
+
+
+var str_sec:=\"\"
+var str_min:=\"\"
+var str_hour:=\"\"
+func update_seconds(value):
+	if !show_second:
+		str_sec = ''
+		return
+	str_sec = str(value)
+	str_sec = \":\" + str_sec.lpad(2,'0')
+func update_minutes(value):
+	str_min = str(value)
+	str_min = \":\" + str_min.lpad(2,'0')
+func update_hours(value):
+	str_hour = str(value)
+	str_hour = str_hour.lpad(2,'0')
+
+func edit_label():
+	text = str_hour+str_min+str_sec
+"
+
+[node name="digital clock" type="StaticBody3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1)
+script = SubResource("GDScript_txjx0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_k5524")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_0phn3")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.325, -0.075, 0.101)
+alpha_antialiasing_mode = 1
+texture_filter = 0
+text = "24:60:63"
+font = ExtResource("1_m2bpc")
+font_size = 24
+outline_size = 3
+horizontal_alignment = 0
+vertical_alignment = 2
+script = SubResource("GDScript_5dj3a")

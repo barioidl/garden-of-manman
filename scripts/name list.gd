@@ -125,6 +125,7 @@ var goap_save_load := &'goap_save_load'
 var on_quit := &'on_quit'
 
 var locks := &'locks'
+var rooms := &'rooms'
 
 func list_of_meta():pass
 var show_dialogue:= &'show_dialogue'
@@ -178,7 +179,7 @@ var use_elevator := &'use_elevator'
 var is_open := &'is_open'
 
 var get_room := &'get_room'
-
+var get_clock := &'get_clock'
 func list_of_methods():pass
 
 func list_of_signals():pass

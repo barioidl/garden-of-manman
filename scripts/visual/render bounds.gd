@@ -17,6 +17,7 @@ func _init() -> void:
 		disable()
 
 func _ready() -> void:
+	add_to_group(NL.rooms)
 	connect_signals()
 	set_layers_masks()
 

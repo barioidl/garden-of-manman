@@ -19,6 +19,7 @@ func _physics_process(delta: float) -> void:
 	dt = delta
 	if character == null: return
 	if !character.can_process(): 
+		detach()
 		return
 	global_position = character.to_global(Vector3(0,0.5,0))
 	next_pos = nav_agent.get_next_path_position()

@@ -41,7 +41,6 @@ NL="*res://scripts/name list.gd"
 
 [debug]
 
-settings/profiler/max_functions=128
 gdscript/warnings/enable=false
 gdscript/warnings/unsafe_property_access=1
 
