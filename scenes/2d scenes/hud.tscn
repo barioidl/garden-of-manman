@@ -2040,7 +2040,6 @@ vertical_alignment = 1
 
 [node name="show panels" type="Node" parent="."]
 script = SubResource("GDScript_jqpvn")
-mousemode_gameplay = 0
 
 [node name="sound effects" type="Node" parent="."]
 script = SubResource("GDScript_0usqr")
