@@ -206,6 +206,7 @@ locale/locale_filter_mode=1
 common/max_physics_steps_per_frame=2
 2d/physics_engine="GodotPhysics2D"
 3d/default_gravity=10.0
+3d/solver/solver_iterations=8
 2d/default_gravity=1000.0
 common/enable_object_picking=false
 

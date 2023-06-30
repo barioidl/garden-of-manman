@@ -529,6 +529,7 @@ surface_material_override/1 = SubResource("ShaderMaterial_5jb2l")
 script = ExtResource("3_l2rnb")
 
 [node name="platform" type="AnimatableBody3D" parent="elevator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
 script = ExtResource("3_3jgmf")
 doors = Array[NodePath]([NodePath("door panel"), NodePath("door panel2")])
 speed = 2.0

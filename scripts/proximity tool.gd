@@ -2,9 +2,9 @@ extends Node
 
 @onready var scene_tree := get_tree()
 
-var def_range := 20.0
+var def_range := 30.0
 var def_lifetime := 0.5
-var resolution := Vector3(3, 3, 3)
+var resolution := Vector3.ONE * 5
 
 
 func _print(line:String):

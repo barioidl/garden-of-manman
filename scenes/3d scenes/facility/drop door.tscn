@@ -232,7 +232,7 @@ func _lock_updated(state) -> void:
 	enabled = state
 "
 
-[node name="door" type="StaticBody3D" node_paths=PackedStringArray("lock")]
+[node name="door" type="StaticBody3D" node_paths=PackedStringArray("lock") groups=["navigation_mesh_source_group"]]
 script = ExtResource("1_585e0")
 password = 6
 lock = NodePath("lock")

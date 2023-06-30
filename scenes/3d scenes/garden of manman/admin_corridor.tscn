@@ -585,7 +585,7 @@ script = ExtResource("5_um2we")
 use_shade = false
 sprites = SubResource("Resource_qqfhg")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["navigation_mesh_source_group"]]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 80)

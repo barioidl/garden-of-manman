@@ -48,7 +48,7 @@ upper_fade = 1e-05
 lower_fade = 1e-05
 cull_mask = 1048064
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)
 
 [node name="ContainerShelf" parent="StaticBody3D" instance=ExtResource("6_qguy6")]

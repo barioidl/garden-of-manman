@@ -151,7 +151,7 @@ surface_material_override/7 = ExtResource("10_gix3g")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="shelves" type="StaticBody3D" parent="." node_paths=PackedStringArray("placement_template")]
+[node name="shelves" type="StaticBody3D" parent="." node_paths=PackedStringArray("placement_template") groups=["navigation_mesh_source_group"]]
 script = SubResource("GDScript_fawar")
 brown_jar = ExtResource("3_4nni0")
 red_jar = ExtResource("4_44ylj")

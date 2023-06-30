@@ -23,27 +23,30 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 func perform(local_state: Dictionary, dt: float)->bool:
 	var root = local_state.root
 	var pos :Vector3= Interface.get_head_position(root)
+	
+	var root_pos :Vector3= root.global_position
 	var predators = local_state[NL.predators]
-	var _range := 10.0 * get_weight(1)
-	var predator = ProximityTool.get_closest_node3d(predators, pos, _range)
-	if predator == null:
+	var target = ProximityTool.get_closest_node3d(predators, root_pos)
+	if target == null:
 		return true
-	var dir = pos - predator.global_position
-	if dir == Vector3.ZERO:
-		_print('no hope, gave up')
+	
+	var room = ProximityTool.get_farest_node3d(NL.rooms, target.global_position)
+	if room == null:
 		return true
-	if dir.length_squared() > _range*_range:
+	var dist = pos.distance_squared_to(room.global_position)
+	
+	var _range = local_state[NL.interact_range]
+	if dist < _range*_range:
 		var nav_agent = Interface.get_nav_agent(root)
 		if nav_agent != null:
 			nav_agent.detach()
 		_print('run finished')
 		return true
-	dir = pos + dir 
-	var agent :NavAgent= Interface.attach_nav_agent(root, dir)
+	var agent :NavAgent= Interface.attach_nav_agent(root, room)
 	var next_pos = agent.get_next_path_pos()
 	
 	Interface.walk_to(root,next_pos)
-	Interface.turn_head(root,dir,1,0.2)
+	Interface.turn_head(root,next_pos,1,0.2)
 	_print('running from predator')
 	return false
 

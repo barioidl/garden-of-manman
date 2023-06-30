@@ -25,7 +25,7 @@ func priority(local_state:Dictionary)->float:
 	var _range := 10.0 * get_weight(0)
 	var dist = root_pos.distance_to(target.global_position)
 	dist = 1 - clampf(dist/_range,0,1)
-	var _priority = Curves.sample(4,4,dist)
+	var _priority = Curves.sample(5,1,dist)
 	_priority *= get_weight(1)
 	
 	cache_cost[root] = _priority
