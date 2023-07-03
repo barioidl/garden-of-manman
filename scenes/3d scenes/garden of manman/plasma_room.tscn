@@ -130,7 +130,7 @@ light_size = 1.0
 spot_range = 3.0
 spot_angle = 1.0
 
-[node name="BathTub" parent="." instance=ExtResource("12_qe4fj")]
+[node name="BathTub" parent="." groups=["navigation_mesh_source_group"] instance=ExtResource("12_qe4fj")]
 transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -0.448146, 0, -36.0757)
 
 [node name="ItemSpawner" type="Sprite3D" parent="."]

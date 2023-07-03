@@ -3,14 +3,25 @@
 [sub_resource type="GDScript" id="GDScript_17foq"]
 script/source = "extends Label3D
 var content:={}
+var root:Node3D
 
-func _init() -> void:
+func _enter_tree() -> void:
+	if !OS.is_debug_build():
+		return
+	root = get_parent().root
 	name = 'debug_display'
+	set_interface()
 
 func _ready() -> void:
 	if !OS.is_debug_build():
 		queue_free()
 		return
+
+func set_interface():
+	root.set_meta(NL.get_debug_display, get_debug_display)
+
+func get_debug_display()->Node:
+	return self
 
 func set_content(key,value):
 	if content.has(key):

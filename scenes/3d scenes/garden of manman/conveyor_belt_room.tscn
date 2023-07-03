@@ -142,11 +142,11 @@ surface_material_override/5 = ExtResource("7_yvsad")
 surface_material_override/6 = ExtResource("6_00wf5")
 surface_material_override/7 = ExtResource("9_px5ap")
 
-[node name="conveyor room" type="StaticBody3D" parent="."]
+[node name="conveyor room" type="StaticBody3D" parent="." groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -20)
 script = SubResource("GDScript_wx0iv")
 
-[node name="conveyor belt" type="StaticBody3D" parent="conveyor room"]
+[node name="conveyor belt" type="StaticBody3D" parent="conveyor room" groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.3, -21.5)
 constant_linear_velocity = Vector3(0, 0, 1)
 script = ExtResource("3_bo141")
@@ -156,7 +156,7 @@ velocity = Vector3(0, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21.5)
 shape = SubResource("BoxShape3D_dkeeb")
 
-[node name="side conveyor belt" type="StaticBody3D" parent="conveyor room"]
+[node name="side conveyor belt" type="StaticBody3D" parent="conveyor room" groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.3, 3)
 constant_linear_velocity = Vector3(-1, 0, 0)
 script = ExtResource("3_bo141")

@@ -165,39 +165,40 @@ func start_signal(state):
 func set_interface():
 	root.set_meta(NL.delay_platformer, Callable(delay_platformer))
 	
-	root.set_meta(NL.walk_to_target, Callable(walk_to_target))
-	root.set_meta(NL.sneak_to_target, Callable(sneak_to_target))
-	root.set_meta(NL.sprint_to_target, Callable(sprint_to_target))
-	root.set_meta(NL.jump_to_target, Callable(jump_to_target))
+	root.set_meta(NL.move_to_target, Callable(move_to_target))
+#	root.set_meta(NL.sneak_to_target, Callable(sneak_to_target))
+#	root.set_meta(NL.sprint_to_target, Callable(sprint_to_target))
+#	root.set_meta(NL.jump_to_target, Callable(jump_to_target))
 
 func delay_platformer(duration):
 	cool_down = duration
 
-func walk_to_target(target:Vector3)-> bool:
+func move_to_target(target:Vector3)-> bool:
 	var reached = dpad_from_position(target)
 	input.shift = false
 	input.ctrl = false
 	input.jump = false
 	return reached
-func sneak_to_target(target:Vector3)-> bool:
-	var reached = dpad_from_position(target)
-	input.shift = true
-	input.ctrl = false
-	input.jump = false
-	return reached
-func sprint_to_target(target:Vector3)-> bool:
-	var reached = dpad_from_position(target)
-	input.shift = false
-	input.ctrl = true
-	input.jump = false
-	return reached
-func jump_to_target(target:Vector3)-> bool:
-	var reached = dpad_from_position(target)
-	input.shift = false
-	input.ctrl = false
-	input.jump = true
-	input.emit_signal('jump_pressed')
-	return reached
+
+#func sneak_to_target(target:Vector3)-> bool:
+#	var reached = dpad_from_position(target)
+#	input.shift = true
+#	input.ctrl = false
+#	input.jump = false
+#	return reached
+#func sprint_to_target(target:Vector3)-> bool:
+#	var reached = dpad_from_position(target)
+#	input.shift = false
+#	input.ctrl = true
+#	input.jump = false
+#	return reached
+#func jump_to_target(target:Vector3)-> bool:
+#	var reached = dpad_from_position(target)
+#	input.shift = false
+#	input.ctrl = false
+#	input.jump = true
+#	input.emit_signal('jump_pressed')
+#	return reached
 
 func dpad_from_position(target:Vector3)->bool:
 	var trans = root.custom_transform.global_transform.inverse()

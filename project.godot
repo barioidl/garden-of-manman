@@ -46,10 +46,11 @@ gdscript/warnings/unsafe_property_access=1
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
+window/stretch/mode="viewport"
 window/stretch/aspect="keep_width"
 window/vsync/vsync_mode=2
 
@@ -198,6 +199,11 @@ misc={
 [internationalization]
 
 locale/locale_filter_mode=1
+
+[navigation]
+
+3d/default_cell_size=0.1
+3d/default_edge_connection_margin=0.1
 
 [physics]
 

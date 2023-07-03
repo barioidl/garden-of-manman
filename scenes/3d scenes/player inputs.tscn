@@ -54,7 +54,7 @@ flip_faces = true
 orientation = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jwcje"]
-size = Vector3(10, 10, 10)
+size = Vector3(10, 10, 30)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wwdhl"]
 size = Vector3(20, 20, 20)
@@ -84,8 +84,10 @@ collision_layer = 128
 collision_mask = 0
 
 [node name="1" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 shape = SubResource("BoxShape3D_jwcje")
 
 [node name="2" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 shape = SubResource("BoxShape3D_wwdhl")
+disabled = true

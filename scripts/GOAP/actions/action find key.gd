@@ -24,8 +24,11 @@ func start(local_state:Dictionary):
 	for id in items.size():
 		var item = items[id]
 		if item == null:	continue
-		if item.is_in_group(NL.keys):	continue
+		if item.is_in_group(NL.keys):
+			if randi_range(0,10) >5:
+				continue
 		Interface.drop_item(root,id)
+		_print('dropped item')
 		break
 
 func perform(local_state:Dictionary,time:float)-> bool:
@@ -53,8 +56,10 @@ func perform(local_state:Dictionary,time:float)-> bool:
 	return true
 
 func key_check(key:Node, range:float)->bool:
+	if range < 3:
+		return false
 	return key.is_in_overworld
 
 func _print(line):
-	return
+#	return
 	print(line)

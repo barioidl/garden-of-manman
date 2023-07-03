@@ -3,7 +3,7 @@ class_name GOAPAgent
 
 var root:Node3D
 var local_state:={}
-var planner :GOAPPlanner
+@onready var planner :GOAPPlanner= get_planner()
 
 var goals:=[]:
 	get:
@@ -32,7 +32,7 @@ var action_state:= a_states.start
 var loop_plan:= false
 
 @export var show_local_state := false
-@onready var debug_display = get_node_or_null('../debug_display')
+var debug_display
 
 func _init() -> void:
 	name = 'goap_agent'
@@ -43,9 +43,9 @@ func _enter_tree() -> void:
 	_load()
 
 func _ready() -> void:
-	add_to_group(NL.goap_save_load)
-	planner = get_planner()
+	add_to_group(NL.goap_save_load) 
 	init_local_state()
+	get_debug_display()
 
 var dt:=0.0
 func _process(delta: float) -> void:
@@ -90,6 +90,12 @@ func init_local_state():
 	set_local_state(NL.goal_options,goal_options)
 	set_local_state(NL.plan_width,plan_width)
 	set_local_state(NL.plan_depth,plan_depth)
+
+func get_debug_display():
+	var callable = root.get_meta(NL.get_debug_display,false)
+	if callable is bool:
+		return
+	debug_display = callable.call()
 
 func set_local_state(key,value):
 	if local_state.has(key):

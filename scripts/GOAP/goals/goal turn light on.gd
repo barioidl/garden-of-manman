@@ -11,8 +11,8 @@ func priority(local_state:Dictionary)->float:
 	var root = local_state.root
 	if cache_cost.has(root):
 		return cache_cost[root]
-	var pos :Vector3= root.global_position
 	
+	var pos :Vector3= root.global_position
 	var target = ProximityTool.get_closest_node3d(NL.light_buttons, pos, 1, is_light_off)
 	if target == null: 
 		_print('no lights?')

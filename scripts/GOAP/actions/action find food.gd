@@ -43,7 +43,14 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 
 func start(local_state:Dictionary):
 	var root = local_state[NL.root]
-	Interface.drop_item(root,0)
+	var items = Interface.get_hotbar_items(root)
+	var item_size = items.size()
+	if item_size <=0: 
+		return
+	var id = randi_range(0,item_size)
+	if items[id] == null:return
+	Interface.drop_item(root,id)
+	_print('dropped item')
 
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root

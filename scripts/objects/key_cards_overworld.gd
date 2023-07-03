@@ -11,4 +11,6 @@ func _ready() -> void:
 
 func get_color():
 	var lock = get_tree().get_first_node_in_group(NL.locks)
+	if lock == null:
+		return
 	$Sprite3D.modulate = lock.get_color(password)

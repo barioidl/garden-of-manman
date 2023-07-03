@@ -9,7 +9,7 @@ enum actions{
 	inventory,drop,reload,flip,
 }
 @export var key:actions
-
+@export var keys:Array[actions]
 func _ready() -> void:
 	replace_placeholder()
 	setup_mask()

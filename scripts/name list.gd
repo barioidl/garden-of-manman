@@ -136,7 +136,7 @@ var get_inputs := &'get_inputs'
 var reset_inputs := &'reset_inputs'
 
 var delay_platformer := &'delay_platformer'
-var walk_to_target := &'walk_to_target'
+var move_to_target := &'move_to_target'
 var sneak_to_target := &'sneak_to_target'
 var sprint_to_target := &'sprint_to_target'
 var jump_to_target := &'jump_to_target'
@@ -180,6 +180,7 @@ var is_open := &'is_open'
 
 var get_room := &'get_room'
 var get_clock := &'get_clock'
+var get_debug_display := &'get_debug_display'
 func list_of_methods():pass
 
 func list_of_signals():pass

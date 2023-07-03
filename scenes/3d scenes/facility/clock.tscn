@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccgx2mu3sk7vk"]
+[gd_scene load_steps=11 format=3 uid="uid://ccgx2mu3sk7vk"]
 
-[ext_resource type="FontFile" uid="uid://kwync4yspidv" path="res://assets/kenney/kenney_ui-pack/Font/kenvector_future.ttf" id="1_m2bpc"]
 [ext_resource type="ArrayMesh" uid="uid://bhqy7orwrrxj0" path="res://assets/factory/clock.obj" id="1_xtdvx"]
 [ext_resource type="Texture2D" uid="uid://b044d36r7gbur" path="res://assets/little-martian, retro-texture-pack-v9/png/FENCE_1A.png" id="2_ghdcl"]
 [ext_resource type="Texture2D" uid="uid://blvt18j2n3jng" path="res://assets/little-martian, retro-texture-pack-v9/png/RIVET_2A.png" id="2_hp2p6"]
+[ext_resource type="FontFile" uid="uid://p3ms5r2b2jj1" path="res://assets/fonts/alarm clock.ttf" id="4_mbdl0"]
 [ext_resource type="Script" path="res://scripts/objects/clock.gd" id="5_5gqaj"]
 
 [sub_resource type="GDScript" id="GDScript_txjx0"]
@@ -11,6 +11,9 @@ script/source = "extends StaticBody3D
 
 var root = self
 "
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0phn3"]
+size = Vector3(0.7, 0.2, 0.2)
 
 [sub_resource type="Shader" id="Shader_mf78y"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -93,10 +96,10 @@ shader_parameter/metallic = 0.2
 shader_parameter/emission = Color(1, 1, 1, 1)
 shader_parameter/emission_energy = 0.0
 shader_parameter/rim = 0.5
-shader_parameter/rim_tint = 0.5
-shader_parameter/uv1_blend_sharpness = 10.0
+shader_parameter/rim_tint = 0.6
+shader_parameter/uv1_blend_sharpness = 20.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0.281, 0.075)
 shader_parameter/texture_albedo = ExtResource("2_ghdcl")
 shader_parameter/texture_metallic = ExtResource("2_ghdcl")
 shader_parameter/texture_roughness = ExtResource("2_ghdcl")
@@ -124,19 +127,12 @@ shader_parameter/texture_roughness = ExtResource("2_hp2p6")
 shader_parameter/texture_emission = ExtResource("2_hp2p6")
 shader_parameter/texture_rim = ExtResource("2_hp2p6")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0phn3"]
-size = Vector3(0.7, 0.2, 0.2)
-
-[sub_resource type="GDScript" id="GDScript_1epqs"]
-script/source = "extends HSlider
-
-func _on_drag_ended(value_changed: bool) -> void:
-	get_parent().timescale = value
-"
-
 [node name="digital clock" type="StaticBody3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0.5)
 script = SubResource("GDScript_txjx0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_0phn3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_xtdvx")
@@ -144,32 +140,13 @@ surface_material_override/0 = SubResource("ShaderMaterial_aagfl")
 surface_material_override/1 = SubResource("ShaderMaterial_mkoc2")
 surface_material_override/2 = SubResource("ShaderMaterial_aagfl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_0phn3")
-
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.27, 0, 0.085)
-alpha_antialiasing_mode = 1
+[node name="clock" type="Label3D" parent="."]
+transform = Transform3D(0.29, 0, 0, 0, 0.29, 0, 0, 0, 0.29, 0, 0, 0.085)
+double_sided = false
 texture_filter = 0
-text = "24:60:63"
-font = ExtResource("1_m2bpc")
-font_size = 24
+text = "24:60:60"
+font = ExtResource("4_mbdl0")
+font_size = 100
 outline_size = 3
-horizontal_alignment = 0
 script = ExtResource("5_5gqaj")
 timescale = 20.0
-
-[node name="HSlider" type="HSlider" parent="Label3D"]
-offset_left = 479.0
-offset_top = 88.0
-offset_right = 849.0
-offset_bottom = 104.0
-min_value = 1.0
-max_value = 10000.0
-value = 1.0
-script = SubResource("GDScript_1epqs")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.493203, 0.573486, -0.654114, -0.319231, 0.818786, 0.477159, 0.809223, -0.0265227, 0.586903, 0, 0, 0)
-
-[connection signal="drag_ended" from="Label3D/HSlider" to="Label3D/HSlider" method="_on_drag_ended"]

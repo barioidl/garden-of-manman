@@ -4,7 +4,7 @@ extends Node
 
 var def_range := 30.0
 var def_lifetime := 0.5
-var resolution := Vector3.ONE * 5
+var resolution := Vector3.ONE * 2.5
 
 
 func _print(line:String):
@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	if cd >0:
 		cd -= delta
 		return
-	var duration = randf_range(0.8,1.2)
+	var duration = randf_range(0.5,2)
 	cd = duration
 	cleanup_groups(duration)
 	cleanup_closest(duration)

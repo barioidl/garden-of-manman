@@ -26,7 +26,7 @@ func stunt(body,duration:=0.5):
 		callable.call(duration)
 
 func walk_to(body:Node3D,target:Vector3)->bool:
-	var callable = body.get_meta(NL.walk_to_target,false)
+	var callable = body.get_meta(NL.move_to_target,false)
 	if callable is bool:
 		return false
 	return callable.call(target)
