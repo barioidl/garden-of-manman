@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 class_name NavAgent
 
 @onready var nav_agent = $NavigationAgent3D
@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 	if !character.can_process(): 
 		detach()
 		return
-	global_position = character.to_global(Vector3(0,0.5,0))
+#	global_position = character.to_global(Vector3(0,0.5,0))
 	next_pos = nav_agent.get_next_path_position()
 	update_target()
 	offset_height()
@@ -32,7 +32,7 @@ func attach_to(_character:Node3D, _target):
 	
 	character = _character
 	cast_floor.add_exception(character)
-	global_position = character.global_position
+#	global_position = character.global_position
 	
 	var callable = Callable(get_nav_agent)
 	character.set_meta(NL.get_nav_agent, callable)
@@ -46,7 +46,7 @@ func detach():
 	character.remove_meta(NL.get_nav_agent)
 	cast_floor.remove_exception(character)
 	
-	NavAgentPool.push_agent_3d(self)
+#	NavAgentPool.push_agent_3d(self)
 	
 	var input = Interface.get_input(character)
 	if input != null:
@@ -86,8 +86,8 @@ func offset_height():
 	if !cast_floor.is_colliding():
 		return
 	var floor_point = cast_floor.get_collision_point()
-	var floor_dist = global_position.distance_to(floor_point)
-	nav_agent.agent_height_offset = -floor_dist
+#	var floor_dist = global_position.distance_to(floor_point)
+#	nav_agent.agent_height_offset = -floor_dist
 
 func set_target(_target):
 	if _target == null: return
@@ -104,7 +104,7 @@ func set_target(_target):
 		return
 
 
-func get_nav_agent()->Node3D:
+func get_nav_agent()->Node:
 	return self
 
 func set_agent_size(_size:Vector2):

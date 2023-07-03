@@ -2,19 +2,5 @@
 
 [ext_resource type="Script" path="res://scripts/nav_agent/nav_agent.gd" id="1_550pq"]
 
-[node name="nav agent" type="Node3D"]
+[node name="nav agent" type="Node"]
 script = ExtResource("1_550pq")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_max_distance = 3.01
-path_metadata_flags = 0
-ignore_y = false
-debug_enabled = true
-debug_path_custom_point_size = 2.0
-
-[node name="cast floor" type="RayCast3D" parent="."]
-enabled = false
-exclude_parent = false
-target_position = Vector3(0, -10, 0)
-
-[connection signal="target_reached" from="NavigationAgent3D" to="." method="_target_reached"]

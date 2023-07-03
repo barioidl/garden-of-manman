@@ -28,7 +28,7 @@ driver/driver=""
 [autoload]
 
 AudioPool="*res://scripts/audio/audio_pool.gd"
-NavAgentPool="*res://scripts/nav_agent/nav_agent_pool.gd"
+NavigationTool="*res://scripts/nav_agent/navigation_tool.tscn"
 Curves="*res://data/curves.tscn"
 Goap="*res://scripts/GOAP/implementation/goap.gd"
 WorldState="*res://scripts/GOAP/world state.gd"

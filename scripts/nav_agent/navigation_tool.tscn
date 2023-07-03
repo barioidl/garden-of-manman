@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://cudw4w4egv8a4"]
+
+[sub_resource type="GDScript" id="GDScript_swhiv"]
+script/source = "extends Node3D
+
+@onready var agent := $NavigationAgent3D
+
+var baked_paths := {}
+var resolution := Vector3.ONE
+
+var agent_3d:= preload(\"res://scripts/nav_agent/nav_agent.tscn\")
+var stack_agent_3d :=[]
+var pool_size := 5
+
+
+func find_path(start:Vector3,end:Vector3)-> PathData:
+	start = start.snapped(resolution)
+	end = end.snapped(resolution)
+	var key := str(start)+str(end)
+	
+	var path_data = baked_paths.get(key,false)
+	if !(path_data is bool):
+		_print('return baked path')
+		return path_data
+	
+	global_position = start
+	agent.target_position = end
+	agent.get_next_path_position()
+	
+	var new_data = PathData.new()
+	new_data.start = start
+	new_data.end = end
+	new_data.key = key
+	new_data.path = agent.get_current_navigation_path()
+	new_data.distance_to_end = agent.get_final_position().distance_to(end)
+	baked_paths[key] = new_data
+	_print('request new path')
+	return new_data
+
+
+func push_agent_3d(agent):
+	if stack_agent_3d.size() > pool_size:
+		agent.queue_free()
+		return
+	stack_agent_3d.push_back(agent)
+
+func pop_agent_3d()-> Node3D:
+	var available_agent = stack_agent_3d.pop_back()
+	if available_agent != null:
+		return available_agent
+	var new_agent = agent_3d.instantiate()
+	add_child(new_agent)
+	return new_agent
+
+func get_agent_3d()->Node3D:
+	return pop_agent_3d()
+
+
+func _print(line):
+	print(line)
+"
+
+[node name="navigation tool" type="Node3D"]
+script = SubResource("GDScript_swhiv")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_max_distance = 3.01
+ignore_y = false
+debug_use_custom = true
+debug_path_custom_point_size = 2.0
