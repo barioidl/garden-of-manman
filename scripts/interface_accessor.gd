@@ -74,9 +74,9 @@ func get_head_position(body:Node3D)->Vector3:
 func attach_nav_agent(body:Node3D,target) -> NavAgent:
 	var callable = body.get_meta(NL.get_nav_agent,false)
 	if callable is bool:
-#		var agent
-#		agent.attach_to(body,target)
-		return null
+		var agent :NavAgent= NavigationTool.get_agent_3d()
+		agent.attach_to(body,target)
+		return agent
 	var agent = callable.call()
 	agent.set_target(target)
 	return agent

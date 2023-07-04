@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://scripts/items/startup give items.gd" id="8_adjw4"]
 [ext_resource type="Resource" uid="uid://cyu2ap4sklg6j" path="res://data/items/key green.tres" id="8_kv0mo"]
 [ext_resource type="Resource" uid="uid://cu0kva82aiike" path="res://data/items/key red.tres" id="9_m3fwe"]
+[ext_resource type="Script" path="res://scripts/items/item spawner.gd" id="10_ggfqi"]
+[ext_resource type="Resource" uid="uid://dr3c45bydjsnf" path="res://data/items/key purple.tres" id="11_mcbn6"]
 
 [sub_resource type="GDScript" id="GDScript_gvegq"]
 script/source = "extends Node3D
@@ -147,33 +149,6 @@ detail_sample_distance = 10.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_m1yvh"]
 radius = 2.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_tuw6i"]
-size = Vector3(0.2, 0.2, 0.2)
-
-[sub_resource type="GDScript" id="GDScript_e2qys"]
-script/source = "extends MeshInstance3D
-
-var dur := 1
-func _process(delta: float) -> void:
-	dur -= 1
-	if dur <0:
-		return
-	print('boop')
-	var start = global_position
-	var end = $end.global_position
-	var path_data :PathData= NavigationTool.find_path(start,end)
-	var path = path_data.path
-	print(path_data.distance_to_end)
-	if path.is_empty():
-		return
-	var curve =Curve3D.new()
-	for pos in path:
-		curve.add_point(pos)
-	$Path3D.curve = curve
-	$Path3D.global_position = Vector3.ZERO
-
-"
-
 [node name="Node3D" type="Node3D"]
 script = SubResource("GDScript_gvegq")
 
@@ -262,40 +237,13 @@ collision_layer = 129
 
 [node name="Node" type="Node" parent="player"]
 script = ExtResource("7_qe3lc")
+disable_goap = false
 
 [node name="ItemStartup" type="Node" parent="player"]
 script = ExtResource("8_adjw4")
 items = Array[Resource("res://scripts/items/item_data.gd")]([ExtResource("8_kv0mo"), ExtResource("9_m3fwe")])
 
-[node name="start" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -9)
-mesh = SubResource("BoxMesh_tuw6i")
-script = SubResource("GDScript_e2qys")
-
-[node name="end" type="MeshInstance3D" parent="start"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -15)
-mesh = SubResource("BoxMesh_tuw6i")
-
-[node name="Path3D" type="Path3D" parent="start"]
-
-[node name="start_2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.5, -6)
-mesh = SubResource("BoxMesh_tuw6i")
-script = SubResource("GDScript_e2qys")
-
-[node name="end" type="MeshInstance3D" parent="start_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 15)
-mesh = SubResource("BoxMesh_tuw6i")
-
-[node name="Path3D" type="Path3D" parent="start_2"]
-
-[node name="start_3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, -16)
-mesh = SubResource("BoxMesh_tuw6i")
-script = SubResource("GDScript_e2qys")
-
-[node name="end" type="MeshInstance3D" parent="start_3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -12)
-mesh = SubResource("BoxMesh_tuw6i")
-
-[node name="Path3D" type="Path3D" parent="start_3"]
+[node name="ItemSpawner" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47488, 0)
+script = ExtResource("10_ggfqi")
+item = ExtResource("11_mcbn6")
