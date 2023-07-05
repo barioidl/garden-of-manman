@@ -48,10 +48,17 @@ func detach():
 
 var next_pos := Vector3.ZERO
 func get_next_path_pos()->Vector3:
+	var dist = character.global_position.distance_squared_to(next_pos)
+	if dist > 0.5:
+		return next_pos
+	if path_id >= path_data.path.size():
+		return next_pos
+	path_id += 1
+	next_pos = path_data.path[path_id]
 	return next_pos
 
-func get_final_pos()-> Vector3:
-	return Vector3.ZERO
+#func get_final_pos()-> Vector3:
+#	return Vector3.ZERO
 
 var update_target_cd := 0.0
 func update_target():
@@ -63,10 +70,7 @@ func update_target():
 	if target_pos == target.global_position:
 		update_target_cd *= 2
 	target_pos = target.global_position
-	var start_pos = character.global_position
-	path_data = NavigationTool.find_path(start_pos,target_pos)
-	path_id = 0
-
+	request_path()
 
 func set_target(_target):
 	if _target == null: return
@@ -74,18 +78,21 @@ func set_target(_target):
 		if target_pos == _target: return
 		target = null
 		target_pos = _target
-		var start_pos = character.global_position
-		path_data = NavigationTool.find_path(start_pos,target_pos)
-		path_id = 0
+		request_path()
 		return
 	if  _target is Node3D:
 		if _target == target: return
 		target = _target
 		target_pos = target.global_position
-		var start_pos = character.global_position
-		path_data = NavigationTool.find_path(start_pos,target_pos)
-		path_id = 0
+		request_path()
 		return
+
+func request_path():
+	var start_pos = character.global_position
+	path_data = NavigationTool.find_path(start_pos,target_pos)
+	path_id = 0
+	if !path_data.path.is_empty():
+		next_pos = path_data.path[path_id]
 
 
 func get_nav_agent()->Node:

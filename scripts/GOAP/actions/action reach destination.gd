@@ -31,11 +31,11 @@ func perform(local_state: Dictionary, dt: float)->bool:
 	if destination.distance_squared_to(pos) > 0.5:
 		var agent = Interface.attach_nav_agent(root,destination)
 		var next_pos :Vector3= agent.get_next_path_pos()
-		var final_pos = agent.get_final_pos()
-		if pos.distance_squared_to(final_pos) < 1:
-			agent.detach()
-			cache_valid[root] = false
-			return true
+#		var final_pos = agent.get_final_pos()
+#		if pos.distance_squared_to(final_pos) < 1:
+#			agent.detach()
+#			cache_valid[root] = false
+#			return true
 		Interface.walk_to(root,next_pos)
 		Interface.turn_head(root,next_pos,1,0.1)
 		return false

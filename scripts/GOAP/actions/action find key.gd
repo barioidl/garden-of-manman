@@ -18,18 +18,18 @@ func get_outputs(local_state:Dictionary)->Dictionary:
 		NL.has_key: 1
 	}
 
-func start(local_state:Dictionary):
-	var root = local_state[NL.root]
-	var items = Interface.get_hotbar_items(root)
-	for id in items.size():
-		var item = items[id]
-		if item == null:	continue
-		if item.is_in_group(NL.keys):
-			if randi_range(0,10) >5:
-				continue
-		Interface.drop_item(root,id)
-		_print('dropped item')
-		break
+#func start(local_state:Dictionary):
+#	var root = local_state[NL.root]
+#	var items = Interface.get_hotbar_items(root)
+#	for id in items.size():
+#		var item = items[id]
+#		if item == null:	continue
+#		if item.is_in_group(NL.keys):
+#			if randi_range(0,10) >5:
+#				continue
+#		Interface.drop_item(root,id)
+#		_print('dropped item')
+#		break
 
 func perform(local_state:Dictionary,time:float)-> bool:
 	var root :Node3D= local_state.root

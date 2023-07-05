@@ -166,6 +166,8 @@ func select_goal()-> GOAPGoal:
 func compare_goals(a:GOAPGoal,b:GOAPGoal)->bool:
 	if !a.is_valid(local_state):
 		return false
+	if !b.is_valid(local_state):
+		return true
 	return a.priority(local_state) > b.priority(local_state)
 
 func process_goals():

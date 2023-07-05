@@ -14,9 +14,7 @@ func _process(delta: float) -> void:
 
 
 func find_path(start:Vector3,end:Vector3)-> PathData:
-	start = start.snapped(resolution)
-	end = end.snapped(resolution)
-	var key := str(start)+str(end)
+	var key := str(snapped(start, resolution)) + str(snapped(end, resolution))
 	
 	var path_data = baked_paths.get(key,false)
 	if !(path_data is bool):
@@ -53,6 +51,7 @@ func cleanup_paths(delta:float):
 		var path :PathData= baked_paths[key]
 		if path.lifetime > 10:
 			baked_paths.erase(key)
+			_print('cleaned nav path')
 			continue
 		path.lifetime += 1
 
@@ -71,9 +70,7 @@ func pop_agent_3d()-> Node:
 	add_child(new_agent)
 	return new_agent
 
-func get_agent_3d()->Node:
-	return pop_agent_3d()
-
 
 func _print(line):
+	return
 	print(line)
